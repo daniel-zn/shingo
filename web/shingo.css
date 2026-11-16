@@ -280,12 +280,13 @@
 .ruler-labels { display: flex; justify-content: space-between; margin-top: 5px; font: 400 10px var(--f-mono); color: var(--ground-dim); }
 .ruler input[type=range] { position: absolute; inset: 0; width: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
 
-/* chevron steps: a process as arrows */
+/* slash steps: a process as "/" plates, like cells and hazard stripes */
 .steps { display: flex; gap: 3px; list-style: none; margin: 0; padding: 0; }
 .steps li { flex: 1; height: 30px; display: grid; place-items: center; padding-left: 6px; background: var(--ground-3); color: var(--ground-dim);
   font: 600 expanded 11px var(--f-cap); letter-spacing: .06em; text-transform: uppercase;
-  clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 50%, calc(100% - 11px) 100%, 0 100%, 11px 50%); }
-.steps li:first-child { clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 50%, calc(100% - 11px) 100%, 0 100%); padding-left: 0; }
+  clip-path: polygon(11px 0, 100% 0, calc(100% - 11px) 100%, 0 100%); }
+.steps li:first-child { clip-path: polygon(0 0, 100% 0, calc(100% - 11px) 100%, 0 100%); padding-left: 0; }
+.steps li:last-child { clip-path: polygon(11px 0, 100% 0, 100% 100%, 0 100%); }
 .steps .done { background: var(--ground-hi); color: var(--ground); }
 .steps .on { background: var(--coral); color: #0c0c0a; }
 
@@ -296,6 +297,13 @@
   clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px); }
 .itabs button[aria-pressed="true"] { background: var(--ground-hi); color: var(--ground); }
 .itabs button:focus-visible { outline: 2px solid var(--coral); outline-offset: -2px; }
+
+/* notched frame: a hairline frame with its label tab cut into the corner,
+   like the title block of an engineering drawing */
+.nframe { position: relative; padding: 30px 14px 14px; }
+.nframe::before { content: ""; position: absolute; inset: 10px 0 0; border: var(--hair) solid var(--ground-3); border-top-color: var(--ground-hi); pointer-events: none; }
+.nframe > b:first-child { position: absolute; top: 0; left: 0; padding: 4px 16px 4px 8px; background: var(--ground-hi); color: var(--ground);
+  font: 600 expanded 10px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
 
 /* caution tag: hazard-striped frame around a notice */
 .caution { padding: 5px; background: repeating-linear-gradient(-45deg, var(--coral) 0 8px, #0c0c0a 8px 16px); }

@@ -137,14 +137,13 @@ public struct SGSteps: View {
             }
         }
     }
+    /// A "/" parallelogram. The first step keeps a square left edge.
     struct ChevronShape: Shape {
         var notch: Bool
         func path(in r: CGRect) -> Path {
             Path { p in
-                p.move(to: CGPoint(x: r.minX, y: r.minY)); p.addLine(to: CGPoint(x: r.maxX - 11, y: r.minY))
-                p.addLine(to: CGPoint(x: r.maxX, y: r.midY)); p.addLine(to: CGPoint(x: r.maxX - 11, y: r.maxY))
-                p.addLine(to: CGPoint(x: r.minX, y: r.maxY))
-                if notch { p.addLine(to: CGPoint(x: r.minX + 11, y: r.midY)) }
+                p.move(to: CGPoint(x: notch ? r.minX + 11 : r.minX, y: r.minY)); p.addLine(to: CGPoint(x: r.maxX, y: r.minY))
+                p.addLine(to: CGPoint(x: r.maxX - 11, y: r.maxY)); p.addLine(to: CGPoint(x: r.minX, y: r.maxY))
                 p.closeSubpath()
             }
         }
@@ -528,5 +527,75 @@ public struct SGWave: Shape {
                                  (154,56),(162,4),(170,56),(176,30),(210,30),(216,22),(222,38),(228,30),(240,30)].map { CGPoint(x: $0.0, y: $0.1) }
     public func path(in r: CGRect) -> Path {
         Path { p in p.addLines(Self.pts.map { CGPoint(x: r.minX + $0.x / 240 * r.width, y: r.minY + $0.y / 60 * r.height) }) }
+    }
+}
+
+// MARK: - Notched frame (drawing title block)
+
+/// A hairline frame whose label tab is cut into its top-left corner.
+public struct SGNotchFrame<Content: View>: View {
+    var label: String; let content: Content
+    public init(_ label: String, @ViewBuilder content: () -> Content) { self.label = label; self.content = content() }
+    public var body: some View {
+        VStack(alignment: .leading, spacing: 0) { content }
+            .padding(.horizontal, 14).padding(.top, 20).padding(.bottom, 14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .overlay { Rectangle().strokeBorder(SG.ground3, lineWidth: SG.hair) }
+            .overlay(alignment: .top) { Rectangle().fill(SG.groundHi).frame(height: SG.hair) }
+            .padding(.top, 10)
+            .overlay(alignment: .topLeading) {
+                Text(label).sgCap(10).foregroundStyle(SG.ground)
+                    .padding(.leading, 8).padding(.trailing, 16).padding(.vertical, 4)
+                    .background(TabSlash().fill(SG.groundHi))
+            }
+    }
+    struct TabSlash: Shape {
+        func path(in r: CGRect) -> Path {
+            Path { p in p.addLines([CGPoint(x: r.minX, y: r.minY), CGPoint(x: r.maxX, y: r.minY), CGPoint(x: r.maxX - 10, y: r.maxY), CGPoint(x: r.minX, y: r.maxY)]); p.closeSubpath() }
+        }
+    }
+}
+
+// MARK: - Interface icons (24-unit grid, 2-unit stroke, square caps, miter joins)
+
+public enum SGIconName: String, CaseIterable {
+    case home, stats, scan, grid, me, send, spam, routes, wallet, inbox, contacts, spend, today, log
+}
+
+/// One icon family drawn from the system's shapes. Same geometry as assets/svg/i-*.svg.
+public struct SGIcon: View {
+    var name: SGIconName
+    public init(_ name: SGIconName) { self.name = name }
+    public var body: some View {
+        Canvas { ctx, size in
+            let k = min(size.width, size.height) / 24
+            func P(_ pts: [(CGFloat, CGFloat)], close: Bool = false) -> Path {
+                Path { p in p.addLines(pts.map { CGPoint(x: $0.0 * k, y: $0.1 * k) }); if close { p.closeSubpath() } }
+            }
+            func box(_ x: CGFloat, _ y: CGFloat, _ w: CGFloat, _ h: CGFloat) -> Path { Path(CGRect(x: x * k, y: y * k, width: w * k, height: h * k)) }
+            let st = StrokeStyle(lineWidth: 2 * k, lineCap: .square, lineJoin: .miter)
+            var strokes: [Path] = []; var fills: [Path] = []
+            switch name {
+            case .home: strokes = [P([(12, 3), (21, 12), (12, 21), (3, 12)], close: true)]; fills = [box(10.5, 10.5, 3, 3)]
+            case .stats: strokes = [P([(5, 20), (5, 15)]), P([(10, 20), (10, 11)]), P([(15, 20), (15, 7)]), P([(20, 20), (20, 3)])]
+            case .spend: strokes = [P([(5, 4), (5, 9)]), P([(10, 4), (10, 13)]), P([(15, 4), (15, 17)]), P([(20, 4), (20, 21)])]
+            case .scan: strokes = [P([(3, 8), (3, 3), (8, 3)]), P([(16, 3), (21, 3), (21, 8)]), P([(21, 16), (21, 21), (16, 21)]), P([(8, 21), (3, 21), (3, 16)]),
+                                   P([(12, 9), (12, 15)]), P([(9, 12), (15, 12)])]
+            case .grid: strokes = [box(3, 3, 18, 18), P([(9, 3), (9, 21)]), P([(15, 3), (15, 21)]), P([(3, 9), (21, 9)]), P([(3, 15), (21, 15)])]
+            case .me: strokes = [P([(10, 3), (17, 3), (17, 10), (8, 10), (8, 5)], close: true), P([(3, 21), (3, 17), (6, 14), (18, 14), (21, 17), (21, 21)])]
+            case .send: strokes = [P([(4, 20), (19, 5)]), P([(10, 5), (19, 5), (19, 14)])]
+            case .spam: strokes = [P([(5, 5), (19, 19)]), P([(19, 5), (5, 19)])]
+            case .routes: strokes = [P([(3, 19), (9, 13), (15, 13), (21, 7)])]; fills = [box(2, 18, 3, 3), box(19, 5, 3, 3)]
+            case .wallet: strokes = [P([(6, 5), (21, 5), (21, 16), (18, 19), (3, 19), (3, 8)], close: true), P([(3, 11), (21, 11)])]
+            case .inbox: strokes = [box(3, 4, 18, 16), P([(3, 13), (8, 13), (10, 16), (14, 16), (16, 13), (21, 13)])]
+            case .contacts: strokes = [box(5, 6, 6, 6), box(13, 10, 6, 6), P([(3, 21), (13, 21)]), P([(11, 18), (21, 18)])]
+            case .today: strokes = [box(3, 5, 18, 16), P([(3, 10), (21, 10)]), P([(8, 2), (8, 7)]), P([(16, 2), (16, 7)])]; fills = [box(13, 13, 4, 4)]
+            case .log: strokes = [P([(3, 3), (17, 3), (21, 7), (21, 21), (3, 21)], close: true), P([(7, 9), (17, 9)]), P([(7, 13), (17, 13)]), P([(7, 17), (13, 17)])]
+            }
+            for s in strokes { ctx.stroke(s, with: .foreground, style: st) }
+            for f in fills { ctx.fill(f, with: .foreground) }
+        }
+        .aspectRatio(1, contentMode: .fit)
+        .accessibilityHidden(true)
     }
 }

@@ -208,6 +208,26 @@ G["warn"] = ("0 0 100 100", '<path fill-rule="evenodd" fill="currentColor" d="M5
 G["reg"] = ("0 0 100 100", '<path d="M50 4V96 M4 50H96" stroke="currentColor" stroke-width="4"/><path d="M26 26H74V74H26Z" fill="none" stroke="currentColor" stroke-width="4"/><path d="M40 40H60V60H40Z" fill="currentColor"/>')
 G["matrix"] = ("0 0 21 21", f'<g fill="currentColor">{_matrix()}</g>')
 G["wave"] = ("0 0 240 60", '<polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" points="0,30 20,30 26,8 34,52 42,8 50,52 56,30 90,30 96,18 102,42 108,30 140,30 146,4 154,56 162,4 170,56 176,30 210,30 216,22 222,38 228,30 240,30"/>')
+# --- interface icons: one family. 24-unit grid, 2-unit stroke, square caps, miter joins,
+#     45° only, built from the system's shapes (diamond, bars, brackets, cut plates, "/").
+_I = {
+    "i-home": '<path d="M12 3 L21 12 L12 21 L3 12 Z"/><path d="M10.5 10.5H13.5V13.5H10.5Z" fill="currentColor" stroke="none"/>',
+    "i-stats": '<path d="M5 20V15 M10 20V11 M15 20V7 M20 20V3"/>',
+    "i-scan": '<path d="M3 8V3H8 M16 3H21V8 M21 16V21H16 M8 21H3V16 M12 9V15 M9 12H15"/>',
+    "i-grid": '<path d="M3 3H21V21H3Z M9 3V21 M15 3V21 M3 9H21 M3 15H21"/>',
+    "i-me": '<path d="M10 3H17V10H8V5Z"/><path d="M3 21V17L6 14H18L21 17V21"/>',
+    "i-send": '<path d="M4 20L19 5 M10 5H19V14"/>',
+    "i-spam": '<path d="M5 5L19 19 M19 5L5 19"/>',
+    "i-routes": '<path d="M3 19L9 13H15L21 7"/><path d="M2 18H5V21H2Z M19 5H22V8H19Z" fill="currentColor" stroke="none"/>',
+    "i-wallet": '<path d="M6 5H21V16L18 19H3V8Z M3 11H21"/>',
+    "i-inbox": '<path d="M3 4H21V20H3Z M3 13H8L10 16H14L16 13H21"/>',
+    "i-contacts": '<path d="M5 6H11V12H5Z M13 10H19V16H13Z M3 21H13 M11 18H21"/>',
+    "i-spend": '<path d="M5 4V9 M10 4V13 M15 4V17 M20 4V21"/>',
+    "i-today": '<path d="M3 5H21V21H3Z M3 10H21 M8 2V7 M16 2V7"/><path d="M13 13H17V17H13Z" fill="currentColor" stroke="none"/>',
+    "i-log": '<path d="M3 3H17L21 7V21H3Z M7 9H17 M7 13H17 M7 17H13"/>',
+}
+for _k, _v in _I.items():
+    G[_k] = ("0 0 24 24", f'<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">{_v}</g>')
 G["slash"] = ("0 0 100 100", '<path d="M20 80 L80 20" stroke="currentColor" stroke-width="3"/>')
 
 topo = [f'<circle cx="50" cy="50" r="47" fill="none" stroke="{C["ink"]}" stroke-width="1.4"/>',

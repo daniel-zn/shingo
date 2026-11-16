@@ -19,6 +19,8 @@ The look is sci-fi industrial, after a trilingual technical print, in the sage, 
 
 7. **Instruments.** Twenty parts extrapolated from the motifs, each with a job: seven-segment readout, cell meter, ruler slider, chevron steps, index tabs, caution tag, rubber stamp, ticket stub, keycap, rocker switch, data plate, print marks and colour bar, telemetry ticker, boot log, callout, blueprint grid, oscilloscope, status lamps and stencil serials.
 
+8. **Shape alphabet.** Twelve primitives, all on one angle: cut plate, tag, nested bar, slash, hazard, notch frame, hard X, diamond, chevrons, brackets, cell run and wedge. Icons are one family on a 24-unit grid with a 2-unit stroke, square caps and miter joins (`i-*` glyphs, `SGIcon`).
+
 | dashboard | interval timer | transfer | device |
 |---|---|---|---|
 | ![](docs/dark/screen-c.png) | ![](docs/dark/screen-r.png) | ![](docs/dark/screen-s.png) | ![](docs/light/screen-q.png) |

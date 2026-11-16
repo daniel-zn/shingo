@@ -64,7 +64,7 @@ def fig(letter, title, caption, phone, tier='utility'):
 '''
 
 
-TAB_VPN = [('mark', 'home'), ('signal', 'stats'), ('reticle', 'scan'), ('grid', 'servers')]
+TAB_VPN = [('i-home', 'home'), ('i-stats', 'stats'), ('i-scan', 'scan'), ('i-grid', 'servers')]
 S = {}
 
 # ---------------------------------------------------------------- T template
@@ -103,8 +103,8 @@ S['C'] = fig('C', 'Dashboard', 'Status as the title and uptime as the hero bar. 
       {DIV}
       <section class="u-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Threats blocked</div><div style="margin:10px 0 2px">{seg7("1284", 30)}</div></div>
-          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Data routed</div><div class="sg-num" style="font-size:24px;margin:8px 0 12px;color:var(--ground-hi)">4.2<span class="sg-mono"> / 10 GB</span></div>{cells(10, 4)}</div>
+          <div class="nframe"><b>Threats</b><div style="margin:2px 0 2px">{seg7("1284", 30)}</div></div>
+          <div class="nframe"><b>Data</b><div class="sg-num" style="font-size:24px;margin:0 0 12px;color:var(--ground-hi)">4.2<span class="sg-mono"> / 10 GB</span></div>{cells(10, 4)}</div>
         </div>
         <div>
           <div class="set"><span class="sg-label">Kill switch</span><input class="tgl" type="checkbox" id="c-ks" checked aria-label="Kill switch"></div>
@@ -128,7 +128,7 @@ S['D'] = fig('D', 'Fitness', 'One giant number as the hero and hard X marks for 
         <div class="stats3"><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Avg pace</span><b class="sg-num">5'12"</b></div><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Moving</span><b class="sg-num">3:41:08</b></div><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Elevation</span><b class="sg-num">+412</b></div></div>
         <div class="u-label"><span>Time in zone</span><span>HR</span></div>
         <div class="zones">{zones}</div>
-      </section>''', tab=tabbar([('mark', 'today'), ('signal', 'log'), ('grid', 'routes'), ('head', 'me')], 1)))
+      </section>''', tab=tabbar([('i-today', 'today'), ('i-log', 'log'), ('i-routes', 'routes'), ('i-me', 'me')], 1)))
 
 # ---------------------------------------------------------------- E wallet
 S['E'] = fig('E', 'Wallet', 'The card is the one plate on the screen: a cut slab with a contact pad and a coral strip. 財布 means wallet.', utility(f'''
@@ -146,7 +146,7 @@ S['E'] = fig('E', 'Wallet', 'The card is the one plate on the screen: a cut slab
           <div class="row"><svg width="18" height="18" style="color:var(--coral)"><use href="#g-arrow"/></svg><span><span class="sg-label" style="display:block">Night Train Co.</span><span class="sg-mono">TRAVEL · 14:02</span></span><span class="sg-num" style="font-size:15px;color:var(--ground-hi)">−€118.00</span></div>
           <div class="row"><svg width="18" height="18" style="transform:rotate(180deg);color:var(--ground-hi)"><use href="#g-arrow"/></svg><span><span class="sg-label" style="display:block">Salary · Nov</span><span class="sg-mono">INCOME · 09:00</span></span><span class="sg-num" style="font-size:15px;color:var(--ground-hi)">+€3,940.00</span></div>
         </div>
-      </section>''', tab=tabbar([('mark', 'wallet'), ('signal', 'spend'), ('arrow', 'send'), ('head', 'me')], 0)))
+      </section>''', tab=tabbar([('i-wallet', 'wallet'), ('i-spend', 'spend'), ('i-send', 'send'), ('i-me', 'me')], 0)))
 
 # ---------------------------------------------------------------- F player
 S['F'] = fig('F', 'Music player', 'A printed spectrum in a cut frame is the hero, with a coral playhead. The coral action is play.', utility(f'''
@@ -196,7 +196,7 @@ S['H'] = fig('H', 'Inbox', 'No hero form, so the filter takes the hero slot and 
       {mast('Inbox', '12 unread', 'end-to-end', '<button class="u-tag-btn btn btn--plate btn--icon" type="button" aria-label="New message"><svg><use href="#g-plus"/></svg></button>')}
       <div class="u-hero u-hero--pad"><div class="itabs"><button type="button" aria-pressed="true">All</button><button type="button">Flagged</button><button type="button">Sealed</button></div></div>
       {DIV}
-      <section class="u-body"><div>{rowhtml}</div></section>''', tab=tabbar([('mark', 'inbox'), ('x-line', 'spam'), ('grid', 'contacts'), ('head', 'me')], 0)))
+      <section class="u-body"><div>{rowhtml}</div></section>''', tab=tabbar([('i-inbox', 'inbox'), ('i-spam', 'spam'), ('i-contacts', 'contacts'), ('i-me', 'me')], 0)))
 
 
 # ---------------------------------------------------------------- I settings

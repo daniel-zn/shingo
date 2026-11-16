@@ -89,8 +89,11 @@ public struct DashboardExample: View {
             }
         } content: {
             HStack(spacing: 12) {
-                tile("Threats blocked", "1,284") { Barcode(axis: .horizontal).frame(height: 20) }
-                tile("Data routed", "4.2 GB") { SGSlot(progress: 0.42) }
+                SGNotchFrame("Threats") { SGSegDisplay("1284", height: 30) }
+                SGNotchFrame("Data") {
+                    Text("4.2 / 10 GB").sgNumber(22).foregroundStyle(SG.groundHi).padding(.bottom, 10)
+                    SGCellMeter(count: 10, filled: 4)
+                }
             }
             VStack(spacing: 0) {
                 Toggle(isOn: $killSwitch) { Text("Kill switch").sgLabel(15) }.toggleStyle(SGToggleStyle())
@@ -105,10 +108,10 @@ public struct DashboardExample: View {
         }
         .overlay(alignment: .bottom) {
             SGTabBar(selection: $tab, items: [
-                .init(0, "home") { DiamondMark().fill(style: FillStyle(eoFill: true)) },
-                .init(1, "stats") { SignalBars() },
-                .init(2, "scan") { Brackets(length: 6).stroke(lineWidth: 2) },
-                .init(3, "servers") { Crosshair().stroke(lineWidth: 2) }
+                .init(0, "home") { SGIcon(.home) },
+                .init(1, "stats") { SGIcon(.stats) },
+                .init(2, "scan") { SGIcon(.scan) },
+                .init(3, "servers") { SGIcon(.grid) }
             ])
             .padding(.bottom, 8)
         }
