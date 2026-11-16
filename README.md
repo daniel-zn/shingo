@@ -20,8 +20,9 @@ It is useful for tone: mono telemetry, technical framing, barcodes and crosshair
 
 ```
 tokens/tokens.json            colours, type, geometry ratios, usage rules
+tokens/lexicon.json           EN / 日本語 / FR phrase list with readings
 web/signal.css                tokens + components (.pill .btn .tgl .seg .chamfer .slot .barcode .tex)
-web/gallery.src.html          gallery source: poster study, 13 screens, widgets, component sheet
+web/gallery.src.html          gallery source: poster study, 16 screens, widgets, component sheet, language rules
 tools/build.py                generates glyphs + poster SVG, exports assets, builds dist/
 tools/screenshot.js           renders every screen to PNG with the preinstalled Playwright
 dist/index.html               the built, self-contained gallery (open in a browser)
@@ -31,10 +32,24 @@ ios/                          Swift package "SignalKit" (iOS 17+)
   Sources/SignalKit/SignalShapes.swift      RoundedX, DiamondMark, ChamferRect, UnitPolygon, Crosshair, ArrowNE
   Sources/SignalKit/SignalTextures.swift    StripeField (Canvas), Barcode, RingsCoil, RecordDisc, RadarScope
   Sources/SignalKit/SignalComponents.swift  NestedPill, SignalButtonStyle, SignalToggleStyle, SignalSegmented, SignalChip, SignalRule, SignalSlot, SignalTabBar
+  Sources/SignalKit/SignalLanguage.swift    SGFont.jp/.fr, VerticalText, Hanko, HazardBar, ChevronStack, HeadProfile, YearSpan, ManifestoExample
   Sources/SignalKit/Examples/               LaunchExample + DashboardExample with #Previews
   Sources/SignalKit/Resources/Fonts/        Archivo + JetBrains Mono TTFs (SIL OFL)
 docs/                         screenshots of every screen
 ```
+
+## Three languages
+
+The second reference (a trilingual print) adds Japanese and French, used sparingly:
+
+- **English** runs the interface: every action, label and number.
+- **日本語** adds texture: vertical captions (`.sg-jp-v` / `VerticalText`), hanko seals (`.hanko` / `Hanko`) and outlined display kanji (`.sg-jp-outline`). At most one per screen, and never the only label on a control.
+- **Français** is the aside: italic footnotes, dates, taglines and pull quotes (`.sg-fr` / `.sgFR()`). At most one per screen.
+- All three are stacked **once per app**, on the manifesto lock screen (screen N, `ManifestoExample`).
+
+Print motifs from that reference: `ChevronStack` / `#g-chevrons`, `HazardBar` / `.hazard`, `HeadProfile` / `#g-head`, `YearSpan` / `.yearspan`, the cut-corner coral slab `.slab-cut`, and a worn screen-print filter `.wear` (web only).
+
+Every phrase, with its Japanese reading, is in `tokens/lexicon.json`. These are drafts: have native speakers check them before release.
 
 ## Build the gallery
 
@@ -88,4 +103,4 @@ node tools/screenshot.js docs
 
 ## Fonts
 
-Archivo (Omnibus-Type) and JetBrains Mono (JetBrains) are both licensed under the SIL Open Font License 1.1. You may bundle them in an app.
+Japanese uses Hiragino Sans, which ships with iOS, and Noto Sans JP on the web. Archivo (Omnibus-Type) and JetBrains Mono (JetBrains) are both licensed under the SIL Open Font License 1.1. You may bundle them in an app.

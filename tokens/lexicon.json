@@ -1,0 +1,137 @@
+{
+  "$note": "Draft translations. Have native speakers check them before release.",
+  "roles": {
+    "en": "Interface: every action, label and number.",
+    "ja": "Texture: vertical captions, hanko seals, outlined display kanji. At most one per screen, never the only label on a control.",
+    "fr": "Aside: italic footnotes, dates, taglines, pull quotes. At most one per screen.",
+    "all": "All three stacked only once per app (manifesto)."
+  },
+  "phrases": [
+    {
+      "en": "Signal engineering",
+      "ja": "信号工学",
+      "ja_reading": "shingō kōgaku",
+      "fr": "ingénierie du signal",
+      "used_in": "N manifesto"
+    },
+    {
+      "en": "Secure workspace",
+      "ja": "安全な作業空間",
+      "ja_reading": "anzen na sagyō kūkan",
+      "fr": "espace de travail sécurisé",
+      "used_in": "A launch, vertical"
+    },
+    {
+      "en": "Designed in Lisbon",
+      "ja": "リスボンで設計",
+      "ja_reading": "risubon de sekkei",
+      "fr": "conçu à lisbonne",
+      "used_in": "A launch footer"
+    },
+    {
+      "en": "Authentication",
+      "ja": "認証",
+      "ja_reading": "ninshō",
+      "fr": "authentification",
+      "used_in": "B passcode seal"
+    },
+    {
+      "en": "Protected",
+      "ja": "保護中",
+      "ja_reading": "hogo-chū",
+      "fr": "protégé",
+      "used_in": "C dashboard"
+    },
+    {
+      "en": "Run log",
+      "ja": "ランニング記録",
+      "ja_reading": "ranningu kiroku",
+      "fr": "journal de course",
+      "used_in": "D fitness"
+    },
+    {
+      "en": "Wallet",
+      "ja": "財布",
+      "ja_reading": "saifu",
+      "fr": "portefeuille",
+      "used_in": "E card, vertical"
+    },
+    {
+      "en": "Night travel",
+      "ja": "夜行",
+      "ja_reading": "yakō",
+      "fr": "voyage de nuit",
+      "used_in": "F outlined kanji"
+    },
+    {
+      "en": "Scanning",
+      "ja": "走査中",
+      "ja_reading": "sōsa-chū",
+      "fr": "balayage en cours",
+      "used_in": "G radar"
+    },
+    {
+      "en": "Inbox",
+      "ja": "受信箱",
+      "ja_reading": "jushin-bako",
+      "fr": "boîte de réception",
+      "used_in": "H inbox, vertical"
+    },
+    {
+      "en": "Settings",
+      "ja": "設定",
+      "ja_reading": "settei",
+      "fr": "paramètres",
+      "used_in": "I ghost kanji"
+    },
+    {
+      "en": "Member card / ID certificate",
+      "ja": "身分証明書",
+      "ja_reading": "mibun shōmeisho",
+      "fr": "carte de membre",
+      "used_in": "J credential"
+    },
+    {
+      "en": "Disconnected",
+      "ja": "切断",
+      "ja_reading": "setsudan",
+      "fr": "connexion interrompue",
+      "used_in": "K alert"
+    },
+    {
+      "en": "No signal (out of range)",
+      "ja": "圏外",
+      "ja_reading": "kengai",
+      "fr": "aucun signal",
+      "used_in": "L empty state"
+    },
+    {
+      "en": "Route every packet",
+      "ja": "すべてのパケットを最適な経路へ",
+      "ja_reading": "subete no paketto o saiteki na keiro e",
+      "fr": "acheminer chaque paquet",
+      "used_in": "M onboarding"
+    },
+    {
+      "en": "Issue 9: on the quiet network",
+      "ja": "第九号　静かなネットワークについて",
+      "ja_reading": "dai-kyū-gō, shizuka na nettowāku ni tsuite",
+      "fr": "nº 9 : le réseau silencieux",
+      "used_in": "O editorial"
+    },
+    {
+      "en": "Certified",
+      "ja": "認定",
+      "ja_reading": "nintei",
+      "fr": "certifié",
+      "used_in": "P paywall seal"
+    },
+    {
+      "en": "Cancel anytime",
+      "ja": "いつでも解約可能",
+      "ja_reading": "itsudemo kaiyaku kanō",
+      "fr": "résiliable à tout moment",
+      "used_in": "P fine print"
+    }
+  ]
+}

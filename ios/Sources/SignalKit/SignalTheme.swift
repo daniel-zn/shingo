@@ -50,7 +50,7 @@ public enum SGFont {
     /// Call once at launch (e.g. in your App init). Registers the bundled OFL fonts
     /// so you don't need UIAppFonts entries in Info.plist.
     public static func register() {
-        let names = ["ArchivoExpanded-Black", "Archivo-Bold", "Archivo-Medium", "JetBrainsMono-Regular", "JetBrainsMono-Bold"]
+        let names = ["ArchivoExpanded-Black", "Archivo-Bold", "Archivo-Medium", "JetBrainsMono-Regular", "JetBrainsMono-Bold", "Archivo-MediumItalic"]
         for name in names {
             guard let url = Bundle.module.url(forResource: name, withExtension: "ttf") else { continue }
             CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)

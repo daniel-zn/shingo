@@ -81,6 +81,15 @@ G["play"] = ("0 0 100 100", '<path d="M30 18 L84 50 L30 82Z" fill="currentColor"
 G["skip"] = ("0 0 100 100", '<path d="M18 22 L58 50 L18 78Z M50 22 L90 50 L50 78Z" fill="currentColor"/>')
 G["chev"] = ("0 0 100 100", '<path d="M36 18 L68 50 L36 82" fill="none" stroke="currentColor" stroke-width="11"/>')
 G["user"] = ("0 0 100 100", '<circle cx="50" cy="32" r="18" fill="currentColor"/><path d="M14 90 A36 30 0 0 1 86 90 Z" fill="currentColor"/>')
+# --- motifs from the trilingual print reference ---
+G["head"] = ("0 0 100 100", '<g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">'
+    '<path d="M32 94 C32 82 27 76 26 66 C17 54 17 30 33 18 C47 7 70 11 76 29 C79 37 79 43 83 50 L78 54 C80 58 78 62 76 64 C74 70 68 73 62 73 L62 94"/>'
+    '<path d="M40 15 C47 29 47 39 44 47"/><path d="M44 47 C51 44 54 55 46 57"/><path d="M26 66 C36 64 44 60 46 57"/></g>')
+_chev = []
+for _ay, _d1 in zip([18, 82, 146, 210], [70, 150, 40, 112]):
+    _chev.append(f'<path d="M-30 {_ay+180} L150 {_ay} L330 {_ay+180}" fill="none" stroke="currentColor" stroke-width="26" stroke-linejoin="miter" stroke-dasharray="{_d1} 16 9999"/>')
+_chev.append('<path d="M0 0 H62 L0 62Z" fill="currentColor"/><path d="M300 0 V44 L256 0Z" fill="currentColor"/>')
+G["chevrons"] = ("0 0 300 230", "".join(_chev))
 G["slash"] = ("0 0 100 100", '<path d="M20 80 L80 20" stroke="currentColor" stroke-width="3"/>')
 
 topo = [f'<circle cx="50" cy="50" r="47" fill="none" stroke="{C["ink"]}" stroke-width="1.4"/>',
@@ -103,6 +112,10 @@ def sprite():
     out = ['<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>']
     for k, (vb, inner) in G.items():
         out.append(f'<symbol id="g-{k}" viewBox="{vb}">{inner}</symbol>')
+    # worn screen-print: knocks pinholes out of whatever it is applied to (CSS filter:url(#wear))
+    out.append('<filter id="wear" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="2" seed="7" result="n"/>'
+               '<feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -3.4 0 0 0 2.6" result="m"/>'
+               '<feComposite in="SourceGraphic" in2="m" operator="in"/></filter>')
     out.append("</defs></svg>")
     return "".join(out)
 
