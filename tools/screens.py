@@ -325,18 +325,18 @@ S['M'] = fig('M', 'Onboarding', 'Three cut bars in alternating directions, then 
 S['N'] = fig('N', 'Lock screen', 'The manifesto, after reference 2: the only place all three languages stack, with chevrons, hazard bar and a worn screen-print filter.', f'''<div class="phone"><div class="scr tex">
       {SB}
       <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--ground-hi)">
-        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display wear" style="font-size:44px">AXIOM</span></div>
+        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display wear" style="font-size:54px">AXIOM</span></div>
         <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sg-fr" style="font-size:14px">lundi 16 novembre</span><span class="sg-num" style="font-size:14px">9:41</span></div>
         <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut wear" style="flex:1;height:56px"></div><svg width="58" height="58"><use href="#g-head"/></svg></div>
         <div class="yearspan sg-num" style="font-size:21px">20<i></i>26</div>
         <div style="display:grid;gap:3px">
-          <div class="sg-label" style="font-size:23px;font-weight:700;text-transform:uppercase">Signal engineering</div>
+          <div class="sg-wordmark" style="font-size:26px">Signal engineering</div>
           <div class="sg-jp sg-justify" style="font-size:22px">信号工学</div>
-          <div class="sg-label" style="font-size:23px;font-weight:700;text-transform:uppercase">Ingénierie du signal</div>
+          <div class="sg-wordmark" style="font-size:26px">Ingénierie du signal</div>
         </div>
         <svg class="wear" viewBox="0 0 300 230" style="width:84%;height:auto;align-self:center;margin-top:2px"><use href="#g-chevrons"/></svg>
         <div class="hazard wear"></div>
-        <div class="sg-label" style="font-size:15px;font-weight:700;text-transform:uppercase">Axiom signal systems</div>
+        <div class="sg-wordmark" style="font-size:15px">Axiom signal systems</div>
         <div><div class="barcode--v" style="height:30px;--bc:var(--ground-hi)"></div><div class="sg-mono" style="display:flex;justify-content:space-between;font-size:9px;margin-top:4px"><span>4</span><span>902609</span><span>260911</span><span>9</span></div></div>
       </div>
       <span class="cut" style="bottom:40px;left:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--ground-hi)"><use href="#g-plus"/></svg></span>

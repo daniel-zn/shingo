@@ -13,7 +13,7 @@ public struct SGSegDisplay: View {
     /// Character indexes drawn in coral.
     public var hot: Set<Int>
     public var ghost: Bool
-    public init(_ text: String, height: CGFloat = 48, hot: Set<Int> = [], ghost: Bool = true) {
+    public init(_ text: String, height: CGFloat = 48, hot: Set<Int> = [], ghost: Bool = false) {
         self.text = text; self.height = height; self.hot = hot; self.ghost = ghost
     }
 
@@ -27,10 +27,10 @@ public struct SGSegDisplay: View {
     public var body: some View {
         Canvas { ctx, size in
             let s = size.height / 64
-            ctx.translateBy(x: 9 * s, y: 0)
-            ctx.concatenate(CGAffineTransform(a: 1, b: 0, c: -0.1405, d: 1, tx: 0, ty: 0)) // skewX(-8°)
+            ctx.translateBy(x: 7 * s, y: 0)
+            ctx.concatenate(CGAffineTransform(a: 1, b: 0, c: -0.1051, d: 1, tx: 0, ty: 0)) // skewX(-6°)
             ctx.scaleBy(x: s, y: s)
-            let t: CGFloat = 7, w: CGFloat = 36, h: CGFloat = 64, g: CGFloat = 1.6
+            let t: CGFloat = 5.2, w: CGFloat = 36, h: CGFloat = 64, g: CGFloat = 1.3
             func hseg(_ x0: CGFloat, _ x1: CGFloat, _ yc: CGFloat) -> Path {
                 Path { p in p.addLines([CGPoint(x: x0, y: yc), CGPoint(x: x0 + t/2, y: yc - t/2), CGPoint(x: x1 - t/2, y: yc - t/2),
                                         CGPoint(x: x1, y: yc), CGPoint(x: x1 - t/2, y: yc + t/2), CGPoint(x: x0 + t/2, y: yc + t/2)]); p.closeSubpath() }
@@ -243,15 +243,14 @@ public struct WarnShape: Shape {
 
 public struct SGStamp: View {
     var text: String; var color: Color; var gap: Color; var angle: Double
-    public init(_ text: String, color: Color = SG.coral, gap: Color = SG.ground, angle: Double = -8) {
+    public init(_ text: String, color: Color = SG.coral, gap: Color = SG.ground, angle: Double = -2) {
         self.text = text; self.color = color; self.gap = gap; self.angle = angle
     }
     public var body: some View {
         Text(text).sgStencil(19)
             .padding(.horizontal, 12).padding(.vertical, 5)
             .foregroundStyle(color)
-            .overlay(Rectangle().strokeBorder(color, lineWidth: 2.5))
-            .overlay(Rectangle().inset(by: 4.5).strokeBorder(color, lineWidth: 1.5))
+            .overlay(Rectangle().strokeBorder(color, lineWidth: 2))
             .rotationEffect(.degrees(angle))
             .opacity(0.92)
     }
@@ -299,21 +298,21 @@ public struct SGKeycapStyle: ButtonStyle {
     public func makeBody(configuration: Configuration) -> some View {
         let pressed = configuration.isPressed
         ZStack {
-            ChamferRect(cut: 14).fill(print ? SG.groundDim : SG.coralDeep).padding(.top, 6)
+            ChamferRect(cut: 14).fill(print ? SG.groundDim : SG.coralDeep).padding(.top, 3)
             HStack {
-                configuration.label.font(SGFont.title(21)).textCase(.uppercase).tracking(1.2)
+                configuration.label.font(SGFont.title(22)).textCase(.uppercase).tracking(1.3)
                 Spacer()
                 if !hint.isEmpty { Text(hint).sgMono(10) }
-                Rectangle().fill(SG.inkFixed).frame(width: 10, height: 10)
+                Rectangle().fill(SG.inkFixed).frame(width: 8, height: 8)
             }
             .padding(.horizontal, 22)
             .frame(maxHeight: .infinity)
             .background(ChamferRect(cut: 14).fill(print ? SG.groundHi : SG.coral))
-            .padding(.bottom, 6)
-            .offset(y: pressed ? 4 : 0)
+            .padding(.bottom, 3)
+            .offset(y: pressed ? 2 : 0)
         }
         .foregroundStyle(print ? SG.ground : SG.inkFixed)
-        .frame(height: 76)
+        .frame(height: 64)
         .animation(.easeOut(duration: 0.08), value: pressed)
     }
 }

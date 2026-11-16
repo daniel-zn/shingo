@@ -59,31 +59,31 @@ public enum SG {
     public static let cutL: CGFloat = 24
 }
 
-// MARK: - Type: hard, chamfered, industrial
+// MARK: - Type: hard, industrial signage
 
 public enum SGFont {
-    /// Tektur Black: display wordmarks, 40 pt and up (uppercase). Cut-corner letterforms.
-    public static func display(_ size: CGFloat) -> Font { .custom("Tektur-Black", size: size) }
-    /// Chakra Petch Bold: titles (26) and inline wordmarks (15). Angular, never bubbly.
-    public static func title(_ size: CGFloat) -> Font { .custom("ChakraPetch-Bold", size: size) }
-    /// Chakra Petch Bold: numerals in text.
-    public static func number(_ size: CGFloat) -> Font { .custom("ChakraPetch-Bold", size: size).monospacedDigit() }
-    /// Tektur Condensed SemiBold: labels in caps ("FUTURE ENGINEERING").
-    public static func cap(_ size: CGFloat) -> Font { .custom("TekturCondensed-SemiBold", size: size) }
-    /// Tektur Medium: body and row labels.
-    public static func body(_ size: CGFloat = 15) -> Font { .custom("Tektur-Medium", size: size) }
-    /// Tektur Bold: emphasised body (the trilingual stack).
-    public static func bodyBold(_ size: CGFloat = 15) -> Font { .custom("Tektur-Bold", size: size) }
-    /// Kode Mono: telemetry and metadata.
-    public static func mono(_ size: CGFloat = 11) -> Font { .custom("KodeMono-Regular", size: size) }
+    /// Big Shoulders Display ExtraBold: display wordmarks, 40 pt and up (uppercase).
+    public static func display(_ size: CGFloat) -> Font { .custom("BigShouldersDisplay-ExtraBold", size: size) }
+    /// Barlow Condensed Bold: titles (26), inline wordmarks (15). DIN-like signage.
+    public static func title(_ size: CGFloat) -> Font { .custom("BarlowCondensed-Bold", size: size) }
+    /// Barlow Condensed Bold: numerals in text.
+    public static func number(_ size: CGFloat) -> Font { .custom("BarlowCondensed-Bold", size: size).monospacedDigit() }
+    /// Barlow Condensed SemiBold: labels in caps ("FUTURE ENGINEERING").
+    public static func cap(_ size: CGFloat) -> Font { .custom("BarlowCondensed-SemiBold", size: size) }
+    /// Barlow Medium: body and row labels.
+    public static func body(_ size: CGFloat = 15) -> Font { .custom("Barlow-Medium", size: size) }
+    /// Barlow Condensed Bold: emphasised lines (the trilingual stack).
+    public static func bodyBold(_ size: CGFloat = 15) -> Font { .custom("BarlowCondensed-Bold", size: size) }
+    /// IBM Plex Mono Medium: telemetry and metadata.
+    public static func mono(_ size: CGFloat = 11) -> Font { .custom("IBMPlexMono-Medium", size: size) }
     /// Big Shoulders Stencil: stamped numerals, serials, stamps. Once per screen.
     public static func stencil(_ size: CGFloat) -> Font { .custom("BigShouldersStencilDisplay-ExtraBold", size: size) }
 
     /// Call once at launch (e.g. in your App init). Registers the bundled OFL fonts
     /// so you don't need UIAppFonts entries in Info.plist.
     public static func register() {
-        let names = ["Tektur-Black", "Tektur-ExtraBold", "Tektur-Bold", "Tektur-Medium", "TekturCondensed-SemiBold",
-                     "KodeMono-Regular", "BigShouldersStencilDisplay-ExtraBold", "ChakraPetch-Bold", "ChakraPetch-MediumItalic", "DotGothic16-Regular"]
+        let names = ["BigShouldersDisplay-ExtraBold", "BigShouldersStencilDisplay-ExtraBold", "BarlowCondensed-Bold", "BarlowCondensed-SemiBold",
+                     "Barlow-Medium", "Barlow-SemiBold", "Barlow-MediumItalic", "IBMPlexMono-Medium"]
         for name in names {
             guard let url = Bundle.module.url(forResource: name, withExtension: "ttf") else { continue }
             CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
@@ -92,7 +92,7 @@ public enum SGFont {
 }
 
 public extension View {
-    /// Wordmark: Tektur Black at 40 pt and up (display), Chakra Petch Bold below (titles 26, inline 15).
+    /// Wordmark: Big Shoulders at 40 pt and up (display), Barlow Condensed Bold below (titles 26, inline 15).
     func sgWordmark(_ size: CGFloat) -> some View {
         font(size >= 40 ? SGFont.display(size) : SGFont.title(size)).textCase(.uppercase).tracking(size >= 40 ? size * 0.01 : size * 0.02)
     }

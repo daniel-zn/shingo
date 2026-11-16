@@ -111,7 +111,7 @@ SEG = {"0": "abcdef", "1": "bc", "2": "abged", "3": "abgcd", "4": "fgbc", "5": "
        "7": "abc", "8": "abcdefg", "9": "abcdfg", "-": "g", " ": "", "E": "afged", "r": "eg", "o": "cdeg", "P": "abefg", "A": "abcefg"}
 
 
-def _segs(w=36, h=64, t=7, g=1.6):
+def _segs(w=36, h=64, t=5.2, g=1.3):
     def hseg(x0, x1, yc):
         return [(x0, yc), (x0 + t / 2, yc - t / 2), (x1 - t / 2, yc - t / 2), (x1, yc), (x1 - t / 2, yc + t / 2), (x0 + t / 2, yc + t / 2)]
     def vseg(xc, y0, y1):
@@ -122,7 +122,7 @@ def _segs(w=36, h=64, t=7, g=1.6):
             "e": vseg(t / 2, m + g, h - t / 2 - g), "c": vseg(w - t / 2, m + g, h - t / 2 - g)}
 
 
-def seg7(text, height=48, hot="", ghost=True, cls=""):
+def seg7(text, height=48, hot="", ghost=False, cls=""):
     """Inline SVG seven-segment readout. Characters in `hot` (indexes) light coral.
     Unlit segments draw in --off unless ghost=False. Supports 0-9 - . : and a few letters."""
     w, h, gap = 36, 64, 8
@@ -142,7 +142,7 @@ def seg7(text, height=48, hot="", ghost=True, cls=""):
         x += w + gap
     W = x - gap + 10
     return (f'<svg class="seg7 {cls}" viewBox="0 0 {W} {h}" height="{height}" width="{f(height * W / h)}" role="img" aria-label="{text}">'
-            f'<g transform="translate(9 0) skewX(-8)">{"".join(parts)}</g></svg>')
+            f'<g transform="translate(7 0) skewX(-6)">{"".join(parts)}</g></svg>')
 
 
 def _matrix(n=21, seed=7):
@@ -165,7 +165,7 @@ def _matrix(n=21, seed=7):
 
 
 XP = x_path(12.5, 32)   # rounded X: origins poster only
-XS = x_sharp()          # sharp X: the interface
+XS = x_sharp(9.5, 34)   # sharp X: the interface (slim arms)
 
 # ---------------------------------------------------------------- glyphs
 # id -> (viewBox, inner svg). Mono glyphs use currentColor.

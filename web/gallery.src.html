@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tektur:wdth,wght@75..100,400..900&family=Kode+Mono:wght@400..700&family=Chakra+Petch:ital,wght@0,700;1,500&family=DotGothic16&family=Big+Shoulders+Stencil+Display:wght@800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Big+Shoulders+Stencil+Display:wght@800&family=Barlow+Condensed:wght@600;700&family=Barlow:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@700&display=swap">
 <style>
 <!--@CSS-->
 
@@ -44,13 +44,13 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 .ka-in { position: absolute; inset: 6cqw; display: grid; grid-template-columns: minmax(0, 1fr) 21cqw; grid-template-rows: auto auto auto auto 1fr auto auto; column-gap: 5cqw; row-gap: 3.2cqw; }
 .ka-mast { grid-column: 1 / -1; display: flex; align-items: flex-end; gap: 2cqw; }
 .ka-mast .u-code { font-size: 1.3cqw; padding-bottom: 1cqw; }
-.ka-mast .sg-display { font-size: 17.5cqw; line-height: .8; }
+.ka-mast .sg-display { font-size: 25cqw; line-height: .8; }
 .ka-slab { height: 10cqw; }
 .ka-head { display: grid; place-items: center; }
 .ka-head svg { width: 12cqw; height: 12cqw; }
 .ka-year { grid-column: 1 / -1; font-size: 3.6cqw; }
 .ka-trio { display: grid; gap: .6cqw; align-content: start; }
-.ka-trio .sg-label { font-size: 4.6cqw; font-weight: 700; text-transform: uppercase; line-height: 1; }
+.ka-trio .sg-label { font-family: var(--f-title); font-size: 5.4cqw; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; line-height: 1; }
 .ka-trio .sg-jp { font-size: 4.3cqw; }
 .ka-side { grid-row: 4 / 6; grid-column: 2; display: flex; flex-direction: column; gap: 3cqw; align-items: stretch; }
 .ka-side .sg-num { font-size: 6cqw; text-align: right; }
@@ -61,31 +61,31 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 .ka-chev svg { width: 100%; height: auto; display: block; }
 .ka-haz { grid-column: 1 / -1; height: 4.4cqw; padding-block: .8cqw; }
 .ka-foot { grid-column: 1 / -1; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4cqw; align-items: end; }
-.ka-foot .sg-label { font-size: 3.2cqw; font-weight: 700; text-transform: uppercase; }
+.ka-foot .sg-label { font-family: var(--f-title); font-size: 3.8cqw; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
 .ka-foot .sg-mono { font-size: 1.6cqw; color: var(--ground-dim); margin-top: .8cqw; }
 .ka-foot .barcode--v { height: 7cqw; --bc: var(--ground-hi); }
 figcaption.cap { display: flex; justify-content: space-between; gap: 12px; }
-figcaption.cap b { font: 600 13px var(--f-sans); font-stretch: 75%; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+figcaption.cap b { font: 600 13px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
 figcaption.cap span { font: 400 11px var(--f-mono); color: var(--ground-dim); text-transform: uppercase; }
 
 /* anatomy */
 .anatomy { margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .anatomy > div { background: var(--ground); padding: 16px; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; align-items: start; }
 .anatomy .sw { width: 64px; height: 56px; display: grid; place-items: center; }
-.anatomy h3 { margin: 0 0 4px; font: 600 14px var(--f-sans); font-stretch: 75%; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.anatomy h3 { margin: 0 0 4px; font: 600 14px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
 .anatomy p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--on-ground); }
 .anatomy code { font-family: var(--f-mono); font-size: 11px; color: var(--coral); }
 
 /* screens */
 .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); margin-bottom: 40px; }
 .rules > div { background: var(--ground); padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
-.rules b { font: 600 14px var(--f-sans); font-stretch: 75%; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.rules b { font: 600 14px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
 .rules p { margin: 0; font-size: 13px; line-height: 1.45; color: var(--on-ground); }
 .rules i { font: normal 400 11px var(--f-mono); color: var(--coral); }
 .screens { display: grid; grid-template-columns: repeat(auto-fill, minmax(410px, 1fr)); gap: 56px 32px; justify-items: center; }
 .screens figure { margin: 0; display: grid; gap: 16px; justify-items: center; }
 .screens figcaption { width: 410px; max-width: 100%; display: grid; gap: 4px; }
-.screens figcaption b { font: 600 14px var(--f-sans); font-stretch: 75%; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.screens figcaption b { font: 600 14px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
 .screens figcaption span { font: 400 11.5px/1.45 var(--f-mono); color: var(--ground-dim); }
 em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-transform: uppercase; letter-spacing: .08em; }
 
@@ -103,7 +103,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .home { bottom: 8px; left: 50%; width: 138px; height: 5px; margin-left: -69px; border-radius: 3px; background: var(--hb, var(--on-ground)); z-index: 30; }
 
 .tabbar { left: 16px; right: 16px; bottom: 24px; height: 60px; padding: 0; --c: 12px; --line: var(--ground-3); --fill: var(--ground); display: flex; justify-content: space-around; align-items: center; z-index: 25; }
-.tabbar a { display: grid; justify-items: center; gap: 4px; color: var(--ground-dim); text-decoration: none; font: 600 10px var(--f-sans); font-stretch: 75%; letter-spacing: .14em; text-transform: uppercase; }
+.tabbar a { display: grid; justify-items: center; gap: 4px; color: var(--ground-dim); text-decoration: none; font: 600 10px var(--f-cap); letter-spacing: .14em; text-transform: uppercase; }
 .tabbar a::before { content: ""; width: 18px; height: 3px; background: transparent; }
 .tabbar a svg { width: 20px; height: 20px; }
 .tabbar a[aria-current] { color: var(--coral); }
@@ -120,7 +120,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .set { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--ground-3); }
 .set .sg-label { font-size: 15px; color: var(--ground-hi); }
 .set small { display: block; font: 400 10.5px/1.3 var(--f-mono); color: var(--ground-dim); margin-top: 3px; }
-.av { width: 38px; height: 38px; display: grid; place-items: center; background: var(--sage-hi); color: var(--ink); font: 800 11px var(--f-display); font-stretch: 125%; --c: 8px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.av { width: 38px; height: 38px; display: grid; place-items: center; background: var(--sage-hi); color: var(--ink); font: 700 14px var(--f-title); letter-spacing: .04em; --c: 8px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
 .av--line { background: var(--ground-3); color: var(--ground-hi); }
 .unread { width: 8px; height: 8px; background: var(--coral); transform: rotate(45deg); display: inline-block; }
 .dim { background: rgba(6,6,5,.62); }
@@ -171,7 +171,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 
 /* component sheet */
 .sheet { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px 36px; }
-.sheet h3 { margin: 0 0 14px; display: flex; justify-content: space-between; gap: 10px; padding-bottom: 6px; border-bottom: var(--hair) solid var(--ground-hi); font: 600 12px var(--f-sans); font-stretch: 75%; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.sheet h3 { margin: 0 0 14px; display: flex; justify-content: space-between; gap: 10px; padding-bottom: 6px; border-bottom: var(--hair) solid var(--ground-hi); font: 600 12px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
 .sheet h3 span:last-child { font: 400 10.5px var(--f-mono); color: var(--ground-dim); text-transform: none; letter-spacing: 0; }
 .sheet > div { min-width: 0; }
 .typescale > div > span { min-width: 0; overflow-wrap: anywhere; }
@@ -183,7 +183,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px 10px; }
 .swatches div { display: grid; gap: 4px; font: 400 10px/1.35 var(--f-mono); color: var(--ground-dim); }
 .swatches i { height: 52px; box-shadow: inset 0 0 0 1px var(--ground-3); }
-.swatches b { font: 600 12px var(--f-sans); font-stretch: 75%; letter-spacing: .1em; text-transform: uppercase; color: var(--ground-hi); }
+.swatches b { font: 600 12px var(--f-cap); letter-spacing: .1em; text-transform: uppercase; color: var(--ground-hi); }
 .typescale { display: grid; gap: 14px; }
 .typescale > div { display: grid; grid-template-columns: minmax(0, 170px) minmax(0, 1fr); gap: 12px; align-items: baseline; color: var(--ground-hi); }
 .typescale .sg-mono { color: var(--ground-dim); font-size: 10.5px; text-transform: uppercase; }
@@ -193,7 +193,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .insts { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .inst { background: var(--ground); padding: 18px; display: grid; grid-template-rows: auto auto 1fr; gap: 8px; min-width: 0; }
 .inst--wide { grid-column: span 2; }
-.inst h3 { margin: 0; display: flex; justify-content: space-between; gap: 10px; font: 600 13px var(--f-sans); font-stretch: 75%; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.inst h3 { margin: 0; display: flex; justify-content: space-between; gap: 10px; font: 600 13px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
 .inst h3 span:last-child { font: 400 10px var(--f-mono); letter-spacing: 0; text-transform: none; color: var(--coral); }
 .inst p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--on-ground); max-width: 52ch; }
 .inst .demo { align-self: end; display: flex; align-items: center; padding: 14px 0 4px; min-width: 0; }
@@ -203,7 +203,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .lang { background: var(--ground); padding: 20px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; }
 .lang-k { font-size: 26px; line-height: 1; color: var(--ground-hi); }
-.lang h3 { margin: 6px 0 0; font: 600 14px var(--f-sans); font-stretch: 75%; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.lang h3 { margin: 6px 0 0; font: 600 14px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
 .lang p { margin: 0; font-size: 13.5px; line-height: 1.5; max-width: 46ch; }
 .lang-ex { margin-top: 10px; min-height: 72px; padding: 12px; display: flex; align-items: center; gap: 10px; color: var(--ground-hi); --stroke: var(--ground-hi); box-shadow: inset 0 0 0 1px var(--ground-3); }
 .lex-wrap { margin-top: 24px; overflow-x: auto; border: var(--hair) solid var(--ground-3); }
@@ -269,7 +269,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div><div class="sw"><div class="hazard" style="width:64px"></div></div><div><h3>Hazard bar</h3><p>45° stripes between two hairlines. It divides the masthead from the body on every utility screen. <code>.hazard</code> · <code>HazardBar</code></p></div></div>
     <div><div class="sw"><div class="chamfer brackets" style="width:56px;height:48px;--c:12px;padding:0;--fill:var(--ground);--line:var(--ground-dim)"></div></div><div><h3>Cuts and brackets</h3><p>Every corner cut is 45° on the top-right and bottom-left axis, at 6, 12 or 24&nbsp;pt. HUD brackets frame focus areas. <code>.cut .chamfer .brackets</code></p></div></div>
     <div><div class="sw"><svg viewBox="0 0 300 230" width="62" height="48" style="color:var(--ground-hi)"><use href="#g-chevrons"/></svg></div><div><h3>Print motifs</h3><p>Chevrons, barcode, the line-art head, the coral tag slab and the year span. They are generated, so they recolor with tokens. <code>assets/svg/*</code></p></div></div>
-    <div><div class="sw" style="justify-items:start;gap:2px"><span class="sg-wordmark" style="font-size:15px;color:var(--ground-hi)">AXIOM</span><span class="sg-stencil" style="font-size:16px;color:var(--ground-hi)">09</span><span class="sg-mono" style="font-size:9px;color:var(--ground-dim)">SP C53</span></div><div><h3>Hard type</h3><p>Tektur Black for display, with letter corners cut like the system's 45° cuts, and Chakra Petch Bold for titles and numbers. Kode Mono carries telemetry, Big Shoulders Stencil stamps serials, and DotGothic16 sets kanji in dot matrix. Readouts are seven-segment. All fonts are OFL and bundled for iOS.</p></div></div>
+    <div><div class="sw" style="justify-items:start;gap:2px"><span class="sg-wordmark" style="font-size:15px;color:var(--ground-hi)">AXIOM</span><span class="sg-stencil" style="font-size:16px;color:var(--ground-hi)">09</span><span class="sg-mono" style="font-size:9px;color:var(--ground-dim)">SP C53</span></div><div><h3>Hard type</h3><p>Industrial signage faces only. Big Shoulders for display, with its stencil cut for serials. Barlow Condensed (DIN-like) for titles, labels and numbers, and Barlow for body text. IBM Plex Mono carries telemetry and BIZ UDGothic sets kanji. Readouts are seven-segment.</p></div></div>
     <div><div class="sw"><span class="slab-cut" style="width:56px;height:22px"></span></div><div><h3>One signal</h3><p>Coral appears as one block or one primary action per screen, plus small states like unread and the active tab. Everything else is print.</p></div></div>
   </div>
 </section>
@@ -362,7 +362,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="u-div hazard"></div>
       <section class="u-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Threats blocked</div><div style="margin:10px 0 2px"><svg class="seg7 " viewBox="0 0 178 64" height="30" width="83.44" role="img" aria-label="1284"><g transform="translate(9 0) skewX(-8)"><polygon class="off" points="5.1,3.5 8.6,0 27.4,0 30.9,3.5 27.4,7 8.6,7"/><polygon class="off" points="5.1,32 8.6,28.5 27.4,28.5 30.9,32 27.4,35.5 8.6,35.5"/><polygon class="off" points="5.1,60.5 8.6,57 27.4,57 30.9,60.5 27.4,64 8.6,64"/><polygon class="off" points="3.5,5.1 7,8.6 7,26.9 3.5,30.4 0,26.9 0,8.6"/><polygon class="on" points="32.5,5.1 36,8.6 36,26.9 32.5,30.4 29,26.9 29,8.6"/><polygon class="off" points="3.5,33.6 7,37.1 7,55.4 3.5,58.9 0,55.4 0,37.1"/><polygon class="on" points="32.5,33.6 36,37.1 36,55.4 32.5,58.9 29,55.4 29,37.1"/><polygon class="on" points="49.1,3.5 52.6,0 71.4,0 74.9,3.5 71.4,7 52.6,7"/><polygon class="on" points="49.1,32 52.6,28.5 71.4,28.5 74.9,32 71.4,35.5 52.6,35.5"/><polygon class="on" points="49.1,60.5 52.6,57 71.4,57 74.9,60.5 71.4,64 52.6,64"/><polygon class="off" points="47.5,5.1 51,8.6 51,26.9 47.5,30.4 44,26.9 44,8.6"/><polygon class="on" points="76.5,5.1 80,8.6 80,26.9 76.5,30.4 73,26.9 73,8.6"/><polygon class="on" points="47.5,33.6 51,37.1 51,55.4 47.5,58.9 44,55.4 44,37.1"/><polygon class="off" points="76.5,33.6 80,37.1 80,55.4 76.5,58.9 73,55.4 73,37.1"/><polygon class="on" points="93.1,3.5 96.6,0 115.4,0 118.9,3.5 115.4,7 96.6,7"/><polygon class="on" points="93.1,32 96.6,28.5 115.4,28.5 118.9,32 115.4,35.5 96.6,35.5"/><polygon class="on" points="93.1,60.5 96.6,57 115.4,57 118.9,60.5 115.4,64 96.6,64"/><polygon class="on" points="91.5,5.1 95,8.6 95,26.9 91.5,30.4 88,26.9 88,8.6"/><polygon class="on" points="120.5,5.1 124,8.6 124,26.9 120.5,30.4 117,26.9 117,8.6"/><polygon class="on" points="91.5,33.6 95,37.1 95,55.4 91.5,58.9 88,55.4 88,37.1"/><polygon class="on" points="120.5,33.6 124,37.1 124,55.4 120.5,58.9 117,55.4 117,37.1"/><polygon class="off" points="137.1,3.5 140.6,0 159.4,0 162.9,3.5 159.4,7 140.6,7"/><polygon class="on" points="137.1,32 140.6,28.5 159.4,28.5 162.9,32 159.4,35.5 140.6,35.5"/><polygon class="off" points="137.1,60.5 140.6,57 159.4,57 162.9,60.5 159.4,64 140.6,64"/><polygon class="on" points="135.5,5.1 139,8.6 139,26.9 135.5,30.4 132,26.9 132,8.6"/><polygon class="on" points="164.5,5.1 168,8.6 168,26.9 164.5,30.4 161,26.9 161,8.6"/><polygon class="off" points="135.5,33.6 139,37.1 139,55.4 135.5,58.9 132,55.4 132,37.1"/><polygon class="on" points="164.5,33.6 168,37.1 168,55.4 164.5,58.9 161,55.4 161,37.1"/></g></svg></div></div>
+          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Threats blocked</div><div style="margin:10px 0 2px"><svg class="seg7 " viewBox="0 0 178 64" height="30" width="83.44" role="img" aria-label="1284"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="33.4,3.9 36,6.5 36,28.1 33.4,30.7 30.8,28.1 30.8,6.5"/><polygon class="on" points="33.4,33.3 36,35.9 36,57.5 33.4,60.1 30.8,57.5 30.8,35.9"/><polygon class="on" points="47.9,2.6 50.5,0 73.5,0 76.1,2.6 73.5,5.2 50.5,5.2"/><polygon class="on" points="47.9,32 50.5,29.4 73.5,29.4 76.1,32 73.5,34.6 50.5,34.6"/><polygon class="on" points="47.9,61.4 50.5,58.8 73.5,58.8 76.1,61.4 73.5,64 50.5,64"/><polygon class="on" points="77.4,3.9 80,6.5 80,28.1 77.4,30.7 74.8,28.1 74.8,6.5"/><polygon class="on" points="46.6,33.3 49.2,35.9 49.2,57.5 46.6,60.1 44,57.5 44,35.9"/><polygon class="on" points="91.9,2.6 94.5,0 117.5,0 120.1,2.6 117.5,5.2 94.5,5.2"/><polygon class="on" points="91.9,32 94.5,29.4 117.5,29.4 120.1,32 117.5,34.6 94.5,34.6"/><polygon class="on" points="91.9,61.4 94.5,58.8 117.5,58.8 120.1,61.4 117.5,64 94.5,64"/><polygon class="on" points="90.6,3.9 93.2,6.5 93.2,28.1 90.6,30.7 88,28.1 88,6.5"/><polygon class="on" points="121.4,3.9 124,6.5 124,28.1 121.4,30.7 118.8,28.1 118.8,6.5"/><polygon class="on" points="90.6,33.3 93.2,35.9 93.2,57.5 90.6,60.1 88,57.5 88,35.9"/><polygon class="on" points="121.4,33.3 124,35.9 124,57.5 121.4,60.1 118.8,57.5 118.8,35.9"/><polygon class="on" points="135.9,32 138.5,29.4 161.5,29.4 164.1,32 161.5,34.6 138.5,34.6"/><polygon class="on" points="134.6,3.9 137.2,6.5 137.2,28.1 134.6,30.7 132,28.1 132,6.5"/><polygon class="on" points="165.4,3.9 168,6.5 168,28.1 165.4,30.7 162.8,28.1 162.8,6.5"/><polygon class="on" points="165.4,33.3 168,35.9 168,57.5 165.4,60.1 162.8,57.5 162.8,35.9"/></g></svg></div></div>
           <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Data routed</div><div class="sg-num" style="font-size:24px;margin:8px 0 12px;color:var(--ground-hi)">4.2<span class="sg-mono"> / 10 GB</span></div><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
         </div>
         <div>
@@ -385,7 +385,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Run log</h3><div class="u-tag u-meta">10–16<br>NOV</div><div class="u-span"><span><span class="sg-fr">journal de course</span></span><i></i><span>W46</span></div></header>
-      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px"><svg class="seg7 " viewBox="0 0 149 64" height="76" width="176.94" role="img" aria-label="42.6"><g transform="translate(9 0) skewX(-8)"><polygon class="off" points="5.1,3.5 8.6,0 27.4,0 30.9,3.5 27.4,7 8.6,7"/><polygon class="on" points="5.1,32 8.6,28.5 27.4,28.5 30.9,32 27.4,35.5 8.6,35.5"/><polygon class="off" points="5.1,60.5 8.6,57 27.4,57 30.9,60.5 27.4,64 8.6,64"/><polygon class="on" points="3.5,5.1 7,8.6 7,26.9 3.5,30.4 0,26.9 0,8.6"/><polygon class="on" points="32.5,5.1 36,8.6 36,26.9 32.5,30.4 29,26.9 29,8.6"/><polygon class="off" points="3.5,33.6 7,37.1 7,55.4 3.5,58.9 0,55.4 0,37.1"/><polygon class="on" points="32.5,33.6 36,37.1 36,55.4 32.5,58.9 29,55.4 29,37.1"/><polygon class="on" points="49.1,3.5 52.6,0 71.4,0 74.9,3.5 71.4,7 52.6,7"/><polygon class="on" points="49.1,32 52.6,28.5 71.4,28.5 74.9,32 71.4,35.5 52.6,35.5"/><polygon class="on" points="49.1,60.5 52.6,57 71.4,57 74.9,60.5 71.4,64 52.6,64"/><polygon class="off" points="47.5,5.1 51,8.6 51,26.9 47.5,30.4 44,26.9 44,8.6"/><polygon class="on" points="76.5,5.1 80,8.6 80,26.9 76.5,30.4 73,26.9 73,8.6"/><polygon class="on" points="47.5,33.6 51,37.1 51,55.4 47.5,58.9 44,55.4 44,37.1"/><polygon class="off" points="76.5,33.6 80,37.1 80,55.4 76.5,58.9 73,55.4 73,37.1"/><rect class="on" x="88" y="57" width="7" height="7"/><polygon class="on" points="108.1,3.5 111.6,0 130.4,0 133.9,3.5 130.4,7 111.6,7"/><polygon class="on" points="108.1,32 111.6,28.5 130.4,28.5 133.9,32 130.4,35.5 111.6,35.5"/><polygon class="on" points="108.1,60.5 111.6,57 130.4,57 133.9,60.5 130.4,64 111.6,64"/><polygon class="on" points="106.5,5.1 110,8.6 110,26.9 106.5,30.4 103,26.9 103,8.6"/><polygon class="off" points="135.5,5.1 139,8.6 139,26.9 135.5,30.4 132,26.9 132,8.6"/><polygon class="on" points="106.5,33.6 110,37.1 110,55.4 106.5,58.9 103,55.4 103,37.1"/><polygon class="on" points="135.5,33.6 139,37.1 139,55.4 135.5,58.9 132,55.4 132,37.1"/></g></svg><span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
+      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px"><svg class="seg7 " viewBox="0 0 149 64" height="76" width="176.94" role="img" aria-label="42.6"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="3.9,32 6.5,29.4 29.5,29.4 32.1,32 29.5,34.6 6.5,34.6"/><polygon class="on" points="2.6,3.9 5.2,6.5 5.2,28.1 2.6,30.7 0,28.1 0,6.5"/><polygon class="on" points="33.4,3.9 36,6.5 36,28.1 33.4,30.7 30.8,28.1 30.8,6.5"/><polygon class="on" points="33.4,33.3 36,35.9 36,57.5 33.4,60.1 30.8,57.5 30.8,35.9"/><polygon class="on" points="47.9,2.6 50.5,0 73.5,0 76.1,2.6 73.5,5.2 50.5,5.2"/><polygon class="on" points="47.9,32 50.5,29.4 73.5,29.4 76.1,32 73.5,34.6 50.5,34.6"/><polygon class="on" points="47.9,61.4 50.5,58.8 73.5,58.8 76.1,61.4 73.5,64 50.5,64"/><polygon class="on" points="77.4,3.9 80,6.5 80,28.1 77.4,30.7 74.8,28.1 74.8,6.5"/><polygon class="on" points="46.6,33.3 49.2,35.9 49.2,57.5 46.6,60.1 44,57.5 44,35.9"/><rect class="on" x="88" y="57" width="7" height="7"/><polygon class="on" points="106.9,2.6 109.5,0 132.5,0 135.1,2.6 132.5,5.2 109.5,5.2"/><polygon class="on" points="106.9,32 109.5,29.4 132.5,29.4 135.1,32 132.5,34.6 109.5,34.6"/><polygon class="on" points="106.9,61.4 109.5,58.8 132.5,58.8 135.1,61.4 132.5,64 109.5,64"/><polygon class="on" points="105.6,3.9 108.2,6.5 108.2,28.1 105.6,30.7 103,28.1 103,6.5"/><polygon class="on" points="105.6,33.3 108.2,35.9 108.2,57.5 105.6,60.1 103,57.5 103,35.9"/><polygon class="on" points="136.4,33.3 139,35.9 139,57.5 136.4,60.1 133.8,57.5 133.8,35.9"/></g></svg><span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
         <div class="dayrow"><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>m</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>w</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>f</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>s</i></span><span><svg width="30" height="30" style="color:var(--coral)"><use href="#g-x-solid"/></svg><i>s</i></span></div></div>
       <div class="u-div hazard"></div>
       <section class="u-body">
@@ -608,18 +608,18 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div class="phone"><div class="scr tex">
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--ground-hi)">
-        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display wear" style="font-size:44px">AXIOM</span></div>
+        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display wear" style="font-size:54px">AXIOM</span></div>
         <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sg-fr" style="font-size:14px">lundi 16 novembre</span><span class="sg-num" style="font-size:14px">9:41</span></div>
         <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut wear" style="flex:1;height:56px"></div><svg width="58" height="58"><use href="#g-head"/></svg></div>
         <div class="yearspan sg-num" style="font-size:21px">20<i></i>26</div>
         <div style="display:grid;gap:3px">
-          <div class="sg-label" style="font-size:23px;font-weight:700;text-transform:uppercase">Signal engineering</div>
+          <div class="sg-wordmark" style="font-size:26px">Signal engineering</div>
           <div class="sg-jp sg-justify" style="font-size:22px">信号工学</div>
-          <div class="sg-label" style="font-size:23px;font-weight:700;text-transform:uppercase">Ingénierie du signal</div>
+          <div class="sg-wordmark" style="font-size:26px">Ingénierie du signal</div>
         </div>
         <svg class="wear" viewBox="0 0 300 230" style="width:84%;height:auto;align-self:center;margin-top:2px"><use href="#g-chevrons"/></svg>
         <div class="hazard wear"></div>
-        <div class="sg-label" style="font-size:15px;font-weight:700;text-transform:uppercase">Axiom signal systems</div>
+        <div class="sg-wordmark" style="font-size:15px">Axiom signal systems</div>
         <div><div class="barcode--v" style="height:30px;--bc:var(--ground-hi)"></div><div class="sg-mono" style="display:flex;justify-content:space-between;font-size:9px;margin-top:4px"><span>4</span><span>902609</span><span>260911</span><span>9</span></div></div>
       </div>
       <span class="cut" style="bottom:40px;left:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--ground-hi)"><use href="#g-plus"/></svg></span>
@@ -704,7 +704,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Interval</h3><div class="u-tag sg-jp-v">計時</div><div class="u-span"><span>round 3</span><i></i><span>of 8</span></div></header>
-      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px"><svg class="seg7 " viewBox="0 0 193 64" height="92" width="277.44" role="img" aria-label="02:47"><g transform="translate(9 0) skewX(-8)"><polygon class="on" points="5.1,3.5 8.6,0 27.4,0 30.9,3.5 27.4,7 8.6,7"/><polygon class="off" points="5.1,32 8.6,28.5 27.4,28.5 30.9,32 27.4,35.5 8.6,35.5"/><polygon class="on" points="5.1,60.5 8.6,57 27.4,57 30.9,60.5 27.4,64 8.6,64"/><polygon class="on" points="3.5,5.1 7,8.6 7,26.9 3.5,30.4 0,26.9 0,8.6"/><polygon class="on" points="32.5,5.1 36,8.6 36,26.9 32.5,30.4 29,26.9 29,8.6"/><polygon class="on" points="3.5,33.6 7,37.1 7,55.4 3.5,58.9 0,55.4 0,37.1"/><polygon class="on" points="32.5,33.6 36,37.1 36,55.4 32.5,58.9 29,55.4 29,37.1"/><polygon class="on" points="49.1,3.5 52.6,0 71.4,0 74.9,3.5 71.4,7 52.6,7"/><polygon class="on" points="49.1,32 52.6,28.5 71.4,28.5 74.9,32 71.4,35.5 52.6,35.5"/><polygon class="on" points="49.1,60.5 52.6,57 71.4,57 74.9,60.5 71.4,64 52.6,64"/><polygon class="off" points="47.5,5.1 51,8.6 51,26.9 47.5,30.4 44,26.9 44,8.6"/><polygon class="on" points="76.5,5.1 80,8.6 80,26.9 76.5,30.4 73,26.9 73,8.6"/><polygon class="on" points="47.5,33.6 51,37.1 51,55.4 47.5,58.9 44,55.4 44,37.1"/><polygon class="off" points="76.5,33.6 80,37.1 80,55.4 76.5,58.9 73,55.4 73,37.1"/><rect class="hot" x="88" y="17.9" width="7" height="7"/><rect class="hot" x="88" y="41.0" width="7" height="7"/><polygon class="off" points="108.1,3.5 111.6,0 130.4,0 133.9,3.5 130.4,7 111.6,7"/><polygon class="on" points="108.1,32 111.6,28.5 130.4,28.5 133.9,32 130.4,35.5 111.6,35.5"/><polygon class="off" points="108.1,60.5 111.6,57 130.4,57 133.9,60.5 130.4,64 111.6,64"/><polygon class="on" points="106.5,5.1 110,8.6 110,26.9 106.5,30.4 103,26.9 103,8.6"/><polygon class="on" points="135.5,5.1 139,8.6 139,26.9 135.5,30.4 132,26.9 132,8.6"/><polygon class="off" points="106.5,33.6 110,37.1 110,55.4 106.5,58.9 103,55.4 103,37.1"/><polygon class="on" points="135.5,33.6 139,37.1 139,55.4 135.5,58.9 132,55.4 132,37.1"/><polygon class="on" points="152.1,3.5 155.6,0 174.4,0 177.9,3.5 174.4,7 155.6,7"/><polygon class="off" points="152.1,32 155.6,28.5 174.4,28.5 177.9,32 174.4,35.5 155.6,35.5"/><polygon class="off" points="152.1,60.5 155.6,57 174.4,57 177.9,60.5 174.4,64 155.6,64"/><polygon class="off" points="150.5,5.1 154,8.6 154,26.9 150.5,30.4 147,26.9 147,8.6"/><polygon class="on" points="179.5,5.1 183,8.6 183,26.9 179.5,30.4 176,26.9 176,8.6"/><polygon class="off" points="150.5,33.6 154,37.1 154,55.4 150.5,58.9 147,55.4 147,37.1"/><polygon class="on" points="179.5,33.6 183,37.1 183,55.4 179.5,58.9 176,55.4 176,37.1"/></g></svg><div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
+      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px"><svg class="seg7 " viewBox="0 0 193 64" height="92" width="277.44" role="img" aria-label="02:47"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="3.9,2.6 6.5,0 29.5,0 32.1,2.6 29.5,5.2 6.5,5.2"/><polygon class="on" points="3.9,61.4 6.5,58.8 29.5,58.8 32.1,61.4 29.5,64 6.5,64"/><polygon class="on" points="2.6,3.9 5.2,6.5 5.2,28.1 2.6,30.7 0,28.1 0,6.5"/><polygon class="on" points="33.4,3.9 36,6.5 36,28.1 33.4,30.7 30.8,28.1 30.8,6.5"/><polygon class="on" points="2.6,33.3 5.2,35.9 5.2,57.5 2.6,60.1 0,57.5 0,35.9"/><polygon class="on" points="33.4,33.3 36,35.9 36,57.5 33.4,60.1 30.8,57.5 30.8,35.9"/><polygon class="on" points="47.9,2.6 50.5,0 73.5,0 76.1,2.6 73.5,5.2 50.5,5.2"/><polygon class="on" points="47.9,32 50.5,29.4 73.5,29.4 76.1,32 73.5,34.6 50.5,34.6"/><polygon class="on" points="47.9,61.4 50.5,58.8 73.5,58.8 76.1,61.4 73.5,64 50.5,64"/><polygon class="on" points="77.4,3.9 80,6.5 80,28.1 77.4,30.7 74.8,28.1 74.8,6.5"/><polygon class="on" points="46.6,33.3 49.2,35.9 49.2,57.5 46.6,60.1 44,57.5 44,35.9"/><rect class="hot" x="88" y="17.9" width="7" height="7"/><rect class="hot" x="88" y="41.0" width="7" height="7"/><polygon class="on" points="106.9,32 109.5,29.4 132.5,29.4 135.1,32 132.5,34.6 109.5,34.6"/><polygon class="on" points="105.6,3.9 108.2,6.5 108.2,28.1 105.6,30.7 103,28.1 103,6.5"/><polygon class="on" points="136.4,3.9 139,6.5 139,28.1 136.4,30.7 133.8,28.1 133.8,6.5"/><polygon class="on" points="136.4,33.3 139,35.9 139,57.5 136.4,60.1 133.8,57.5 133.8,35.9"/><polygon class="on" points="150.9,2.6 153.5,0 176.5,0 179.1,2.6 176.5,5.2 153.5,5.2"/><polygon class="on" points="180.4,3.9 183,6.5 183,28.1 180.4,30.7 177.8,28.1 177.8,6.5"/><polygon class="on" points="180.4,33.3 183,35.9 183,57.5 180.4,60.1 177.8,57.5 177.8,35.9"/></g></svg><div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
       <div class="u-div hazard"></div>
       <section class="u-body u-body--end" style="gap:16px">
         <div><div class="u-label" style="margin-bottom:10px"><span>Rounds</span><span>3 / 8</span></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="hot"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
@@ -831,17 +831,17 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="swatches"><!--@SWATCHES--></div>
     </div>
     <div style="grid-column:1/-1">
-      <h3><span>type scale</span><span>Tektur · Kode Mono · Big Shoulders Stencil · Chakra Petch · DotGothic16 (OFL)</span></h3>
+      <h3><span>type scale</span><span>Big Shoulders · Barlow · IBM Plex Mono · BIZ UDGothic (OFL)</span></h3>
       <div class="typescale">
-        <div><span class="sg-mono">display 44 · tektur 900</span><span class="sg-display" style="font-size:44px">Axiom</span></div>
-        <div><span class="sg-mono">title 26 · chakra petch 700</span><span class="sg-wordmark" style="font-size:26px">Night transit</span></div>
-        <div><span class="sg-mono">number 40 · chakra petch 700</span><span class="sg-num" style="font-size:40px">€8,214.60</span></div>
-        <div><span class="sg-mono">label 13 · tektur cond 600</span><span class="sg-cap" style="font-size:13px">Future engineering · time in zone</span></div>
-        <div><span class="sg-mono">body 15 · tektur 500</span><span class="sg-label" style="font-size:15px">Kill switch pauses traffic if the tunnel drops.</span></div>
-        <div><span class="sg-mono">mono 11 · kode mono</span><span class="sg-mono" style="font-size:11px">COMSEC MONITORING · NETWORK OPERATIONS · SP C53</span></div>
-        <div><span class="sg-mono">aside · chakra petch italic</span><span class="sg-fr" style="font-size:15px">ingénierie du signal</span></div>
+        <div><span class="sg-mono">display 44 · big shoulders 800</span><span class="sg-display" style="font-size:44px">Axiom</span></div>
+        <div><span class="sg-mono">title 26 · barlow cond 700</span><span class="sg-wordmark" style="font-size:26px">Night transit</span></div>
+        <div><span class="sg-mono">number 40 · barlow cond 700</span><span class="sg-num" style="font-size:40px">€8,214.60</span></div>
+        <div><span class="sg-mono">label 13 · barlow cond 600</span><span class="sg-cap" style="font-size:13px">Future engineering · time in zone</span></div>
+        <div><span class="sg-mono">body 15 · barlow 500</span><span class="sg-label" style="font-size:15px">Kill switch pauses traffic if the tunnel drops.</span></div>
+        <div><span class="sg-mono">mono 11 · ibm plex mono</span><span class="sg-mono" style="font-size:11px">COMSEC MONITORING · NETWORK OPERATIONS · SP C53</span></div>
+        <div><span class="sg-mono">aside · barlow italic</span><span class="sg-fr" style="font-size:15px">ingénierie du signal</span></div>
         <div><span class="sg-mono">stencil · big shoulders</span><span class="sg-stencil" style="font-size:34px">Unit 09</span></div>
-        <div><span class="sg-mono">kanji · dotgothic16</span><span class="sg-jp" style="font-size:22px">信号工学 · 保護中</span></div>
+        <div><span class="sg-mono">kanji · biz udgothic</span><span class="sg-jp" style="font-size:22px">信号工学 · 保護中</span></div>
         <div><span class="sg-mono">readout · seven-segment</span><span><!--@SEG7|08:14|40|2--></span></div>
       </div>
     </div>
@@ -852,7 +852,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 <section class="sec">
   <div class="sec-h"><span class="sg-num">05</span><h2 class="sg-display">Instruments</h2><span class="sg-mono">useful, decorative parts extrapolated from the system · every one is live</span></div>
   <div class="insts">
-    <div class="inst inst--wide"><h3><span>Seven-segment readout</span><span>seg7() · SGSegDisplay</span></h3><p>Big numerals for timers, speed, balances and counters. Unlit segments ghost in ground-3, and any digit can light coral.</p>
+    <div class="inst inst--wide"><h3><span>Seven-segment readout</span><span>seg7() · SGSegDisplay</span></h3><p>Big numerals for timers, speed, balances and counters, in thin slanted segments. Any digit can light coral.</p>
       <div class="demo" style="gap:28px;flex-wrap:wrap"><!--@SEG7|02:47|56|2--><!--@SEG7|42.6|56|--><!--@SEG7|-18|56|0--></div></div>
     <div class="inst"><h3><span>Cell meter</span><span>.cells · SGCellMeter</span></h3><p>Slanted cells for levels: battery, signal, data caps, rounds and intensity. The last cell can run hot.</p>
       <div class="demo" style="display:grid;gap:12px"><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i><i></i></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
@@ -864,11 +864,11 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="demo" style="display:block"><div class="itabs" id="k-itabs"><button type="button" aria-pressed="true">Week</button><button type="button">Month</button><button type="button">Year</button></div></div></div>
     <div class="inst"><h3><span>Caution tag</span><span>.caution · SGCaution</span></h3><p>A notice framed in coral and ink hazard stripes, for inline warnings that shouldn't interrupt.</p>
       <div class="demo" style="display:block"><div class="caution"><div><svg><use href="#g-warn"/></svg><b>Firmware 4.2.1</b><p>REBOOT REQUIRED. TUNNEL PAUSES FOR 40 S.</p></div></div></div></div>
-    <div class="inst"><h3><span>Rubber stamp</span><span>.stamp · SGStamp</span></h3><p>Stencil caps in a double frame, worn and off-axis. For verified, paid, sealed and void states.</p>
-      <div class="demo" style="gap:22px"><span class="stamp">Verified</span><span class="stamp" style="--st:var(--ground-hi);transform:rotate(5deg)">Sealed</span><span class="stamp" style="transform:rotate(-3deg)">Void</span></div></div>
+    <div class="inst"><h3><span>Rubber stamp</span><span>.stamp · SGStamp</span></h3><p>An inspection stamp: stencil caps in a single frame, worn and barely off-axis. For verified, paid, sealed and void states.</p>
+      <div class="demo" style="gap:22px"><span class="stamp">Verified</span><span class="stamp" style="--st:var(--ground-hi);transform:rotate(-1deg)">Sealed</span><span class="stamp" style="transform:rotate(1deg)">Void</span></div></div>
     <div class="inst"><h3><span>Ticket stub</span><span>.ticket · SGTicket</span></h3><p>A plate with square notches and a perforation: boarding passes, receipts, plans, invites.</p>
       <div class="demo" style="display:block"><div class="ticket"><div><div class="sg-cap" style="font-size:11px">Transfer · LIS → OPO</div><div class="sg-num" style="font-size:24px;margin-top:6px">€240.00</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div></div></div></div>
-    <div class="inst"><h3><span>Keycap</span><span>.keycap · SGKeycapStyle</span></h3><p>A physical push button: top plate over a shadow plate, with an LED. For the one action that should feel mechanical. Press it.</p>
+    <div class="inst"><h3><span>Keycap</span><span>.keycap · SGKeycapStyle</span></h3><p>A machine push button: a cut plate over a shallow shadow plate, with an indicator square. For the one action that should feel mechanical. Press it.</p>
       <div class="demo" style="display:block"><button class="keycap" type="button"><span>Engage</span><small>HOLD 1 S</small><i class="led"></i></button></div></div>
     <div class="inst"><h3><span>Rocker switch</span><span>.rocker · SGRockerStyle</span></h3><p>An I / O rocker for hardware-grade on/off states such as kill switch, maintenance mode or airplane mode.</p>
       <div class="demo" style="gap:16px"><input class="rocker" type="checkbox" id="k-r1" checked aria-label="Rocker on"><input class="rocker" type="checkbox" id="k-r2" aria-label="Rocker off"><span class="sg-mono u-dim">I = ON · O = OFF</span></div></div>
@@ -888,7 +888,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="demo" style="display:block"><div class="chamfer brackets" style="--c:10px;padding:10px 12px"><svg viewBox="0 0 240 60" style="width:100%;height:52px;color:var(--ground-hi)"><use href="#g-wave"/></svg></div></div></div>
     <div class="inst"><h3><span>Status lamps</span><span>.lamps · SGLamps</span></h3><p>A row of square indicators for system state at a glance: power, link, encryption, fault. A fault lamp blinks coral.</p>
       <div class="demo" style="display:block"><div class="lamps"><span class="lamp on">PWR</span><span class="lamp on">Link</span><span class="lamp on">Enc</span><span class="lamp">Sync</span><span class="lamp hot">Fault</span></div></div></div>
-    <div class="inst"><h3><span>Stencil serial</span><span>.sg-stencil</span></h3><p>Big Shoulders Stencil for unit numbers, serials and stamped labels. Use it like spray paint on equipment, once per screen.</p>
+    <div class="inst"><h3><span>Stencil serial</span><span>.sg-stencil</span></h3><p>The stencil cut of the display face, for unit numbers, serials and stamped labels. Use it like spray paint on equipment, once per screen.</p>
       <div class="demo" style="gap:18px;align-items:baseline;color:var(--ground-hi)"><span class="sg-stencil" style="font-size:56px">09</span><span class="sg-stencil" style="font-size:28px">Unit AX-04</span></div></div>
   </div>
 </section>

@@ -5,10 +5,10 @@ import SwiftUI
 // and tokens/lexicon.json for the phrase list.
 
 public extension SGFont {
-    /// Japanese in DotGothic16 (dot matrix, bundled). `bold` is kept for API compatibility.
-    static func jp(_ size: CGFloat, bold: Bool = true) -> Font { .custom("DotGothic16-Regular", size: size) }
-    /// French asides: Chakra Petch Medium Italic (bundled), angular.
-    static func fr(_ size: CGFloat) -> Font { .custom("ChakraPetch-MediumItalic", size: size) }
+    /// Japanese signage gothic. Hiragino Sans ships with iOS (the web uses BIZ UDGothic).
+    static func jp(_ size: CGFloat, bold: Bool = true) -> Font { .custom(bold ? "HiraginoSans-W6" : "HiraginoSans-W3", size: size) }
+    /// French asides: Barlow Medium Italic (bundled).
+    static func fr(_ size: CGFloat) -> Font { .custom("Barlow-MediumItalic", size: size) }
 }
 
 public extension View {
@@ -48,7 +48,7 @@ public struct Hanko: View {
             .foregroundStyle(color)
             .frame(width: size, height: size)
             .overlay(Rectangle().strokeBorder(color, lineWidth: 2.5))
-            .rotationEffect(.degrees(-4))
+            .rotationEffect(.degrees(-2))
     }
 }
 
@@ -62,19 +62,19 @@ public struct HazardBar: View {
         Canvas { ctx, size in
             ctx.fill(Path(CGRect(x: 0, y: 0, width: size.width, height: 1.5)), with: .color(color))
             ctx.fill(Path(CGRect(x: 0, y: size.height - 1.5, width: size.width, height: 1.5)), with: .color(color))
-            let top: CGFloat = 5.5, h = size.height - 11
+            let top: CGFloat = 4.5, h = size.height - 9
             var inner = ctx
             inner.clip(to: Path(CGRect(x: 0, y: top, width: size.width, height: h)))
             var x: CGFloat = -h
             while x < size.width + h {
                 var p = Path()
-                p.move(to: CGPoint(x: x, y: top + h)); p.addLine(to: CGPoint(x: x + 15.5, y: top + h))
-                p.addLine(to: CGPoint(x: x + 15.5 + h, y: top)); p.addLine(to: CGPoint(x: x + h, y: top)); p.closeSubpath()
+                p.move(to: CGPoint(x: x, y: top + h)); p.addLine(to: CGPoint(x: x + 8.5, y: top + h))
+                p.addLine(to: CGPoint(x: x + 8.5 + h, y: top)); p.addLine(to: CGPoint(x: x + h, y: top)); p.closeSubpath()
                 inner.fill(p, with: .color(color))
-                x += 31
+                x += 17
             }
         }
-        .frame(height: 26)
+        .frame(height: 18)
         .accessibilityHidden(true)
     }
 }

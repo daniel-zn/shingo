@@ -6,9 +6,9 @@ import SwiftUI
 // MARK: - Hard X (two crossed bars with square-cut ends)
 
 public struct SGHardX: Shape {
-    public var halfWidth: CGFloat = 12.5
-    public var armLength: CGFloat = 33
-    public init(halfWidth: CGFloat = 12.5, armLength: CGFloat = 33) {
+    public var halfWidth: CGFloat = 9.5
+    public var armLength: CGFloat = 34
+    public init(halfWidth: CGFloat = 9.5, armLength: CGFloat = 34) {
         self.halfWidth = halfWidth; self.armLength = armLength
     }
     public func path(in rect: CGRect) -> Path {
