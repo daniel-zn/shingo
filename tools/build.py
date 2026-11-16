@@ -246,6 +246,108 @@ fan.append(f'<path d="M50 44 L58 92 L53 92 L50 62 L47 92 L42 92Z" fill="{C["ink"
 G["radar-fan"] = ("0 0 100 100", "".join(fan))
 
 
+# ---------------------------------------------------------------- backdrops
+# Large compositions behind screens, built only from the shape alphabet and
+# the one "/" diagonal. Tonal (ground-2 / ground-3) so content stays legible;
+# at most one small coral element. 390 x 844, bleeding off the edges.
+def _chamf(cx, cy, hw, hh, c):
+    return (f"{f(cx-hw+c)},{f(cy-hh)} {f(cx+hw)},{f(cy-hh)} {f(cx+hw)},{f(cy+hh-c)} "
+            f"{f(cx+hw-c)},{f(cy+hh)} {f(cx-hw)},{f(cy+hh)} {f(cx-hw)},{f(cy-hh+c)}")
+
+
+def _bg_tunnel(cx=150, cy=228):
+    # clipped to the hero window so the masthead and body stay clean
+    o = ['<clipPath id="bgt"><rect x="0" y="118" width="390" height="214"/></clipPath><g clip-path="url(#bgt)">',
+         f'<path d="M{cx-520} {cy+520} L{cx+520} {cy-520}" stroke="var(--ground-3)" stroke-width="1" stroke-dasharray="2 6"/>']
+    for i, h in enumerate(range(18, 330, 18)):
+        col = "var(--ground-hi)" if i < 3 else "var(--ground-3)"
+        op = ' opacity=".55"' if i < 3 else ""
+        o.append(f'<polygon points="{_chamf(cx, cy, h * 1.18, h * .78, h * .3)}" fill="none" stroke="{col}" stroke-width="1.5"{op}/>')
+    o.append(f'<polygon points="{_chamf(cx, cy, 11, 7, 3)}" fill="var(--coral)"/></g>')
+    return "".join(o)
+
+
+def _bg_slashes():
+    o = []
+    for k in range(10):
+        x = -150 + k * 64
+        w = 22
+        col = "var(--ground-2)"
+        o.append(f'<polygon points="{x},560 {x+w},560 {x+w+560},0 {x+560},0" fill="{col}"/>')
+    return "".join(o)
+
+
+def _bg_stack(x, y, w, h, c=24, n=3, step=14):
+    o = []
+    for k in range(n, 0, -1):
+        dx, dy = k * step, -k * step
+        col = "var(--ground-2)" if k == n else "var(--ground-3)"
+        o.append(f'<polygon points="{_chamf(x+dx+w/2, y+dy+h/2, w/2, h/2, c)}" fill="none" stroke="{col}" stroke-width="1.5"/>')
+    return "".join(o)
+
+
+def _bg_diamonds():
+    o = []
+    for i, (cx, cy) in enumerate([(20, 560), (150, 430), (280, 300), (410, 170), (540, 40)]):
+        s = 96
+        pts = f"{cx},{cy-s} {cx+s},{cy} {cx},{cy+s} {cx-s},{cy}"
+        o.append(f'<polygon points="{pts}" fill="{"var(--ground-2)" if i == 2 else "none"}" stroke="var(--ground-3)" stroke-width="1.5"/>')
+    return "".join(o)
+
+
+def _bg_lattice():
+    o = []
+    for r in range(12):
+        for c in range(6):
+            x, y = c * 78 + (39 if r % 2 else 0) - 20, r * 78 - 10
+            col = "var(--coral)" if (r, c) == (3, 4) else "var(--ground-2)"
+            o.append(f'<path transform="translate({x} {y}) scale(.56)" d="{XS}" fill="none" stroke="{col}" stroke-width="3"/>')
+    return "".join(o)
+
+
+def _bg_bars():
+    o = []
+    for i in range(20):
+        h = 60 + 150 * abs(math.sin(i * 0.61) * math.cos(i * 0.23 + .4))
+        o.append(f'<rect x="{i*20}" y="{f(844-h)}" width="13" height="{f(h)}" fill="var(--ground-2)"/>')
+    return "".join(o)
+
+
+def _bg_notch():
+    return ('<polygon points="40,232 430,232 430,900 40,900" fill="none" stroke="var(--ground-3)" stroke-width="1.5"/>'
+            '<polygon points="58,250 430,250 430,900 58,900" fill="none" stroke="var(--ground-2)" stroke-width="1.5"/>'
+            '<polygon points="40,204 230,204 202,232 40,232" fill="var(--ground-2)"/>'
+            '<path d="M240 218 H430" stroke="var(--ground-3)" stroke-width="1.5"/>')
+
+
+def _bg_wedge():
+    grid = "".join(f'<path d="M{x} 0 V300" stroke="var(--ground-2)" stroke-width="1"/>' for x in range(96, 391, 12))
+    grid += "".join(f'<path d="M90 {y} H390" stroke="var(--ground-2)" stroke-width="1"/>' for y in range(0, 301, 12))
+    return (f'<clipPath id="bgw"><polygon points="390,0 390,300 90,300"/></clipPath><g clip-path="url(#bgw)">{grid}</g>'
+            '<path d="M60 330 L420 -30" stroke="var(--ground-hi)" stroke-width="1.5" opacity=".5"/>'
+            '<polygon points="390,0 390,300 90,300" fill="none" stroke="var(--ground-3)" stroke-width="1.5"/>')
+
+
+def _bg_ticks():
+    o = []
+    for side in (0, 1):
+        for i, y in enumerate(range(130, 844, 8)):
+            L = 18 if i % 5 == 0 else 8
+            x0 = 0 if side == 0 else 390 - L
+            col = "var(--ground-3)" if i % 5 else "var(--ground-dim)"
+            o.append(f'<rect x="{x0}" y="{y}" width="{L}" height="1.5" fill="{col}"/>')
+    o.append('<rect x="0" y="434" width="22" height="3" fill="var(--coral)"/>')
+    return "".join(o)
+
+
+BACKDROPS = {"tunnel": _bg_tunnel(), "slashes": _bg_slashes(), "stack-card": _bg_stack(24, 132, 342, 170),
+             "stack-badge": _bg_stack(24, 128, 342, 300, 30), "plates": _bg_stack(170, 40, 240, 150, 20, 4, 16),
+             "diamonds": _bg_diamonds(), "lattice": _bg_lattice(), "bars": _bg_bars(), "notch": _bg_notch(),
+             "wedge": _bg_wedge(), "ticks": _bg_ticks()}
+for _k, _v in BACKDROPS.items():
+    G["bg-" + _k] = ("0 0 390 844", _v)
+
+
 def sprite():
     out = ['<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>']
     for k, (vb, inner) in G.items():
@@ -258,6 +360,8 @@ def export_glyphs():
     d = ROOT / "assets" / "svg"
     d.mkdir(parents=True, exist_ok=True)
     for k, (vb, inner) in G.items():
+        if k.startswith("bg-"):
+            continue
         w, h = vb.split()[2:]
         body = inner.replace("currentColor", "var(--ink)")
         svg = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vb}" width="{w}" height="{h}">{body}</svg>\n'

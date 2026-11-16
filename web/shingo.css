@@ -301,7 +301,8 @@
 /* notched frame: a hairline frame with its label tab cut into the corner,
    like the title block of an engineering drawing */
 .nframe { position: relative; padding: 30px 14px 14px; }
-.nframe::before { content: ""; position: absolute; inset: 10px 0 0; border: var(--hair) solid var(--ground-3); border-top-color: var(--ground-hi); pointer-events: none; }
+.nframe { isolation: isolate; }
+.nframe::before { content: ""; position: absolute; inset: 10px 0 0; z-index: -1; background: var(--ground); border: var(--hair) solid var(--ground-3); border-top-color: var(--ground-hi); pointer-events: none; }
 .nframe > b:first-child { position: absolute; top: 0; left: 0; padding: 4px 16px 4px 8px; background: var(--ground-hi); color: var(--ground);
   font: 600 expanded 10px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
 
@@ -407,3 +408,16 @@
 .lamp.hot { color: var(--coral); } .lamp.hot::before { background: var(--coral); animation: sg-blink 1.2s steps(1) infinite; }
 
 @media (prefers-reduced-motion: reduce) { .ticker > span, .caret, .hazard--run, .lamp.hot::before { animation: none; } }
+
+/* ================================================== backdrops and dividers
+   Each utility screen sits on one large composition from the shape alphabet
+   (tunnel, slashes, plate stack, diamonds, lattice, bars, notch, wedge, ticks),
+   tonal so content stays legible. Dividers vary by screen kind:
+   hazard = system and safety, ticks = data, slash run = money and content. */
+.sg-bg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.div-ticks { height: 14px; border-top: var(--hair) solid var(--ground-hi);
+  background: linear-gradient(90deg, var(--ground-hi) 0 1.5px, transparent 1.5px) 0 0 / 10% 12px repeat-x,
+              linear-gradient(90deg, var(--ground-dim) 0 1px, transparent 1px) 0 0 / 2% 6px repeat-x; }
+.div-slash { height: 10px; background: repeating-linear-gradient(-45deg, var(--ground-hi) 0 2px, transparent 2px 6px);
+  -webkit-mask: linear-gradient(90deg, #000 0 26px, transparent 26px 38px) 0 0 / 38px 100% repeat-x;
+          mask: linear-gradient(90deg, #000 0 26px, transparent 26px 38px) 0 0 / 38px 100% repeat-x; }

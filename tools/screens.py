@@ -97,9 +97,9 @@ S['B'] = fig('B', 'Passcode', 'Entry indicators are hard X marks, with coral for
       </section>'''))
 
 # ---------------------------------------------------------------- C dashboard
-S['C'] = fig('C', 'Dashboard', 'Status as the title and uptime as the hero bar. The body prints frames, toggles and one action. 保護中 means protected.', utility(f'''
+S['C'] = fig('C', 'Dashboard', 'Status as the title. The hero is the tunnel backdrop, cut plates receding to a coral core, with uptime set large. 保護中 means protected.', utility(f'''
       {mast('Protected', 'since 08:14', 'lis-04', jp('保護中'))}
-      <div class="u-hero" style="display:flex;align-items:center;justify-content:space-between">{BAR(100, 82, style='width:270px')}<div class="t-right" style="padding-right:24px"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Uptime</div><div class="sg-num" style="font-size:28px;color:var(--ground-hi);margin-top:4px">82%</div></div></div>
+      <div class="u-hero u-hero--pad" style="height:212px;box-sizing:border-box;display:flex;align-items:flex-end;justify-content:flex-end"><div class="t-right"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Tunnel uptime</div><div class="sg-display" style="font-size:52px;color:var(--ground-hi);margin-top:6px">82%</div></div></div>
       {DIV}
       <section class="u-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
@@ -234,7 +234,7 @@ S['J'] = fig('J', 'ID credential', 'The badge is the hero plate, with the line-a
 S['K'] = fig('K', 'Alert sheet', 'Interruptions get the only large coral surface: a sheet with a 45° cut corner and a hazard strip. Nothing else competes.', f'''<div class="phone"><div class="scr u tex">
       {SB}
       {mast('Protected', 'since 08:14', 'lis-04', jp('保護中'))}
-      <div class="u-hero">{BAR(100, 30, style='width:270px')}</div>
+      <div class="u-hero u-hero--pad" style="height:212px;box-sizing:border-box;display:flex;align-items:flex-end;justify-content:flex-end"><div class="t-right"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Tunnel uptime</div><div class="sg-display" style="font-size:52px;color:var(--ground-hi);margin-top:6px">82%</div></div></div>
       {DIV}
       <section class="u-body"></section>
       <i class="dim" style="position:absolute;inset:0;z-index:5"></i>
@@ -389,6 +389,15 @@ for k, ref in FOOT.items():
     foot = f'<div class="u-foot"><div><b>Axiom signal systems</b><span>{ref}</span></div><i class="barcode--v"></i></div>\n      </section>'
     i = S[k].index('</section>')
     S[k] = S[k][:i] + foot + S[k][i + len('</section>'):]
+
+BACKDROP = {'B': 'lattice', 'C': 'tunnel', 'D': 'slashes', 'E': 'stack-card', 'F': 'bars', 'G': 'diamonds', 'H': 'plates',
+            'I': 'notch', 'J': 'stack-badge', 'K': 'tunnel', 'O': 'wedge', 'Q': 'wedge', 'R': 'ticks', 'S': 'slashes'}
+DIVIDER = {'C': 'div-ticks', 'D': 'div-ticks', 'F': 'div-ticks', 'G': 'div-ticks', 'R': 'div-ticks',
+           'E': 'div-slash', 'H': 'div-slash', 'J': 'div-slash', 'O': 'div-slash', 'P': 'div-slash', 'S': 'div-slash'}
+for k, name in BACKDROP.items():
+    S[k] = S[k].replace('<div class="phone"><div class="scr u tex">', f'<div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-{name}"/></svg>', 1)
+for k, cls in DIVIDER.items():
+    S[k] = S[k].replace('<div class="u-div hazard"', f'<div class="u-div {cls}"')
 
 ORDER = 'T A B C D E F G H I J K L M N O P Q R S'.split()
 grid = '\n'.join(S[k] for k in ORDER)

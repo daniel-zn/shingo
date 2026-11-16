@@ -50,20 +50,22 @@ public struct SGUtilityScreen<Hero: View, Content: View>: View {
     let tag: SGHeaderTag
     let hero: Hero
     let content: Content
+    let backdrop: SGBackdropKind?
 
     /// Span texts are `Text` so a French aside can be mixed in:
     /// `Text("journal de course").font(SGFont.fr(12))`
     public init(_ title: String, code: String = "AX·09",
-                span: (Text, Text), tag: SGHeaderTag = .none,
+                span: (Text, Text), tag: SGHeaderTag = .none, backdrop: SGBackdropKind? = nil,
                 @ViewBuilder hero: () -> Hero, @ViewBuilder content: () -> Content) {
         self.title = title; self.code = code
         self.spanLeading = span.0; self.spanTrailing = span.1
-        self.tag = tag; self.hero = hero(); self.content = content()
+        self.tag = tag; self.backdrop = backdrop; self.hero = hero(); self.content = content()
     }
 
     public var body: some View {
         ZStack {
             StripeField().ignoresSafeArea()
+            if let b = backdrop { SGBackdrop(b).ignoresSafeArea() }
             VStack(spacing: 0) {
                 masthead
                 hero.padding(.top, 20).padding(.bottom, 18)

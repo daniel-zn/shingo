@@ -77,16 +77,14 @@ public struct DashboardExample: View {
     public var body: some View {
         SGUtilityScreen("Protected",
                         span: (Text("since 08:14"), Text("lis-04")),
-                        tag: .japanese("保護中")) {
-            HStack {
-                SGBar(height: 100, bleed: .leading, progress: 0.82).frame(width: 270)
-                Spacer()
-                VStack(alignment: .trailing, spacing: 4) {
-                    Text("Uptime").sgCap(11).foregroundStyle(SG.groundDim)
-                    Text("82%").sgNumber(28).foregroundStyle(SG.groundHi)
-                }
-                .padding(.trailing, SG.gutter)
+                        tag: .japanese("保護中"), backdrop: .tunnel) {
+            // the tunnel backdrop is the hero; uptime is set large beside it
+            VStack(alignment: .trailing, spacing: 6) {
+                Text("Tunnel uptime").sgCap(11).foregroundStyle(SG.groundDim)
+                Text("82%").sgWordmark(52).foregroundStyle(SG.groundHi)
             }
+            .frame(maxWidth: .infinity, minHeight: 172, alignment: .bottomTrailing)
+            .padding(.horizontal, SG.gutter)
         } content: {
             HStack(spacing: 12) {
                 SGNotchFrame("Threats") { SGSegDisplay("1284", height: 30) }
@@ -135,7 +133,7 @@ public struct IntervalExample: View {
     @State private var intensity = 0.7
     public init() {}
     public var body: some View {
-        SGUtilityScreen("Interval", span: (Text("round 3"), Text("of 8")), tag: .japanese("計時")) {
+        SGUtilityScreen("Interval", span: (Text("round 3"), Text("of 8")), tag: .japanese("計時"), backdrop: .ticks) {
             VStack(spacing: 10) {
                 SGSegDisplay("02:47", height: 92, hot: [2])
                 Text("Work 45 s · rest 15 s · next: rest").sgMono(11).foregroundStyle(SG.groundDim)

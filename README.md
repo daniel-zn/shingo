@@ -21,6 +21,8 @@ The look is sci-fi industrial, after a trilingual technical print, in the sage, 
 
 8. **Shape alphabet.** Twelve primitives, all on one angle: cut plate, tag, nested bar, slash, hazard, notch frame, hard X, diamond, chevrons, brackets, cell run and wedge. Icons are one family on a 24-unit grid with a 2-unit stroke, square caps and miter joins (`i-*` glyphs, `SGIcon`).
 
+9. **Backdrops.** Each utility screen sits on one large composition built from the alphabet: tunnel, slash field, plate stack, diamond walk, X lattice, spectrum floor, notch, blueprint wedge or edge rulers. They're tonal, so content stays legible. The divider varies by screen kind: hazard stripes for system and safety screens, a tick ruler for data, a slash run for money and content. (`.sg-bg` + `bg-*` symbols, `SGBackdrop`, `SGUtilityScreen(backdrop:)`)
+
 | dashboard | interval timer | transfer | device |
 |---|---|---|---|
 | ![](docs/dark/screen-c.png) | ![](docs/dark/screen-r.png) | ![](docs/dark/screen-s.png) | ![](docs/light/screen-q.png) |
@@ -59,6 +61,7 @@ ios/                          Swift package "ShingoKit" (iOS 17+), all colours d
   Sources/ShingoKit/SGShapes.swift      SGHardX, DiamondMark, ChamferRect, TagCut, Brackets, UnitPolygon, SignalBars
   Sources/ShingoKit/SGTextures.swift    StripeField, Barcode, Spectrum, Scope
   Sources/ShingoKit/SGComponents.swift  SGBar, SGButtonStyle, SGToggleStyle, SGSegmented, SGChip, SGSlot, SGGroupLabel, SGTabBar
+  Sources/ShingoKit/SGBackdrop.swift     SGBackdrop: the eleven backdrop compositions
   Sources/ShingoKit/SGScreen.swift      SGUtilityScreen, SGCode: the screen grammar
   Sources/ShingoKit/SGInstruments.swift  SGSegDisplay, SGCellMeter, SGRuler, SGSteps, SGIndexTabs, SGCaution, SGStamp, SGTicket, SGKeycapStyle, SGRockerStyle, SGDataPlate, SGSpecRow, SGMatrixCode, .printMarks(), SGColorBar, SGTicker, SGBootLog, SGLamps, SGBlueprint, SGCallout, SGWave
   Sources/ShingoKit/SGLanguage.swift    VerticalText, Hanko, HazardBar, ChevronStack, HeadProfile, YearSpan, ManifestoExample
