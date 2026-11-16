@@ -1,0 +1,176 @@
+/* ==========================================================================
+   SHINGŌ 信号 — web reference implementation
+   Layout concept: a striped "ground", lighter sage slabs cut by one coral
+   diagonal, nested stadium pills as the hero form, mono telemetry text
+   right-aligned in the margins.
+
+   Two modes, same layering:
+     dark  = ink stripe ground, sage slabs          (the original poster)
+     light = sage stripe ground, paper slabs        (never white)
+   Ink stays ink in both (buttons, slots, solid X, tab bar) and coral stays coral.
+
+   Token roles
+     --ground*      striped background and what sits directly on it
+     --on-ground    text on the ground;  --ground-hi  titles/art on the ground
+     --sage*        slabs, pills, tiles (the lighter layer)
+     --ink          text on slabs + solid objects (both modes)
+     --coral*       the only accent
+   Force a mode on any subtree with .mode-light / .mode-dark.
+   Mirrors tokens/tokens.json and ios/Sources/ShingoKit/SGTheme.swift
+   ========================================================================== */
+
+:root, .mode-dark {
+  --ground: #0c0c0a;  --ground-2: #1f201b;  --ground-3: #2b2c26;
+  --on-ground: #d9dbd3;  --ground-hi: #c3c6bd;
+  --sage: #b8bbb0;  --sage-hi: #c3c6bd;  --sage-lo: #a9aca1;  --sage-line: #8e9089;  --sage-ghost: #cdd0c7;
+  --ink: #0c0c0a;  --coral: #ff715e;  --coral-deep: #e65b48;
+  color-scheme: dark;
+}
+.mode-light {
+  --ground: #bcbfb4;  --ground-2: #adb0a5;  --ground-3: #a1a499;
+  --on-ground: #1c1d19;  --ground-hi: #0f100d;
+  --sage: #e3e5dd;  --sage-hi: #f0f1ec;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
+  --ink: #10110e;  --coral: #ff715e;  --coral-deep: #e65b48;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --ground: #bcbfb4;  --ground-2: #adb0a5;  --ground-3: #a1a499;
+    --on-ground: #1c1d19;  --ground-hi: #0f100d;
+    --sage: #e3e5dd;  --sage-hi: #f0f1ec;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
+    --ink: #10110e;  color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --ground: #bcbfb4;  --ground-2: #adb0a5;  --ground-3: #a1a499;
+  --on-ground: #1c1d19;  --ground-hi: #0f100d;
+  --sage: #e3e5dd;  --sage-hi: #f0f1ec;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
+  --ink: #10110e;  color-scheme: light;
+}
+.mode-dark, .mode-light { color: var(--on-ground); }
+
+:root {
+  /* ---- type ---- */
+  --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif; /* expanded black */
+  --f-sans: "Archivo", "Helvetica Neue", Arial, sans-serif;    /* medium, tight */
+  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --f-jp: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; /* iOS: Hiragino Sans */
+
+  /* ---- geometry ---- */
+  --hair: 1.5px;
+  --stripe-period: 6px;
+}
+
+/* ------------------------------------------------------------------ type */
+.sg-wordmark { font-family: var(--f-display); font-stretch: 125%; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; line-height: .88; }
+.sg-label    { font-family: var(--f-sans); font-weight: 500; letter-spacing: -0.035em; line-height: 1.15; }
+.sg-num      { font-family: var(--f-display); font-stretch: 112%; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; }
+.sg-mono     { font-family: var(--f-mono); font-weight: 400; font-size: 11px; line-height: 1.22; letter-spacing: 0; }
+.sg-ghost    { color: var(--sage-ghost); }
+.t-right     { text-align: right; }
+
+/* ---------------------------------------------------------- stripe field */
+/* Soft-edged diagonal lines. Stack .facet layers with their own angle and
+   clip-path to get the poster's faceted, folded-paper ground. */
+.tex { background: repeating-linear-gradient(var(--a, -38deg), var(--ground) 0, var(--ground-2) calc(var(--stripe-period) * .5), var(--ground) var(--stripe-period)); }
+.facet { position: absolute; inset: 0; background: repeating-linear-gradient(var(--a, -55deg), var(--ground) 0, var(--ground-2) calc(var(--stripe-period) * .5), var(--ground) var(--stripe-period)); }
+
+/* ------------------------------------------------------------ slabs */
+.slab { position: absolute; background: var(--sage); }
+.band { position: absolute; background: var(--coral); }
+
+/* ---------------------------------------------------- nested stadium pill */
+/* <div class="pill"><div class="pill__mid"><div class="pill__core"><i class="pill__slot"></i></div></div></div>
+   --h sets the height; everything else is proportional (measured off the poster).
+   .pill--bleed-l / --bleed-r square off the side that runs off the screen. */
+.pill { --h: 150px; --rl: 999px; --rr: 999px; height: var(--h); padding: calc(var(--h) * .18); background: var(--sage); border-radius: var(--rl) var(--rr) var(--rr) var(--rl); display: flex; box-sizing: border-box; }
+.pill--bleed-l { --rl: 0; padding-left: 0; }
+.pill--bleed-r { --rr: 0; padding-right: 0; }
+.pill__mid { flex: 1; display: flex; align-items: center; background: var(--sage-hi); border-radius: inherit; padding-right: calc(var(--h) * .24); }
+.pill--bleed-r .pill__mid { padding-right: 0; }
+.pill--bleed-l .pill__mid { padding-left: 0; }
+.pill:not(.pill--bleed-l) .pill__mid { padding-left: calc(var(--h) * .24); }
+.pill__core { flex: 1; height: calc(var(--h) * .15); display: flex; align-items: center; background: var(--sage); border-radius: inherit; padding: 0 calc(var(--h) * .06); }
+.pill--bleed-l .pill__core { padding-left: 0; }
+.pill__slot { flex: 1; height: max(3px, calc(var(--h) * .03)); border-radius: 9px; --p: 100%; background: linear-gradient(90deg, var(--slot-a, var(--ink)) var(--p), var(--slot-b, var(--coral)) 0); }
+.pill--bleed-l .pill__slot { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.pill--ink { background: var(--ground-3); } .pill--ink .pill__mid { background: var(--ground-2); } .pill--ink .pill__core { background: var(--ground-3); } .pill--ink .pill__slot { --slot-a: var(--ground-hi); }
+
+/* -------------------------------------------------------------- buttons */
+.btn { all: unset; box-sizing: border-box; height: 52px; padding: 0 24px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--f-display); font-stretch: 125%; font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: .01em; cursor: pointer;
+  background: var(--ink); color: var(--sage-hi); }
+.btn:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+.btn svg { width: 16px; height: 16px; }
+.btn--coral { background: var(--coral); color: var(--ink); }
+.btn--sage  { background: var(--sage-hi); color: var(--ink); box-shadow: inset 0 0 0 6px var(--sage-lo); }
+.btn--ghost { background: transparent; color: currentColor; box-shadow: inset 0 0 0 var(--hair) currentColor; }
+.btn--block { display: flex; width: 100%; }
+.btn--sm { height: 36px; padding: 0 16px; font-size: 11px; }
+.btn--icon { width: 52px; padding: 0; }
+
+/* --------------------------------------------------------------- toggle */
+.tgl { appearance: none; -webkit-appearance: none; margin: 0; flex: none; width: 60px; height: 32px; border-radius: 999px; background: var(--sage-lo); position: relative; cursor: pointer; box-shadow: inset 0 0 0 5px var(--sage); transition: background .18s; }
+.tgl::before { content: ""; position: absolute; left: 11px; right: 11px; top: 14.5px; height: 3px; border-radius: 3px; background: var(--ink); opacity: .35; }
+.tgl::after { content: ""; position: absolute; top: 5px; left: 5px; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); transition: transform .18s; }
+.tgl:checked { background: var(--coral); box-shadow: inset 0 0 0 5px var(--coral-deep); }
+.tgl:checked::after { transform: translateX(28px); }
+.tgl:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .tgl, .tgl::after { transition: none; } }
+
+/* ---------------------------------------------------- chips & segmented */
+.chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 11px; border-radius: 999px; font: 400 10.5px/1 var(--f-mono); box-shadow: inset 0 0 0 var(--hair) var(--sage-line); color: inherit; }
+.chip--on { background: var(--ink); color: var(--sage-hi); box-shadow: none; }
+.chip--coral { background: var(--coral); color: var(--ink); box-shadow: none; }
+.chip i { width: 6px; height: 6px; background: currentColor; transform: rotate(45deg); border-radius: 1.5px; }
+
+.seg { display: flex; padding: 4px; border-radius: 999px; background: var(--sage-lo); gap: 2px; }
+.seg button { all: unset; flex: 1; text-align: center; height: 32px; border-radius: 999px; font: 400 11px/32px var(--f-mono); color: var(--ink); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--sage-hi); }
+.seg--ink { background: var(--ground-3); } .seg--ink button { color: var(--on-ground); } .seg--ink button[aria-pressed="true"] { background: var(--ground-hi); color: var(--ground); }
+
+/* ----------------------------------------------------- chamfered frame */
+/* Thin outline with two cut corners (top-right, bottom-left) — the poster's
+   technical frame. Line colour = --line, fill = --fill. */
+.chamfer { --c: 16px; --line: var(--sage-line); --fill: var(--sage); position: relative; padding: 16px; isolation: isolate; }
+.chamfer::before, .chamfer::after { content: ""; position: absolute; z-index: -1; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.chamfer::before { inset: 0; background: var(--line); }
+.chamfer::after { inset: var(--hair); background: var(--fill); }
+
+.field { display: grid; gap: 6px; }
+.field > span { font: 400 10.5px/1 var(--f-mono); }
+.field input { all: unset; box-sizing: border-box; height: 48px; padding: 0 16px; font: 500 15px var(--f-sans); letter-spacing: -.02em; color: var(--ink); width: 100%; }
+.field .chamfer { --c: 12px; padding: 0; --fill: var(--sage-hi); }
+.field .chamfer:focus-within { --line: var(--ink); }
+
+/* ------------------------------------------------------ data furniture */
+.barcode { background: repeating-linear-gradient(180deg, var(--bc, var(--ink)) 0 2px, transparent 2px 5px, var(--bc, var(--ink)) 5px 6px, transparent 6px 9px, var(--bc, var(--ink)) 9px 10px, transparent 10px 15px); }
+.barcode--v { background: repeating-linear-gradient(90deg, var(--bc, var(--ink)) 0 2px, transparent 2px 4px, var(--bc, var(--ink)) 4px 5px, transparent 5px 8px, var(--bc, var(--ink)) 8px 11px, transparent 11px 13px); }
+.rule { display: flex; align-items: center; gap: 0; height: 8px; }
+.rule::before { content: ""; flex: 1; height: 1.5px; background: var(--sage-line); }
+.rule::after { content: ""; width: 26px; height: 8px; background: var(--sage-line); }
+.slot { height: 6px; border-radius: 6px; --p: 40%; background: linear-gradient(90deg, var(--coral) var(--p), var(--ink) 0); }
+.slot--on-ink { background: linear-gradient(90deg, var(--coral) var(--p), var(--ground-3) 0); }
+.dot { width: 4px; height: 4px; border-radius: 50%; background: var(--sage-line); display: inline-block; }
+.ico { width: 1em; height: 1em; display: inline-block; vertical-align: middle; flex: none; }
+.cross { position: absolute; width: 22px; height: 22px; color: var(--sage-hi); }
+
+/* ================================================== three languages
+   English runs the interface. Japanese is texture (vertical captions,
+   stamps, outlined display kanji). French is the aside (italic). */
+.sg-jp   { font-family: var(--f-jp); font-weight: 700; letter-spacing: .04em; line-height: 1.15; font-feature-settings: "palt"; }
+.sg-jp-v { font-family: var(--f-jp); font-weight: 500; font-size: 11px; line-height: 1; letter-spacing: .32em; writing-mode: vertical-rl; text-orientation: upright; }
+.sg-jp-outline { font-family: var(--f-jp); font-weight: 700; line-height: 1; color: transparent; -webkit-text-stroke: 1.3px var(--stroke, var(--sage-line)); }
+.sg-fr   { font-family: var(--f-sans); font-style: italic; font-weight: 500; letter-spacing: -.02em; }
+.sg-justify { text-align: justify; text-align-last: justify; }
+
+/* hanko seal: coral square, vertical kanji, slightly off-axis like a hand stamp */
+.hanko { box-sizing: border-box; width: 56px; height: 56px; display: grid; place-items: center; border: 2.5px solid var(--coral); border-radius: 4px; color: var(--coral);
+  font-family: var(--f-jp); font-weight: 700; font-size: 17px; line-height: 1; letter-spacing: .12em; writing-mode: vertical-rl; transform: rotate(-4deg); }
+
+/* print motifs */
+.hazard { --hz: var(--sage-hi); height: 26px; box-sizing: border-box; padding-block: 4px; border-block: var(--hair) solid var(--hz); background: repeating-linear-gradient(-45deg, var(--hz) 0 11px, transparent 11px 22px) content-box; }
+.yearspan { display: flex; align-items: center; gap: 12px; }
+.yearspan i { flex: 1; height: 1.5px; background: currentColor; }
+.slab-cut { background: var(--coral); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); }
+.wear { filter: url(#wear); }

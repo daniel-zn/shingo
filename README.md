@@ -1,10 +1,32 @@
-# Signal Kit
+# Shingō 信号
 
-A UI kit that rebuilds the sage, coral and stripe poster style in code, for the web and for SwiftUI.
+*Shingō* is Japanese for "signal". It's an interface style for iOS and the web: sage slabs on a striped ground, one coral diagonal, nested stadium pills, rounded X marks and telemetry set in mono. English leads, with Japanese and French woven in sparingly. Every screen ships in light and dark.
 
-![poster study](docs/poster.png)
+![posters in both modes](docs/posters.png)
 
-## Why this isn't built on `open-design/brutalist-skill`
+Open `dist/index.html` in a browser for the full gallery: a poster study, 16 iPhone screens, widgets, components and language rules. Use the switch in the corner to flip modes.
+
+## Light and dark
+
+Both modes keep the same layering, so the look survives the switch:
+
+| | ground (striped) | slabs | ink & coral |
+|---|---|---|---|
+| **Dark** | ink `#0c0c0a` | sage `#b8bbb0` | same |
+| **Light** | sage `#bcbfb4` | paper `#e3e5dd` (never white) | same |
+
+Use role tokens, never raw hex. Anything sitting on the striped ground uses `--ground-*` (`SG.ground*`): body text is `--on-ground`, titles and line art are `--ground-hi`. Anything on a slab uses `--sage-*` and `--ink`. Force a mode on any web subtree with `.mode-light` or `.mode-dark`. On iOS, every `SG` colour is dynamic and follows the system appearance or `.preferredColorScheme`.
+
+| dark | light |
+|---|---|
+| ![](docs/dark/screen-c.png) | ![](docs/light/screen-c.png) |
+| ![](docs/dark/screen-n.png) | ![](docs/light/screen-n.png) |
+
+## Origins
+
+Shingō started from two references: a sage and coral poster, and a trilingual technical print. It was first measured against `nexu-io/open-design`'s brutalist skill, which turned out not to fit:
+
+### Why it isn't built on `open-design/brutalist-skill`
 
 That skill (`nexu-io/open-design/skills/brutalist-skill/SKILL.md`) is a 9 KB text prompt. It has no assets, components or code, and three of its rules contradict this poster:
 
@@ -21,20 +43,20 @@ It is useful for tone: mono telemetry, technical framing, barcodes and crosshair
 ```
 tokens/tokens.json            colours, type, geometry ratios, usage rules
 tokens/lexicon.json           EN / 日本語 / FR phrase list with readings
-web/signal.css                tokens + components (.pill .btn .tgl .seg .chamfer .slot .barcode .tex)
+web/shingo.css                light/dark tokens + components (.pill .btn .tgl .seg .chamfer .slot .barcode .tex)
 web/gallery.src.html          gallery source: poster study, 16 screens, widgets, component sheet, language rules
 tools/build.py                generates glyphs + poster SVG, exports assets, builds dist/
 tools/screenshot.js           renders every screen to PNG with the preinstalled Playwright
-dist/index.html               the built, self-contained gallery (open in a browser)
-assets/svg/*.svg              16 vector glyphs + poster-study.svg, ready for Xcode asset catalogs
-ios/                          Swift package "SignalKit" (iOS 17+)
-  Sources/SignalKit/SignalTheme.swift       SG colour tokens, SGFont, font registration
-  Sources/SignalKit/SignalShapes.swift      RoundedX, DiamondMark, ChamferRect, UnitPolygon, Crosshair, ArrowNE
-  Sources/SignalKit/SignalTextures.swift    StripeField (Canvas), Barcode, RingsCoil, RecordDisc, RadarScope
-  Sources/SignalKit/SignalComponents.swift  NestedPill, SignalButtonStyle, SignalToggleStyle, SignalSegmented, SignalChip, SignalRule, SignalSlot, SignalTabBar
-  Sources/SignalKit/SignalLanguage.swift    SGFont.jp/.fr, VerticalText, Hanko, HazardBar, ChevronStack, HeadProfile, YearSpan, ManifestoExample
-  Sources/SignalKit/Examples/               LaunchExample + DashboardExample with #Previews
-  Sources/SignalKit/Resources/Fonts/        Archivo + JetBrains Mono TTFs (SIL OFL)
+dist/index.html               the built, self-contained gallery (open in a browser; light/dark switch)
+assets/svg/*.svg              vector glyphs; multi-colour ones as -dark/-light pairs; poster-dark/-light.svg
+ios/                          Swift package "ShingoKit" (iOS 17+), all colours dynamic
+  Sources/ShingoKit/SGTheme.swift       SG dynamic colour tokens, SGFont, font registration
+  Sources/ShingoKit/SGShapes.swift          RoundedX, DiamondMark, ChamferRect, UnitPolygon, Crosshair, ArrowNE
+  Sources/ShingoKit/SGTextures.swift        StripeField (Canvas), Barcode, RingsCoil, RecordDisc, RadarScope
+  Sources/ShingoKit/SGComponents.swift      NestedPill, SGButtonStyle, SGToggleStyle, SGSegmented, SGChip, SGRule, SGSlot, SGTabBar
+  Sources/ShingoKit/SGLanguage.swift        SGFont.jp/.fr, VerticalText, Hanko, HazardBar, ChevronStack, HeadProfile, YearSpan, ManifestoExample
+  Sources/ShingoKit/Examples/               LaunchExample + DashboardExample with #Previews
+  Sources/ShingoKit/Resources/Fonts/        Archivo + JetBrains Mono TTFs (SIL OFL)
 docs/                         screenshots of every screen
 ```
 
@@ -58,7 +80,7 @@ python3 tools/build.py
 ```
 
 ```bash
-node tools/screenshot.js docs
+node tools/screenshot.js docs   # writes docs/dark and docs/light
 ```
 
 ## Use in an iOS app
@@ -66,7 +88,7 @@ node tools/screenshot.js docs
 1. In Xcode, go to File › Add Package Dependencies › Add Local… and pick the `ios/` folder.
 2. Register the fonts once at launch:
    ```swift
-   import SignalKit
+   import ShingoKit
    @main struct MyApp: App {
        init() { SGFont.register() }
        var body: some Scene { WindowGroup { DashboardExample() } }
@@ -77,12 +99,12 @@ node tools/screenshot.js docs
    ZStack {
        StripeField()
        NestedPill(height: 124, bleed: .leading, progress: 0.8)
-       RoundedX().stroke(SG.sageHi, style: .init(lineWidth: 7, lineJoin: .round))
+       RoundedX().stroke(SG.groundHi, style: .init(lineWidth: 7, lineJoin: .round))
    }
-   Button("Disconnect") {}.buttonStyle(SignalButtonStyle(.coral))
-   Toggle("Kill switch", isOn: $on).toggleStyle(SignalToggleStyle())
+   Button("Disconnect") {}.buttonStyle(SGButtonStyle(.coral))
+   Toggle("Kill switch", isOn: $on).toggleStyle(SGToggleStyle())
    ```
-4. For static art, drag `assets/svg/*.svg` into an asset catalog and tick **Preserve Vector Data**. Single-colour glyphs can be set to render as template images.
+4. For static art, drag `assets/svg/*.svg` into an asset catalog and tick **Preserve Vector Data**. Single-colour glyphs render as template images, so tint them in code. For multi-colour glyphs (`topo`, `radar-fan`, `poster`), set Appearances to Any/Dark and drop the `-light` file into Any and the `-dark` file into Dark.
 
 > The Swift sources were written against the iOS 17 SwiftUI API but have **not been compiled yet**. The build environment had no Swift toolchain. Expect a few small fixes on the first Xcode build.
 
@@ -96,10 +118,10 @@ node tools/screenshot.js docs
 | `#g-mark` | `DiamondMark()` with `eoFill` | brand mark with a hole |
 | `.chamfer` | `.chamferFrame()` / `ChamferRect` | cut 16 |
 | `.slab`, `.band` | `UnitPolygon([...]).fill(...)` | the diagonal split |
-| `.btn--*` | `SignalButtonStyle(.ink/.coral/.sage/.ghost)` | 52 pt capsule |
-| `.tgl` | `SignalToggleStyle()` | |
-| `.seg` | `SignalSegmented` | |
-| `.slot`, `.rule`, `.barcode` | `SignalSlot`, `SignalRule`, `Barcode` | |
+| `.btn--*` | `SGButtonStyle(.ink/.coral/.sage/.ghost)` | 52 pt capsule |
+| `.tgl` | `SGToggleStyle()` | |
+| `.seg` | `SGSegmented` | |
+| `.slot`, `.rule`, `.barcode` | `SGSlot`, `SGRule`, `Barcode` | |
 
 ## Fonts
 

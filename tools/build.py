@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build Signal Kit.
+"""Build Shingō 信号.
 
   python3 tools/build.py
 
@@ -7,14 +7,32 @@
 2. Exports every glyph as a standalone SVG to assets/svg/  (drop into Xcode
    asset catalogs, "Preserve Vector Data", render as template where mono)
 3. Generates the poster study SVG from the same primitives
-4. Inlines web/signal.css + sprite + poster into web/gallery.src.html
+4. Inlines web/shingo.css + sprite + posters into web/gallery.src.html
    -> dist/index.html (one self-contained file)
 """
 import math, pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-C = dict(ink="#0c0c0a", ink2="#1f201b", sage="#b8bbb0", hi="#c3c6bd", lo="#a9aca1",
-         line="#8e9089", ghost="#cdd0c7", coral="#ff715e", oninc="#d9dbd3")
+# Colours are CSS variables so the same SVG renders in light and dark mode
+# (the page resolves them). Exports resolve them to literal hex per mode.
+C = dict(ink="var(--ink)", sage="var(--sage)", hi="var(--sage-hi)", lo="var(--sage-lo)",
+         line="var(--sage-line)", ghost="var(--sage-ghost)", coral="var(--coral)",
+         oninc="var(--on-ground)", ghi="var(--ground-hi)", ground="var(--ground)", ground2="var(--ground-2)")
+PALETTE = {
+    "dark":  {"ground": "#0c0c0a", "ground-2": "#1f201b", "ground-3": "#2b2c26", "on-ground": "#d9dbd3", "ground-hi": "#c3c6bd",
+              "sage": "#b8bbb0", "sage-hi": "#c3c6bd", "sage-lo": "#a9aca1", "sage-line": "#8e9089", "sage-ghost": "#cdd0c7",
+              "ink": "#0c0c0a", "coral": "#ff715e", "coral-deep": "#e65b48"},
+    "light": {"ground": "#bcbfb4", "ground-2": "#adb0a5", "ground-3": "#a1a499", "on-ground": "#1c1d19", "ground-hi": "#0f100d",
+              "sage": "#e3e5dd", "sage-hi": "#f0f1ec", "sage-lo": "#d2d4cb", "sage-line": "#72746b", "sage-ghost": "#f7f8f4",
+              "ink": "#10110e", "coral": "#ff715e", "coral-deep": "#e65b48"},
+}
+
+
+def resolve(svg, mode):
+    """Replace var(--x) with the literal colour for one mode (for standalone files)."""
+    fonts = {"f-display": "Archivo, 'Archivo Expanded', sans-serif", "f-sans": "Archivo, sans-serif",
+             "f-mono": "'JetBrains Mono', monospace", "f-jp": "'Hiragino Sans', 'Noto Sans JP', sans-serif"}
+    return re.sub(r"var\(--([a-z0-9-]+)\)", lambda m: PALETTE[mode].get(m.group(1)) or fonts[m.group(1)], svg)
 
 
 def f(v):
@@ -125,8 +143,13 @@ def export_glyphs():
     d.mkdir(parents=True, exist_ok=True)
     for k, (vb, inner) in G.items():
         w, h = vb.split()[2:]
-        body = inner.replace("currentColor", C["ink"])
-        (d / f"{k}.svg").write_text(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vb}" width="{w}" height="{h}">{body}</svg>\n')
+        body = inner.replace("currentColor", "var(--ink)")
+        svg = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vb}" width="{w}" height="{h}">{body}</svg>\n'
+        if "var(--" in inner:  # multi-colour glyph: one file per appearance
+            (d / f"{k}-dark.svg").write_text(resolve(svg, "dark"))
+            (d / f"{k}-light.svg").write_text(resolve(svg, "light"))
+        else:                  # single colour: use as a template image, tint in code
+            (d / f"{k}.svg").write_text(resolve(svg, "dark"))
 
 
 # ---------------------------------------------------------------- poster
@@ -136,11 +159,11 @@ def use(gid, x, y, w, h=None, color=None, extra=""):
     return f'<use href="#g-{gid}" x="{f(x)}" y="{f(y)}" width="{f(w)}" height="{f(h)}"{st} {extra}/>'
 
 
-def poster():
+def poster(sfx="d"):
     W, H = 1333, 2000
-    o = [f'<svg id="poster" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" role="img" aria-label="Poster study rebuilt from Signal Kit primitives">']
+    o = [f'<svg class="poster" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" role="img" aria-label="Poster study rebuilt from Shingō primitives">']
     o.append(f'''<defs>
-<linearGradient id="pgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070705"/><stop offset=".5" stop-color="#21221c"/><stop offset="1" stop-color="#070705"/></linearGradient>
+<linearGradient id="pgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--ground)"/><stop offset=".5" stop-color="var(--ground-2)"/><stop offset="1" stop-color="var(--ground)"/></linearGradient>
 {''.join(f'<pattern id="pst{i}" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate({a})"><rect width="14" height="14" fill="url(#pgr)"/></pattern>' for i, a in enumerate([-36, -18, -58, -47]))}
 <clipPath id="pc-l"><rect x="32" y="0" width="1400" height="2000"/></clipPath>
 <clipPath id="pc-r"><rect x="0" y="0" width="1300" height="2000"/></clipPath>
@@ -150,7 +173,7 @@ def poster():
 <clipPath id="pc-xsolid"><path transform="translate(900 1119) scale(1.9)" d="{XP}"/></clipPath>
 <clipPath id="pc-x2"><rect x="1060" y="270" width="240" height="200"/></clipPath>
 </defs>''')
-    o.append(f'<style>#poster .pw{{font-family:var(--f-display);font-stretch:125%;font-weight:900}} #poster .ps{{font-family:var(--f-sans);font-weight:500;letter-spacing:-.04em}} #poster .pm{{font-family:var(--f-mono);font-size:19.5px}} #poster .pn{{font-family:var(--f-display);font-weight:700;font-stretch:105%}}</style>')
+    o.append(f'<style>svg.poster .pw{{font-family:var(--f-display);font-stretch:125%;font-weight:900}} svg.poster .ps{{font-family:var(--f-sans);font-weight:500;letter-spacing:-.04em}} svg.poster .pm{{font-family:var(--f-mono);font-size:19.5px}} svg.poster .pn{{font-family:var(--f-display);font-weight:700;font-stretch:105%}}</style>')
     # ground + facets
     o.append(f'<rect width="{W}" height="{H}" fill="url(#pst0)"/>')
     o.append('<polygon points="0,0 1333,0 1333,40 0,560" fill="url(#pst1)"/>')
@@ -194,7 +217,7 @@ def poster():
     o.append(f'<polygon points="935,220 1130,220 1150,262 1150,697 1015,697 935,615" fill="none" stroke="{C["line"]}" stroke-width="2.6"/>')
     o.append(f'<polygon points="788,657 937,657 975,697 742,928 625,928 572,873" fill="none" stroke="{C["line"]}" stroke-width="2.6"/>')
     # X family
-    o.append(f'<path transform="translate(1072 58) scale(2)" d="{XP}" fill="none" stroke="{C["hi"]}" stroke-width="13" stroke-linejoin="round"/>')
+    o.append(f'<path transform="translate(1072 58) scale(2)" d="{XP}" fill="none" stroke="{C["ghi"]}" stroke-width="13" stroke-linejoin="round"/>')
     o.append(f'<path transform="translate(900 900) scale(1.9)" d="{XP}" fill="none" stroke="{C["hi"]}" stroke-width="11" stroke-linejoin="round"/>')
     o.append(f'<path transform="translate(683 1119) scale(1.9)" d="{XP}" fill="none" stroke="{C["ink"]}" stroke-width="7.5" stroke-linejoin="round"/>')
     o.append(f'<path transform="translate(900 1119) scale(1.9)" d="{XP}" fill="{C["ink"]}"/>')
@@ -202,7 +225,7 @@ def poster():
     # glyphs
     o.append(use("mark", 60, 62, 46, color=C["coral"]) + use("mark", 803, 763, 46, color=C["coral"]))
     o.append(use("globe", 62, 586, 60, 38, color=C["oninc"]))
-    o.append(use("plus", 877, 474, 26, color=C["ghost"]) + use("plus", 975, 725, 26, color=C["line"]))
+    o.append(use("plus", 877, 474, 26, color=C["oninc"]) + use("plus", 975, 725, 26, color=C["line"]))
     o.append(use("arrow", 846, 1010, 26, color=C["coral"]) + use("arrow", 1236, 533, 26, color=C["coral"]))
     o.append(f'<g transform="rotate(90 1097 598)">{use("arrow", 1084, 585, 26, color=C["ink"])}</g>')
     o.append(f'<g transform="rotate(-90 1141 1849)">{use("arrow", 1128, 1836, 26, color=C["line"])}</g>')
@@ -213,7 +236,7 @@ def poster():
     o.append(f'<path d="M888 1465 H1155" stroke="{C["line"]}" stroke-width="2"/><rect x="1124" y="1465" width="31" height="9" fill="{C["line"]}"/>')
     # type
     T = lambda x, y, s, cls, fill, anchor="start", size=None: f'<text x="{x}" y="{y}" class="{cls}" fill="{fill}" text-anchor="{anchor}"' + (f' font-size="{size}"' if size else "") + f'>{s}</text>'
-    o.append(T(128, 100, "AXIOM", "pw", C["hi"], size=36) + T(320, 96, "signal systems", "ps", C["oninc"], size=20) + T(495, 96, "2019–2026", "ps", C["oninc"], size=20))
+    o.append(T(128, 100, "AXIOM", "pw", C["ghi"], size=36) + T(320, 96, "signal systems", "ps", C["oninc"], size=20) + T(495, 96, "2019–2026", "ps", C["oninc"], size=20))
     o.append(T(62, 535, "200 ppi", "ps", C["oninc"], size=20) + T(62, 562, "1890 x 2835 px", "ps", C["oninc"], size=20))
     o.append(T(1270, 476, "09", "pn", C["ink"], "end", 31) + T(1270, 501, "#bab9ad", "ps", C["ink"], "end", 18))
     o.append(T(1157, 805, "AXIOM", "pw", C["ink"], "end", 52))
@@ -225,20 +248,26 @@ def poster():
     o.append(f'<g clip-path="url(#pc-xsolid)">' + "".join(T(1155, yy, s, "pm", C["line"], "end") for yy, s in mono[5:7]) + "</g>")
     o.append(T(1155, 917, "09", "pn", C["ink"], "end", 22) + T(1155, 1455, "09", "pn", C["ink"], "end", 22))
     o.append(T(398, 1755, "#ff715e", "ps", C["ink"], size=18))
-    for yy, s in [(1892, "2019 - 2026"), (1914, "Interface study by Signal Kit"), (1936, "Screen collection entry No. 09")]:
+    for yy, s in [(1892, "2019 - 2026"), (1914, "Interface study · Shingō"), (1936, "Screen collection entry No. 09")]:
         o.append(T(1155, yy, s, "pm", C["ghost"], "end"))
     o.append("</svg>")
-    return "".join(o)
+    out = "".join(o)
+    # unique ids per instance: patterns and clips resolve colours where they are defined
+    out = re.sub(r'id="(pgr|pst\d|pc-[a-z0-9]+)"', lambda m: f'id="{m.group(1)}-{sfx}"', out)
+    out = re.sub(r'url\(#(pgr|pst\d|pc-[a-z0-9]+)\)', lambda m: f'url(#{m.group(1)}-{sfx})', out)
+    return out
 
 
 def main():
     export_glyphs()
-    p = poster()
-    (ROOT / "assets" / "svg" / "poster-study.svg").write_text(
-        p.replace('<svg id="poster"', '<svg id="poster"', 1).replace("<defs>", "<defs>" + sprite().split("<defs>")[1].split("</defs>")[0], 1) + "\n")
+    defs = sprite().split("<defs>")[1].split("</defs>")[0]
+    for mode in ("dark", "light"):
+        svg = poster(mode[0]).replace("<defs>", "<defs>" + defs, 1)
+        (ROOT / "assets" / "svg" / f"poster-{mode}.svg").write_text(resolve(svg, mode) + "\n")
     src = (ROOT / "web" / "gallery.src.html").read_text()
-    css = (ROOT / "web" / "signal.css").read_text()
-    out = src.replace("<!--@CSS-->", css).replace("<!--@SPRITE-->", sprite()).replace("<!--@POSTER-->", p)
+    css = (ROOT / "web" / "shingo.css").read_text()
+    out = (src.replace("<!--@CSS-->", css).replace("<!--@SPRITE-->", sprite())
+              .replace("<!--@POSTER_DARK-->", poster("d")).replace("<!--@POSTER_LIGHT-->", poster("l")))
     (ROOT / "dist").mkdir(exist_ok=True)
     (ROOT / "dist" / "index.html").write_text(out)
     print("built dist/index.html", len(out) // 1024, "KB;", len(G), "glyphs")

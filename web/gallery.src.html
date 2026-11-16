@@ -1,59 +1,60 @@
-<title>Signal Kit</title>
+<title>Shingō</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@500;700&display=swap">
 <style>
 <!--@CSS-->
+.hd-jp { font-size: .3em; color: var(--coral); align-self: flex-start; margin-top: .25em; letter-spacing: .1em; }
 
 /* ================================================================ gallery page */
-html, body { background: var(--ink); color: var(--on-ink); }
+html, body { background: var(--ground); color: var(--on-ground); }
 body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }
 .wrap { max-width: 1480px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 96px; }
-.hd { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; align-items: end; padding-bottom: 36px; border-bottom: var(--hair) solid var(--ink-3); }
-.hd h1 { margin: 0; font-size: clamp(48px, 9vw, 120px); color: var(--sage-hi); display: flex; align-items: center; gap: .18em; }
+.hd { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; align-items: end; padding-bottom: 36px; border-bottom: var(--hair) solid var(--ground-3); }
+.hd h1 { margin: 0; font-size: clamp(48px, 9vw, 120px); color: var(--ground-hi); display: flex; align-items: center; gap: .18em; }
 .hd h1 svg { width: .62em; height: .62em; color: var(--coral); }
-.hd .lede { font-size: 19px; line-height: 1.4; max-width: 56ch; margin: 18px 0 0; color: var(--on-ink); letter-spacing: -.02em; }
+.hd .lede { font-size: 19px; line-height: 1.4; max-width: 56ch; margin: 18px 0 0; color: var(--on-ground); letter-spacing: -.02em; }
 .verdict { display: grid; gap: 10px; }
 .verdict .sg-mono { color: var(--sage-line); font-size: 12px; }
-.verdict p { margin: 0; font-size: 14.5px; line-height: 1.5; max-width: 62ch; color: var(--on-ink); }
+.verdict p { margin: 0; font-size: 14.5px; line-height: 1.5; max-width: 62ch; color: var(--on-ground); }
 .verdict b { color: var(--coral); font-weight: 600; }
 .sec { padding-top: 56px; }
 .sec-h { display: flex; align-items: baseline; gap: 18px; margin-bottom: 26px; flex-wrap: wrap; }
-.sec-h h2 { margin: 0; font-size: clamp(28px, 4vw, 44px); color: var(--sage-hi); }
+.sec-h h2 { margin: 0; font-size: clamp(28px, 4vw, 44px); color: var(--ground-hi); }
 .sec-h .sg-mono { color: var(--sage-line); font-size: 12px; }
 .sec-h .sg-num { color: var(--coral); font-size: 22px; }
 
-.poster-grid { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: 48px; align-items: start; }
-.poster-grid svg#poster { width: 100%; height: auto; display: block; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
-.anatomy { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--ink-3); border: var(--hair) solid var(--ink-3); }
-.anatomy > div { background: var(--ink); padding: 16px; display: grid; grid-template-columns: 56px minmax(0,1fr); gap: 14px; align-items: start; }
+.poster-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.poster-pair svg { width: 100%; height: auto; display: block; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+.anatomy { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
+.anatomy > div { background: var(--ground); padding: 16px; display: grid; grid-template-columns: 56px minmax(0,1fr); gap: 14px; align-items: start; }
 .anatomy .sw { width: 56px; height: 56px; display: grid; place-items: center; }
-.anatomy h3 { margin: 0 0 4px; font: 600 14px var(--f-sans); letter-spacing: -.02em; color: var(--sage-hi); }
-.anatomy p { margin: 0; font-size: 12.5px; line-height: 1.45; color: var(--on-ink); opacity: .85; }
+.anatomy h3 { margin: 0 0 4px; font: 600 14px var(--f-sans); letter-spacing: -.02em; color: var(--ground-hi); }
+.anatomy p { margin: 0; font-size: 12.5px; line-height: 1.45; color: var(--on-ground); opacity: .85; }
 .anatomy code { font-family: var(--f-mono); font-size: 11px; color: var(--coral); }
 
 .screens { display: grid; grid-template-columns: repeat(auto-fill, minmax(410px, 1fr)); gap: 56px 32px; justify-items: center; }
 figure { margin: 0; display: grid; gap: 16px; justify-items: center; }
 figcaption { width: 410px; max-width: 100%; display: grid; gap: 4px; }
-figcaption b { font: 900 14px var(--f-display); font-stretch: 125%; text-transform: uppercase; color: var(--sage-hi); letter-spacing: .01em; }
+figcaption b { font: 900 14px var(--f-display); font-stretch: 125%; text-transform: uppercase; color: var(--ground-hi); letter-spacing: .01em; }
 figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
 
 /* ---- device frame (iPhone 15/16 logical size 390 x 844 pt) */
-.phone { width: 410px; height: 864px; padding: 10px; box-sizing: border-box; border-radius: 64px; background: #030303; box-shadow: 0 0 0 1.5px var(--ink-3), 0 40px 80px rgba(0,0,0,.55); }
-.scr { position: relative; width: 390px; height: 844px; border-radius: 54px; overflow: hidden; background: var(--ink); color: var(--on-ink); isolation: isolate; }
+.phone { width: 410px; height: 864px; padding: 10px; box-sizing: border-box; border-radius: 64px; background: #030303; box-shadow: 0 0 0 1.5px var(--ground-3), 0 40px 80px rgba(0,0,0,.55); }
+.scr { position: relative; width: 390px; height: 844px; border-radius: 54px; overflow: hidden; background: var(--ground); color: var(--on-ground); isolation: isolate; }
 .scr > * { position: absolute; }
-.sb { top: 0; left: 0; right: 0; height: 54px; display: flex; justify-content: space-between; align-items: center; padding: 4px 30px 0 46px; box-sizing: border-box; font: 600 16px -apple-system, "SF Pro Text", system-ui, sans-serif; color: var(--sb, var(--on-ink)); z-index: 30; }
+.sb { top: 0; left: 0; right: 0; height: 54px; display: flex; justify-content: space-between; align-items: center; padding: 4px 30px 0 46px; box-sizing: border-box; font: 600 16px -apple-system, "SF Pro Text", system-ui, sans-serif; color: var(--sb, var(--on-ground)); z-index: 30; }
 .sb-r { display: flex; gap: 6px; align-items: center; }
 .sig { width: 17px; height: 11px; background: linear-gradient(currentColor 0 0) 0 100%/3px 35% no-repeat, linear-gradient(currentColor 0 0) 4.6px 100%/3px 55% no-repeat, linear-gradient(currentColor 0 0) 9.2px 100%/3px 75% no-repeat, linear-gradient(currentColor 0 0) 13.8px 100%/3px 100% no-repeat; }
 .bat { width: 24px; height: 12px; border-radius: 4px; box-shadow: inset 0 0 0 1.2px currentColor; position: relative; opacity: .95; }
 .bat::after { content: ""; position: absolute; inset: 2.4px 6px 2.4px 2.4px; border-radius: 2px; background: currentColor; }
 .island { top: 11px; left: 50%; width: 124px; height: 36px; margin-left: -62px; border-radius: 20px; background: #000; z-index: 31; }
-.home { bottom: 8px; left: 50%; width: 138px; height: 5px; margin-left: -69px; border-radius: 3px; background: var(--hb, var(--on-ink)); z-index: 30; }
+.home { bottom: 8px; left: 50%; width: 138px; height: 5px; margin-left: -69px; border-radius: 3px; background: var(--hb, var(--on-ground)); z-index: 30; }
 .scr .pill, .scr .tex-fill { position: absolute; }
 .tex-fill { inset: 0; }
 
-.tabbar { left: 16px; right: 16px; bottom: 26px; height: 64px; border-radius: 999px; background: var(--ink); display: flex; justify-content: space-around; align-items: center; box-shadow: inset 0 0 0 1.5px var(--ink-3); z-index: 25; }
+.tabbar { left: 16px; right: 16px; bottom: 26px; height: 64px; border-radius: 999px; background: var(--ink); display: flex; justify-content: space-around; align-items: center; box-shadow: inset 0 0 0 1.5px var(--ground-3); z-index: 25; }
 .tabbar a { display: grid; justify-items: center; gap: 4px; color: var(--sage-line); text-decoration: none; font: 400 9px var(--f-mono); }
 .tabbar a svg { width: 22px; height: 22px; }
 .tabbar a[aria-current] { color: var(--coral); }
@@ -90,33 +91,54 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
 .glyphs div { background: var(--sage-hi); display: grid; justify-items: center; gap: 6px; padding: 12px 4px 8px; }
 .glyphs svg { width: 36px; height: 36px; color: var(--ink); }
 .glyphs span { font: 400 9px var(--f-mono); color: #4d4f49; }
-.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
-.swatches div { height: 92px; padding: 8px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-end; font: 400 10px/1.35 var(--f-mono); box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px 10px; }
+.swatches div { display: grid; gap: 4px; font: 400 10px/1.35 var(--f-mono); color: #4d4f49; }
+.swatches i { height: 56px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.14); }
+.swatches b { font: 600 12px var(--f-sans); color: var(--ink); }
 .typescale { display: grid; gap: 14px; }
 .typescale > div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; align-items: baseline; }
 .typescale .sg-mono { color: #4d4f49; font-size: 10px; }
 
 
+
+/* ---- header modes + theme switch */
+.modes { display: flex; gap: 10px; flex-wrap: wrap; }
+.mode-chip { position: relative; overflow: hidden; display: grid; grid-template-columns: 34px auto; column-gap: 10px; align-items: center; padding: 8px 14px 8px 8px; border-radius: 999px; background: var(--ground); box-shadow: inset 0 0 0 1.5px var(--ground-3); }
+.mode-chip i { grid-row: span 2; width: 34px; height: 34px; border-radius: 50%; }
+.mode-chip b { position: absolute; left: 25px; top: 25px; width: 16px; height: 16px; border-radius: 50%; }
+.mode-chip .sg-mono { color: var(--ground-hi); }
+.mode-chip .sg-fr { font-size: 12px; color: var(--on-ground); }
+.theme-switch { position: fixed; z-index: 50; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: 230px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+.poster-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.poster-pair figure { gap: 10px; background: transparent; }
+.poster-pair figcaption { width: 100%; }
+.poster-pair figcaption b { color: var(--ground-hi); }
+.poster-pair figcaption span { color: var(--sage-line); }
+
+.dim { background: rgba(6,6,5,.62); }
+.mode-light .dim, :root[data-theme="light"] .dim { background: rgba(6,6,5,.38); }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .dim { background: rgba(6,6,5,.38); } }
+
 /* ---- section 05 languages */
-.langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--ink-3); border: var(--hair) solid var(--ink-3); }
+.langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .lang { background: var(--sage); color: var(--ink); padding: 20px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; }
 .lang-k { font-size: 26px; line-height: 1; }
 .lang h3 { margin: 6px 0 0; font: 600 16px var(--f-sans); letter-spacing: -.02em; }
 .lang p { margin: 0; font-size: 13.5px; line-height: 1.5; max-width: 46ch; }
 .lang-ex { margin-top: 10px; min-height: 72px; padding: 12px; background: var(--sage-hi); display: flex; align-items: center; gap: 10px; color: var(--ink); --stroke: var(--ink); }
-.lex-wrap { margin-top: 24px; overflow-x: auto; border: var(--hair) solid var(--ink-3); }
+.lex-wrap { margin-top: 24px; overflow-x: auto; border: var(--hair) solid var(--ground-3); }
 .lex { width: 100%; min-width: 780px; border-collapse: collapse; font-size: 13.5px; }
-.lex th { text-align: left; font: 400 10.5px var(--f-mono); color: var(--sage-line); padding: 12px 14px; border-bottom: var(--hair) solid var(--ink-3); }
-.lex td { padding: 10px 14px; border-bottom: 1px solid var(--ink-3); color: var(--on-ink); vertical-align: top; }
+.lex th { text-align: left; font: 400 10.5px var(--f-mono); color: var(--sage-line); padding: 12px 14px; border-bottom: var(--hair) solid var(--ground-3); }
+.lex td { padding: 10px 14px; border-bottom: 1px solid var(--ground-3); color: var(--on-ground); vertical-align: top; }
 .lex td:nth-child(3), .lex td:nth-child(5) { font-family: var(--f-mono); font-size: 11px; color: var(--sage-line); }
-.lex td.sg-jp { font-size: 15px; color: var(--sage-hi); }
+.lex td.sg-jp { font-size: 15px; color: var(--ground-hi); }
 .lex tr:hover td { background: rgba(195,198,189,.04); }
 .lex-note { color: var(--sage-line); font-size: 11.5px; margin: 14px 0 0; max-width: 80ch; }
 
 @media (max-width: 980px) {
   .hd, .poster-grid { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 640px) { .anatomy { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) { .anatomy { grid-template-columns: minmax(0, 1fr); } .poster-pair { grid-template-columns: minmax(0, 1fr); } .theme-switch { width: 200px; } }
 @media (max-width: 460px) {
   .screens { grid-template-columns: minmax(0, 1fr); }
   .phone { zoom: .82; }
@@ -130,29 +152,36 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
 
 <header class="hd">
   <div>
-    <h1 class="sg-wordmark"><svg aria-hidden="true"><use href="#g-mark"/></svg>Signal Kit</h1>
-    <p class="lede">A UI kit that rebuilds the sage, coral and stripe poster style from code. Everything on this page is drawn with CSS and vector glyphs. There are no bitmaps. English leads, with Japanese and French woven in sparingly. The same parts ship as SwiftUI views in <span class="sg-mono" style="font-size:15px;color:var(--coral)">ios/</span>.</p>
+    <h1 class="sg-wordmark"><svg aria-hidden="true"><use href="#g-mark"/></svg>Shingō<span class="sg-jp hd-jp">信号</span></h1>
+    <p class="lede">An interface style for iOS and the web: sage slabs on a striped ground, one coral diagonal, nested stadium pills and telemetry in mono. English leads, with Japanese and <span class="sg-fr">français</span> woven in sparingly. Everything here is drawn in code, and the same parts ship as SwiftUI views.</p>
   </div>
   <div class="verdict">
-    <span class="sg-mono">[ assessment / open-design brutalist-skill ]</span>
-    <p>The repo skill is a 9&nbsp;KB text prompt with no assets, shapes or code. It also <b>contradicts this poster</b>. It bans rounded corners, but the poster is built on stadium pills and rounded X marks. It allows one light or dark background per screen, but the poster puts sage slabs on an ink ground. Its accent is hazard red <span class="sg-mono">#E61919</span>, not coral <span class="sg-mono">#ff715e</span>.</p>
-    <p>Its spirit is still useful: grids, mono telemetry text and technical framing. So this kit is built from scratch. It has its own tokens, generated glyphs, web components and SwiftUI shapes, all measured off the reference.</p>
+    <span class="sg-mono">[ two modes · same layering ]</span>
+    <div class="modes">
+      <div class="mode-dark mode-chip"><i class="tex"></i><b style="background:var(--sage)"></b><span class="sg-mono">dark</span><span class="sg-fr">ink ground, sage slabs</span></div>
+      <div class="mode-light mode-chip"><i class="tex"></i><b style="background:var(--sage)"></b><span class="sg-mono">light</span><span class="sg-fr">sage ground, paper slabs</span></div>
+    </div>
+    <p>Neither mode is flat. Dark keeps the poster's ink stripes. Light moves the stripes onto the poster's own sage and lifts the slabs to paper, never white. Ink buttons, slots, the tab bar and coral stay the same in both modes, so the look survives the switch. The page follows your system setting. Use the switch in the corner to compare.</p>
   </div>
 </header>
+<div class="theme-switch seg seg--ink" role="group" aria-label="Color mode" id="theme-switch"><button type="button" data-t="" aria-pressed="true">system</button><button type="button" data-t="light">light</button><button type="button" data-t="dark">dark</button></div>
 
 <!-- ========================================================== 01 POSTER -->
 <section class="sec">
-  <div class="sec-h"><span class="sg-num">01</span><h2 class="sg-wordmark">Poster study</h2><span class="sg-mono">reference rebuilt 1:1 in layout from kit primitives · 1333 × 2000 vector · brand copy swapped for placeholders</span></div>
+  <div class="sec-h"><span class="sg-num">01</span><h2 class="sg-wordmark">Poster study</h2><span class="sg-mono">the reference rebuilt from kit primitives, in both modes · 1333 × 2000 vector · brand copy swapped for placeholders</span></div>
   <div class="poster-grid">
-    <!--@POSTER-->
+    <div class="poster-pair">
+      <figure class="mode-dark"><!--@POSTER_DARK--><figcaption><b>Dark</b><span>ink ground · sage slabs · the original</span></figcaption></figure>
+      <figure class="mode-light"><!--@POSTER_LIGHT--><figcaption><b>Light</b><span>sage ground · paper slabs · same coral</span></figcaption></figure>
+    </div>
     <div class="anatomy">
       <div><div class="sw"><div class="pill" style="--h:40px;width:56px"><div class="pill__mid"><div class="pill__core"><i class="pill__slot"></i></div></div></div></div><div><h3>Nested stadium pill</h3><p>Three stacked capsules and a slot line. Proportions: band 18% of height, core 15%, slot 3%. Doubles as a hero, card, scrubber or progress bar. <code>.pill</code> · <code>NestedPill()</code></p></div></div>
-      <div><div class="sw"><svg width="48" height="48" style="color:var(--sage-hi)"><use href="#g-x-line"/></svg></div><div><h3>Rounded X</h3><p>The union of two crossed stadiums. It comes outlined, solid or faint. Use it for status, done or rest days, close and error. <code>#g-x-line</code> · <code>RoundedX()</code></p></div></div>
+      <div><div class="sw"><svg width="48" height="48" style="color:var(--ground-hi)"><use href="#g-x-line"/></svg></div><div><h3>Rounded X</h3><p>The union of two crossed stadiums. It comes outlined, solid or faint. Use it for status, done or rest days, close and error. <code>#g-x-line</code> · <code>RoundedX()</code></p></div></div>
       <div><div class="sw tex" style="width:56px;height:56px"></div><div><h3>Stripe field</h3><p>A soft repeating gradient with a 6&nbsp;pt period. Facets are extra layers with a different angle and a clip-path. <code>.tex .facet</code> · <code>StripeField</code> (Canvas)</p></div></div>
-      <div><div class="sw"><div style="width:56px;height:56px;background:var(--sage);clip-path:polygon(60% 0,100% 0,100% 100%,0 100%,0 60%)"><div style="width:100%;height:100%;background:var(--coral);clip-path:polygon(38% 0,60% 0,0 60%,0 38%)"></div></div></div><div><h3>Slab and coral diagonal</h3><p>Screens split into an ink top and a sage bottom along one diagonal. The coral band is the only accent surface. <code>.slab .band</code> · <code>DiagonalSlab</code></p></div></div>
-      <div><div class="sw"><div class="chamfer" style="width:44px;height:52px;--fill:var(--ink);--c:10px;padding:0"></div></div><div><h3>Chamfer frame</h3><p>A hairline outline with two cut corners. It frames fields, groups and ID cards. <code>.chamfer</code> · <code>ChamferRect()</code></p></div></div>
+      <div><div class="sw"><div style="width:56px;height:56px;background:linear-gradient(135deg,transparent 0 36%,var(--coral) 36% 52%,var(--sage) 52%)"></div></div><div><h3>Slab and coral diagonal</h3><p>Screens split into an ink top and a sage bottom along one diagonal. The coral band is the only accent surface. <code>.slab .band</code> · <code>DiagonalSlab</code></p></div></div>
+      <div><div class="sw"><div class="chamfer" style="width:44px;height:52px;--fill:var(--ground);--c:10px;padding:0"></div></div><div><h3>Chamfer frame</h3><p>A hairline outline with two cut corners. It frames fields, groups and ID cards. <code>.chamfer</code> · <code>ChamferRect()</code></p></div></div>
       <div><div class="sw"><svg width="52" height="52"><use href="#g-topo"/></svg></div><div><h3>Instrument badges</h3><p>The topo disc, record rings, radar fan, barcode lines, crosshair and arrows. All are generated, so they recolor with tokens. <code>assets/svg/*</code></p></div></div>
-      <div><div class="sw" style="flex-direction:column;align-items:end"><span class="sg-wordmark" style="font-size:18px;color:var(--sage-hi)">AXIOM</span><span class="sg-mono" style="color:var(--sage-line)">sp c53</span></div><div><h3>Type pair</h3><p>Archivo Expanded Black for the wordmark, Archivo Medium with tight tracking for labels, and JetBrains Mono for right-aligned telemetry. All are OFL and bundled for iOS.</p></div></div>
+      <div><div class="sw" style="flex-direction:column;align-items:end"><span class="sg-wordmark" style="font-size:12px;color:var(--ground-hi)">AXIOM</span><span class="sg-mono" style="color:var(--sage-line)">sp c53</span></div><div><h3>Type pair</h3><p>Archivo Expanded Black for the wordmark, Archivo Medium with tight tracking for labels, and JetBrains Mono for right-aligned telemetry. All are OFL and bundled for iOS.</p></div></div>
       <div><div class="sw"><span class="sg-num" style="color:var(--coral);font-size:26px">09</span></div><div><h3>Numbering and hex labels</h3><p>Entry numbers, <span class="sg-mono">#hex</span> callouts, <span class="sg-mono">200 ppi</span> specs and rules that end in a block. Use real values from your app, never filler.</p></div></div>
     </div>
   </div>
@@ -169,12 +198,12 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
       <i class="facet" style="--a:-16deg;clip-path:polygon(0 0,100% 0,100% 3%,0 28%)"></i>
       <i class="facet" style="--a:-60deg;clip-path:polygon(0 40%,46% 33%,0 72%)"></i>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
-      <div style="top:66px;left:24px;display:flex;gap:10px;align-items:center"><svg width="22" height="22" style="color:var(--coral)"><use href="#g-mark"/></svg><span class="sg-wordmark" style="font-size:17px;color:var(--sage-hi)">AXIOM</span><span class="sg-label" style="font-size:12px;margin-left:6px">secure suite</span></div>
+      <div style="top:66px;left:24px;display:flex;gap:10px;align-items:center"><svg width="22" height="22" style="color:var(--coral)"><use href="#g-mark"/></svg><span class="sg-wordmark" style="font-size:17px;color:var(--ground-hi)">AXIOM</span><span class="sg-label" style="font-size:12px;margin-left:6px">secure suite</span></div>
       <i class="band" style="top:60px;right:0;width:150px;height:150px;clip-path:polygon(100% 0,100% 100%,0 100%)"></i>
-      <svg style="top:52px;right:14px;width:104px;height:104px;color:var(--sage-hi)"><use href="#g-x-line"/></svg>
+      <svg style="top:52px;right:14px;width:104px;height:104px;color:var(--ground-hi)"><use href="#g-x-line"/></svg>
       <div class="pill pill--bleed-l" style="top:118px;left:0;width:252px;--h:118px"><div class="pill__mid"><div class="pill__core"><i class="pill__slot"></i></div></div></div>
       <div class="sg-label" style="top:250px;left:24px;font-size:11.5px">390 × 844 pt<br>@3x · P3</div>
-      <svg style="top:286px;left:24px;width:34px;height:22px;color:var(--on-ink)"><use href="#g-globe"/></svg>
+      <svg style="top:286px;left:24px;width:34px;height:22px;color:var(--on-ground)"><use href="#g-globe"/></svg>
       <svg class="cross" style="top:226px;left:258px"><use href="#g-plus"/></svg>
       <div class="sg-jp-v" style="top:330px;left:34px;color:var(--sage-line)">安全な作業空間</div>
       <div class="pill pill--bleed-r" style="top:262px;left:84px;right:0;--h:118px"><div class="pill__mid"><div class="pill__core"><i class="pill__slot" style="--p:58%"></i></div></div></div>
@@ -199,10 +228,10 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="top:76px;left:24px;display:flex;gap:10px;align-items:center"><svg width="20" height="20" style="color:var(--coral)"><use href="#g-mark"/></svg><span class="sg-mono" style="color:var(--sage-line)">device lock · armed</span></div>
       <div class="hanko" style="top:118px;right:28px">認証</div>
-      <h3 class="sg-wordmark" style="margin:0;top:112px;left:24px;font-size:34px;color:var(--sage-hi)">Enter<br>passcode</h3>
+      <h3 class="sg-wordmark" style="margin:0;top:112px;left:24px;font-size:34px;color:var(--ground-hi)">Enter<br>passcode</h3>
       <div class="sg-mono" style="top:196px;left:24px;color:var(--sage-line)">attempt 1 of 5</div>
       <div style="top:236px;left:24px;display:flex;gap:12px">
-        <svg width="34" height="34" style="color:var(--sage-hi)"><use href="#g-x-solid"/></svg><svg width="34" height="34" style="color:var(--sage-hi)"><use href="#g-x-solid"/></svg><svg width="34" height="34" style="color:var(--coral)"><use href="#g-x-solid"/></svg><svg width="34" height="34" style="color:var(--sage-line)"><use href="#g-x-line"/></svg><svg width="34" height="34" style="color:var(--sage-line)"><use href="#g-x-line"/></svg><svg width="34" height="34" style="color:var(--sage-line)"><use href="#g-x-line"/></svg>
+        <svg width="34" height="34" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><svg width="34" height="34" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><svg width="34" height="34" style="color:var(--coral)"><use href="#g-x-solid"/></svg><svg width="34" height="34" style="color:var(--sage-line)"><use href="#g-x-line"/></svg><svg width="34" height="34" style="color:var(--sage-line)"><use href="#g-x-line"/></svg><svg width="34" height="34" style="color:var(--sage-line)"><use href="#g-x-line"/></svg>
       </div>
       <i class="band" style="top:276px;left:0;right:0;height:96px;clip-path:polygon(0 70%,100% 0,100% 30%,0 100%)"></i>
       <i class="slab" style="top:304px;left:0;right:0;bottom:0;clip-path:polygon(0 68px,100% 0,100% 100%,0 100%)"></i>
@@ -224,12 +253,12 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
     <div class="phone"><div class="scr tex" style="--a:-34deg">
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="top:66px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:center">
-        <span style="display:flex;gap:9px;align-items:center"><svg width="22" height="22" style="color:var(--coral)"><use href="#g-mark"/></svg><span class="sg-wordmark" style="font-size:18px;color:var(--sage-hi)">AXIOM</span></span>
+        <span style="display:flex;gap:9px;align-items:center"><svg width="22" height="22" style="color:var(--coral)"><use href="#g-mark"/></svg><span class="sg-wordmark" style="font-size:18px;color:var(--ground-hi)">AXIOM</span></span>
         <span style="width:40px;height:40px;border-radius:50%;background:var(--sage-hi);display:grid;place-items:center"><svg width="36" height="36"><use href="#g-topo"/></svg></span>
       </div>
       <div class="pill pill--bleed-l" style="top:124px;left:0;width:318px;--h:124px"><div class="pill__mid"><div class="pill__core"><i class="pill__slot" style="--p:82%"></i></div></div></div>
-      <div class="sg-mono t-right" style="top:126px;right:20px;color:var(--sage-line)">tunnel<br><span style="color:var(--on-ink)">lis-04</span></div>
-      <div class="sg-num" style="top:212px;right:22px;color:var(--sage-hi);font-size:15px">23<span class="sg-mono"> ms</span></div>
+      <div class="sg-mono t-right" style="top:126px;right:20px;color:var(--sage-line)">tunnel<br><span style="color:var(--on-ground)">lis-04</span></div>
+      <div class="sg-num" style="top:212px;right:22px;color:var(--ground-hi);font-size:15px">23<span class="sg-mono"> ms</span></div>
       <i class="slab" style="top:268px;left:0;right:0;bottom:0;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)"></i>
       <i class="band" style="top:268px;left:0;width:110px;height:70px;clip-path:polygon(0 0,100% 0,0 100%)"></i>
       <div style="top:292px;right:24px;text-align:right;color:var(--ink)">
@@ -263,12 +292,12 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
     <div class="phone"><div class="scr tex" style="--a:-44deg">
       <i class="facet" style="--a:-22deg;clip-path:polygon(40% 0,100% 0,100% 30%)"></i>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
-      <div class="sg-wordmark" style="top:70px;left:24px;font-size:26px;color:var(--sage-hi)">Run log</div>
-      <div class="sg-mono" style="top:100px;left:24px;color:var(--sage-line)"><span class="sg-fr" style="font-size:12px;color:var(--on-ink)">journal de course</span> · week 46</div>
+      <div class="sg-wordmark" style="top:70px;left:24px;font-size:26px;color:var(--ground-hi)">Run log</div>
+      <div class="sg-mono" style="top:100px;left:24px;color:var(--sage-line)"><span class="sg-fr" style="font-size:12px;color:var(--on-ground)">journal de course</span> · week 46</div>
       <div class="sg-num" style="top:70px;right:24px;font-size:22px;color:var(--coral)">46</div>
-      <div style="top:132px;left:20px;display:flex;align-items:baseline;gap:8px"><span class="sg-num" style="font-size:104px;color:var(--sage-hi);letter-spacing:-.05em">42.6</span><span class="sg-mono" style="font-size:14px">km</span></div>
+      <div style="top:132px;left:20px;display:flex;align-items:baseline;gap:8px"><span class="sg-num" style="font-size:104px;color:var(--ground-hi);letter-spacing:-.05em">42.6</span><span class="sg-mono" style="font-size:14px">km</span></div>
       <div style="top:262px;left:24px;right:24px;display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center">
-        <svg width="38" height="38" style="color:var(--sage-hi)"><use href="#g-x-solid"/></svg><svg width="38" height="38" style="color:var(--sage-line)"><use href="#g-x-line"/></svg><svg width="38" height="38" style="color:var(--sage-hi)"><use href="#g-x-solid"/></svg><svg width="38" height="38" style="color:var(--sage-hi)"><use href="#g-x-solid"/></svg><svg width="38" height="38" style="color:var(--sage-line)"><use href="#g-x-line"/></svg><svg width="38" height="38" style="color:var(--sage-hi)"><use href="#g-x-solid"/></svg><svg width="38" height="38" style="color:var(--coral)"><use href="#g-x-solid"/></svg>
+        <svg width="38" height="38" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><svg width="38" height="38" style="color:var(--sage-line)"><use href="#g-x-line"/></svg><svg width="38" height="38" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><svg width="38" height="38" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><svg width="38" height="38" style="color:var(--sage-line)"><use href="#g-x-line"/></svg><svg width="38" height="38" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><svg width="38" height="38" style="color:var(--coral)"><use href="#g-x-solid"/></svg>
         <span class="sg-mono">m</span><span class="sg-mono">t</span><span class="sg-mono">w</span><span class="sg-mono">t</span><span class="sg-mono">f</span><span class="sg-mono">s</span><span class="sg-mono" style="color:var(--coral)">s</span>
       </div>
       <i class="slab" style="top:350px;left:0;right:0;bottom:0;clip-path:polygon(0 0,100% 60px,100% 100%,0 100%)"></i>
@@ -295,7 +324,7 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
   <figure>
     <div class="phone"><div class="scr tex" style="--a:-30deg">
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
-      <div class="sg-wordmark" style="top:70px;left:24px;font-size:26px;color:var(--sage-hi)">Wallet</div>
+      <div class="sg-wordmark" style="top:70px;left:24px;font-size:26px;color:var(--ground-hi)">Wallet</div>
       <div class="sg-mono t-right" style="top:70px;right:24px;color:var(--sage-line)">eur · main<br>acct 09</div>
       <div style="top:118px;left:24px;right:24px;height:204px;border-radius:102px;background:var(--sage);padding:20px;box-sizing:border-box">
         <div style="position:relative;height:100%;border-radius:82px;background:var(--sage-hi);color:var(--ink)">
@@ -307,7 +336,7 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
         </div>
       </div>
       <div class="sg-mono" style="top:344px;left:24px;color:var(--sage-line)">available balance</div>
-      <div class="sg-num" style="top:362px;left:22px;font-size:46px;color:var(--sage-hi)">€8,214.60</div>
+      <div class="sg-num" style="top:362px;left:22px;font-size:46px;color:var(--ground-hi)">€8,214.60</div>
       <div style="top:424px;left:24px;right:24px"><div class="seg seg--ink"><button type="button">week</button><button type="button" aria-pressed="true">month</button><button type="button">year</button></div></div>
       <i class="slab" style="top:486px;left:0;right:0;bottom:0"></i>
       <i class="band" style="top:486px;right:0;width:90px;height:90px;clip-path:polygon(0 0,100% 0,100% 100%)"></i>
@@ -336,7 +365,7 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
       </div>
       <svg class="cross" style="top:420px;left:300px"><use href="#g-plus"/></svg>
       <div class="sg-jp-outline" style="top:392px;right:14px;font-size:88px">夜行</div>
-      <h3 class="sg-wordmark" style="margin:0;top:468px;left:24px;font-size:38px;color:var(--sage-hi)">Night<br>transit</h3>
+      <h3 class="sg-wordmark" style="margin:0;top:468px;left:24px;font-size:38px;color:var(--ground-hi)">Night<br>transit</h3>
       <div class="sg-mono" style="top:544px;left:24px">Low Orbit Choir — Signal Fade (2026)</div>
       <div class="pill" style="top:576px;left:24px;right:24px;--h:52px"><div class="pill__mid"><div class="pill__core"><i class="pill__slot" style="--slot-a:var(--coral);--slot-b:var(--ink);--p:38%"></i></div></div></div>
       <i class="slab" style="top:640px;left:0;right:0;bottom:0;clip-path:polygon(0 20px,100% 0,100% 100%,0 100%)"></i>
@@ -356,16 +385,16 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
   <figure>
     <div class="phone"><div class="scr tex" style="--a:-36deg">
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
-      <div class="sg-wordmark" style="top:70px;left:24px;font-size:26px;color:var(--sage-hi)">Nearby</div>
-      <div class="sg-mono" style="top:100px;left:24px;color:var(--sage-line)"><span class="sg-fr" style="font-size:12px;color:var(--on-ink)">balayage en cours</span> · 2.4 / 5 ghz · 6 found</div>
-      <div class="chamfer" style="top:132px;left:24px;width:342px;height:342px;box-sizing:border-box;--fill:var(--ink);--c:28px;padding:0">
-        <i style="position:absolute;inset:14px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 37px,var(--ink-3) 37px 39px)"></i>
+      <div class="sg-wordmark" style="top:70px;left:24px;font-size:26px;color:var(--ground-hi)">Nearby</div>
+      <div class="sg-mono" style="top:100px;left:24px;color:var(--sage-line)"><span class="sg-fr" style="font-size:12px;color:var(--on-ground)">balayage en cours</span> · 2.4 / 5 ghz · 6 found</div>
+      <div class="chamfer" style="top:132px;left:24px;width:342px;height:342px;box-sizing:border-box;--fill:var(--ground);--c:28px;padding:0">
+        <i style="position:absolute;inset:14px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 37px,var(--ground-3) 37px 39px)"></i>
         <i style="position:absolute;inset:14px;border-radius:50%;background:conic-gradient(from 20deg,rgba(255,113,94,.55),rgba(255,113,94,0) 70deg,transparent 0)"></i>
-        <i style="position:absolute;left:50%;top:14px;bottom:14px;width:1.5px;background:var(--ink-3)"></i><i style="position:absolute;top:50%;left:14px;right:14px;height:1.5px;background:var(--ink-3)"></i>
-        <svg style="position:absolute;left:161px;top:161px;width:20px;height:20px;color:var(--sage-hi)"><use href="#g-plus"/></svg>
+        <i style="position:absolute;left:50%;top:14px;bottom:14px;width:1.5px;background:var(--ground-3)"></i><i style="position:absolute;top:50%;left:14px;right:14px;height:1.5px;background:var(--ground-3)"></i>
+        <svg style="position:absolute;left:161px;top:161px;width:20px;height:20px;color:var(--ground-hi)"><use href="#g-plus"/></svg>
         <svg style="position:absolute;left:226px;top:100px;width:20px;height:20px;color:var(--coral)"><use href="#g-mark"/></svg><span class="sg-mono" style="position:absolute;left:250px;top:104px;color:var(--coral)">ax-04</span>
-        <svg style="position:absolute;left:84px;top:220px;width:16px;height:16px;color:var(--sage-hi)"><use href="#g-mark"/></svg><span class="sg-mono" style="position:absolute;left:104px;top:222px">tv-room</span>
-        <svg style="position:absolute;left:236px;top:248px;width:16px;height:16px;color:var(--sage-hi)"><use href="#g-mark"/></svg>
+        <svg style="position:absolute;left:84px;top:220px;width:16px;height:16px;color:var(--ground-hi)"><use href="#g-mark"/></svg><span class="sg-mono" style="position:absolute;left:104px;top:222px">tv-room</span>
+        <svg style="position:absolute;left:236px;top:248px;width:16px;height:16px;color:var(--ground-hi)"><use href="#g-mark"/></svg>
         <svg style="position:absolute;left:62px;top:84px;width:14px;height:14px;color:var(--sage-line)"><use href="#g-mark"/></svg>
       </div>
       <i class="slab" style="top:496px;left:0;right:0;bottom:0"></i>
@@ -387,7 +416,7 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
       <div class="tex" style="top:0;left:0;right:0;height:210px;clip-path:polygon(0 0,100% 0,100% 150px,0 210px)"></div>
       <i class="band" style="top:150px;left:0;right:0;height:84px;clip-path:polygon(0 60px,100% 0,100% 22px,0 84px)"></i>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
-      <div class="sg-wordmark" style="top:70px;left:24px;font-size:30px;color:var(--sage-hi)">Inbox</div>
+      <div class="sg-wordmark" style="top:70px;left:24px;font-size:30px;color:var(--ground-hi)">Inbox</div>
       <div class="sg-mono" style="top:104px;left:24px;color:var(--sage-line)">12 unread · end-to-end</div>
       <div class="sg-jp-v" style="top:72px;left:206px;color:var(--sage-line)">受信箱</div>
       <button class="btn btn--coral btn--icon" type="button" aria-label="New message" style="top:72px;right:24px"><svg><use href="#g-plus"/></svg></button>
@@ -410,8 +439,8 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
     <div class="phone"><div class="scr" style="background:var(--sage)">
       <div class="tex" style="top:0;left:0;right:0;height:150px"></div>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
-      <div class="sg-jp" style="top:52px;right:16px;font-size:72px;line-height:1;color:var(--ink-3)">設定</div>
-      <div class="sg-wordmark" style="top:76px;left:24px;font-size:30px;color:var(--sage-hi)">Settings</div>
+      <div class="sg-jp" style="top:52px;right:16px;font-size:72px;line-height:1;color:var(--ground-3)">設定</div>
+      <div class="sg-wordmark" style="top:76px;left:24px;font-size:30px;color:var(--ground-hi)">Settings</div>
       <div class="sg-mono t-right" style="top:78px;right:24px;color:var(--sage-line)">v 4.2<br>build 2611</div>
       <i class="band" style="top:150px;left:0;right:0;height:8px"></i>
       <div style="top:178px;left:24px;right:24px;display:grid;gap:18px">
@@ -464,7 +493,7 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
         <div style="position:absolute;bottom:0;right:0;width:110px;height:130px;background:var(--coral)"><svg style="position:absolute;top:10px;left:8px;width:96px;height:96px"><use href="#g-radar-fan"/></svg></div>
         <span class="sg-mono sg-ghost" style="position:absolute;bottom:42px;left:22px">valid on all axiom devices</span>
       </div>
-      <div style="top:644px;left:24px;right:24px;display:grid;grid-template-columns:1fr auto;gap:12px"><button class="btn btn--sage" type="button">Add to wallet</button><button class="btn btn--ghost" type="button" style="color:var(--sage-hi)">Show QR</button></div>
+      <div style="top:644px;left:24px;right:24px;display:grid;grid-template-columns:1fr auto;gap:12px"><button class="btn btn--sage" type="button">Add to wallet</button><button class="btn btn--ghost" type="button" style="color:var(--ground-hi)">Show QR</button></div>
       <i class="home"></i>
     </div></div>
     <figcaption><b>J · Profile / ID credential</b><span>The poster's right column turned into a badge: topo avatar, barcode, coral corner and entry number.</span></figcaption>
@@ -475,7 +504,7 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
     <div class="phone"><div class="scr tex" style="--a:-34deg">
       <div class="pill pill--bleed-l" style="top:124px;left:0;width:318px;--h:124px"><div class="pill__mid"><div class="pill__core"><i class="pill__slot" style="--p:30%"></i></div></div></div>
       <i class="slab" style="top:268px;left:0;right:0;bottom:0"></i>
-      <i style="inset:0;background:rgba(6,6,5,.62);z-index:5"></i>
+      <i class="dim" style="inset:0;z-index:5"></i>
       <div class="sb" style="z-index:40"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="left:0;right:0;bottom:0;height:470px;background:var(--coral);clip-path:polygon(0 46px,100% 0,100% 100%,0 100%);z-index:10;color:var(--ink)">
         <i class="grab" style="position:absolute;top:44px;left:50%;margin-left:-20px;transform:rotate(-7deg)"></i>
@@ -516,11 +545,11 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
       <i class="facet" style="--a:-58deg;clip-path:polygon(0 30%,60% 20%,0 70%)"></i>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div class="sg-mono" style="top:70px;left:24px;color:var(--sage-line)">step 2 of 3</div>
-      <div class="sg-mono t-right" style="top:70px;right:24px;color:var(--on-ink)">skip</div>
+      <div class="sg-mono t-right" style="top:70px;right:24px;color:var(--on-ground)">skip</div>
       <div class="pill pill--bleed-l" style="top:110px;left:0;width:300px;--h:100px"><div class="pill__mid"><div class="pill__core"><i class="pill__slot"></i></div></div></div>
       <div class="pill pill--bleed-r" style="top:226px;left:40px;right:0;--h:100px"><div class="pill__mid"><div class="pill__core"><i class="pill__slot" style="--p:66%"></i></div></div></div>
       <div class="pill pill--bleed-l" style="top:342px;left:0;width:240px;--h:100px"><div class="pill__mid"><div class="pill__core"><i class="pill__slot" style="--p:20%"></i></div></div></div>
-      <svg style="top:340px;right:18px;width:110px;height:110px;color:var(--sage-hi)"><use href="#g-x-line"/></svg>
+      <svg style="top:340px;right:18px;width:110px;height:110px;color:var(--ground-hi)"><use href="#g-x-line"/></svg>
       <i class="band" style="top:450px;left:0;right:0;height:80px;clip-path:polygon(0 100%,100% 0,100% 40%,0 100%)"></i>
       <i class="slab" style="top:466px;left:0;right:0;bottom:0;clip-path:polygon(0 64px,100% 0,100% 100%,0 100%)"></i>
       <h3 class="sg-wordmark t-right" style="margin:0;top:540px;right:24px;font-size:36px;color:var(--ink)">Route every<br>packet</h3>
@@ -535,10 +564,10 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
 
   <!-- N · lock screen manifesto -->
   <figure>
-    <div class="phone"><div class="scr" style="background:#121210">
+    <div class="phone"><div class="scr" style="background:var(--ground)">
       <div class="tex-fill tex" style="--a:-38deg;opacity:.55"></div>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
-      <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--sage-hi)">
+      <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--ground-hi)">
         <div style="display:flex;align-items:flex-end;gap:8px">
           <span class="sg-mono" style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:7px;letter-spacing:.24em;color:var(--sage-line);padding-bottom:4px">SK·09·LIS</span>
           <span class="sg-wordmark wear" style="font-size:54px">AXIOM</span>
@@ -557,10 +586,10 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
         <svg class="wear" viewBox="0 0 300 230" style="width:84%;height:auto;align-self:center;margin-top:2px"><use href="#g-chevrons"/></svg>
         <div class="hazard wear"></div>
         <div class="sg-label" style="font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:-.01em">Axiom signal systems</div>
-        <div><div class="barcode--v" style="height:30px;--bc:var(--sage-hi)"></div><div class="sg-mono" style="display:flex;justify-content:space-between;font-size:9px;margin-top:4px"><span>4</span><span>902609</span><span>260911</span><span>9</span></div></div>
+        <div><div class="barcode--v" style="height:30px;--bc:var(--ground-hi)"></div><div class="sg-mono" style="display:flex;justify-content:space-between;font-size:9px;margin-top:4px"><span>4</span><span>902609</span><span>260911</span><span>9</span></div></div>
       </div>
-      <span style="bottom:40px;left:44px;width:50px;height:50px;border-radius:50%;background:rgba(195,198,189,.14);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--sage-hi)"><use href="#g-plus"/></svg></span>
-      <span style="bottom:40px;right:44px;width:50px;height:50px;border-radius:50%;background:rgba(195,198,189,.14);display:grid;place-items:center"><svg width="22" height="22" style="color:var(--sage-hi)"><use href="#g-disc"/></svg></span>
+      <span style="bottom:40px;left:44px;width:50px;height:50px;border-radius:50%;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--ground-hi)"><use href="#g-plus"/></svg></span>
+      <span style="bottom:40px;right:44px;width:50px;height:50px;border-radius:50%;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="22" height="22" style="color:var(--ground-hi)"><use href="#g-disc"/></svg></span>
       <i class="home"></i>
     </div></div>
     <figcaption><b>N · Lock screen / manifesto</b><span>The one place all three languages stack, like the shirt. The print gets a worn screen-print filter, and the date is in French.</span></figcaption>
@@ -572,7 +601,7 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div class="sg-mono" style="top:70px;left:24px;color:var(--sage-line)">field notes · nº 09</div>
       <div class="sg-jp-v" style="top:70px;right:20px;color:var(--sage-line)">第九号　静かなネットワークについて</div>
-      <h3 class="sg-wordmark" style="margin:0;top:100px;left:24px;font-size:40px;color:var(--sage-hi)">The quiet<br>network</h3>
+      <h3 class="sg-wordmark" style="margin:0;top:100px;left:24px;font-size:40px;color:var(--ground-hi)">The quiet<br>network</h3>
       <div class="sg-mono" style="top:188px;left:24px">Lena Sato · 6 min read · 16.11.2026</div>
       <svg style="top:216px;left:-30px;width:300px;height:120px;color:var(--coral)"><use href="#g-rings"/></svg>
       <svg class="cross" style="top:250px;left:300px"><use href="#g-plus"/></svg>
@@ -602,11 +631,11 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div class="sg-mono" style="top:72px;left:24px;color:var(--sage-line)">close</div>
       <div class="hanko" style="top:112px;left:26px">認定</div>
-      <h3 class="sg-wordmark" style="margin:0;top:250px;left:24px;font-size:56px;color:var(--sage-hi)">Axiom<br>Pro</h3>
+      <h3 class="sg-wordmark" style="margin:0;top:250px;left:24px;font-size:56px;color:var(--ground-hi)">Axiom<br>Pro</h3>
       <div class="sg-label" style="top:362px;left:24px;font-size:16px">Every relay, every device, no limits.</div>
       <div class="hazard" style="top:398px;left:24px;right:24px;--hz:var(--coral)"></div>
       <div style="top:444px;left:24px;right:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="chamfer" style="--fill:var(--ink);height:150px;box-sizing:border-box;color:var(--on-ink)">
+        <div class="chamfer" style="--fill:var(--ground);height:150px;box-sizing:border-box;color:var(--on-ground)">
           <div class="sg-mono" style="color:var(--sage-line)">monthly</div><div class="sg-num" style="font-size:30px;margin-top:10px">€4.99</div><div class="sg-mono" style="margin-top:4px">per month</div>
         </div>
         <div class="chamfer" style="--fill:var(--sage-hi);--line:var(--coral);height:150px;box-sizing:border-box;color:var(--ink)">
@@ -636,7 +665,7 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
     <div><div class="wg wg-s tex">
       <i class="band" style="top:0;right:0;width:60px;height:60px;clip-path:polygon(0 0,100% 0,100% 100%)"></i>
       <svg style="top:16px;left:16px;width:20px;height:20px;color:var(--coral)"><use href="#g-mark"/></svg>
-      <div class="sg-wordmark" style="top:72px;left:16px;font-size:17px;color:var(--sage-hi)">Protected</div>
+      <div class="sg-wordmark" style="top:72px;left:16px;font-size:17px;color:var(--ground-hi)">Protected</div>
       <div style="top:100px;left:16px;right:16px"><div class="slot slot--on-ink" style="--p:82%"></div></div>
       <div class="sg-mono" style="bottom:16px;left:16px;font-size:10px">lis-04 · 23 ms</div>
     </div><div class="wcap">small · vpn status</div></div>
@@ -652,7 +681,7 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
 
     <div style="max-width:100%"><div class="wg wg-m tex" style="--a:-48deg">
       <div style="top:-30px;left:-40px;width:230px;height:230px;border-radius:50%;background:var(--sage-hi);box-shadow:inset 0 0 0 12px var(--sage)"><svg style="position:absolute;inset:18px;width:194px;height:194px;color:var(--ink)"><use href="#g-disc"/></svg><span style="position:absolute;left:85px;top:85px;width:60px;height:60px;border-radius:50%;background:var(--coral)"></span></div>
-      <div class="sg-wordmark" style="top:24px;left:204px;font-size:18px;color:var(--sage-hi)">Night<br>transit</div>
+      <div class="sg-wordmark" style="top:24px;left:204px;font-size:18px;color:var(--ground-hi)">Night<br>transit</div>
       <div class="sg-mono" style="top:70px;left:204px;font-size:10px">Low Orbit Choir</div>
       <div class="pill" style="top:100px;left:204px;right:16px;--h:34px"><div class="pill__mid"><div class="pill__core"><i class="pill__slot" style="--slot-a:var(--coral);--slot-b:var(--ink);--p:38%"></i></div></div></div>
       <div class="sg-mono" style="bottom:14px;left:204px;font-size:10px;color:var(--sage-line)">1:42 / 4:33</div>
@@ -661,7 +690,7 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
     <div><div style="display:flex;gap:20px;flex-wrap:wrap">
       <div class="appicon tex" style="--a:-38deg">
         <i class="band" style="inset:0;clip-path:polygon(100% 0,100% 55%,45% 100%,0 100%,0 92%,92% 0)"></i>
-        <svg style="top:28px;left:28px;width:64px;height:64px;color:var(--sage-hi)"><use href="#g-mark"/></svg>
+        <svg style="top:28px;left:28px;width:64px;height:64px;color:var(--ground-hi)"><use href="#g-mark"/></svg>
       </div>
       <div class="appicon" style="background:var(--sage)">
         <div class="pill pill--bleed-l" style="top:16px;left:0;width:96px;--h:44px"><div class="pill__mid"><div class="pill__core"><i class="pill__slot"></i></div></div></div>
@@ -678,19 +707,19 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
   <div class="sec-h"><span class="sg-num">04</span><h2 class="sg-wordmark">Components</h2><span class="sg-mono">live, interactive · web class → SwiftUI view</span></div>
   <div class="sheet">
     <div>
-      <h3><span>buttons</span><span>.btn → SignalButton</span></h3>
+      <h3><span>buttons</span><span>.btn → SGButtonStyle</span></h3>
       <div class="stack"><button class="btn" type="button">Primary</button><button class="btn btn--coral" type="button">Commit<svg><use href="#g-arrow"/></svg></button><button class="btn btn--sage" type="button">Secondary</button><button class="btn btn--ghost" type="button">Ghost</button><button class="btn btn--sm" type="button">Small</button><button class="btn btn--coral btn--icon" type="button" aria-label="Add"><svg><use href="#g-plus"/></svg></button></div>
     </div>
     <div>
-      <h3><span>toggles · chips</span><span>.tgl · .chip</span></h3>
+      <h3><span>toggles · chips</span><span>.tgl · .chip → SGToggleStyle · SGChip</span></h3>
       <div class="stack"><input class="tgl" type="checkbox" id="k-t1" checked aria-label="Example toggle on"><input class="tgl" type="checkbox" id="k-t2" aria-label="Example toggle off"><span class="chip chip--on"><i></i>live</span><span class="chip">wireguard</span><span class="chip chip--coral">3 alerts</span><span class="chip">sp c53</span></div>
     </div>
     <div>
-      <h3><span>segmented</span><span>.seg → SignalSegmented</span></h3>
+      <h3><span>segmented</span><span>.seg → SGSegmented</span></h3>
       <div class="seg" id="k-seg"><button type="button" aria-pressed="true">day</button><button type="button">week</button><button type="button">month</button></div>
     </div>
     <div>
-      <h3><span>field</span><span>.field .chamfer → ChamferField</span></h3>
+      <h3><span>field</span><span>.field .chamfer → .chamferFrame()</span></h3>
       <label class="field"><span>server name</span><span class="chamfer"><input id="k-f1" value="lisbon-04"></span></label>
     </div>
     <div>
@@ -712,13 +741,12 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
     <div style="grid-column:1/-1">
       <h3><span>glyphs · generated by tools/build.py</span><span>assets/svg/*.svg</span></h3>
       <div class="glyphs">
-        <div><svg><use href="#g-x-line"/></svg><span>x-line</span></div><div><svg><use href="#g-x-solid"/></svg><span>x-solid</span></div><div><svg style="color:var(--coral)"><use href="#g-mark"/></svg><span>mark</span></div><div><svg><use href="#g-plus"/></svg><span>plus</span></div><div><svg><use href="#g-arrow"/></svg><span>arrow</span></div><div><svg><use href="#g-globe"/></svg><span>globe</span></div><div><svg style="width:60px"><use href="#g-rings"/></svg><span>rings</span></div><div><svg><use href="#g-disc"/></svg><span>disc</span></div><div><svg><use href="#g-topo"/></svg><span>topo</span></div><div><svg><use href="#g-radar-fan"/></svg><span>radar-fan</span></div><div><svg><use href="#g-bars"/></svg><span>bars</span></div><div><svg><use href="#g-play"/></svg><span>play</span></div><div><svg><use href="#g-skip"/></svg><span>skip</span></div><div><svg><use href="#g-chev"/></svg><span>chev</span></div><div><svg><use href="#g-user"/></svg><span>user</span></div>
+        <div><svg><use href="#g-x-line"/></svg><span>x-line</span></div><div><svg><use href="#g-x-solid"/></svg><span>x-solid</span></div><div><svg style="color:var(--coral)"><use href="#g-mark"/></svg><span>mark</span></div><div><svg><use href="#g-plus"/></svg><span>plus</span></div><div><svg><use href="#g-arrow"/></svg><span>arrow</span></div><div><svg><use href="#g-globe"/></svg><span>globe</span></div><div><svg style="width:60px"><use href="#g-rings"/></svg><span>rings</span></div><div><svg><use href="#g-disc"/></svg><span>disc</span></div><div><svg><use href="#g-topo"/></svg><span>topo</span></div><div><svg><use href="#g-radar-fan"/></svg><span>radar-fan</span></div><div><svg><use href="#g-bars"/></svg><span>bars</span></div><div><svg><use href="#g-play"/></svg><span>play</span></div><div><svg><use href="#g-skip"/></svg><span>skip</span></div><div><svg><use href="#g-chev"/></svg><span>chev</span></div><div><svg><use href="#g-user"/></svg><span>user</span></div><div><svg><use href="#g-head"/></svg><span>head</span></div><div><svg style="width:46px"><use href="#g-chevrons"/></svg><span>chevrons</span></div>
       </div>
     </div>
     <div style="grid-column:1/-1">
-      <h3><span>color tokens</span><span>tokens/tokens.json</span></h3>
-      <div class="swatches">
-        <div style="background:var(--ink);color:var(--on-ink)">ink<br>#0c0c0a</div><div style="background:var(--ink-2);color:var(--on-ink)">ink-2<br>#1f201b</div><div style="background:var(--ink-3);color:var(--on-ink)">ink-3<br>#2b2c26</div><div style="background:var(--sage-lo)">sage-lo<br>#a9aca1</div><div style="background:var(--sage)">sage<br>#b8bbb0</div><div style="background:var(--sage-hi)">sage-hi<br>#c3c6bd</div><div style="background:var(--sage-line);color:var(--ink)">sage-line<br>#8e9089</div><div style="background:var(--coral)">coral<br>#ff715e</div><div style="background:var(--coral-deep)">coral-deep<br>#e65b48</div>
+      <h3><span>color roles · both modes</span><span>tokens/tokens.json</span></h3>
+      <div class="swatches"><div><i style="background:var(--ground)"></i><b>ground</b><span>dark #0c0c0a<br>light #bcbfb4</span></div><div><i style="background:var(--ground-2)"></i><b>ground-2</b><span>dark #1f201b<br>light #adb0a5</span></div><div><i style="background:var(--ground-3)"></i><b>ground-3</b><span>dark #2b2c26<br>light #a1a499</span></div><div><i style="background:var(--on-ground)"></i><b>on-ground</b><span>dark #d9dbd3<br>light #1c1d19</span></div><div><i style="background:var(--ground-hi)"></i><b>ground-hi</b><span>dark #c3c6bd<br>light #0f100d</span></div><div><i style="background:var(--sage)"></i><b>sage</b><span>dark #b8bbb0<br>light #e3e5dd</span></div><div><i style="background:var(--sage-hi)"></i><b>sage-hi</b><span>dark #c3c6bd<br>light #f0f1ec</span></div><div><i style="background:var(--sage-lo)"></i><b>sage-lo</b><span>dark #a9aca1<br>light #d2d4cb</span></div><div><i style="background:var(--sage-line)"></i><b>sage-line</b><span>dark #8e9089<br>light #72746b</span></div><div><i style="background:var(--sage-ghost)"></i><b>sage-ghost</b><span>dark #cdd0c7<br>light #f7f8f4</span></div><div><i style="background:var(--ink)"></i><b>ink</b><span>dark #0c0c0a<br>light #10110e</span></div><div><i style="background:var(--coral)"></i><b>coral</b><span>dark #ff715e<br>light #ff715e</span></div><div><i style="background:var(--coral-deep)"></i><b>coral-deep</b><span>dark #e65b48<br>light #e65b48</span></div></div>
       </div>
     </div>
     <div style="grid-column:1/-1">
@@ -775,8 +803,22 @@ figcaption span { font: 400 11px/1.4 var(--f-mono); color: var(--sage-line); }
 </div>
 
 <script>
+// Color mode: system (no attribute) / light / dark. Remembered per viewer when storage is available.
+(function () {
+  var root = document.documentElement, sw = document.getElementById('theme-switch');
+  function apply(v) {
+    if (v) root.setAttribute('data-theme', v); else root.removeAttribute('data-theme');
+    sw.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.t === v ? 'true' : 'false'); });
+  }
+  var saved = ''; try { saved = localStorage.getItem('shingo-theme') || ''; } catch (e) {}
+  apply(saved);
+  sw.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    apply(b.dataset.t); try { localStorage.setItem('shingo-theme', b.dataset.t); } catch (e) {}
+  });
+})();
 // Make the demo controls respond (segmented controls are single-select).
-document.querySelectorAll('.seg').forEach(function (seg) {
+document.querySelectorAll('.seg:not(#theme-switch)').forEach(function (seg) {
   seg.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     seg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });

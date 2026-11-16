@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "SignalKit",
+    name: "ShingoKit",
     platforms: [.iOS(.v17)],
-    products: [.library(name: "SignalKit", targets: ["SignalKit"])],
+    products: [.library(name: "ShingoKit", targets: ["ShingoKit"])],
     targets: [
         .target(
-            name: "SignalKit",
+            name: "ShingoKit",
             resources: [.process("Resources")]
         )
     ]
