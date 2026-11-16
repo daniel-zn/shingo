@@ -17,7 +17,7 @@ import SwiftUI
 
 public enum SGMetrics {
     public static let display: CGFloat = 40
-    public static let title: CGFloat = 24
+    public static let title: CGFloat = 28
     public static let inline: CGFloat = 14
 }
 
@@ -107,6 +107,26 @@ public struct SGUtilityScreen<Hero: View, Content: View>: View {
             Button(action: action) { Image(systemName: img) }
                 .buttonStyle(SGButtonStyle(.plate))
                 .accessibilityLabel(label)
+        }
+    }
+}
+
+/// The imprint that closes a screen, like a garment print's footer:
+/// print rule, wide-caps line, mono reference, barcode.
+public struct SGFooter: View {
+    var line: String; var ref: String
+    public init(_ line: String = "Axiom signal systems", ref: String) { self.line = line; self.ref = ref }
+    public var body: some View {
+        VStack(spacing: 12) {
+            Rectangle().fill(SG.groundHi).frame(height: SG.hair)
+            HStack(alignment: .bottom, spacing: 16) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(line).sgWordmark(12).foregroundStyle(SG.groundHi)
+                    Text(ref).sgMono(9.5).foregroundStyle(SG.groundDim)
+                }
+                Spacer(minLength: 0)
+                Barcode(axis: .horizontal, color: SG.groundHi).frame(width: 112, height: 26)
+            }
         }
     }
 }

@@ -7,8 +7,9 @@
    like a technical garment print: hard edges, 45° chamfers, hazard bars,
    chevrons, barcodes, corner brackets, mono telemetry, one coral signal.
 
-   One angle: every diagonal is 45° (chamfers, hazard stripes, chevrons,
-   the stripe texture). Corners are cut on the top-right / bottom-left axis.
+   One angle, one direction: every diagonal rises left to right ("/") at 45°:
+   chamfers (cut top-left + bottom-right), hazard stripes, cells, bands,
+   the stripe field. No tilts, no textures, no shadows: flat two-ink print.
    No border-radius anywhere except radar rings and the device frame.
 
    Two modes, same layering:
@@ -91,7 +92,7 @@
 
 /* ------------------------------------------------------------ cut shapes */
 /* .cut: chamfer top-right + bottom-left (the system axis). --c sets the size. */
-.cut { --c: var(--cut-m); clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.cut { --c: var(--cut-m); clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 /* .tagcut: one cut, bottom-right (the shirt's slab) */
 .tagcut { --c: 16px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%); }
 .slab { position: absolute; background: var(--sage); }
@@ -101,7 +102,7 @@
 
 /* outlined chamfer frame: line = --line, fill = --fill */
 .chamfer { --c: var(--cut-m); --line: var(--ground-3); --fill: var(--ground); position: relative; padding: 14px; isolation: isolate; }
-.chamfer::before, .chamfer::after { content: ""; position: absolute; z-index: -1; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.chamfer::before, .chamfer::after { content: ""; position: absolute; z-index: -1; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .chamfer::before { inset: 0; background: var(--line); }
 .chamfer::after { inset: var(--hair); background: var(--fill); }
 
@@ -126,14 +127,14 @@
 .bar__core { flex: 1; height: calc(var(--h) * .2); display: flex; align-items: center; padding-right: calc(var(--h) * .06); background: var(--ground-hi); }
 .bar__slot { flex: 1; height: max(3px, calc(var(--h) * .05)); --p: 100%; background: linear-gradient(90deg, var(--slot-a, var(--ground)) var(--p), var(--slot-b, var(--coral)) 0); }
 .bar--bleed-r { padding: calc(var(--h) * .12) 0 calc(var(--h) * .12) calc(var(--h) * .12);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, var(--k) 100%, 0 calc(100% - var(--k))); }
-.bar--bleed-r .bar__mid { padding: 0 0 0 calc(var(--h) * .3); clip-path: polygon(0 0, 100% 0, 100% 100%, calc(var(--k) * .62) 100%, 0 calc(100% - var(--k) * .62)); }
+  clip-path: polygon(var(--k) 0, 100% 0, 100% 100%, 0 100%, 0 var(--k)); }
+.bar--bleed-r .bar__mid { padding: 0 0 0 calc(var(--h) * .3); clip-path: polygon(calc(var(--k) * .62) 0, 100% 0, 100% 100%, 0 100%, 0 calc(var(--k) * .62)); }
 .bar--bleed-r .bar__core { padding: 0 0 0 calc(var(--h) * .06); }
 
 /* -------------------------------------------------------------- buttons */
 .btn { all: unset; box-sizing: border-box; position: relative; isolation: isolate; height: 48px; padding: 0 22px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
   font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
-  --c: 10px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
+  --c: 10px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
   background: var(--ground-hi); color: var(--ground); }
 .btn:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
 .btn svg { width: 15px; height: 15px; }
@@ -143,17 +144,17 @@
 .btn--ghost { background: transparent; color: var(--btn-line, var(--ground-hi)); }
 .btn--ghost::before, .btn--ghost::after { content: ""; position: absolute; z-index: -1; clip-path: inherit; }
 .btn--ghost::before { inset: 0; background: currentColor; }
-.btn--ghost::after { inset: var(--hair); background: var(--btn-fill, var(--ground)); clip-path: polygon(0 0, calc(100% - var(--c) + 1px) 0, 100% calc(var(--c) - 1px), 100% 100%, calc(var(--c) - 1px) 100%, 0 calc(100% - var(--c) + 1px)); }
+.btn--ghost::after { inset: var(--hair); background: var(--btn-fill, var(--ground)); clip-path: polygon(calc(var(--c) - 1px) 0, 100% 0, 100% calc(100% - var(--c) + 1px), calc(100% - var(--c) + 1px) 100%, 0 100%, 0 calc(var(--c) - 1px)); }
 .btn--block { display: flex; width: 100%; }
 .btn--sm { height: 32px; padding: 0 14px; font-size: 12px; --c: 7px; }
 .btn--icon { width: 48px; padding: 0; }
 
 /* --------------------------------------------------------------- toggle */
 .tgl { appearance: none; -webkit-appearance: none; margin: 0; flex: none; width: 58px; height: 28px; position: relative; cursor: pointer;
-  --c: 7px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
+  --c: 7px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
   background: repeating-linear-gradient(-45deg, var(--ground-3) 0 3px, transparent 3px 6px), var(--ground-2); }
 .tgl::after { content: ""; position: absolute; top: 4px; left: 4px; width: 22px; height: 20px; background: var(--ground-dim);
-  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px)); transition: transform .16s; }
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); transition: transform .16s; }
 .tgl:checked { background: var(--ground-hi); }
 .tgl:checked::after { transform: translateX(28px); background: var(--ground); }
 .tgl:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
@@ -161,12 +162,12 @@
 
 /* ---------------------------------------------------- chips & segmented */
 .chip { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; font: 400 10.5px/1 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: inherit;
-  box-shadow: inset 0 0 0 var(--hair) var(--ground-dim); --c: 5px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+  box-shadow: inset 0 0 0 var(--hair) var(--ground-dim); --c: 5px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .chip--on { background: var(--ground-hi); color: var(--ground); box-shadow: none; }
 .chip--coral { background: var(--coral); color: #0c0c0a; box-shadow: none; }
 .chip i { width: 6px; height: 6px; background: currentColor; transform: rotate(45deg); }
 
-.seg { display: flex; gap: 3px; padding: 3px; background: var(--ground-3); --c: 8px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.seg { display: flex; gap: 3px; padding: 3px; background: var(--ground-3); --c: 8px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .seg button { all: unset; flex: 1; text-align: center; height: 30px; font: 400 11px/30px var(--f-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--on-ground); cursor: pointer; }
 .seg button[aria-pressed="true"] { background: var(--ground-hi); color: var(--ground); }
 .seg--ink { background: var(--ground-3); }
@@ -202,7 +203,7 @@
 
 /* hanko seal: square, vertical kanji, slightly off-axis */
 .hanko { box-sizing: border-box; width: 52px; height: 52px; display: grid; place-items: center; border: 2.5px solid var(--coral); color: var(--coral);
-  font-family: var(--f-jp); font-weight: 700; font-size: 16px; line-height: 1; letter-spacing: .12em; writing-mode: vertical-rl; transform: rotate(-2deg); }
+  font-family: var(--f-jp); font-weight: 700; font-size: 16px; line-height: 1; letter-spacing: .12em; writing-mode: vertical-rl; }
 
 /* print motifs */
 .hazard { --hz: var(--ground-hi); height: 18px; box-sizing: border-box; padding-block: 3px; border-block: var(--hair) solid var(--hz); background: repeating-linear-gradient(-45deg, var(--hz) 0 6px, transparent 6px 12px) content-box; }
@@ -210,7 +211,6 @@
 .yearspan { display: flex; align-items: center; gap: 12px; }
 .yearspan i { flex: 1; height: 1.5px; background: currentColor; }
 .slab-cut { background: var(--coral); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); }
-.wear { filter: url(#wear); }
 
 /* ================================================== screen grammar
    Two tiers.
@@ -220,7 +220,8 @@
                        then a span rule: "value ────── value"
      hero     .u-hero  at most ONE form: a bar, a number, a plate, a scope, chevrons
      divider  .hazard  a hazard bar on the gutter
-     body     .u-body  rows and frames, hairlines in ground-3, labels in condensed caps
+     body     .u-body  rows and frames, hairlines in ground-3, labels in wide caps
+     footer   .u-foot  the imprint: print rule, wide-caps line, mono ref, barcode
    POSTER screens (launch, onboarding, lock screen, empty state) compose freely.
    Type: display 40 (Anybody 150% 800) · title 22 · inline 14 (Anybody 125% 700);
          labels Anybody 125% caps 10–12; body Anybody 15; telemetry IBM Plex Mono 11;
@@ -231,7 +232,7 @@
 .u > .u-hd, .u > .u-hero, .u > .u-div, .u > .u-body { position: relative; }
 .u-hd { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; align-items: end; padding: 60px 24px 0; }
 .u-code { grid-column: 1; grid-row: 1; writing-mode: vertical-rl; transform: rotate(180deg); font: 400 7px/1 var(--f-mono); letter-spacing: .24em; color: var(--ground-dim); padding-bottom: 2px; }
-.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-title); font-stretch: 125%; font-weight: 700; font-size: 24px; letter-spacing: .01em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
+.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-title); font-stretch: 125%; font-weight: 800; font-size: 28px; letter-spacing: .01em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
 .u-tag { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
 .u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ground-dim); }
 .u-hd .sg-jp-v { color: var(--ground-dim); font-size: 12px; }
@@ -247,8 +248,12 @@
   font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
 .u-label span:last-child { font: 400 11px var(--f-mono); color: var(--ground-dim); }
 .u-dim { color: var(--ground-dim); }
+.u-foot { margin-top: auto; display: grid; grid-template-columns: minmax(0, 1fr) 112px; gap: 16px; align-items: end; padding-top: 12px; border-top: var(--hair) solid var(--ground-hi); }
+.u-foot b { display: block; font: 700 expanded 12px var(--f-title); letter-spacing: .04em; text-transform: uppercase; color: var(--ground-hi); }
+.u-foot span { display: block; margin-top: 4px; font: 500 9.5px var(--f-mono); text-transform: uppercase; color: var(--ground-dim); }
+.u-foot .barcode--v { height: 26px; --bc: var(--ground-hi); }
 .u-sheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 40px; background: var(--coral); color: #0c0c0a; display: flex; flex-direction: column; gap: 16px;
-  clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 44px, 100% 100%, 0 100%); }
+  clip-path: polygon(44px 0, 100% 0, 100% 100%, 0 100%, 0 44px); }
 
 /* ================================================== instruments
    Useful, decorative parts extrapolated from the system. Each one is built
@@ -259,11 +264,11 @@
 .seg7 .on { fill: currentColor; } .seg7 .off { fill: var(--off); } .seg7 .hot { fill: var(--coral); }
 
 /* cell meter: slanted cells, filled up to a count */
-.cells { display: flex; gap: 3px; padding-left: 5px; }
-.cells i { flex: 1; height: 14px; background: var(--ground-3); transform: skewX(-30deg); }
+.cells { display: flex; gap: 4px; padding-left: 14px; }
+.cells i { flex: 1; height: 14px; background: var(--ground-3); transform: skewX(-45deg); transform-origin: 0 100%; }
 .cells i.on { background: var(--ground-hi); }
 .cells i.hot { background: var(--coral); }
-.cells--tall i { height: 22px; }
+.cells--tall { padding-left: 22px; } .cells--tall i { height: 22px; }
 
 /* ruler slider: ticks every 2%, majors every 10%, coral needle */
 .ruler { position: relative; --v: 50%; padding-top: 12px; color: var(--ground-hi); }
@@ -286,9 +291,9 @@
 
 /* index tabs: manual-divider tabs on a print rule */
 .itabs { display: flex; gap: 4px; border-bottom: 2px solid var(--ground-hi); }
-.itabs button { all: unset; cursor: pointer; padding: 8px 18px 6px 12px; background: var(--ground-3); color: var(--ground-dim);
+.itabs button { all: unset; cursor: pointer; padding: 8px 12px 6px 18px; background: var(--ground-3); color: var(--ground-dim);
   font: 600 expanded 11px var(--f-cap); letter-spacing: .06em; text-transform: uppercase;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); }
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px); }
 .itabs button[aria-pressed="true"] { background: var(--ground-hi); color: var(--ground); }
 .itabs button:focus-visible { outline: 2px solid var(--coral); outline-offset: -2px; }
 
@@ -301,7 +306,7 @@
 
 /* rubber stamp: stencil caps in a double frame, worn */
 .stamp { display: inline-grid; place-items: center; padding: 5px 10px 4px; --st: var(--coral); --gap: var(--ground); color: var(--st);
-  border: 2px solid var(--st); font: 400 15px/1 var(--f-stencil); letter-spacing: .1em; text-transform: uppercase; transform: rotate(-2deg); filter: url(#wear); }
+  border: 2px solid var(--st); font: 400 15px/1 var(--f-stencil); letter-spacing: .1em; text-transform: uppercase; }
 
 /* ticket stub: plate with square notches and a perforation */
 .ticket { --stub: 92px; display: grid; grid-template-columns: minmax(0, 1fr) var(--stub); background: var(--sage-hi); color: var(--ink);
@@ -312,12 +317,12 @@
 
 /* keycap: a physical push button, top plate over a shadow plate */
 .keycap { all: unset; box-sizing: border-box; position: relative; isolation: isolate; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  width: 100%; height: 64px; padding: 0 20px 3px; color: #0c0c0a; font: 700 expanded 22px var(--f-title); letter-spacing: .06em; text-transform: uppercase; }
-.keycap::before, .keycap::after { content: ""; position: absolute; z-index: -1; --c: 14px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
-.keycap::before { inset: 3px 0 0; background: var(--kc-shade, var(--coral-deep)); }
-.keycap::after { inset: 0 0 3px; background: var(--kc, var(--coral)); transition: transform .08s; }
-.keycap:active::after { transform: translateY(2px); }
-.keycap:active { padding-top: 4px; }
+  width: 100%; height: 60px; padding: 0 20px; color: #0c0c0a; font: 700 expanded 22px var(--f-title); letter-spacing: .06em; text-transform: uppercase; }
+.keycap::before, .keycap::after { content: ""; position: absolute; z-index: -1; --c: 14px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.keycap::before { display: none; }
+.keycap::after { inset: 0; background: var(--kc, var(--coral)); }
+.keycap:active::after { background: var(--kc-shade, var(--coral-deep)); }
+
 .keycap small { font: 400 10px var(--f-mono); letter-spacing: .04em; }
 .keycap .led { width: 8px; height: 8px; background: #0c0c0a; }
 .keycap--print { --kc: var(--ground-hi); --kc-shade: var(--ground-dim); color: var(--ground); }
@@ -325,7 +330,7 @@
 
 /* rocker switch: I / O */
 .rocker { appearance: none; -webkit-appearance: none; margin: 0; flex: none; position: relative; width: 84px; height: 36px; cursor: pointer; background: var(--ground-3);
-  --c: 7px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+  --c: 7px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .rocker::before, .rocker::after { position: absolute; top: 4px; bottom: 4px; width: 36px; display: grid; place-items: center; font: 700 14px var(--f-mono); }
 .rocker::before { content: "I"; left: 4px; color: var(--ground-dim); }
 .rocker::after { content: "O"; right: 4px; background: var(--ground-hi); color: var(--ground); }
@@ -334,10 +339,10 @@
 .rocker:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
 
 /* data plate: a riveted equipment nameplate */
-.dataplate { position: relative; padding: 18px 20px 16px; color: var(--ink); --c: 14px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
+.dataplate { position: relative; padding: 18px 20px 16px; color: var(--ink); --c: 14px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
   background:
-    linear-gradient(var(--ink-dim) 0 0) 7px 7px / 6px 6px no-repeat, linear-gradient(var(--ink-dim) 0 0) calc(100% - 22px) 7px / 6px 6px no-repeat,
-    linear-gradient(var(--ink-dim) 0 0) 22px calc(100% - 7px) / 6px 6px no-repeat, linear-gradient(var(--ink-dim) 0 0) calc(100% - 7px) calc(100% - 7px) / 6px 6px no-repeat,
+    linear-gradient(var(--ink-dim) 0 0) 22px 7px / 6px 6px no-repeat, linear-gradient(var(--ink-dim) 0 0) calc(100% - 7px) 7px / 6px 6px no-repeat,
+    linear-gradient(var(--ink-dim) 0 0) 7px calc(100% - 7px) / 6px 6px no-repeat, linear-gradient(var(--ink-dim) 0 0) calc(100% - 22px) calc(100% - 7px) / 6px 6px no-repeat,
     var(--sage-hi); }
 .spec { display: grid; grid-template-columns: auto minmax(12px, 1fr) auto; gap: 5px 8px; align-items: end; font: 400 11px var(--f-mono); text-transform: uppercase; }
 .spec i { border-bottom: 1.5px dotted var(--ink-dim); margin-bottom: 3px; }

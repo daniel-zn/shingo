@@ -21,7 +21,7 @@ public struct SGBar: View {
 
     public var body: some View {
         let k = height * 0.42
-        let corner: TagCut.Corner = bleed == .leading ? .bottomTrailing : .bottomLeading
+        let corner: TagCut.Corner = bleed == .leading ? .bottomTrailing : .topLeading
         let freeEnd: Edge.Set = bleed == .leading ? .trailing : .leading
 
         TagCut(cut: k, corner: corner).fill(SG.groundHi)

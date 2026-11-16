@@ -48,7 +48,6 @@ public struct Hanko: View {
             .foregroundStyle(color)
             .frame(width: size, height: size)
             .overlay(Rectangle().strokeBorder(color, lineWidth: 2.5))
-            .rotationEffect(.degrees(-2))
     }
 }
 

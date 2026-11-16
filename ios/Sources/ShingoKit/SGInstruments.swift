@@ -21,14 +21,13 @@ public struct SGSegDisplay: View {
                                            "6": "afgedc", "7": "abc", "8": "abcdefg", "9": "abcdfg", "-": "g", " ": ""]
 
     private var unitWidth: CGFloat {
-        text.reduce(CGFloat(0)) { $0 + (($1 == "." || $1 == ":") ? 16 : 53) } - 9 + 10
+        text.reduce(CGFloat(0)) { $0 + (($1 == "." || $1 == ":") ? 16 : 53) } - 9 + 4
     }
 
     public var body: some View {
         Canvas { ctx, size in
             let s = size.height / 60
-            ctx.translateBy(x: 7 * s, y: 0)
-            ctx.concatenate(CGAffineTransform(a: 1, b: 0, c: -0.1051, d: 1, tx: 0, ty: 0)) // skewX(-6°)
+            ctx.translateBy(x: 2 * s, y: 0)   // upright segments: no slant
             ctx.scaleBy(x: s, y: s)
             let t: CGFloat = 5.6, w: CGFloat = 44, h: CGFloat = 60, g: CGFloat = 1.3
             func hseg(_ x0: CGFloat, _ x1: CGFloat, _ yc: CGFloat) -> Path {
@@ -78,7 +77,7 @@ public struct SGCellMeter: View {
                 Rectangle()
                     .fill(i == hot ? SG.coral : (i < filled ? SG.groundHi : SG.ground3))
                     .frame(height: tall ? 22 : 14)
-                    .transformEffect(CGAffineTransform(a: 1, b: 0, c: -0.577, d: 1, tx: (tall ? 22 : 14) * 0.577, ty: 0)) // skewX(-30°)
+                    .transformEffect(CGAffineTransform(a: 1, b: 0, c: -1, d: 1, tx: tall ? 22 : 14, ty: 0)) // skewX(-45°): the system diagonal
             }
         }
         .accessibilityValue(Text("\(filled) of \(count)"))
@@ -164,7 +163,7 @@ public struct SGIndexTabs: View {
                 ForEach(titles.indices, id: \.self) { i in
                     let on = i == selection
                     Text(titles[i]).sgCap(11)
-                        .padding(.leading, 12).padding(.trailing, 18).padding(.vertical, 7)
+                        .padding(.leading, 18).padding(.trailing, 12).padding(.vertical, 7)
                         .foregroundStyle(on ? SG.ground : SG.groundDim)
                         .background(TabShape().fill(on ? SG.groundHi : SG.ground3))
                         .onTapGesture { selection = i }
@@ -178,9 +177,9 @@ public struct SGIndexTabs: View {
     struct TabShape: Shape {
         func path(in r: CGRect) -> Path {
             Path { p in
-                p.move(to: CGPoint(x: r.minX, y: r.minY)); p.addLine(to: CGPoint(x: r.maxX - 10, y: r.minY))
-                p.addLine(to: CGPoint(x: r.maxX, y: r.minY + 10)); p.addLine(to: CGPoint(x: r.maxX, y: r.maxY))
-                p.addLine(to: CGPoint(x: r.minX, y: r.maxY)); p.closeSubpath()
+                p.move(to: CGPoint(x: r.minX + 10, y: r.minY)); p.addLine(to: CGPoint(x: r.maxX, y: r.minY))
+                p.addLine(to: CGPoint(x: r.maxX, y: r.maxY)); p.addLine(to: CGPoint(x: r.minX, y: r.maxY))
+                p.addLine(to: CGPoint(x: r.minX, y: r.minY + 10)); p.closeSubpath()
             }
         }
     }
@@ -243,7 +242,7 @@ public struct WarnShape: Shape {
 
 public struct SGStamp: View {
     var text: String; var color: Color; var gap: Color; var angle: Double
-    public init(_ text: String, color: Color = SG.coral, gap: Color = SG.ground, angle: Double = -2) {
+    public init(_ text: String, color: Color = SG.coral, gap: Color = SG.ground, angle: Double = 0) {
         self.text = text; self.color = color; self.gap = gap; self.angle = angle
     }
     public var body: some View {
@@ -298,7 +297,6 @@ public struct SGKeycapStyle: ButtonStyle {
     public func makeBody(configuration: Configuration) -> some View {
         let pressed = configuration.isPressed
         ZStack {
-            ChamferRect(cut: 14).fill(print ? SG.groundDim : SG.coralDeep).padding(.top, 3)
             HStack {
                 configuration.label.font(SGFont.title(18)).textCase(.uppercase).tracking(0.4)
                 Spacer()
@@ -307,13 +305,10 @@ public struct SGKeycapStyle: ButtonStyle {
             }
             .padding(.horizontal, 22)
             .frame(maxHeight: .infinity)
-            .background(ChamferRect(cut: 14).fill(print ? SG.groundHi : SG.coral))
-            .padding(.bottom, 3)
-            .offset(y: pressed ? 2 : 0)
+            .background(ChamferRect(cut: 14).fill(print ? (pressed ? SG.groundDim : SG.groundHi) : (pressed ? SG.coralDeep : SG.coral)))
         }
         .foregroundStyle(print ? SG.ground : SG.inkFixed)
-        .frame(height: 64)
-        .animation(.easeOut(duration: 0.08), value: pressed)
+        .frame(height: 60)
     }
 }
 
@@ -348,10 +343,10 @@ public struct SGDataPlate<Content: View>: View {
             .padding(.horizontal, 20).padding(.vertical, 18)
             .foregroundStyle(SG.ink)
             .background(ChamferRect(cut: 14).fill(SG.sageHi))
-            .overlay(alignment: .topLeading) { rivet.padding(7) }
-            .overlay(alignment: .bottomTrailing) { rivet.padding(7) }
-            .overlay(alignment: .topTrailing) { rivet.padding(.top, 7).padding(.trailing, 22) }
-            .overlay(alignment: .bottomLeading) { rivet.padding(.bottom, 7).padding(.leading, 22) }
+            .overlay(alignment: .topTrailing) { rivet.padding(7) }
+            .overlay(alignment: .bottomLeading) { rivet.padding(7) }
+            .overlay(alignment: .topLeading) { rivet.padding(.top, 7).padding(.leading, 22) }
+            .overlay(alignment: .bottomTrailing) { rivet.padding(.bottom, 7).padding(.trailing, 22) }
     }
     private var rivet: some View { Rectangle().fill(SG.inkDim).frame(width: 6, height: 6) }
 }

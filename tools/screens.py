@@ -194,7 +194,7 @@ rowhtml = ''.join(f'<div class="row"><span class="av{c}">{i}</span><span><span c
                   f'<span style="display:grid;justify-items:end;gap:6px"><span class="sg-mono">{t}</span>{"<i class=unread></i>" if u else ""}</span></div>' for i, n, m, t, u, c in rows)
 S['H'] = fig('H', 'Inbox', 'No hero form, so the filter takes the hero slot and the compose action is the masthead tag. Coral only marks unread.', utility(f'''
       {mast('Inbox', '12 unread', 'end-to-end', '<button class="u-tag-btn btn btn--plate btn--icon" type="button" aria-label="New message"><svg><use href="#g-plus"/></svg></button>')}
-      <div class="u-hero u-hero--pad"><div class="seg"><button type="button" aria-pressed="true">all</button><button type="button">flagged</button><button type="button">sealed</button></div></div>
+      <div class="u-hero u-hero--pad"><div class="itabs"><button type="button" aria-pressed="true">All</button><button type="button">Flagged</button><button type="button">Sealed</button></div></div>
       {DIV}
       <section class="u-body"><div>{rowhtml}</div></section>''', tab=tabbar([('mark', 'inbox'), ('x-line', 'spam'), ('grid', 'contacts'), ('head', 'me')], 0)))
 
@@ -276,7 +276,6 @@ S['P'] = fig('P', 'Paywall', 'The chevron print is the hero. Plans print as fram
 
 # ---------------------------------------------------------------- poster tier
 S['A'] = fig('A', 'Launch', 'Reference 1 made industrial: two cut bars, the 45° coral band, a hard X and right-aligned telemetry. The bar slot is the boot progress.', f'''<div class="phone"><div class="scr tex">
-      <i class="facet" style="clip-path:polygon(0 0,100% 0,100% 6%,0 34%)"></i>
       {SB}
       <div style="top:64px;left:22px;display:flex;align-items:flex-end;gap:8px;color:var(--ground-hi)"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:40px">AXIOM</span></div>
       <div class="sg-cap" style="top:116px;left:42px;font-size:12px;color:var(--ground-dim)">Secure workspace</div>
@@ -322,20 +321,20 @@ S['M'] = fig('M', 'Onboarding', 'Three cut bars in alternating directions, then 
       <i class="home"></i>
     </div></div>''', tier='poster')
 
-S['N'] = fig('N', 'Lock screen', 'The manifesto, after reference 2: the only place all three languages stack, with chevrons, hazard bar and a worn screen-print filter.', f'''<div class="phone"><div class="scr tex">
+S['N'] = fig('N', 'Lock screen', 'The manifesto, after reference 2: the only place all three languages stack, with the chevron print, hazard bar and barcode. Flat print, no texture.', f'''<div class="phone"><div class="scr tex">
       {SB}
       <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--ground-hi)">
-        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display wear" style="font-size:46px">AXIOM</span></div>
+        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:46px">AXIOM</span></div>
         <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sg-fr" style="font-size:14px">lundi 16 novembre</span><span class="sg-num" style="font-size:14px">9:41</span></div>
-        <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut wear" style="flex:1;height:56px"></div><svg width="58" height="58"><use href="#g-head"/></svg></div>
+        <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut" style="flex:1;height:56px"></div><svg width="58" height="58"><use href="#g-head"/></svg></div>
         <div class="yearspan sg-num" style="font-size:21px">20<i></i>26</div>
         <div style="display:grid;gap:3px">
           <div class="sg-wordmark" style="font-size:20px">Signal engineering</div>
           <div class="sg-jp sg-justify" style="font-size:22px">信号工学</div>
           <div class="sg-wordmark" style="font-size:20px">Ingénierie du signal</div>
         </div>
-        <svg class="wear" viewBox="0 0 300 230" style="width:84%;height:auto;align-self:center;margin-top:2px"><use href="#g-chevrons"/></svg>
-        <div class="hazard wear"></div>
+        <svg viewBox="0 0 300 230" style="width:84%;height:auto;align-self:center;margin-top:2px"><use href="#g-chevrons"/></svg>
+        <div class="hazard"></div>
         <div class="sg-wordmark" style="font-size:15px">Axiom signal systems</div>
         <div><div class="barcode--v" style="height:30px;--bc:var(--ground-hi)"></div><div class="sg-mono" style="display:flex;justify-content:space-between;font-size:9px;margin-top:4px"><span>4</span><span>902609</span><span>260911</span><span>9</span></div></div>
       </div>
@@ -358,7 +357,6 @@ S['Q'] = fig('Q', 'Device info', 'A riveted data plate inside crop marks is the 
         <div class="caution"><div><svg><use href="#g-warn"/></svg><b>Firmware 4.2.1</b><p>REBOOT REQUIRED. THE TUNNEL PAUSES FOR 40 S.</p></div></div>
         <div class="set"><span><span class="sg-label">Maintenance mode</span><small>ROUTE AROUND THIS UNIT</small></span><input class="rocker" type="checkbox" id="q-m" aria-label="Maintenance mode"></div>
         <button class="btn btn--block" type="button">Install update</button>
-        <div class="colorbar" style="margin-top:auto"><span style="--k:var(--ground)">gnd</span><span style="--k:var(--ground-3)">g-3</span><span style="--k:var(--ground-hi)">print</span><span style="--k:var(--sage)">sage</span><span style="--k:var(--sage-hi)">plate</span><span style="--k:var(--ink)">ink</span><span style="--k:var(--coral)">coral</span></div>
       </section>"""))
 
 # ---------------------------------------------------------------- R interval timer
@@ -379,11 +377,18 @@ S['S'] = fig('S', 'Transfer', 'Chevron steps are the hero. The transfer prints a
       {DIV}
       <section class="u-body u-body--end" style="gap:16px">
         <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div>
-          <span class="stamp" style="position:absolute;right:104px;bottom:14px;font-size:14px;--gap:var(--sage-hi)">Verified</span></div>
+          <span class="stamp" style="position:absolute;right:104px;bottom:10px;font-size:13px;--gap:var(--sage-hi)">Verified</span></div>
         <div class="spec spec--ground"><span>From</span><i></i><span>Main ·· 4417</span><span>Arrives</span><i></i><span>Instantly</span><span>Fee</span><i></i><span>€0.00</span></div>
         <button class="keycap" type="button" style="margin-top:6px"><span>Send €240</span><small>HOLD 1 S</small><i class="led"></i></button>
         <div class="sg-fr u-dim" style="text-align:center;font-size:12px">virement instantané · sans frais</div>
       </section>"""))
+
+FOOT = {'F': 'Audio · side A · 24-bit', 'I': 'Config · v 4.2 · build 2611', 'J': 'Credential · AX-0917-C53',
+        'Q': 'Unit AX-04 · rev 2.6', 'R': 'Timer · round 3 / 8', 'S': 'Ledger · Nº 0917'}
+for k, ref in FOOT.items():
+    foot = f'<div class="u-foot"><div><b>Axiom signal systems</b><span>{ref}</span></div><i class="barcode--v"></i></div>\n      </section>'
+    i = S[k].index('</section>')
+    S[k] = S[k][:i] + foot + S[k][i + len('</section>'):]
 
 ORDER = 'T A B C D E F G H I J K L M N O P Q R S'.split()
 grid = '\n'.join(S[k] for k in ORDER)

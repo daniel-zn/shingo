@@ -1,7 +1,7 @@
 import SwiftUI
 
-// One angle: every cut and diagonal is 45°. Chamfers sit on the
-// top-trailing / bottom-leading axis. Nothing is rounded.
+// One angle, one direction: every cut and diagonal rises left to right ("/")
+// at 45°. Chamfers cut top-leading + bottom-trailing. Nothing is rounded or tilted.
 
 // MARK: - Hard X (two crossed bars with square-cut ends)
 
@@ -52,7 +52,7 @@ public struct DiamondMark: Shape {
     }
 }
 
-// MARK: - Chamfer (cut top-trailing & bottom-leading corners)
+// MARK: - Chamfer (cut top-leading & bottom-trailing corners)
 
 public struct ChamferRect: InsettableShape {
     public var cut: CGFloat = SG.cutM
@@ -62,38 +62,40 @@ public struct ChamferRect: InsettableShape {
         let r = rect.insetBy(dx: inset, dy: inset)
         let c = max(0, cut - inset * 0.41)
         var p = Path()
-        p.move(to: CGPoint(x: r.minX, y: r.minY))
-        p.addLine(to: CGPoint(x: r.maxX - c, y: r.minY))
-        p.addLine(to: CGPoint(x: r.maxX, y: r.minY + c))
-        p.addLine(to: CGPoint(x: r.maxX, y: r.maxY))
-        p.addLine(to: CGPoint(x: r.minX + c, y: r.maxY))
-        p.addLine(to: CGPoint(x: r.minX, y: r.maxY - c))
+        p.move(to: CGPoint(x: r.minX + c, y: r.minY))
+        p.addLine(to: CGPoint(x: r.maxX, y: r.minY))
+        p.addLine(to: CGPoint(x: r.maxX, y: r.maxY - c))
+        p.addLine(to: CGPoint(x: r.maxX - c, y: r.maxY))
+        p.addLine(to: CGPoint(x: r.minX, y: r.maxY))
+        p.addLine(to: CGPoint(x: r.minX, y: r.minY + c))
         p.closeSubpath()
         return p
     }
     public func inset(by amount: CGFloat) -> ChamferRect { var s = self; s.inset += amount; return s }
 }
 
-/// A single 45° cut on one bottom corner (the shirt's tag slab, the bar's end).
+/// A single 45° cut on one corner (the tag slab, the bar's free end). Both corners keep the "/" direction.
 public struct TagCut: Shape {
-    public enum Corner { case bottomTrailing, bottomLeading }
+    public enum Corner { case bottomTrailing, topLeading }
     public var cut: CGFloat
     public var corner: Corner
     public init(cut: CGFloat = 16, corner: Corner = .bottomTrailing) { self.cut = cut; self.corner = corner }
     public func path(in rect: CGRect) -> Path {
         let c = min(cut, rect.height, rect.width)
         var p = Path()
-        p.move(to: CGPoint(x: rect.minX, y: rect.minY))
-        p.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
         switch corner {
         case .bottomTrailing:
+            p.move(to: CGPoint(x: rect.minX, y: rect.minY))
+            p.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
             p.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY - c))
             p.addLine(to: CGPoint(x: rect.maxX - c, y: rect.maxY))
             p.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-        case .bottomLeading:
+        case .topLeading:
+            p.move(to: CGPoint(x: rect.minX + c, y: rect.minY))
+            p.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
             p.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-            p.addLine(to: CGPoint(x: rect.minX + c, y: rect.maxY))
-            p.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - c))
+            p.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+            p.addLine(to: CGPoint(x: rect.minX, y: rect.minY + c))
         }
         p.closeSubpath()
         return p

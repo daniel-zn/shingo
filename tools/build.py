@@ -140,9 +140,9 @@ def seg7(text, height=48, hot="", ghost=False, cls=""):
                 c = state if k in lit else "off"
                 parts.append(f'<polygon class="{c}" points="{" ".join(f"{f(px + x)},{f(py)}" for px, py in pts)}"/>')
         x += w + gap
-    W = x - gap + 10
+    W = x - gap + 4
     return (f'<svg class="seg7 {cls}" viewBox="0 0 {W} {h}" height="{height}" width="{f(height * W / h)}" role="img" aria-label="{text}">'
-            f'<g transform="translate(7 0) skewX(-6)">{"".join(parts)}</g></svg>')
+            f'<g transform="translate(2 0)">{"".join(parts)}</g></svg>')
 
 
 def _matrix(n=21, seed=7):
@@ -230,10 +230,6 @@ def sprite():
     out = ['<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>']
     for k, (vb, inner) in G.items():
         out.append(f'<symbol id="g-{k}" viewBox="{vb}">{inner}</symbol>')
-    # worn screen-print: knocks pinholes out of whatever it is applied to (CSS filter:url(#wear))
-    out.append('<filter id="wear" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="2" seed="7" result="n"/>'
-               '<feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -3.4 0 0 0 2.6" result="m"/>'
-               '<feComposite in="SourceGraphic" in2="m" operator="in"/></filter>')
     out.append("</defs></svg>")
     return "".join(out)
 
@@ -361,15 +357,15 @@ def poster(sfx="d"):
 def keyart(mode):
     """Key art: the shirt's print stack + the poster's instrument column, in HTML."""
     return f'''<figure class="mode-{mode}"><div class="ka tex"><div class="ka-in">
-      <div class="ka-mast"><span class="u-code">SK·09·LIS</span><span class="sg-display wear">AXIOM</span></div>
-      <div class="slab-cut ka-slab wear"></div><div class="ka-head brackets"><svg><use href="#g-head"/></svg></div>
+      <div class="ka-mast"><span class="u-code">SK·09·LIS</span><span class="sg-display">AXIOM</span></div>
+      <div class="slab-cut ka-slab"></div><div class="ka-head brackets"><svg><use href="#g-head"/></svg></div>
       <div class="yearspan sg-num ka-year">20<i></i>26</div>
       <div class="ka-trio"><div class="sg-label">Signal engineering</div><div class="sg-jp sg-justify">信号工学</div><div class="sg-label">Ingénierie du signal</div></div>
       <div class="ka-side"><div><div class="sg-num">09</div><div class="sg-mono">#bab9ad</div></div>
         <svg viewBox="0 0 100 100"><use href="#g-x-line"/></svg><svg viewBox="0 0 100 100"><use href="#g-x-solid"/></svg>
         <i class="barcode"></i><div class="sg-mono">REF:<br>OPSEC/AHI<br>SP C53</div></div>
-      <div class="ka-chev"><svg class="wear" viewBox="0 0 300 230"><use href="#g-chevrons"/></svg></div>
-      <div class="hazard ka-haz wear"></div>
+      <div class="ka-chev"><svg viewBox="0 0 300 230"><use href="#g-chevrons"/></svg></div>
+      <div class="hazard ka-haz"></div>
       <div class="ka-foot"><div><div class="sg-label">Axiom signal systems</div><div class="sg-mono">COMSEC MONITORING · NETWORK OPERATIONS AND DEFENSE</div></div><i class="barcode--v"></i></div>
     </div></div><figcaption class="cap"><b>Key art · {mode}</b><span>{"bone print on ink stripes" if mode == "dark" else "ink print on sage stripes"}</span></figcaption></figure>'''
 

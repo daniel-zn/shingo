@@ -23,7 +23,7 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 .hd-side { display: grid; gap: 14px; }
 .hd-side p { margin: 0; font-size: 14.5px; line-height: 1.55; max-width: 62ch; }
 .modes { display: flex; gap: 10px; flex-wrap: wrap; }
-.mode-chip { display: flex; align-items: center; gap: 10px; padding: 8px 14px 8px 8px; background: var(--ground); --c: 10px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); box-shadow: inset 0 0 0 1.5px var(--ground-3); }
+.mode-chip { display: flex; align-items: center; gap: 10px; padding: 8px 14px 8px 8px; background: var(--ground); --c: 10px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); box-shadow: inset 0 0 0 1.5px var(--ground-3); }
 .mode-chip i { width: 32px; height: 32px; }
 .mode-chip b { width: 12px; height: 32px; background: var(--sage-hi); }
 .mode-chip .sg-mono { color: var(--ground-hi); text-transform: uppercase; }
@@ -110,7 +110,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .tabbar a[aria-current]::before { background: var(--coral); }
 
 .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
-.key { height: 60px; display: grid; place-content: center; justify-items: center; gap: 3px; background: var(--sage-hi); color: var(--ink); --c: 10px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.key { height: 60px; display: grid; place-content: center; justify-items: center; gap: 3px; background: var(--sage-hi); color: var(--ink); --c: 10px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .key .sg-num { font-size: 24px; }
 .key .sg-mono { font-size: 8.5px; letter-spacing: .18em; }
 .key--flat { background: transparent; color: var(--ground-hi); }
@@ -120,7 +120,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .set { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--ground-3); }
 .set .sg-label { font: 600 expanded 12.5px var(--f-cap); letter-spacing: .04em; text-transform: uppercase; color: var(--ground-hi); }
 .set small { display: block; font: 400 10.5px/1.3 var(--f-mono); color: var(--ground-dim); margin-top: 3px; }
-.av { width: 38px; height: 38px; display: grid; place-items: center; background: var(--sage-hi); color: var(--ink); font: 700 expanded 14px var(--f-title); letter-spacing: .04em; --c: 8px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.av { width: 38px; height: 38px; display: grid; place-items: center; background: var(--sage-hi); color: var(--ink); font: 700 expanded 14px var(--f-title); letter-spacing: .04em; --c: 8px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .av--line { background: var(--ground-3); color: var(--ground-hi); }
 .unread { width: 8px; height: 8px; background: var(--coral); transform: rotate(45deg); display: inline-block; }
 .dim { background: rgba(6,6,5,.62); }
@@ -147,7 +147,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .scope .blip { position: absolute; width: 14px; height: 14px; color: var(--ground-hi); }
 .badge { position: relative; height: 300px; box-sizing: border-box; padding: 0; --c: 30px; color: var(--ink); }
 .badge > * { position: absolute; }
-.badge-strip { top: 0; left: 0; right: 30px; height: 14px; background: var(--coral); }
+.badge-strip { top: 0; left: 30px; right: 0; height: 14px; background: var(--coral); }
 .badge-av { top: 34px; left: 20px; width: 84px; height: 84px; display: grid; place-items: center; --bk: var(--ink); }
 .badge-av svg { width: 64px; height: 64px; color: var(--ink); }
 .badge-num { top: 34px; right: 22px; display: grid; justify-items: end; gap: 4px; }
@@ -269,7 +269,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div><div class="sw"><svg width="46" height="46" style="color:var(--ground-hi)"><use href="#g-x-line"/></svg></div><div><h3>Hard X</h3><p>Two crossed bars with square-cut ends, outlined or solid. It marks status, done and rest days, close and error. <code>#g-x-line</code> · <code>SGHardX</code></p></div></div>
     <div><div class="sw tex" style="width:64px;height:56px"></div><div><h3>Stripe field</h3><p>Soft-edged stripes at the system's one 45° angle, 6&nbsp;pt period. Everything is printed on it. <code>.tex</code> · <code>StripeField</code></p></div></div>
     <div><div class="sw"><div class="hazard" style="width:64px"></div></div><div><h3>Hazard bar</h3><p>45° stripes between two hairlines. It divides the masthead from the body on every utility screen. <code>.hazard</code> · <code>HazardBar</code></p></div></div>
-    <div><div class="sw"><div class="chamfer brackets" style="width:56px;height:48px;--c:12px;padding:0;--fill:var(--ground);--line:var(--ground-dim)"></div></div><div><h3>Cuts and brackets</h3><p>Every corner cut is 45° on the top-right and bottom-left axis, at 6, 12 or 24&nbsp;pt. HUD brackets frame focus areas. <code>.cut .chamfer .brackets</code></p></div></div>
+    <div><div class="sw"><div class="chamfer brackets" style="width:56px;height:48px;--c:12px;padding:0;--fill:var(--ground);--line:var(--ground-dim)"></div></div><div><h3>Cuts and brackets</h3><p>Every corner cut rises at 45°: top-left and bottom-right, at 6, 12 or 24&nbsp;pt. HUD brackets frame focus areas. <code>.cut .chamfer .brackets</code></p></div></div>
     <div><div class="sw"><svg viewBox="0 0 300 230" width="62" height="48" style="color:var(--ground-hi)"><use href="#g-chevrons"/></svg></div><div><h3>Print motifs</h3><p>Chevrons, barcode, the line-art head, the coral tag slab and the year span. They are generated, so they recolor with tokens. <code>assets/svg/*</code></p></div></div>
     <div><div class="sw" style="justify-items:start;gap:2px"><span class="sg-wordmark" style="font-size:15px;color:var(--ground-hi)">AXIOM</span><span class="sg-stencil" style="font-size:16px;color:var(--ground-hi)">09</span><span class="sg-mono" style="font-size:9px;color:var(--ground-dim)">SP C53</span></div><div><h3>Wide, short, hard type</h3><p>One grotesk at three widths: Anybody extra-expanded for display, expanded for titles, labels and numbers, and normal for body text. Saira Stencil One stamps serials, IBM Plex Mono carries telemetry and BIZ UDGothic sets kanji.</p></div></div>
     <div><div class="sw"><span class="slab-cut" style="width:56px;height:22px"></span></div><div><h3>Two inks, one signal</h3><p>Print and ground only, like a garment screen print. Coral is the single extra ink: one block or one primary action per screen, plus small states.</p></div></div>
@@ -282,7 +282,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
   <div class="rules">
     <div><i>01</i><b>Two inks</b><p>Everything is print on ground: solid shapes in the print ink with text knocked out, or outlines. No third tone. Coral is the only extra ink.</p></div>
     <div><i>02</i><b>One grammar</b><p>Masthead, then one hero, then the hazard bar, then the body. Poster screens (launch, onboarding, lock, empty) compose freely.</p></div>
-    <div><i>03</i><b>One angle</b><p>Every diagonal is 45°: corner cuts, hazard stripes, chevrons, the stripe field. Nothing is rounded except radar rings.</p></div>
+    <div><i>03</i><b>One angle</b><p>Every diagonal rises left to right at 45°: corner cuts (top-left and bottom-right), hazard stripes, cells, bands and the stripe field. No tilts, textures or shadows.</p></div>
     <div><i>04</i><b>Three sizes</b><p>Wordmark type at 44 for display, 26 for titles and 15 inline. Labels are condensed caps and telemetry is mono.</p></div>
     <div><i>05</i><b>One signal</b><p>Coral marks one block or one primary action per screen, plus the latest or active state. Switches turn on in print, not coral.</p></div>
     <div><i>06</i><b>Tag and aside</b><p>Japanese lives in the masthead tag or a seal. French lives in the span rule. Each appears once at most.</p></div>
@@ -314,7 +314,6 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
   <!-- A · launch -->
   <figure data-tier="poster">
     <div class="phone"><div class="scr tex">
-      <i class="facet" style="clip-path:polygon(0 0,100% 0,100% 6%,0 34%)"></i>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="top:64px;left:22px;display:flex;align-items:flex-end;gap:8px;color:var(--ground-hi)"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:40px">AXIOM</span></div>
       <div class="sg-cap" style="top:116px;left:42px;font-size:12px;color:var(--ground-dim)">Secure workspace</div>
@@ -364,7 +363,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="u-div hazard"></div>
       <section class="u-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Threats blocked</div><div style="margin:10px 0 2px"><svg class="seg7 " viewBox="0 0 213 60" height="30" width="106.5" role="img" aria-label="1284"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><polygon class="on" points="110.1,2.8 112.9,0 143.1,0 145.9,2.8 143.1,5.6 112.9,5.6"/><polygon class="on" points="110.1,30 112.9,27.2 143.1,27.2 145.9,30 143.1,32.8 112.9,32.8"/><polygon class="on" points="110.1,57.2 112.9,54.4 143.1,54.4 145.9,57.2 143.1,60 112.9,60"/><polygon class="on" points="108.8,4.1 111.6,6.9 111.6,25.9 108.8,28.7 106,25.9 106,6.9"/><polygon class="on" points="147.2,4.1 150,6.9 150,25.9 147.2,28.7 144.4,25.9 144.4,6.9"/><polygon class="on" points="108.8,31.3 111.6,34.1 111.6,53.1 108.8,55.9 106,53.1 106,34.1"/><polygon class="on" points="147.2,31.3 150,34.1 150,53.1 147.2,55.9 144.4,53.1 144.4,34.1"/><polygon class="on" points="163.1,30 165.9,27.2 196.1,27.2 198.9,30 196.1,32.8 165.9,32.8"/><polygon class="on" points="161.8,4.1 164.6,6.9 164.6,25.9 161.8,28.7 159,25.9 159,6.9"/><polygon class="on" points="200.2,4.1 203,6.9 203,25.9 200.2,28.7 197.4,25.9 197.4,6.9"/><polygon class="on" points="200.2,31.3 203,34.1 203,53.1 200.2,55.9 197.4,53.1 197.4,34.1"/></g></svg></div></div>
+          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Threats blocked</div><div style="margin:10px 0 2px"><svg class="seg7 " viewBox="0 0 207 60" height="30" width="103.5" role="img" aria-label="1284"><g transform="translate(2 0)"><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><polygon class="on" points="110.1,2.8 112.9,0 143.1,0 145.9,2.8 143.1,5.6 112.9,5.6"/><polygon class="on" points="110.1,30 112.9,27.2 143.1,27.2 145.9,30 143.1,32.8 112.9,32.8"/><polygon class="on" points="110.1,57.2 112.9,54.4 143.1,54.4 145.9,57.2 143.1,60 112.9,60"/><polygon class="on" points="108.8,4.1 111.6,6.9 111.6,25.9 108.8,28.7 106,25.9 106,6.9"/><polygon class="on" points="147.2,4.1 150,6.9 150,25.9 147.2,28.7 144.4,25.9 144.4,6.9"/><polygon class="on" points="108.8,31.3 111.6,34.1 111.6,53.1 108.8,55.9 106,53.1 106,34.1"/><polygon class="on" points="147.2,31.3 150,34.1 150,53.1 147.2,55.9 144.4,53.1 144.4,34.1"/><polygon class="on" points="163.1,30 165.9,27.2 196.1,27.2 198.9,30 196.1,32.8 165.9,32.8"/><polygon class="on" points="161.8,4.1 164.6,6.9 164.6,25.9 161.8,28.7 159,25.9 159,6.9"/><polygon class="on" points="200.2,4.1 203,6.9 203,25.9 200.2,28.7 197.4,25.9 197.4,6.9"/><polygon class="on" points="200.2,31.3 203,34.1 203,53.1 200.2,55.9 197.4,53.1 197.4,34.1"/></g></svg></div></div>
           <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Data routed</div><div class="sg-num" style="font-size:24px;margin:8px 0 12px;color:var(--ground-hi)">4.2<span class="sg-mono"> / 10 GB</span></div><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
         </div>
         <div>
@@ -387,7 +386,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Run log</h3><div class="u-tag u-meta">10–16<br>NOV</div><div class="u-span"><span><span class="sg-fr">journal de course</span></span><i></i><span>W46</span></div></header>
-      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px"><svg class="seg7 " viewBox="0 0 176 60" height="76" width="222.93" role="img" aria-label="42.6"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="4.1,30 6.9,27.2 37.1,27.2 39.9,30 37.1,32.8 6.9,32.8"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><rect class="on" x="106" y="53" width="7" height="7"/><polygon class="on" points="126.1,2.8 128.9,0 159.1,0 161.9,2.8 159.1,5.6 128.9,5.6"/><polygon class="on" points="126.1,30 128.9,27.2 159.1,27.2 161.9,30 159.1,32.8 128.9,32.8"/><polygon class="on" points="126.1,57.2 128.9,54.4 159.1,54.4 161.9,57.2 159.1,60 128.9,60"/><polygon class="on" points="124.8,4.1 127.6,6.9 127.6,25.9 124.8,28.7 122,25.9 122,6.9"/><polygon class="on" points="124.8,31.3 127.6,34.1 127.6,53.1 124.8,55.9 122,53.1 122,34.1"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/></g></svg><span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
+      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px"><svg class="seg7 " viewBox="0 0 170 60" height="76" width="215.33" role="img" aria-label="42.6"><g transform="translate(2 0)"><polygon class="on" points="4.1,30 6.9,27.2 37.1,27.2 39.9,30 37.1,32.8 6.9,32.8"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><rect class="on" x="106" y="53" width="7" height="7"/><polygon class="on" points="126.1,2.8 128.9,0 159.1,0 161.9,2.8 159.1,5.6 128.9,5.6"/><polygon class="on" points="126.1,30 128.9,27.2 159.1,27.2 161.9,30 159.1,32.8 128.9,32.8"/><polygon class="on" points="126.1,57.2 128.9,54.4 159.1,54.4 161.9,57.2 159.1,60 128.9,60"/><polygon class="on" points="124.8,4.1 127.6,6.9 127.6,25.9 124.8,28.7 122,25.9 122,6.9"/><polygon class="on" points="124.8,31.3 127.6,34.1 127.6,53.1 124.8,55.9 122,53.1 122,34.1"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/></g></svg><span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
         <div class="dayrow"><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>m</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>w</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>f</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>s</i></span><span><svg width="30" height="30" style="color:var(--coral)"><use href="#g-x-solid"/></svg><i>s</i></span></div></div>
       <div class="u-div hazard"></div>
       <section class="u-body">
@@ -449,6 +448,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
           <button class="btn btn--ghost btn--icon" type="button" aria-label="Next"><svg><use href="#g-skip"/></svg></button>
         </div>
         <div class="ruler" style="--v:70%"><div class="ruler-ticks"></div><div class="ruler-labels"><span>VOL</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div></div>
+      <div class="u-foot"><div><b>Axiom signal systems</b><span>Audio · side A · 24-bit</span></div><i class="barcode--v"></i></div>
       </section>
       
       <i class="home"></i>
@@ -491,7 +491,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Inbox</h3><button class="u-tag-btn btn btn--plate btn--icon" type="button" aria-label="New message"><svg><use href="#g-plus"/></svg></button><div class="u-span"><span>12 unread</span><i></i><span>end-to-end</span></div></header>
-      <div class="u-hero u-hero--pad"><div class="seg"><button type="button" aria-pressed="true">all</button><button type="button">flagged</button><button type="button">sealed</button></div></div>
+      <div class="u-hero u-hero--pad"><div class="itabs"><button type="button" aria-pressed="true">All</button><button type="button">Flagged</button><button type="button">Sealed</button></div></div>
       <div class="u-div hazard"></div>
       <section class="u-body"><div><div class="row"><span class="av">LS</span><span><span class="sg-label" style="display:block">Lena Sato</span><span class="sg-mono">ROUTE MAP FOR FRIDAY IS ATTACHED</span></span><span style="display:grid;justify-items:end;gap:6px"><span class="sg-mono">09:12</span><i class=unread></i></span></div><div class="row"><span class="av">OP</span><span><span class="sg-label" style="display:block">Ops desk</span><span class="sg-mono">KEY ROTATION COMPLETE · 3 DEVICES</span></span><span style="display:grid;justify-items:end;gap:6px"><span class="sg-mono">08:40</span><i class=unread></i></span></div><div class="row"><span class="av">RK</span><span><span class="sg-label" style="display:block">Rui Kemp</span><span class="sg-mono">OK — SEE YOU AT THE NORTH GATE</span></span><span style="display:grid;justify-items:end;gap:6px"><span class="sg-mono">MON</span></span></div><div class="row"><span class="av av--line">09</span><span><span class="sg-label" style="display:block">Unit 09</span><span class="sg-mono">WEEKLY REPORT · 14 PAGES</span></span><span style="display:grid;justify-items:end;gap:6px"><span class="sg-mono">SUN</span></span></div><div class="row"><span class="av">AM</span><span><span class="sg-label" style="display:block">Ada Mensah</span><span class="sg-mono">PHOTOS FROM THE FIELD TRIP</span></span><span style="display:grid;justify-items:end;gap:6px"><span class="sg-mono">SAT</span></span></div></div></section>
       <nav class="tabbar chamfer"><a aria-current="page"><svg><use href="#g-mark"/></svg>inbox</a><a><svg><use href="#g-x-line"/></svg>spam</a><a><svg><use href="#g-grid"/></svg>contacts</a><a><svg><use href="#g-head"/></svg>me</a></nav>
@@ -512,6 +512,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
         <div><div class="u-label"><span>Privacy</span><span>01</span></div><div class="set"><span><span class="sg-label">Kill switch</span><small>PAUSE TRAFFIC IF THE TUNNEL DROPS</small></span><input class="tgl" type="checkbox" id="s-ks" checked aria-label="Kill switch"></div><div class="set"><span><span class="sg-label">Block trackers</span><small>1,284 BLOCKED THIS WEEK</small></span><input class="tgl" type="checkbox" id="s-bt" checked aria-label="Block trackers"></div><div class="set"><span><span class="sg-label">Allow local network</span><small>PRINTERS · CASTING · SMART HOME</small></span><input class="tgl" type="checkbox" id="s-ln" aria-label="Allow local network"></div></div>
         <div><div class="u-label"><span>Network</span><span>02</span></div><div class="set"><span class="sg-label">Protocol</span><span class="sg-mono u-dim" style="display:flex;gap:6px;align-items:center">WIREGUARD <svg width="10" height="10"><use href="#g-chev"/></svg></span></div><div class="set"><span class="sg-label">Server</span><span class="sg-mono u-dim" style="display:flex;gap:6px;align-items:center">LISBON-04 <svg width="10" height="10"><use href="#g-chev"/></svg></span></div></div>
         <div><div class="u-label"><span>Display</span><span>03</span></div><div class="set"><span><span class="sg-label">Stripe texture</span></span><input class="tgl" type="checkbox" id="s-st" checked aria-label="Stripe texture"></div><div class="set"><span><span class="sg-label">Reduce motion</span></span><input class="tgl" type="checkbox" id="s-rm" aria-label="Reduce motion"></div></div>
+      <div class="u-foot"><div><b>Axiom signal systems</b><span>Config · v 4.2 · build 2611</span></div><i class="barcode--v"></i></div>
       </section>
       
       <i class="home"></i>
@@ -536,7 +537,8 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
         <svg class="badge-bc" viewBox="0 0 21 21" style="width:62px;height:62px;color:var(--ink)"><use href="#g-matrix"/></svg>
       </div></div>
       <div class="u-div hazard"></div>
-      <section class="u-body u-body--end"><div style="display:grid;grid-template-columns:1fr auto;gap:12px"><button class="btn" type="button">Add to wallet</button><button class="btn btn--ghost" type="button">Show QR</button></div></section>
+      <section class="u-body u-body--end"><div style="display:grid;grid-template-columns:1fr auto;gap:12px"><button class="btn" type="button">Add to wallet</button><button class="btn btn--ghost" type="button">Show QR</button></div><div class="u-foot"><div><b>Axiom signal systems</b><span>Credential · AX-0917-C53</span></div><i class="barcode--v"></i></div>
+      </section>
       
       <i class="home"></i>
     </div></div>
@@ -610,17 +612,17 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div class="phone"><div class="scr tex">
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--ground-hi)">
-        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display wear" style="font-size:46px">AXIOM</span></div>
+        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:46px">AXIOM</span></div>
         <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sg-fr" style="font-size:14px">lundi 16 novembre</span><span class="sg-num" style="font-size:14px">9:41</span></div>
-        <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut wear" style="flex:1;height:56px"></div><svg width="58" height="58"><use href="#g-head"/></svg></div>
+        <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut" style="flex:1;height:56px"></div><svg width="58" height="58"><use href="#g-head"/></svg></div>
         <div class="yearspan sg-num" style="font-size:21px">20<i></i>26</div>
         <div style="display:grid;gap:3px">
           <div class="sg-wordmark" style="font-size:20px">Signal engineering</div>
           <div class="sg-jp sg-justify" style="font-size:22px">信号工学</div>
           <div class="sg-wordmark" style="font-size:20px">Ingénierie du signal</div>
         </div>
-        <svg class="wear" viewBox="0 0 300 230" style="width:84%;height:auto;align-self:center;margin-top:2px"><use href="#g-chevrons"/></svg>
-        <div class="hazard wear"></div>
+        <svg viewBox="0 0 300 230" style="width:84%;height:auto;align-self:center;margin-top:2px"><use href="#g-chevrons"/></svg>
+        <div class="hazard"></div>
         <div class="sg-wordmark" style="font-size:15px">Axiom signal systems</div>
         <div><div class="barcode--v" style="height:30px;--bc:var(--ground-hi)"></div><div class="sg-mono" style="display:flex;justify-content:space-between;font-size:9px;margin-top:4px"><span>4</span><span>902609</span><span>260911</span><span>9</span></div></div>
       </div>
@@ -628,7 +630,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <span class="cut" style="bottom:40px;right:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="22" height="22" style="color:var(--ground-hi)"><use href="#g-reticle"/></svg></span>
       <i class="home"></i>
     </div></div>
-    <figcaption><b>N · Lock screen</b><span><em class="tier">poster</em> The manifesto, after reference 2: the only place all three languages stack, with chevrons, hazard bar and a worn screen-print filter.</span></figcaption>
+    <figcaption><b>N · Lock screen</b><span><em class="tier">poster</em> The manifesto, after reference 2: the only place all three languages stack, with the chevron print, hazard bar and barcode. Flat print, no texture.</span></figcaption>
   </figure>
 
 
@@ -691,7 +693,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
         <div class="caution"><div><svg><use href="#g-warn"/></svg><b>Firmware 4.2.1</b><p>REBOOT REQUIRED. THE TUNNEL PAUSES FOR 40 S.</p></div></div>
         <div class="set"><span><span class="sg-label">Maintenance mode</span><small>ROUTE AROUND THIS UNIT</small></span><input class="rocker" type="checkbox" id="q-m" aria-label="Maintenance mode"></div>
         <button class="btn btn--block" type="button">Install update</button>
-        <div class="colorbar" style="margin-top:auto"><span style="--k:var(--ground)">gnd</span><span style="--k:var(--ground-3)">g-3</span><span style="--k:var(--ground-hi)">print</span><span style="--k:var(--sage)">sage</span><span style="--k:var(--sage-hi)">plate</span><span style="--k:var(--ink)">ink</span><span style="--k:var(--coral)">coral</span></div>
+      <div class="u-foot"><div><b>Axiom signal systems</b><span>Unit AX-04 · rev 2.6</span></div><i class="barcode--v"></i></div>
       </section>
       
       <i class="home"></i>
@@ -706,12 +708,13 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Interval</h3><div class="u-tag sg-jp-v">計時</div><div class="u-span"><span>round 3</span><i></i><span>of 8</span></div></header>
-      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px"><svg class="seg7 " viewBox="0 0 229 60" height="92" width="351.13" role="img" aria-label="02:47"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="4.1,2.8 6.9,0 37.1,0 39.9,2.8 37.1,5.6 6.9,5.6"/><polygon class="on" points="4.1,57.2 6.9,54.4 37.1,54.4 39.9,57.2 37.1,60 6.9,60"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="2.8,31.3 5.6,34.1 5.6,53.1 2.8,55.9 0,53.1 0,34.1"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><rect class="hot" x="106" y="16.8" width="7" height="7"/><rect class="hot" x="106" y="38.4" width="7" height="7"/><polygon class="on" points="126.1,30 128.9,27.2 159.1,27.2 161.9,30 159.1,32.8 128.9,32.8"/><polygon class="on" points="124.8,4.1 127.6,6.9 127.6,25.9 124.8,28.7 122,25.9 122,6.9"/><polygon class="on" points="163.2,4.1 166,6.9 166,25.9 163.2,28.7 160.4,25.9 160.4,6.9"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/><polygon class="on" points="179.1,2.8 181.9,0 212.1,0 214.9,2.8 212.1,5.6 181.9,5.6"/><polygon class="on" points="216.2,4.1 219,6.9 219,25.9 216.2,28.7 213.4,25.9 213.4,6.9"/><polygon class="on" points="216.2,31.3 219,34.1 219,53.1 216.2,55.9 213.4,53.1 213.4,34.1"/></g></svg><div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
+      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px"><svg class="seg7 " viewBox="0 0 223 60" height="92" width="341.93" role="img" aria-label="02:47"><g transform="translate(2 0)"><polygon class="on" points="4.1,2.8 6.9,0 37.1,0 39.9,2.8 37.1,5.6 6.9,5.6"/><polygon class="on" points="4.1,57.2 6.9,54.4 37.1,54.4 39.9,57.2 37.1,60 6.9,60"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="2.8,31.3 5.6,34.1 5.6,53.1 2.8,55.9 0,53.1 0,34.1"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><rect class="hot" x="106" y="16.8" width="7" height="7"/><rect class="hot" x="106" y="38.4" width="7" height="7"/><polygon class="on" points="126.1,30 128.9,27.2 159.1,27.2 161.9,30 159.1,32.8 128.9,32.8"/><polygon class="on" points="124.8,4.1 127.6,6.9 127.6,25.9 124.8,28.7 122,25.9 122,6.9"/><polygon class="on" points="163.2,4.1 166,6.9 166,25.9 163.2,28.7 160.4,25.9 160.4,6.9"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/><polygon class="on" points="179.1,2.8 181.9,0 212.1,0 214.9,2.8 212.1,5.6 181.9,5.6"/><polygon class="on" points="216.2,4.1 219,6.9 219,25.9 216.2,28.7 213.4,25.9 213.4,6.9"/><polygon class="on" points="216.2,31.3 219,34.1 219,53.1 216.2,55.9 213.4,53.1 213.4,34.1"/></g></svg><div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
       <div class="u-div hazard"></div>
       <section class="u-body u-body--end" style="gap:16px">
         <div><div class="u-label" style="margin-bottom:10px"><span>Rounds</span><span>3 / 8</span></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="hot"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
         <div><div class="u-label" style="margin-bottom:4px"><span>Intensity</span><span>7</span></div><div class="ruler" style="--v:70%"><div class="ruler-ticks"></div><div class="ruler-labels"><span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span></div></div></div>
         <button class="keycap" type="button" style="margin-top:6px"><span>Pause</span><small>HOLD 1 S TO END</small><i class="led"></i></button>
+      <div class="u-foot"><div><b>Axiom signal systems</b><span>Timer · round 3 / 8</span></div><i class="barcode--v"></i></div>
       </section>
       
       <i class="home"></i>
@@ -730,10 +733,11 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="u-div hazard"></div>
       <section class="u-body u-body--end" style="gap:16px">
         <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div>
-          <span class="stamp" style="position:absolute;right:104px;bottom:14px;font-size:14px;--gap:var(--sage-hi)">Verified</span></div>
+          <span class="stamp" style="position:absolute;right:104px;bottom:10px;font-size:13px;--gap:var(--sage-hi)">Verified</span></div>
         <div class="spec spec--ground"><span>From</span><i></i><span>Main ·· 4417</span><span>Arrives</span><i></i><span>Instantly</span><span>Fee</span><i></i><span>€0.00</span></div>
         <button class="keycap" type="button" style="margin-top:6px"><span>Send €240</span><small>HOLD 1 S</small><i class="led"></i></button>
         <div class="sg-fr u-dim" style="text-align:center;font-size:12px">virement instantané · sans frais</div>
+      <div class="u-foot"><div><b>Axiom signal systems</b><span>Ledger · Nº 0917</span></div><i class="barcode--v"></i></div>
       </section>
       
       <i class="home"></i>
@@ -854,9 +858,9 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 <section class="sec">
   <div class="sec-h"><span class="sg-num">05</span><h2 class="sg-display">Instruments</h2><span class="sg-mono">useful, decorative parts extrapolated from the system · every one is live</span></div>
   <div class="insts">
-    <div class="inst inst--wide"><h3><span>Seven-segment readout</span><span>seg7() · SGSegDisplay</span></h3><p>Big numerals for timers, speed, balances and counters, in thin slanted segments. Any digit can light coral.</p>
+    <div class="inst inst--wide"><h3><span>Seven-segment readout</span><span>seg7() · SGSegDisplay</span></h3><p>Big numerals for timers, speed, balances and counters, in thin upright segments. Any digit can light coral.</p>
       <div class="demo" style="gap:28px;flex-wrap:wrap"><!--@SEG7|02:47|56|2--><!--@SEG7|42.6|56|--><!--@SEG7|-18|56|0--></div></div>
-    <div class="inst"><h3><span>Cell meter</span><span>.cells · SGCellMeter</span></h3><p>Slanted cells for levels: battery, signal, data caps, rounds and intensity. The last cell can run hot.</p>
+    <div class="inst"><h3><span>Cell meter</span><span>.cells · SGCellMeter</span></h3><p>Cells slanted at the system's 45°, like a hazard stripe that fills up. For levels, rounds and caps. The last cell can run hot.</p>
       <div class="demo" style="display:grid;gap:12px"><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i><i></i></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
     <div class="inst"><h3><span>Ruler slider</span><span>.ruler · SGRuler</span></h3><p>A tick scale with a coral needle for volume, zoom, temperature or intensity. Drag it.</p>
       <div class="demo" style="display:block"><div class="ruler" id="k-ruler" style="--v:62%"><div class="ruler-ticks"></div><div class="ruler-labels"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div><input type="range" id="k-ruler-in" min="0" max="100" value="62" aria-label="Ruler value"></div></div></div>
@@ -866,11 +870,11 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="demo" style="display:block"><div class="itabs" id="k-itabs"><button type="button" aria-pressed="true">Week</button><button type="button">Month</button><button type="button">Year</button></div></div></div>
     <div class="inst"><h3><span>Caution tag</span><span>.caution · SGCaution</span></h3><p>A notice framed in coral and ink hazard stripes, for inline warnings that shouldn't interrupt.</p>
       <div class="demo" style="display:block"><div class="caution"><div><svg><use href="#g-warn"/></svg><b>Firmware 4.2.1</b><p>REBOOT REQUIRED. TUNNEL PAUSES FOR 40 S.</p></div></div></div></div>
-    <div class="inst"><h3><span>Rubber stamp</span><span>.stamp · SGStamp</span></h3><p>An inspection stamp: stencil caps in a single frame, worn and barely off-axis. For verified, paid, sealed and void states.</p>
-      <div class="demo" style="gap:22px"><span class="stamp">Verified</span><span class="stamp" style="--st:var(--ground-hi);transform:rotate(-1deg)">Sealed</span><span class="stamp" style="transform:rotate(1deg)">Void</span></div></div>
+    <div class="inst"><h3><span>Rubber stamp</span><span>.stamp · SGStamp</span></h3><p>An inspection stamp: stencil caps in a single straight frame. For verified, paid, sealed and void states.</p>
+      <div class="demo" style="gap:22px"><span class="stamp">Verified</span><span class="stamp" style="--st:var(--ground-hi)">Sealed</span><span class="stamp">Void</span></div></div>
     <div class="inst"><h3><span>Ticket stub</span><span>.ticket · SGTicket</span></h3><p>A plate with square notches and a perforation: boarding passes, receipts, plans, invites.</p>
       <div class="demo" style="display:block"><div class="ticket"><div><div class="sg-cap" style="font-size:11px">Transfer · LIS → OPO</div><div class="sg-num" style="font-size:24px;margin-top:6px">€240.00</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div></div></div></div>
-    <div class="inst"><h3><span>Keycap</span><span>.keycap · SGKeycapStyle</span></h3><p>A machine push button: a cut plate over a shallow shadow plate, with an indicator square. For the one action that should feel mechanical. Press it.</p>
+    <div class="inst"><h3><span>Keycap</span><span>.keycap · SGKeycapStyle</span></h3><p>A flat machine push button: a cut coral plate with an indicator square and a hold hint. For the one action that should feel mechanical. Press it.</p>
       <div class="demo" style="display:block"><button class="keycap" type="button"><span>Engage</span><small>HOLD 1 S</small><i class="led"></i></button></div></div>
     <div class="inst"><h3><span>Rocker switch</span><span>.rocker · SGRockerStyle</span></h3><p>An I / O rocker for hardware-grade on/off states such as kill switch, maintenance mode or airplane mode.</p>
       <div class="demo" style="gap:16px"><input class="rocker" type="checkbox" id="k-r1" checked aria-label="Rocker on"><input class="rocker" type="checkbox" id="k-r2" aria-label="Rocker off"><span class="sg-mono u-dim">I = ON · O = OFF</span></div></div>
