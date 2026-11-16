@@ -59,27 +59,29 @@ public enum SG {
     public static let cutL: CGFloat = 24
 }
 
-// MARK: - Type: one family in three widths + a terminal mono
+// MARK: - Type: hard, chamfered, industrial
 
 public enum SGFont {
-    /// Saira Expanded ExtraBold: wordmarks, titles, display (uppercase).
-    public static func display(_ size: CGFloat) -> Font { .custom("SairaExpanded-ExtraBold", size: size) }
-    /// Saira Bold: numerals.
-    public static func number(_ size: CGFloat) -> Font { .custom("Saira-Bold", size: size).monospacedDigit() }
-    /// Saira Condensed SemiBold: labels in caps ("FUTURE ENGINEERING").
-    public static func cap(_ size: CGFloat) -> Font { .custom("SairaCondensed-SemiBold", size: size) }
-    /// Saira Medium: body and row labels.
-    public static func body(_ size: CGFloat = 15) -> Font { .custom("Saira-Medium", size: size) }
-    /// Saira Bold: emphasised body (the trilingual stack).
-    public static func bodyBold(_ size: CGFloat = 15) -> Font { .custom("Saira-Bold", size: size) }
-    /// Share Tech Mono: telemetry and metadata.
-    public static func mono(_ size: CGFloat = 11) -> Font { .custom("ShareTechMono-Regular", size: size) }
+    /// Tektur Black: wordmarks, titles, display (uppercase). Cut-corner letterforms.
+    public static func display(_ size: CGFloat) -> Font { .custom("Tektur-Black", size: size) }
+    /// Tektur ExtraBold: numerals in text.
+    public static func number(_ size: CGFloat) -> Font { .custom("Tektur-ExtraBold", size: size).monospacedDigit() }
+    /// Tektur Condensed SemiBold: labels in caps ("FUTURE ENGINEERING").
+    public static func cap(_ size: CGFloat) -> Font { .custom("TekturCondensed-SemiBold", size: size) }
+    /// Tektur Medium: body and row labels.
+    public static func body(_ size: CGFloat = 15) -> Font { .custom("Tektur-Medium", size: size) }
+    /// Tektur Bold: emphasised body (the trilingual stack).
+    public static func bodyBold(_ size: CGFloat = 15) -> Font { .custom("Tektur-Bold", size: size) }
+    /// Kode Mono: telemetry and metadata.
+    public static func mono(_ size: CGFloat = 11) -> Font { .custom("KodeMono-Regular", size: size) }
+    /// Big Shoulders Stencil: stamped numerals, serials, stamps. Once per screen.
+    public static func stencil(_ size: CGFloat) -> Font { .custom("BigShouldersStencilDisplay-ExtraBold", size: size) }
 
     /// Call once at launch (e.g. in your App init). Registers the bundled OFL fonts
     /// so you don't need UIAppFonts entries in Info.plist.
     public static func register() {
-        let names = ["SairaExpanded-ExtraBold", "Saira-Bold", "Saira-Medium", "Saira-Regular",
-                     "SairaCondensed-SemiBold", "Saira-MediumItalic", "ShareTechMono-Regular"]
+        let names = ["Tektur-Black", "Tektur-ExtraBold", "Tektur-Bold", "Tektur-Medium", "TekturCondensed-SemiBold",
+                     "KodeMono-Regular", "BigShouldersStencilDisplay-ExtraBold", "ChakraPetch-MediumItalic", "DotGothic16-Regular"]
         for name in names {
             guard let url = Bundle.module.url(forResource: name, withExtension: "ttf") else { continue }
             CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
@@ -102,4 +104,5 @@ public extension View {
         font(SGFont.mono(size)).textCase(upper ? .uppercase : nil).tracking(size * 0.04)
     }
     func sgNumber(_ size: CGFloat) -> some View { font(SGFont.number(size)) }
+    func sgStencil(_ size: CGFloat) -> some View { font(SGFont.stencil(size)).textCase(.uppercase).tracking(size * 0.04) }
 }

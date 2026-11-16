@@ -2,6 +2,7 @@
    SHINGŌ 信号 — industrial print system (web reference implementation)
 
    Direction: sci-fi industrial. Content is PRINTED on a striped ground,
+   set in hard chamfered type (Tektur, Kode Mono, a military stencil),
    like a technical garment print: hard edges, 45° chamfers, hazard bars,
    chevrons, barcodes, corner brackets, mono telemetry, one coral signal.
 
@@ -55,11 +56,13 @@
 .mode-dark, .mode-light { color: var(--on-ground); }
 
 :root {
-  /* ---- type: one family in three widths + a terminal mono ---- */
-  --f-display: "Saira", "Eurostile", "Arial Narrow", sans-serif;   /* expanded 125%, 800 */
-  --f-sans: "Saira", "Eurostile", "Helvetica Neue", sans-serif;     /* normal / condensed */
-  --f-mono: "Share Tech Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --f-jp: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  /* ---- type: hard, chamfered, industrial ---- */
+  --f-display: "Tektur", "Eurostile", "Arial Narrow", sans-serif;    /* 900 display, 800 titles: cut-corner letterforms */
+  --f-sans: "Tektur", "Eurostile", "Helvetica Neue", sans-serif;      /* 500 body, condensed 600 caps */
+  --f-mono: "Kode Mono", ui-monospace, "SF Mono", Menlo, monospace;    /* telemetry */
+  --f-stencil: "Big Shoulders Stencil Display", "Tektur", sans-serif;  /* stamped numerals, serials, stamps */
+  --f-fr: "Chakra Petch", "Tektur", sans-serif;                        /* italic 500: French asides */
+  --f-jp: "DotGothic16", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; /* dot-matrix kanji */
 
   /* ---- geometry ---- */
   --hair: 1.5px;
@@ -69,11 +72,12 @@
 }
 
 /* ------------------------------------------------------------------ type */
-.sg-wordmark { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; text-transform: uppercase; letter-spacing: -.005em; line-height: .9; }
+.sg-wordmark { font-family: var(--f-display); font-stretch: 100%; font-weight: 900; text-transform: uppercase; letter-spacing: .01em; line-height: .9; }
 .sg-cap      { font-family: var(--f-sans); font-stretch: 75%; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; line-height: 1.1; }
 .sg-label    { font-family: var(--f-sans); font-weight: 500; letter-spacing: 0; line-height: 1.2; }
-.sg-num      { font-family: var(--f-display); font-stretch: 112.5%; font-weight: 700; letter-spacing: -.01em; font-variant-numeric: tabular-nums; line-height: 1; }
-.sg-mono     { font-family: var(--f-mono); font-weight: 400; font-size: 11px; line-height: 1.25; letter-spacing: .02em; }
+.sg-num      { font-family: var(--f-display); font-stretch: 100%; font-weight: 800; letter-spacing: 0; font-variant-numeric: tabular-nums; line-height: 1; }
+.sg-stencil  { font-family: var(--f-stencil); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; line-height: .9; }
+.sg-mono     { font-family: var(--f-mono); font-weight: 400; font-size: 11px; line-height: 1.3; letter-spacing: 0; }
 .sg-ghost    { color: var(--sage-ghost); }
 .t-right     { text-align: right; }
 
@@ -185,15 +189,15 @@
 /* ================================================== three languages
    English runs the interface. Japanese is texture (vertical captions,
    seals, display kanji). French is the italic aside. */
-.sg-jp   { font-family: var(--f-jp); font-weight: 700; letter-spacing: .04em; line-height: 1.15; font-feature-settings: "palt"; }
-.sg-jp-v { font-family: var(--f-jp); font-weight: 500; font-size: 11px; line-height: 1; letter-spacing: .32em; writing-mode: vertical-rl; text-orientation: upright; }
-.sg-jp-outline { font-family: var(--f-jp); font-weight: 700; line-height: 1; color: transparent; -webkit-text-stroke: 1.3px var(--stroke, var(--ground-dim)); }
-.sg-fr   { font-family: var(--f-sans); font-style: italic; font-weight: 500; letter-spacing: 0; text-transform: none; }
+.sg-jp   { font-family: var(--f-jp); font-weight: 400; letter-spacing: .04em; line-height: 1.15; font-feature-settings: "palt"; }
+.sg-jp-v { font-family: var(--f-jp); font-weight: 400; font-size: 11px; line-height: 1; letter-spacing: .32em; writing-mode: vertical-rl; text-orientation: upright; }
+.sg-jp-outline { font-family: var(--f-jp); font-weight: 400; line-height: 1; color: transparent; -webkit-text-stroke: 1.3px var(--stroke, var(--ground-dim)); }
+.sg-fr   { font-family: var(--f-fr); font-style: italic; font-weight: 500; letter-spacing: 0; text-transform: none; }
 .sg-justify { text-align: justify; text-align-last: justify; }
 
 /* hanko seal: square, vertical kanji, slightly off-axis */
 .hanko { box-sizing: border-box; width: 52px; height: 52px; display: grid; place-items: center; border: 2.5px solid var(--coral); color: var(--coral);
-  font-family: var(--f-jp); font-weight: 700; font-size: 16px; line-height: 1; letter-spacing: .12em; writing-mode: vertical-rl; transform: rotate(-4deg); }
+  font-family: var(--f-jp); font-weight: 400; font-size: 17px; line-height: 1; letter-spacing: .12em; writing-mode: vertical-rl; transform: rotate(-4deg); }
 
 /* print motifs */
 .hazard { --hz: var(--ground-hi); height: 24px; box-sizing: border-box; padding-block: 4px; border-block: var(--hair) solid var(--hz); background: repeating-linear-gradient(-45deg, var(--hz) 0 10px, transparent 10px 20px) content-box; }
@@ -213,18 +217,19 @@
      divider  .hazard  a hazard bar on the gutter
      body     .u-body  rows and frames, hairlines in ground-3, labels in condensed caps
    POSTER screens (launch, onboarding, lock screen, empty state) compose freely.
-   Type: display 44 · title 26 · inline 15 (Saira expanded 800);
-         labels Saira condensed caps 12–14; body Saira 15; telemetry Share Tech Mono 11.
+   Type: display 44 · title 26 · inline 15 (Tektur 900); labels Tektur condensed
+         caps 12–14; body Tektur 15; telemetry Kode Mono 11; numerals as seven-segment
+         readouts or Big Shoulders Stencil; kanji in DotGothic16.
    Coral: one signal block or one primary action per screen, plus small states.
    Languages: Japanese in the masthead tag (or a seal); French in the span rule. */
 .u { display: flex; flex-direction: column; }
 .u > .u-hd, .u > .u-hero, .u > .u-div, .u > .u-body { position: relative; }
-.u-hd { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; align-items: end; padding: 62px 24px 0; }
+.u-hd { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; align-items: end; padding: 60px 24px 0; }
 .u-code { grid-column: 1; grid-row: 1; writing-mode: vertical-rl; transform: rotate(180deg); font: 400 7px/1 var(--f-mono); letter-spacing: .24em; color: var(--ground-dim); padding-bottom: 2px; }
-.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: 26px; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
+.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-display); font-stretch: 100%; font-weight: 900; font-size: 26px; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
 .u-tag { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
 .u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ground-dim); }
-.u-hd .sg-jp-v { color: var(--ground-dim); }
+.u-hd .sg-jp-v { color: var(--ground-dim); font-size: 12px; }
 .u-span { grid-column: 1 / -1; margin-top: 12px; display: flex; align-items: center; gap: 10px; font: 400 11px var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--on-ground); }
 .u-span i { flex: 1; height: var(--hair); background: var(--ground-dim); }
 .u-span .sg-fr { font-size: 12px; letter-spacing: 0; }
@@ -239,3 +244,149 @@
 .u-dim { color: var(--ground-dim); }
 .u-sheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 40px; background: var(--coral); color: #0c0c0a; display: flex; flex-direction: column; gap: 16px;
   clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 44px, 100% 100%, 0 100%); }
+
+/* ================================================== instruments
+   Useful, decorative parts extrapolated from the system. Each one is built
+   from existing motifs: the 45° cut, the hazard stripe, ticks, plates, coral. */
+
+/* seven-segment readout (SVG generated by tools/build.py · seg7()) */
+.seg7 { display: inline-block; vertical-align: bottom; color: var(--ground-hi); --off: var(--ground-3); }
+.seg7 .on { fill: currentColor; } .seg7 .off { fill: var(--off); } .seg7 .hot { fill: var(--coral); }
+
+/* cell meter: slanted cells, filled up to a count */
+.cells { display: flex; gap: 3px; padding-left: 5px; }
+.cells i { flex: 1; height: 14px; background: var(--ground-3); transform: skewX(-30deg); }
+.cells i.on { background: var(--ground-hi); }
+.cells i.hot { background: var(--coral); }
+.cells--tall i { height: 22px; }
+
+/* ruler slider: ticks every 2%, majors every 10%, coral needle */
+.ruler { position: relative; --v: 50%; padding-top: 12px; color: var(--ground-hi); }
+.ruler-ticks { height: 22px; border-right: 1.5px solid currentColor;
+  background: linear-gradient(90deg, currentColor 0 1.5px, transparent 1.5px) 0 0 / 10% 22px repeat-x,
+              linear-gradient(90deg, var(--ground-dim) 0 1px, transparent 1px) 0 12px / 2% 10px repeat-x; }
+.ruler::before { content: ""; position: absolute; top: 0; left: var(--v); width: 12px; height: 10px; margin-left: -6px; background: var(--coral); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.ruler::after { content: ""; position: absolute; top: 10px; left: var(--v); width: 2px; height: 24px; margin-left: -1px; background: var(--coral); }
+.ruler-labels { display: flex; justify-content: space-between; margin-top: 5px; font: 400 10px var(--f-mono); color: var(--ground-dim); }
+.ruler input[type=range] { position: absolute; inset: 0; width: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+
+/* chevron steps: a process as arrows */
+.steps { display: flex; gap: 3px; list-style: none; margin: 0; padding: 0; }
+.steps li { flex: 1; height: 30px; display: grid; place-items: center; padding-left: 6px; background: var(--ground-3); color: var(--ground-dim);
+  font: 600 11px var(--f-sans); font-stretch: 75%; letter-spacing: .14em; text-transform: uppercase;
+  clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 50%, calc(100% - 11px) 100%, 0 100%, 11px 50%); }
+.steps li:first-child { clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 50%, calc(100% - 11px) 100%, 0 100%); padding-left: 0; }
+.steps .done { background: var(--ground-hi); color: var(--ground); }
+.steps .on { background: var(--coral); color: #0c0c0a; }
+
+/* index tabs: manual-divider tabs on a print rule */
+.itabs { display: flex; gap: 4px; border-bottom: 2px solid var(--ground-hi); }
+.itabs button { all: unset; cursor: pointer; padding: 8px 18px 6px 12px; background: var(--ground-3); color: var(--ground-dim);
+  font: 600 11px var(--f-sans); font-stretch: 75%; letter-spacing: .14em; text-transform: uppercase;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); }
+.itabs button[aria-pressed="true"] { background: var(--ground-hi); color: var(--ground); }
+.itabs button:focus-visible { outline: 2px solid var(--coral); outline-offset: -2px; }
+
+/* caution tag: hazard-striped frame around a notice */
+.caution { padding: 5px; background: repeating-linear-gradient(-45deg, var(--coral) 0 8px, #0c0c0a 8px 16px); }
+.caution > div { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 12px; align-items: start; padding: 12px 14px; background: var(--ground); }
+.caution svg { width: 30px; height: 30px; color: var(--coral); grid-row: span 2; }
+.caution b { font: 600 13px var(--f-sans); font-stretch: 75%; letter-spacing: .14em; text-transform: uppercase; color: var(--ground-hi); }
+.caution p { margin: 0; font: 400 11px/1.45 var(--f-mono); color: var(--on-ground); }
+
+/* rubber stamp: stencil caps in a double frame, worn */
+.stamp { display: inline-grid; place-items: center; padding: 5px 12px 4px; --st: var(--coral); --gap: var(--ground); color: var(--st);
+  border: 2.5px solid var(--st); box-shadow: inset 0 0 0 2px var(--gap), inset 0 0 0 3.5px var(--st);
+  font: 800 19px/1 var(--f-stencil); letter-spacing: .14em; text-transform: uppercase; transform: rotate(-8deg); filter: url(#wear); }
+
+/* ticket stub: plate with square notches and a perforation */
+.ticket { --stub: 92px; display: grid; grid-template-columns: minmax(0, 1fr) var(--stub); background: var(--sage-hi); color: var(--ink);
+  clip-path: polygon(0 0, calc(100% - var(--stub) - 7px) 0, calc(100% - var(--stub) - 7px) 7px, calc(100% - var(--stub) + 7px) 7px, calc(100% - var(--stub) + 7px) 0, 100% 0,
+                     100% 100%, calc(100% - var(--stub) + 7px) 100%, calc(100% - var(--stub) + 7px) calc(100% - 7px), calc(100% - var(--stub) - 7px) calc(100% - 7px), calc(100% - var(--stub) - 7px) 100%, 0 100%); }
+.ticket > div { padding: 14px 16px; min-width: 0; }
+.ticket > div + div { border-left: 2px dashed var(--sage-lo); display: grid; align-content: space-between; justify-items: end; }
+
+/* keycap: a physical push button, top plate over a shadow plate */
+.keycap { all: unset; box-sizing: border-box; position: relative; isolation: isolate; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; height: 76px; padding: 0 22px 6px; color: #0c0c0a; font: 900 20px var(--f-display); letter-spacing: .08em; text-transform: uppercase; }
+.keycap::before, .keycap::after { content: ""; position: absolute; z-index: -1; --c: 14px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.keycap::before { inset: 6px 0 0; background: var(--kc-shade, var(--coral-deep)); }
+.keycap::after { inset: 0 0 6px; background: var(--kc, var(--coral)); transition: transform .08s; }
+.keycap:active::after { transform: translateY(4px); }
+.keycap:active { padding-top: 8px; }
+.keycap small { font: 400 10px var(--f-mono); letter-spacing: .04em; }
+.keycap .led { width: 10px; height: 10px; background: #0c0c0a; box-shadow: 0 0 0 2px rgba(12,12,10,.25); }
+.keycap--print { --kc: var(--ground-hi); --kc-shade: var(--ground-dim); color: var(--ground); }
+.keycap:focus-visible { outline: 2px solid var(--coral); outline-offset: 4px; }
+
+/* rocker switch: I / O */
+.rocker { appearance: none; -webkit-appearance: none; margin: 0; flex: none; position: relative; width: 84px; height: 36px; cursor: pointer; background: var(--ground-3);
+  --c: 7px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.rocker::before, .rocker::after { position: absolute; top: 4px; bottom: 4px; width: 36px; display: grid; place-items: center; font: 700 14px var(--f-mono); }
+.rocker::before { content: "I"; left: 4px; color: var(--ground-dim); }
+.rocker::after { content: "O"; right: 4px; background: var(--ground-hi); color: var(--ground); }
+.rocker:checked::before { background: var(--coral); color: #0c0c0a; }
+.rocker:checked::after { background: transparent; color: var(--ground-dim); }
+.rocker:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+
+/* data plate: a riveted equipment nameplate */
+.dataplate { position: relative; padding: 18px 20px 16px; color: var(--ink); --c: 14px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
+  background:
+    linear-gradient(var(--ink-dim) 0 0) 7px 7px / 6px 6px no-repeat, linear-gradient(var(--ink-dim) 0 0) calc(100% - 22px) 7px / 6px 6px no-repeat,
+    linear-gradient(var(--ink-dim) 0 0) 22px calc(100% - 7px) / 6px 6px no-repeat, linear-gradient(var(--ink-dim) 0 0) calc(100% - 7px) calc(100% - 7px) / 6px 6px no-repeat,
+    var(--sage-hi); }
+.spec { display: grid; grid-template-columns: auto minmax(12px, 1fr) auto; gap: 5px 8px; align-items: end; font: 400 11px var(--f-mono); text-transform: uppercase; }
+.spec i { border-bottom: 1.5px dotted var(--ink-dim); margin-bottom: 3px; }
+.spec--ground { color: var(--ground-hi); } .spec--ground i { border-bottom-color: var(--ground-dim); }
+
+/* print marks: crop marks outside the corners */
+.marks { position: relative; }
+.marks::before { content: ""; position: absolute; inset: -14px; pointer-events: none; --m: var(--ground-dim);
+  background:
+    linear-gradient(var(--m) 0 0) 0 14px / 9px 1px no-repeat, linear-gradient(var(--m) 0 0) 14px 0 / 1px 9px no-repeat,
+    linear-gradient(var(--m) 0 0) 100% 14px / 9px 1px no-repeat, linear-gradient(var(--m) 0 0) calc(100% - 14px) 0 / 1px 9px no-repeat,
+    linear-gradient(var(--m) 0 0) 0 calc(100% - 14px) / 9px 1px no-repeat, linear-gradient(var(--m) 0 0) 14px 100% / 1px 9px no-repeat,
+    linear-gradient(var(--m) 0 0) 100% calc(100% - 14px) / 9px 1px no-repeat, linear-gradient(var(--m) 0 0) calc(100% - 14px) 100% / 1px 9px no-repeat; }
+
+/* colour bar: a calibration strip of the palette */
+.colorbar { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 2px; }
+.colorbar span { display: grid; gap: 4px; font: 400 8.5px var(--f-mono); color: var(--ground-dim); text-transform: uppercase; }
+.colorbar span::before { content: ""; height: 14px; background: var(--k); box-shadow: inset 0 0 0 1px var(--ground-3); }
+
+/* telemetry ticker */
+.ticker { overflow: hidden; white-space: nowrap; border-block: 1px solid var(--ground-3); padding: 6px 0; font: 400 11px var(--f-mono); color: var(--ground-hi); text-transform: uppercase; }
+.ticker > span { display: inline-block; animation: sg-tick 22s linear infinite; }
+.ticker b { color: var(--coral); font-weight: 400; }
+@keyframes sg-tick { to { transform: translateX(-50%); } }
+
+/* boot log */
+.bootlog { display: grid; gap: 3px; font: 400 11px var(--f-mono); color: var(--on-ground); text-transform: uppercase; }
+.bootlog span::before { content: "[ OK ] "; color: var(--ground-hi); }
+.bootlog .run::before { content: "[ .. ] "; color: var(--coral); }
+.caret { display: inline-block; width: 7px; height: 11px; margin-left: 3px; vertical-align: -1px; background: var(--coral); animation: sg-blink 1s steps(1) infinite; }
+@keyframes sg-blink { 50% { opacity: 0; } }
+
+/* marching hazard (busy state) */
+.hazard--run { animation: sg-march 1.2s linear infinite; }
+@keyframes sg-march { to { background-position: 28.28px 0; } }
+
+/* blueprint grid ground (edit / plan modes) */
+.blueprint { background:
+  linear-gradient(var(--ground-3) 1px, transparent 1px) 0 0 / 24px 24px, linear-gradient(90deg, var(--ground-3) 1px, transparent 1px) 0 0 / 24px 24px,
+  linear-gradient(var(--ground-2) 1px, transparent 1px) 0 0 / 6px 6px, linear-gradient(90deg, var(--ground-2) 1px, transparent 1px) 0 0 / 6px 6px, var(--ground); }
+
+/* callout: a technical-drawing leader with a label */
+.callout { position: absolute; width: 0; height: 0; --d: 34px; z-index: 2; }
+.callout > i { position: absolute; left: -3px; top: -3px; width: 6px; height: 6px; background: var(--coral); }
+.callout > b { position: absolute; left: 0; top: 0; width: var(--d); height: 1.5px; background: var(--ground-hi); transform-origin: 0 50%; transform: rotate(-45deg); }
+.callout > span { position: absolute; left: calc(var(--d) * .7071 - 1px); top: calc(var(--d) * -.7071 - 15px); padding: 0 2px 2px 4px; border-bottom: 1.5px solid var(--ground-hi);
+  white-space: nowrap; font: 400 10px var(--f-mono); text-transform: uppercase; color: var(--ground-hi); }
+
+/* status lamps: square indicators with labels */
+.lamps { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; }
+.lamp { display: grid; gap: 6px; font: 400 10px var(--f-mono); text-transform: uppercase; color: var(--ground-dim); }
+.lamp::before { content: ""; height: 10px; background: var(--ground-3); }
+.lamp.on { color: var(--ground-hi); } .lamp.on::before { background: var(--ground-hi); }
+.lamp.hot { color: var(--coral); } .lamp.hot::before { background: var(--coral); animation: sg-blink 1.2s steps(1) infinite; }
+
+@media (prefers-reduced-motion: reduce) { .ticker > span, .caret, .hazard--run, .lamp.hot::before { animation: none; } }

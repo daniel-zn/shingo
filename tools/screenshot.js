@@ -16,7 +16,7 @@ const fs = require('fs');
   await p.goto('file://' + path.resolve(__dirname, '../dist/index.html'));
   await p.evaluate(() => document.fonts.ready);
   await p.waitForTimeout(800);
-  await p.addStyleTag({ content: '#theme-switch{display:none!important}' });
+  await p.addStyleTag({ content: '#theme-switch{display:none!important} .ticker>span,.caret,.hazard--run,.lamp.hot::before{animation:none!important}' });
   fs.mkdirSync(out, { recursive: true });
   await (await p.$('.ka-pair')).screenshot({ path: path.join(out, 'keyart.png') });
   await (await p.$('.origins')).screenshot({ path: path.join(out, 'origins.png') });
@@ -33,7 +33,8 @@ const fs = require('fs');
     }
     await (await p.$$('.sec'))[2].screenshot({ path: path.join(dir, 'widgets.png') });
     await (await p.$('.sheet')).screenshot({ path: path.join(dir, 'components.png') });
-    await (await p.$$('.sec'))[4].screenshot({ path: path.join(dir, 'languages.png') });
+    await (await p.$('.insts')).screenshot({ path: path.join(dir, 'instruments.png') });
+    await (await p.$$('.sec'))[5].screenshot({ path: path.join(dir, 'languages.png') });
     await p.evaluate(() => window.scrollTo(0, 0));
     await p.screenshot({ path: path.join(dir, 'header.png') });
     console.log(mode, 'screens', figs.length);

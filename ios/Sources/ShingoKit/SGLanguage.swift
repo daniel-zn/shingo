@@ -5,12 +5,10 @@ import SwiftUI
 // and tokens/lexicon.json for the phrase list.
 
 public extension SGFont {
-    /// Japanese gothic. Hiragino Sans ships with iOS, so nothing to bundle.
-    static func jp(_ size: CGFloat, bold: Bool = true) -> Font {
-        .custom(bold ? "HiraginoSans-W6" : "HiraginoSans-W3", size: size)
-    }
-    /// French asides: Saira Medium Italic (bundled).
-    static func fr(_ size: CGFloat) -> Font { .custom("Saira-MediumItalic", size: size) }
+    /// Japanese in DotGothic16 (dot matrix, bundled). `bold` is kept for API compatibility.
+    static func jp(_ size: CGFloat, bold: Bool = true) -> Font { .custom("DotGothic16-Regular", size: size) }
+    /// French asides: Chakra Petch Medium Italic (bundled), angular.
+    static func fr(_ size: CGFloat) -> Font { .custom("ChakraPetch-MediumItalic", size: size) }
 }
 
 public extension View {

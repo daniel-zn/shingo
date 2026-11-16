@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira:ital,wdth,wght@0,50..125,100..900;1,50..125,100..900&family=Share+Tech+Mono&family=Noto+Sans+JP:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tektur:wdth,wght@75..100,400..900&family=Kode+Mono:wght@400..700&family=Chakra+Petch:ital,wght@1,500&family=DotGothic16&family=Big+Shoulders+Stencil+Display:wght@800&display=swap">
 <style>
 <!--@CSS-->
 
@@ -188,6 +188,17 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .typescale > div { display: grid; grid-template-columns: minmax(0, 170px) minmax(0, 1fr); gap: 12px; align-items: baseline; color: var(--ground-hi); }
 .typescale .sg-mono { color: var(--ground-dim); font-size: 10.5px; text-transform: uppercase; }
 
+
+/* instruments */
+.insts { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
+.inst { background: var(--ground); padding: 18px; display: grid; grid-template-rows: auto auto 1fr; gap: 8px; min-width: 0; }
+.inst--wide { grid-column: span 2; }
+.inst h3 { margin: 0; display: flex; justify-content: space-between; gap: 10px; font: 600 13px var(--f-sans); font-stretch: 75%; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.inst h3 span:last-child { font: 400 10px var(--f-mono); letter-spacing: 0; text-transform: none; color: var(--coral); }
+.inst p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--on-ground); max-width: 52ch; }
+.inst .demo { align-self: end; display: flex; align-items: center; padding: 14px 0 4px; min-width: 0; }
+@media (max-width: 700px) { .inst--wide { grid-column: auto; } }
+
 /* languages */
 .langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .lang { background: var(--ground); padding: 20px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; }
@@ -258,7 +269,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div><div class="sw"><div class="hazard" style="width:64px"></div></div><div><h3>Hazard bar</h3><p>45° stripes between two hairlines. It divides the masthead from the body on every utility screen. <code>.hazard</code> · <code>HazardBar</code></p></div></div>
     <div><div class="sw"><div class="chamfer brackets" style="width:56px;height:48px;--c:12px;padding:0;--fill:var(--ground);--line:var(--ground-dim)"></div></div><div><h3>Cuts and brackets</h3><p>Every corner cut is 45° on the top-right and bottom-left axis, at 6, 12 or 24&nbsp;pt. HUD brackets frame focus areas. <code>.cut .chamfer .brackets</code></p></div></div>
     <div><div class="sw"><svg viewBox="0 0 300 230" width="62" height="48" style="color:var(--ground-hi)"><use href="#g-chevrons"/></svg></div><div><h3>Print motifs</h3><p>Chevrons, barcode, the line-art head, the coral tag slab and the year span. They are generated, so they recolor with tokens. <code>assets/svg/*</code></p></div></div>
-    <div><div class="sw" style="justify-items:start;gap:2px"><span class="sg-wordmark" style="font-size:15px;color:var(--ground-hi)">AXIOM</span><span class="sg-cap" style="font-size:10px">Signal</span><span class="sg-mono" style="font-size:9px;color:var(--ground-dim)">SP C53</span></div><div><h3>Type: one family, three widths</h3><p>Saira Expanded ExtraBold for wordmarks and titles, Saira Condensed caps for labels, Saira for body text and Share Tech Mono for telemetry. All are OFL and bundled for iOS.</p></div></div>
+    <div><div class="sw" style="justify-items:start;gap:2px"><span class="sg-wordmark" style="font-size:15px;color:var(--ground-hi)">AXIOM</span><span class="sg-stencil" style="font-size:16px;color:var(--ground-hi)">09</span><span class="sg-mono" style="font-size:9px;color:var(--ground-dim)">SP C53</span></div><div><h3>Hard type</h3><p>Tektur has letter corners cut like the system's 45° cuts. Kode Mono carries telemetry, Big Shoulders Stencil stamps serials, and DotGothic16 sets kanji in dot matrix. Readouts are seven-segment. All fonts are OFL and bundled for iOS.</p></div></div>
     <div><div class="sw"><span class="slab-cut" style="width:56px;height:22px"></span></div><div><h3>One signal</h3><p>Coral appears as one block or one primary action per screen, plus small states like unread and the active tab. Everything else is print.</p></div></div>
   </div>
 </section>
@@ -312,9 +323,10 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="bar bar--bleed-r" style="--h:104px;top:290px;left:72px;right:0"><div class="bar__mid"><div class="bar__core"><i class="bar__slot" style="--p:58%"></i></div></div></div>
       <i class="band" style="top:420px;left:0;width:240px;height:240px;clip-path:polygon(150px 0,240px 0,0 240px,0 150px)"></i>
       <div class="t-right" style="top:430px;right:24px;color:var(--ground-hi)"><div class="sg-num" style="font-size:28px">09</div><div class="sg-mono" style="margin-top:8px;font-size:12px;line-height:1.5">REF:<br>OPSEC/AHI<br>SP C53</div></div>
-      <div class="barcode" style="top:560px;right:24px;width:96px;height:80px;--bc:var(--ground-hi)"></div>
-      <div class="hazard" style="top:690px;left:24px;right:24px"></div>
-      <div style="top:730px;left:24px;right:24px"><div class="sg-mono" style="display:flex;justify-content:space-between;margin-bottom:10px;color:var(--ground-hi)"><span>SEALING TUNNEL</span><span>64%</span></div><div class="slot" style="--p:64%"></div></div>
+      <div class="barcode" style="top:548px;right:24px;width:96px;height:72px;--bc:var(--ground-hi)"></div>
+      <div class="bootlog" style="top:668px;left:24px;right:24px"><span>Keys verified</span><span>Relays 3 / 3</span><span class="run">Sealing tunnel · 64%<i class="caret"></i></span></div>
+      <div class="hazard hazard--run" style="top:740px;left:24px;right:24px"></div>
+      <div class="slot" style="top:780px;left:24px;right:24px;--p:64%"></div>
       <i class="home"></i>
     </div></div>
     <figcaption><b>A · Launch</b><span><em class="tier">poster</em> Reference 1 made industrial: two cut bars, the 45° coral band, a hard X and right-aligned telemetry. The bar slot is the boot progress.</span></figcaption>
@@ -350,14 +362,15 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="u-div hazard"></div>
       <section class="u-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Threats blocked</div><div class="sg-num" style="font-size:28px;margin:8px 0 12px;color:var(--ground-hi)">1,284</div><div class="barcode--v" style="height:20px;--bc:var(--ground-hi)"></div></div>
-          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Data routed</div><div class="sg-num" style="font-size:28px;margin:8px 0 18px;color:var(--ground-hi)">4.2<span class="sg-mono"> GB</span></div><div class="slot" style="--p:42%"></div></div>
+          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Threats blocked</div><div style="margin:10px 0 2px"><svg class="seg7 " viewBox="0 0 178 64" height="30" width="83.44" role="img" aria-label="1284"><g transform="translate(9 0) skewX(-8)"><polygon class="off" points="5.1,3.5 8.6,0 27.4,0 30.9,3.5 27.4,7 8.6,7"/><polygon class="off" points="5.1,32 8.6,28.5 27.4,28.5 30.9,32 27.4,35.5 8.6,35.5"/><polygon class="off" points="5.1,60.5 8.6,57 27.4,57 30.9,60.5 27.4,64 8.6,64"/><polygon class="off" points="3.5,5.1 7,8.6 7,26.9 3.5,30.4 0,26.9 0,8.6"/><polygon class="on" points="32.5,5.1 36,8.6 36,26.9 32.5,30.4 29,26.9 29,8.6"/><polygon class="off" points="3.5,33.6 7,37.1 7,55.4 3.5,58.9 0,55.4 0,37.1"/><polygon class="on" points="32.5,33.6 36,37.1 36,55.4 32.5,58.9 29,55.4 29,37.1"/><polygon class="on" points="49.1,3.5 52.6,0 71.4,0 74.9,3.5 71.4,7 52.6,7"/><polygon class="on" points="49.1,32 52.6,28.5 71.4,28.5 74.9,32 71.4,35.5 52.6,35.5"/><polygon class="on" points="49.1,60.5 52.6,57 71.4,57 74.9,60.5 71.4,64 52.6,64"/><polygon class="off" points="47.5,5.1 51,8.6 51,26.9 47.5,30.4 44,26.9 44,8.6"/><polygon class="on" points="76.5,5.1 80,8.6 80,26.9 76.5,30.4 73,26.9 73,8.6"/><polygon class="on" points="47.5,33.6 51,37.1 51,55.4 47.5,58.9 44,55.4 44,37.1"/><polygon class="off" points="76.5,33.6 80,37.1 80,55.4 76.5,58.9 73,55.4 73,37.1"/><polygon class="on" points="93.1,3.5 96.6,0 115.4,0 118.9,3.5 115.4,7 96.6,7"/><polygon class="on" points="93.1,32 96.6,28.5 115.4,28.5 118.9,32 115.4,35.5 96.6,35.5"/><polygon class="on" points="93.1,60.5 96.6,57 115.4,57 118.9,60.5 115.4,64 96.6,64"/><polygon class="on" points="91.5,5.1 95,8.6 95,26.9 91.5,30.4 88,26.9 88,8.6"/><polygon class="on" points="120.5,5.1 124,8.6 124,26.9 120.5,30.4 117,26.9 117,8.6"/><polygon class="on" points="91.5,33.6 95,37.1 95,55.4 91.5,58.9 88,55.4 88,37.1"/><polygon class="on" points="120.5,33.6 124,37.1 124,55.4 120.5,58.9 117,55.4 117,37.1"/><polygon class="off" points="137.1,3.5 140.6,0 159.4,0 162.9,3.5 159.4,7 140.6,7"/><polygon class="on" points="137.1,32 140.6,28.5 159.4,28.5 162.9,32 159.4,35.5 140.6,35.5"/><polygon class="off" points="137.1,60.5 140.6,57 159.4,57 162.9,60.5 159.4,64 140.6,64"/><polygon class="on" points="135.5,5.1 139,8.6 139,26.9 135.5,30.4 132,26.9 132,8.6"/><polygon class="on" points="164.5,5.1 168,8.6 168,26.9 164.5,30.4 161,26.9 161,8.6"/><polygon class="off" points="135.5,33.6 139,37.1 139,55.4 135.5,58.9 132,55.4 132,37.1"/><polygon class="on" points="164.5,33.6 168,37.1 168,55.4 164.5,58.9 161,55.4 161,37.1"/></g></svg></div></div>
+          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Data routed</div><div class="sg-num" style="font-size:24px;margin:8px 0 12px;color:var(--ground-hi)">4.2<span class="sg-mono"> / 10 GB</span></div><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
         </div>
         <div>
           <div class="set"><span class="sg-label">Kill switch</span><input class="tgl" type="checkbox" id="c-ks" checked aria-label="Kill switch"></div>
           <div class="set"><span class="sg-label">Block trackers</span><input class="tgl" type="checkbox" id="c-bt" checked aria-label="Block trackers"></div>
         </div>
         <button class="btn btn--block" type="button">Disconnect<svg><use href="#g-x-solid"/></svg></button>
+        <div class="ticker"><span> ◆ LIS-04 · 23 MS · <b>AES-256</b> · 1,284 BLOCKED · UPTIME 82% · RELAY 3/3 ·  ◆ LIS-04 · 23 MS · <b>AES-256</b> · 1,284 BLOCKED · UPTIME 82% · RELAY 3/3 · </span></div>
       </section>
       <nav class="tabbar chamfer"><a aria-current="page"><svg><use href="#g-mark"/></svg>home</a><a><svg><use href="#g-signal"/></svg>stats</a><a><svg><use href="#g-reticle"/></svg>scan</a><a><svg><use href="#g-grid"/></svg>servers</a></nav>
       <i class="home"></i>
@@ -372,13 +385,13 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Run log</h3><div class="u-tag u-meta">10–16<br>NOV</div><div class="u-span"><span><span class="sg-fr">journal de course</span></span><i></i><span>W46</span></div></header>
-      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:baseline;gap:8px"><span class="sg-num" style="font-size:88px;letter-spacing:-.04em;color:var(--ground-hi)">42.6</span><span class="sg-cap" style="font-size:14px">km</span></div>
+      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px"><svg class="seg7 " viewBox="0 0 149 64" height="76" width="176.94" role="img" aria-label="42.6"><g transform="translate(9 0) skewX(-8)"><polygon class="off" points="5.1,3.5 8.6,0 27.4,0 30.9,3.5 27.4,7 8.6,7"/><polygon class="on" points="5.1,32 8.6,28.5 27.4,28.5 30.9,32 27.4,35.5 8.6,35.5"/><polygon class="off" points="5.1,60.5 8.6,57 27.4,57 30.9,60.5 27.4,64 8.6,64"/><polygon class="on" points="3.5,5.1 7,8.6 7,26.9 3.5,30.4 0,26.9 0,8.6"/><polygon class="on" points="32.5,5.1 36,8.6 36,26.9 32.5,30.4 29,26.9 29,8.6"/><polygon class="off" points="3.5,33.6 7,37.1 7,55.4 3.5,58.9 0,55.4 0,37.1"/><polygon class="on" points="32.5,33.6 36,37.1 36,55.4 32.5,58.9 29,55.4 29,37.1"/><polygon class="on" points="49.1,3.5 52.6,0 71.4,0 74.9,3.5 71.4,7 52.6,7"/><polygon class="on" points="49.1,32 52.6,28.5 71.4,28.5 74.9,32 71.4,35.5 52.6,35.5"/><polygon class="on" points="49.1,60.5 52.6,57 71.4,57 74.9,60.5 71.4,64 52.6,64"/><polygon class="off" points="47.5,5.1 51,8.6 51,26.9 47.5,30.4 44,26.9 44,8.6"/><polygon class="on" points="76.5,5.1 80,8.6 80,26.9 76.5,30.4 73,26.9 73,8.6"/><polygon class="on" points="47.5,33.6 51,37.1 51,55.4 47.5,58.9 44,55.4 44,37.1"/><polygon class="off" points="76.5,33.6 80,37.1 80,55.4 76.5,58.9 73,55.4 73,37.1"/><rect class="on" x="88" y="57" width="7" height="7"/><polygon class="on" points="108.1,3.5 111.6,0 130.4,0 133.9,3.5 130.4,7 111.6,7"/><polygon class="on" points="108.1,32 111.6,28.5 130.4,28.5 133.9,32 130.4,35.5 111.6,35.5"/><polygon class="on" points="108.1,60.5 111.6,57 130.4,57 133.9,60.5 130.4,64 111.6,64"/><polygon class="on" points="106.5,5.1 110,8.6 110,26.9 106.5,30.4 103,26.9 103,8.6"/><polygon class="off" points="135.5,5.1 139,8.6 139,26.9 135.5,30.4 132,26.9 132,8.6"/><polygon class="on" points="106.5,33.6 110,37.1 110,55.4 106.5,58.9 103,55.4 103,37.1"/><polygon class="on" points="135.5,33.6 139,37.1 139,55.4 135.5,58.9 132,55.4 132,37.1"/></g></svg><span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
         <div class="dayrow"><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>m</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>w</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>f</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>s</i></span><span><svg width="30" height="30" style="color:var(--coral)"><use href="#g-x-solid"/></svg><i>s</i></span></div></div>
       <div class="u-div hazard"></div>
       <section class="u-body">
         <div class="stats3"><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Avg pace</span><b class="sg-num">5'12"</b></div><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Moving</span><b class="sg-num">3:41:08</b></div><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Elevation</span><b class="sg-num">+412</b></div></div>
         <div class="u-label"><span>Time in zone</span><span>HR</span></div>
-        <div class="zones"><span class="sg-mono">Z1</span><i class="slot" style="--p:18%;background:linear-gradient(90deg,var(--ground-hi) var(--p),var(--ground-3) 0)"></i><span class="sg-mono t-right">0:40</span><span class="sg-mono">Z2</span><i class="slot" style="--p:64%;background:linear-gradient(90deg,var(--ground-hi) var(--p),var(--ground-3) 0)"></i><span class="sg-mono t-right">2:21</span><span class="sg-mono">Z3</span><i class="slot" style="--p:22%;"></i><span class="sg-mono t-right">0:31</span><span class="sg-mono">Z4</span><i class="slot" style="--p:6%;background:linear-gradient(90deg,var(--ground-hi) var(--p),var(--ground-3) 0)"></i><span class="sg-mono t-right">0:09</span></div>
+        <div class="zones"><span class="sg-mono">Z1</span><div class="cells"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div><span class="sg-mono t-right">0:40</span><span class="sg-mono">Z2</span><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div><span class="sg-mono t-right">2:21</span><span class="sg-mono">Z3</span><div class="cells"><i class="on"></i><i class="on"></i><i class="hot"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div><span class="sg-mono t-right">0:31</span><span class="sg-mono">Z4</span><div class="cells"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div><span class="sg-mono t-right">0:09</span></div>
       </section>
       <nav class="tabbar chamfer"><a><svg><use href="#g-mark"/></svg>today</a><a aria-current="page"><svg><use href="#g-signal"/></svg>log</a><a><svg><use href="#g-grid"/></svg>routes</a><a><svg><use href="#g-head"/></svg>me</a></nav>
       <i class="home"></i>
@@ -401,7 +414,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="u-div hazard"></div>
       <section class="u-body">
         <div><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Available balance</div><div class="sg-num" style="font-size:40px;margin-top:6px;color:var(--ground-hi)">€8,214.60</div></div>
-        <div class="seg"><button type="button">week</button><button type="button" aria-pressed="true">month</button><button type="button">year</button></div>
+        <div class="itabs"><button type="button">Week</button><button type="button" aria-pressed="true">Month</button><button type="button">Year</button></div>
         <div>
           <div class="row"><svg width="18" height="18" style="color:var(--coral)"><use href="#g-arrow"/></svg><span><span class="sg-label" style="display:block">Night Train Co.</span><span class="sg-mono">TRAVEL · 14:02</span></span><span class="sg-num" style="font-size:15px;color:var(--ground-hi)">−€118.00</span></div>
           <div class="row"><svg width="18" height="18" style="transform:rotate(180deg);color:var(--ground-hi)"><use href="#g-arrow"/></svg><span><span class="sg-label" style="display:block">Salary · Nov</span><span class="sg-mono">INCOME · 09:00</span></span><span class="sg-num" style="font-size:15px;color:var(--ground-hi)">+€3,940.00</span></div>
@@ -433,6 +446,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
           <button class="btn btn--coral" type="button" aria-label="Play" style="width:72px;height:72px;padding:0;--c:16px"><svg style="width:26px;height:26px"><use href="#g-play"/></svg></button>
           <button class="btn btn--ghost btn--icon" type="button" aria-label="Next"><svg><use href="#g-skip"/></svg></button>
         </div>
+        <div class="ruler" style="--v:70%"><div class="ruler-ticks"></div><div class="ruler-labels"><span>VOL</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div></div>
       </section>
       
       <i class="home"></i>
@@ -450,6 +464,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="u-hero u-hero--pad"><div class="chamfer brackets scope" style="--c:24px">
         <svg><use href="#g-scope"/></svg>
         <svg class="blip" style="left:63%;top:24%;color:var(--coral)"><use href="#g-mark"/></svg>
+        <div class="callout" style="left:calc(63% + 7px);top:calc(24% + 7px);--d:30px"><i></i><b></b><span>AX-04 · 2 M</span></div>
         <svg class="blip" style="left:31%;top:62%"><use href="#g-mark"/></svg>
         <svg class="blip" style="left:66%;top:71%"><use href="#g-mark"/></svg>
       </div></div>
@@ -516,7 +531,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
         <h3 class="sg-wordmark">Mira<br>Okafor</h3>
         <div class="sg-mono badge-f">UNIT&nbsp;&nbsp;&nbsp; FIELD OPS<br>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AX-0917-C53<br>ISSUED&nbsp; 2026-03-02</div>
         <span class="sg-jp-v badge-jp">身分証明書</span>
-        <i class="barcode--v badge-bc"></i>
+        <svg class="badge-bc" viewBox="0 0 21 21" style="width:62px;height:62px;color:var(--ink)"><use href="#g-matrix"/></svg>
       </div></div>
       <div class="u-div hazard"></div>
       <section class="u-body u-body--end"><div style="display:grid;grid-template-columns:1fr auto;gap:12px"><button class="btn" type="button">Add to wallet</button><button class="btn btn--ghost" type="button">Show QR</button></div></section>
@@ -538,7 +553,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <i class="dim" style="position:absolute;inset:0;z-index:5"></i>
       <div class="u-sheet" style="z-index:10">
         <div class="hazard" style="--hz:#0c0c0a;margin-right:40px"></div>
-        <div style="display:flex;justify-content:space-between;align-items:center"><svg width="44" height="44"><use href="#g-x-solid"/></svg><span class="sg-mono t-right">ERR 0X09<br>14:22:07</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><svg width="44" height="44"><use href="#g-warn"/></svg><span class="sg-mono t-right">ERR 0X09<br>14:22:07</span></div>
         <h3 class="sg-wordmark" style="margin:0;font-size:26px">Connection<br>dropped</h3>
         <p class="sg-mono" style="margin:0;font-size:12px;line-height:1.5">LISBON-04 STOPPED RESPONDING. THE KILL SWITCH HAS PAUSED ALL TRAFFIC UNTIL YOU RECONNECT OR PICK ANOTHER SERVER.</p>
         <button class="btn btn--ink btn--block" type="button">Reconnect</button>
@@ -559,8 +574,8 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="sg-mono" style="top:70px;right:24px;color:var(--ground-dim)">ERR 0X09</div>
       <h3 class="sg-wordmark" style="margin:0;top:446px;left:24px;font-size:44px;color:var(--ground-hi)">No<br>signal</h3>
       <div class="sg-jp" style="top:444px;right:24px;font-size:40px;line-height:1.05;writing-mode:vertical-rl;color:var(--ground-hi)">圏外</div>
-      <p class="sg-mono" style="margin:0;top:548px;left:24px;right:70px;font-size:12px;line-height:1.5;color:var(--on-ground)">WE COULDN'T REACH THE NETWORK. CHECK WI-FI OR MOBILE DATA, THEN TRY AGAIN.</p>
-      <div style="top:630px;left:24px;right:24px;display:grid;gap:10px"><button class="btn btn--block" type="button">Try again</button><button class="btn btn--ghost btn--block" type="button">Open offline files</button></div>
+      <div class="caution" style="top:544px;left:24px;right:24px"><div><svg><use href="#g-warn"/></svg><b>Out of range</b><p>WE COULDN'T REACH THE NETWORK. CHECK WI-FI OR MOBILE DATA.</p></div></div>
+      <div style="top:652px;left:24px;right:24px;display:grid;gap:10px"><button class="btn btn--block" type="button">Try again</button><button class="btn btn--ghost btn--block" type="button">Open offline files</button></div>
       <i class="band" style="right:0;bottom:0;width:110px;height:110px;clip-path:polygon(100% 0,100% 100%,0 100%)"></i>
       <i class="home"></i>
     </div></div>
@@ -580,7 +595,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <svg style="top:318px;right:24px;width:80px;height:80px;color:var(--ground-hi)"><use href="#g-x-solid"/></svg>
       <div class="hazard" style="top:440px;left:24px;right:24px"></div>
       <div style="top:490px;left:24px;right:24px;color:var(--ground-hi)"><div class="sg-fr" style="font-size:13px">acheminer chaque paquet</div><h3 class="sg-wordmark" style="margin:10px 0 0;font-size:44px">Route<br>every<br>packet</h3><p class="sg-mono" style="margin:14px 0 0;font-size:12px;color:var(--on-ground)">THREE RELAYS · TWO KEYS · ZERO LOGS</p></div>
-      <div style="top:770px;left:24px;display:flex;gap:6px;align-items:center"><i style="width:14px;height:6px;background:var(--ground-3)"></i><i style="width:44px;height:6px;background:var(--coral)"></i><i style="width:14px;height:6px;background:var(--ground-3)"></i></div>
+      <ol class="steps" style="top:761px;left:24px;width:200px"><li class="done">Scan</li><li class="on">Keys</li><li>Seal</li></ol>
       <button class="btn" type="button" style="top:752px;right:24px">Next<svg><use href="#g-arrow"/></svg></button>
       <i class="home"></i>
     </div></div>
@@ -645,11 +660,9 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="u-hero u-hero--pad" style="display:flex;justify-content:flex-end"><svg viewBox="0 0 300 230" style="width:220px;height:auto;color:var(--ground-hi)"><use href="#g-chevrons"/></svg></div>
       <div class="u-div hazard"></div>
       <section class="u-body u-body--end">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Monthly</div><div class="sg-num" style="font-size:28px;margin-top:8px;color:var(--ground-hi)">€4.99</div><div class="sg-mono u-dim" style="margin-top:4px">PER MONTH</div></div>
-          <div class="plate cut" style="padding:14px"><div class="sg-cap" style="font-size:11px">Yearly · save 35%</div><div class="sg-num" style="font-size:28px;margin-top:8px">€39.00</div><div class="sg-mono" style="margin-top:4px">€3.25 / MONTH</div></div>
-        </div>
-        <div class="sg-mono" style="display:grid;gap:7px;color:var(--ground-hi)"><span>▪ 10 DEVICES ON ONE PLAN</span><span>▪ RELAYS IN 60 CITIES</span><span>▪ PRIORITY TUNNELS AT PEAK HOURS</span></div>
+        <div class="ticket" style="--stub:84px"><div><div class="sg-cap" style="font-size:11px">Monthly</div><div class="sg-num" style="font-size:24px;margin-top:4px">€4.99</div></div><div><span class="sg-mono">PER</span><span class="sg-stencil" style="font-size:22px">MO</span></div></div>
+        <div class="ticket" style="--stub:84px;position:relative;background:var(--ground-hi);color:var(--ground)"><div><div class="sg-cap" style="font-size:11px">Yearly · €3.25 / mo</div><div class="sg-num" style="font-size:24px;margin-top:4px">€39.00</div></div><div style="border-left-color:var(--ground-dim)"><span class="sg-mono">PER</span><span class="sg-stencil" style="font-size:22px">YR</span></div><span class="stamp" style="position:absolute;right:98px;top:16px;font-size:14px;--gap:var(--ground-hi)">Save 35%</span></div>
+        <div class="sg-mono" style="color:var(--ground-hi)">10 DEVICES · 60 RELAY CITIES · PRIORITY TUNNELS</div>
         <button class="btn btn--coral btn--block" type="button">Start 7-day free trial</button>
         <div class="sg-fr u-dim" style="text-align:center;font-size:11.5px">Résiliable à tout moment · paiement via l'App Store</div>
       </section>
@@ -657,6 +670,73 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <i class="home"></i>
     </div></div>
     <figcaption><b>P · Paywall</b><span><em class="tier">utility</em> The chevron print is the hero. Plans print as frames with the chosen one as a plate. One coral action, with French fine print.</span></figcaption>
+  </figure>
+
+
+  <!-- Q · device info -->
+  <figure data-tier="utility">
+    <div class="phone"><div class="scr u tex">
+      <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
+      
+      <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Device</h3><div class="u-tag u-meta">SN<br>0917</div><div class="u-span"><span>unit ax-04</span><i></i><span>rev 2.6</span></div></header>
+      <div class="u-hero u-hero--pad" style="padding-top:30px"><div class="marks"><div class="dataplate">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px"><span class="sg-wordmark" style="font-size:15px">AXIOM</span><span class="sg-stencil" style="font-size:26px">AX-04</span></div>
+        <div style="display:grid;grid-template-columns:1fr 70px;gap:16px;align-items:end"><div class="spec"><span>Serial</span><i></i><span>0917-C53</span><span>Firmware</span><i></i><span>4.2.0</span><span>Relay</span><i></i><span>LIS-04</span><span>Uptime</span><i></i><span>41 D</span></div>
+        <svg viewBox="0 0 21 21" width="70" height="70" style="color:var(--ink)"><use href="#g-matrix"/></svg></div>
+      </div></div></div>
+      <div class="u-div hazard"></div>
+      <section class="u-body u-body--end">
+        <div class="caution"><div><svg><use href="#g-warn"/></svg><b>Firmware 4.2.1</b><p>REBOOT REQUIRED. THE TUNNEL PAUSES FOR 40 S.</p></div></div>
+        <div class="set"><span><span class="sg-label">Maintenance mode</span><small>ROUTE AROUND THIS UNIT</small></span><input class="rocker" type="checkbox" id="q-m" aria-label="Maintenance mode"></div>
+        <button class="btn btn--block" type="button">Install update</button>
+        <div class="colorbar" style="margin-top:auto"><span style="--k:var(--ground)">gnd</span><span style="--k:var(--ground-3)">g-3</span><span style="--k:var(--ground-hi)">print</span><span style="--k:var(--sage)">sage</span><span style="--k:var(--sage-hi)">plate</span><span style="--k:var(--ink)">ink</span><span style="--k:var(--coral)">coral</span></div>
+      </section>
+      
+      <i class="home"></i>
+    </div></div>
+    <figcaption><b>Q · Device info</b><span><em class="tier">utility</em> A riveted data plate inside crop marks is the hero. The body has a caution tag, a rocker switch and the palette calibration strip.</span></figcaption>
+  </figure>
+
+
+  <!-- R · interval timer -->
+  <figure data-tier="utility">
+    <div class="phone"><div class="scr u tex">
+      <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
+      
+      <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Interval</h3><div class="u-tag sg-jp-v">計時</div><div class="u-span"><span>round 3</span><i></i><span>of 8</span></div></header>
+      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px"><svg class="seg7 " viewBox="0 0 193 64" height="92" width="277.44" role="img" aria-label="02:47"><g transform="translate(9 0) skewX(-8)"><polygon class="on" points="5.1,3.5 8.6,0 27.4,0 30.9,3.5 27.4,7 8.6,7"/><polygon class="off" points="5.1,32 8.6,28.5 27.4,28.5 30.9,32 27.4,35.5 8.6,35.5"/><polygon class="on" points="5.1,60.5 8.6,57 27.4,57 30.9,60.5 27.4,64 8.6,64"/><polygon class="on" points="3.5,5.1 7,8.6 7,26.9 3.5,30.4 0,26.9 0,8.6"/><polygon class="on" points="32.5,5.1 36,8.6 36,26.9 32.5,30.4 29,26.9 29,8.6"/><polygon class="on" points="3.5,33.6 7,37.1 7,55.4 3.5,58.9 0,55.4 0,37.1"/><polygon class="on" points="32.5,33.6 36,37.1 36,55.4 32.5,58.9 29,55.4 29,37.1"/><polygon class="on" points="49.1,3.5 52.6,0 71.4,0 74.9,3.5 71.4,7 52.6,7"/><polygon class="on" points="49.1,32 52.6,28.5 71.4,28.5 74.9,32 71.4,35.5 52.6,35.5"/><polygon class="on" points="49.1,60.5 52.6,57 71.4,57 74.9,60.5 71.4,64 52.6,64"/><polygon class="off" points="47.5,5.1 51,8.6 51,26.9 47.5,30.4 44,26.9 44,8.6"/><polygon class="on" points="76.5,5.1 80,8.6 80,26.9 76.5,30.4 73,26.9 73,8.6"/><polygon class="on" points="47.5,33.6 51,37.1 51,55.4 47.5,58.9 44,55.4 44,37.1"/><polygon class="off" points="76.5,33.6 80,37.1 80,55.4 76.5,58.9 73,55.4 73,37.1"/><rect class="hot" x="88" y="17.9" width="7" height="7"/><rect class="hot" x="88" y="41.0" width="7" height="7"/><polygon class="off" points="108.1,3.5 111.6,0 130.4,0 133.9,3.5 130.4,7 111.6,7"/><polygon class="on" points="108.1,32 111.6,28.5 130.4,28.5 133.9,32 130.4,35.5 111.6,35.5"/><polygon class="off" points="108.1,60.5 111.6,57 130.4,57 133.9,60.5 130.4,64 111.6,64"/><polygon class="on" points="106.5,5.1 110,8.6 110,26.9 106.5,30.4 103,26.9 103,8.6"/><polygon class="on" points="135.5,5.1 139,8.6 139,26.9 135.5,30.4 132,26.9 132,8.6"/><polygon class="off" points="106.5,33.6 110,37.1 110,55.4 106.5,58.9 103,55.4 103,37.1"/><polygon class="on" points="135.5,33.6 139,37.1 139,55.4 135.5,58.9 132,55.4 132,37.1"/><polygon class="on" points="152.1,3.5 155.6,0 174.4,0 177.9,3.5 174.4,7 155.6,7"/><polygon class="off" points="152.1,32 155.6,28.5 174.4,28.5 177.9,32 174.4,35.5 155.6,35.5"/><polygon class="off" points="152.1,60.5 155.6,57 174.4,57 177.9,60.5 174.4,64 155.6,64"/><polygon class="off" points="150.5,5.1 154,8.6 154,26.9 150.5,30.4 147,26.9 147,8.6"/><polygon class="on" points="179.5,5.1 183,8.6 183,26.9 179.5,30.4 176,26.9 176,8.6"/><polygon class="off" points="150.5,33.6 154,37.1 154,55.4 150.5,58.9 147,55.4 147,37.1"/><polygon class="on" points="179.5,33.6 183,37.1 183,55.4 179.5,58.9 176,55.4 176,37.1"/></g></svg><div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
+      <div class="u-div hazard"></div>
+      <section class="u-body u-body--end" style="gap:16px">
+        <div><div class="u-label" style="margin-bottom:10px"><span>Rounds</span><span>3 / 8</span></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="hot"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
+        <div><div class="u-label" style="margin-bottom:4px"><span>Intensity</span><span>7</span></div><div class="ruler" style="--v:70%"><div class="ruler-ticks"></div><div class="ruler-labels"><span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span></div></div></div>
+        <button class="keycap" type="button" style="margin-top:6px"><span>Pause</span><small>HOLD 1 S TO END</small><i class="led"></i></button>
+      </section>
+      
+      <i class="home"></i>
+    </div></div>
+    <figcaption><b>R · Interval timer</b><span><em class="tier">utility</em> A seven-segment clock with a coral colon is the hero. Rounds print as a cell meter and intensity as a ruler. The one action is a keycap. 計時 means timekeeping.</span></figcaption>
+  </figure>
+
+
+  <!-- S · transfer -->
+  <figure data-tier="utility">
+    <div class="phone"><div class="scr u tex">
+      <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
+      
+      <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Transfer</h3><div class="u-tag hanko">確認</div><div class="u-span"><span>step 2</span><i></i><span>of 3</span></div></header>
+      <div class="u-hero u-hero--pad"><ol class="steps"><li class="done">Amount</li><li class="on">Confirm</li><li>Sent</li></ol></div>
+      <div class="u-div hazard"></div>
+      <section class="u-body u-body--end" style="gap:16px">
+        <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE · SPLIT</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div>
+          <span class="stamp" style="position:absolute;right:104px;bottom:14px;font-size:14px;--gap:var(--sage-hi)">Verified</span></div>
+        <div class="spec spec--ground"><span>From</span><i></i><span>Main ·· 4417</span><span>Arrives</span><i></i><span>Instantly</span><span>Fee</span><i></i><span>€0.00</span></div>
+        <button class="keycap" type="button" style="margin-top:6px"><span>Send €240</span><small>HOLD 1 S</small><i class="led"></i></button>
+        <div class="sg-fr u-dim" style="text-align:center;font-size:12px">virement instantané · sans frais</div>
+      </section>
+      
+      <i class="home"></i>
+    </div></div>
+    <figcaption><b>S · Transfer</b><span><em class="tier">utility</em> Chevron steps are the hero. The transfer prints as a ticket stub with a worn stamp, and sending is a keycap. 確認 means confirm. French fine print.</span></figcaption>
   </figure>
 
   </div>
@@ -743,7 +823,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div style="grid-column:1/-1">
       <h3><span>glyphs · generated by tools/build.py</span><span>assets/svg/*.svg</span></h3>
       <div class="glyphs">
-        <div><svg><use href="#g-x-line"/></svg><span>x-line</span></div><div><svg><use href="#g-x-solid"/></svg><span>x-solid</span></div><div><svg style="color:var(--coral)"><use href="#g-mark"/></svg><span>mark</span></div><div><svg><use href="#g-plus"/></svg><span>plus</span></div><div><svg><use href="#g-arrow"/></svg><span>arrow</span></div><div><svg><use href="#g-chev"/></svg><span>chev</span></div><div><svg><use href="#g-reticle"/></svg><span>reticle</span></div><div><svg><use href="#g-grid"/></svg><span>grid</span></div><div><svg><use href="#g-signal"/></svg><span>signal</span></div><div><svg><use href="#g-bars"/></svg><span>bars</span></div><div><svg><use href="#g-play"/></svg><span>play</span></div><div><svg><use href="#g-skip"/></svg><span>skip</span></div><div><svg><use href="#g-head"/></svg><span>head</span></div><div><svg style="width:46px"><use href="#g-chevrons"/></svg><span>chevrons</span></div><div><svg style="width:60px"><use href="#g-spectrum"/></svg><span>spectrum</span></div><div><svg><use href="#g-scope"/></svg><span>scope</span></div>
+        <div><svg><use href="#g-x-line"/></svg><span>x-line</span></div><div><svg><use href="#g-x-solid"/></svg><span>x-solid</span></div><div><svg style="color:var(--coral)"><use href="#g-mark"/></svg><span>mark</span></div><div><svg><use href="#g-plus"/></svg><span>plus</span></div><div><svg><use href="#g-arrow"/></svg><span>arrow</span></div><div><svg><use href="#g-chev"/></svg><span>chev</span></div><div><svg><use href="#g-reticle"/></svg><span>reticle</span></div><div><svg><use href="#g-grid"/></svg><span>grid</span></div><div><svg><use href="#g-signal"/></svg><span>signal</span></div><div><svg><use href="#g-bars"/></svg><span>bars</span></div><div><svg><use href="#g-play"/></svg><span>play</span></div><div><svg><use href="#g-skip"/></svg><span>skip</span></div><div><svg><use href="#g-head"/></svg><span>head</span></div><div><svg style="width:46px"><use href="#g-chevrons"/></svg><span>chevrons</span></div><div><svg style="width:60px"><use href="#g-spectrum"/></svg><span>spectrum</span></div><div><svg><use href="#g-scope"/></svg><span>scope</span></div><div><svg style="color:var(--coral)"><use href="#g-warn"/></svg><span>warn</span></div><div><svg><use href="#g-reg"/></svg><span>reg</span></div><div><svg viewBox="0 0 21 21"><use href="#g-matrix"/></svg><span>matrix</span></div><div><svg style="width:60px"><use href="#g-wave"/></svg><span>wave</span></div>
       </div>
     </div>
     <div style="grid-column:1/-1">
@@ -751,17 +831,65 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="swatches"><!--@SWATCHES--></div>
     </div>
     <div style="grid-column:1/-1">
-      <h3><span>type scale</span><span>Saira · Share Tech Mono · Noto Sans JP (OFL)</span></h3>
+      <h3><span>type scale</span><span>Tektur · Kode Mono · Big Shoulders Stencil · Chakra Petch · DotGothic16 (OFL)</span></h3>
       <div class="typescale">
-        <div><span class="sg-mono">display 44 · saira exp 800</span><span class="sg-wordmark" style="font-size:44px">Axiom</span></div>
-        <div><span class="sg-mono">title 26 · saira exp 800</span><span class="sg-wordmark" style="font-size:26px">Protected</span></div>
-        <div><span class="sg-mono">number 40 · saira 700</span><span class="sg-num" style="font-size:40px">€8,214.60</span></div>
-        <div><span class="sg-mono">label 13 · saira cond 600</span><span class="sg-cap" style="font-size:13px">Future engineering · time in zone</span></div>
-        <div><span class="sg-mono">body 15 · saira 500</span><span class="sg-label" style="font-size:15px">Kill switch pauses traffic if the tunnel drops.</span></div>
-        <div><span class="sg-mono">mono 11 · share tech</span><span class="sg-mono" style="font-size:11px">COMSEC MONITORING · NETWORK OPERATIONS · SP C53</span></div>
-        <div><span class="sg-mono">aside · saira italic</span><span class="sg-fr" style="font-size:15px">ingénierie du signal</span></div>
+        <div><span class="sg-mono">display 44 · tektur 900</span><span class="sg-wordmark" style="font-size:44px">Axiom</span></div>
+        <div><span class="sg-mono">title 26 · tektur 900</span><span class="sg-wordmark" style="font-size:26px">Protected</span></div>
+        <div><span class="sg-mono">number 40 · tektur 800</span><span class="sg-num" style="font-size:40px">€8,214.60</span></div>
+        <div><span class="sg-mono">label 13 · tektur cond 600</span><span class="sg-cap" style="font-size:13px">Future engineering · time in zone</span></div>
+        <div><span class="sg-mono">body 15 · tektur 500</span><span class="sg-label" style="font-size:15px">Kill switch pauses traffic if the tunnel drops.</span></div>
+        <div><span class="sg-mono">mono 11 · kode mono</span><span class="sg-mono" style="font-size:11px">COMSEC MONITORING · NETWORK OPERATIONS · SP C53</span></div>
+        <div><span class="sg-mono">aside · chakra petch italic</span><span class="sg-fr" style="font-size:15px">ingénierie du signal</span></div>
+        <div><span class="sg-mono">stencil · big shoulders</span><span class="sg-stencil" style="font-size:34px">Unit 09</span></div>
+        <div><span class="sg-mono">kanji · dotgothic16</span><span class="sg-jp" style="font-size:22px">信号工学 · 保護中</span></div>
+        <div><span class="sg-mono">readout · seven-segment</span><span><!--@SEG7|08:14|40|2--></span></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ========================================================== 05 INSTRUMENTS -->
+<section class="sec">
+  <div class="sec-h"><span class="sg-num">05</span><h2 class="sg-wordmark">Instruments</h2><span class="sg-mono">useful, decorative parts extrapolated from the system · every one is live</span></div>
+  <div class="insts">
+    <div class="inst inst--wide"><h3><span>Seven-segment readout</span><span>seg7() · SGSegDisplay</span></h3><p>Big numerals for timers, speed, balances and counters. Unlit segments ghost in ground-3, and any digit can light coral.</p>
+      <div class="demo" style="gap:28px;flex-wrap:wrap"><!--@SEG7|02:47|56|2--><!--@SEG7|42.6|56|--><!--@SEG7|-18|56|0--></div></div>
+    <div class="inst"><h3><span>Cell meter</span><span>.cells · SGCellMeter</span></h3><p>Slanted cells for levels: battery, signal, data caps, rounds and intensity. The last cell can run hot.</p>
+      <div class="demo" style="display:grid;gap:12px"><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i><i></i></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="inst"><h3><span>Ruler slider</span><span>.ruler · SGRuler</span></h3><p>A tick scale with a coral needle for volume, zoom, temperature or intensity. Drag it.</p>
+      <div class="demo" style="display:block"><div class="ruler" id="k-ruler" style="--v:62%"><div class="ruler-ticks"></div><div class="ruler-labels"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div><input type="range" id="k-ruler-in" min="0" max="100" value="62" aria-label="Ruler value"></div></div></div>
+    <div class="inst"><h3><span>Chevron steps</span><span>.steps · SGSteps</span></h3><p>A process printed as arrows: done in print, current in coral, upcoming in ground-3. For onboarding, checkout and setup.</p>
+      <div class="demo" style="display:block"><ol class="steps"><li class="done">Scan</li><li class="on">Keys</li><li>Seal</li><li>Go</li></ol></div></div>
+    <div class="inst"><h3><span>Index tabs</span><span>.itabs · SGIndexTabs</span></h3><p>Manual-divider tabs on a print rule. A sturdier alternative to the segmented control for page-level sections.</p>
+      <div class="demo" style="display:block"><div class="itabs" id="k-itabs"><button type="button" aria-pressed="true">Week</button><button type="button">Month</button><button type="button">Year</button></div></div></div>
+    <div class="inst"><h3><span>Caution tag</span><span>.caution · SGCaution</span></h3><p>A notice framed in coral and ink hazard stripes, for inline warnings that shouldn't interrupt.</p>
+      <div class="demo" style="display:block"><div class="caution"><div><svg><use href="#g-warn"/></svg><b>Firmware 4.2.1</b><p>REBOOT REQUIRED. TUNNEL PAUSES FOR 40 S.</p></div></div></div></div>
+    <div class="inst"><h3><span>Rubber stamp</span><span>.stamp · SGStamp</span></h3><p>Stencil caps in a double frame, worn and off-axis. For verified, paid, sealed and void states.</p>
+      <div class="demo" style="gap:22px"><span class="stamp">Verified</span><span class="stamp" style="--st:var(--ground-hi);transform:rotate(5deg)">Sealed</span><span class="stamp" style="transform:rotate(-3deg)">Void</span></div></div>
+    <div class="inst"><h3><span>Ticket stub</span><span>.ticket · SGTicket</span></h3><p>A plate with square notches and a perforation: boarding passes, receipts, plans, invites.</p>
+      <div class="demo" style="display:block"><div class="ticket"><div><div class="sg-cap" style="font-size:11px">Transfer · LIS → OPO</div><div class="sg-num" style="font-size:24px;margin-top:6px">€240.00</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div></div></div></div>
+    <div class="inst"><h3><span>Keycap</span><span>.keycap · SGKeycapStyle</span></h3><p>A physical push button: top plate over a shadow plate, with an LED. For the one action that should feel mechanical. Press it.</p>
+      <div class="demo" style="display:block"><button class="keycap" type="button"><span>Engage</span><small>HOLD 1 S</small><i class="led"></i></button></div></div>
+    <div class="inst"><h3><span>Rocker switch</span><span>.rocker · SGRockerStyle</span></h3><p>An I / O rocker for hardware-grade on/off states such as kill switch, maintenance mode or airplane mode.</p>
+      <div class="demo" style="gap:16px"><input class="rocker" type="checkbox" id="k-r1" checked aria-label="Rocker on"><input class="rocker" type="checkbox" id="k-r2" aria-label="Rocker off"><span class="sg-mono u-dim">I = ON · O = OFF</span></div></div>
+    <div class="inst"><h3><span>Data plate</span><span>.dataplate .spec · SGDataPlate</span></h3><p>A riveted nameplate with dot-leader specs and a matrix code. For device info, about pages and receipts.</p>
+      <div class="demo" style="display:block"><div class="dataplate"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><span class="sg-wordmark" style="font-size:15px">AXIOM</span><span class="sg-stencil" style="font-size:22px">AX-04</span></div><div style="display:grid;grid-template-columns:1fr 64px;gap:14px;align-items:end"><div class="spec"><span>Serial</span><i></i><span>0917-C53</span><span>Rev</span><i></i><span>2.6</span><span>Relay</span><i></i><span>LIS-04</span></div><svg viewBox="0 0 21 21" width="64" height="64" style="color:var(--ink)"><use href="#g-matrix"/></svg></div></div></div></div>
+    <div class="inst"><h3><span>Print marks</span><span>.marks · #g-reg · .colorbar</span></h3><p>Crop marks, a registration target and a palette calibration strip. Decorative framing for heroes, exports and about pages.</p>
+      <div class="demo" style="display:grid;gap:22px;padding:16px 14px 6px"><div class="marks" style="display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--ground-3)"><svg width="28" height="28" style="color:var(--ground-hi)"><use href="#g-reg"/></svg><span class="sg-cap" style="font-size:12px;color:var(--ground-hi)">Proof 09 · ink / sage / coral</span></div><div class="colorbar"><span style="--k:var(--ground)">gnd</span><span style="--k:var(--ground-3)">g-3</span><span style="--k:var(--ground-hi)">print</span><span style="--k:var(--sage)">sage</span><span style="--k:var(--sage-hi)">plate</span><span style="--k:var(--ink)">ink</span><span style="--k:var(--coral)">coral</span></div></div></div>
+    <div class="inst"><h3><span>Telemetry ticker</span><span>.ticker · SGTicker</span></h3><p>A live status line that scrolls. It holds still when reduced motion is on.</p>
+      <div class="demo" style="display:block"><div class="ticker"><span>◆ LIS-04 · 23 MS · <b>AES-256</b> · 1,284 BLOCKED · UPTIME 82% · RELAY 3/3 · ◆ LIS-04 · 23 MS · <b>AES-256</b> · 1,284 BLOCKED · UPTIME 82% · RELAY 3/3 · </span></div></div></div>
+    <div class="inst"><h3><span>Boot log</span><span>.bootlog · SGBootLog</span></h3><p>Loading told as terminal lines with a blinking coral caret, paired with a marching hazard bar.</p>
+      <div class="demo" style="display:grid;gap:10px"><div class="bootlog"><span>Keys verified</span><span>Relays 3 / 3</span><span class="run">Sealing tunnel<i class="caret"></i></span></div><div class="hazard hazard--slim hazard--run"></div></div></div>
+    <div class="inst"><h3><span>Callout</span><span>.callout · SGCallout</span></h3><p>A technical-drawing leader with a coral anchor, for annotating diagrams, maps and first-run tips.</p>
+      <div class="demo" style="position:relative;height:96px;display:block"><svg style="position:absolute;left:24px;top:34px;width:56px;height:56px;color:var(--ground-dim)"><use href="#g-x-line"/></svg><div class="callout" style="left:52px;top:62px;--d:44px"><i></i><b></b><span>X-04 · node offline</span></div></div></div>
+    <div class="inst"><h3><span>Blueprint ground</span><span>.blueprint · SGBlueprint</span></h3><p>A 24 / 6 pt grid that swaps in for the stripes in edit, plan and arrange modes.</p>
+      <div class="demo blueprint" style="height:84px;display:block;position:relative"><div class="chamfer" style="position:absolute;left:24px;top:18px;width:96px;height:48px;padding:0;--fill:var(--sage-hi);--line:var(--ground-hi);--c:8px"></div><div class="callout" style="left:120px;top:42px;--d:22px"><i></i><b></b><span>96 × 48 pt</span></div></div></div>
+    <div class="inst"><h3><span>Oscilloscope</span><span>#g-wave · SGWave</span></h3><p>An angular signal trace for audio, heartbeat or link quality, set inside a cut frame.</p>
+      <div class="demo" style="display:block"><div class="chamfer brackets" style="--c:10px;padding:10px 12px"><svg viewBox="0 0 240 60" style="width:100%;height:52px;color:var(--ground-hi)"><use href="#g-wave"/></svg></div></div></div>
+    <div class="inst"><h3><span>Status lamps</span><span>.lamps · SGLamps</span></h3><p>A row of square indicators for system state at a glance: power, link, encryption, fault. A fault lamp blinks coral.</p>
+      <div class="demo" style="display:block"><div class="lamps"><span class="lamp on">PWR</span><span class="lamp on">Link</span><span class="lamp on">Enc</span><span class="lamp">Sync</span><span class="lamp hot">Fault</span></div></div></div>
+    <div class="inst"><h3><span>Stencil serial</span><span>.sg-stencil</span></h3><p>Big Shoulders Stencil for unit numbers, serials and stamped labels. Use it like spray paint on equipment, once per screen.</p>
+      <div class="demo" style="gap:18px;align-items:baseline;color:var(--ground-hi)"><span class="sg-stencil" style="font-size:56px">09</span><span class="sg-stencil" style="font-size:28px">Unit AX-04</span></div></div>
   </div>
 </section>
 
@@ -769,7 +897,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 
 <!-- ========================================================== 06 ORIGINS -->
 <section class="sec">
-  <div class="sec-h"><span class="sg-num">06</span><h2 class="sg-wordmark">Origins</h2><span class="sg-mono">reference 1, the sage and coral poster, rebuilt from primitives</span></div>
+  <div class="sec-h"><span class="sg-num">07</span><h2 class="sg-wordmark">Origins</h2><span class="sg-mono">reference 1, the sage and coral poster, rebuilt from primitives</span></div>
   <div class="origins">
     <figure class="mode-dark"><!--@POSTER_DARK--><figcaption class="cap"><b>Reference 1 · dark</b><span>rebuilt 1:1 in layout</span></figcaption></figure>
     <figure class="mode-light"><!--@POSTER_LIGHT--><figcaption class="cap"><b>Reference 1 · light</b><span>same layering</span></figcaption></figure>
@@ -796,6 +924,17 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
   sw.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     apply(b.dataset.t); try { localStorage.setItem('shingo-theme', b.dataset.t); } catch (e) {}
+  });
+})();
+// Ruler and index tabs demos.
+(function () {
+  var r = document.getElementById('k-ruler-in'), box = document.getElementById('k-ruler');
+  if (r) r.addEventListener('input', function () { box.style.setProperty('--v', r.value + '%'); });
+  document.querySelectorAll('.itabs').forEach(function (tabs) {
+    tabs.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      tabs.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    });
   });
 })();
 // Demo segmented controls are single-select.

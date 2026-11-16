@@ -7,11 +7,23 @@ masthead (code + title + one tag + span rule) -> one hero -> hazard bar -> body.
 Poster-tier screens (A, L, M, N) are composed by hand below.
 """
 import pathlib
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from build import seg7  # noqa: E402
 
 SRC = pathlib.Path(__file__).resolve().parent.parent / 'web' / 'gallery.src.html'
 
 SB = '<div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>'
 DIV = '<div class="u-div hazard"></div>'
+
+
+def cells(n, on, hot=-1, tall=False):
+    return f'<div class="cells{" cells--tall" if tall else ""}">' + ''.join(
+        f'<i class="{"hot" if i == hot else ("on" if i < on else "")}"></i>' for i in range(n)) + '</div>'
+
+
+TICKER = ('<div class="ticker"><span>' + ' ◆ LIS-04 · 23 MS · <b>AES-256</b> · 1,284 BLOCKED · UPTIME 82% · RELAY 3/3 · ' * 2 + '</span></div>')
 
 
 def tabbar(items, active):
@@ -91,24 +103,25 @@ S['C'] = fig('C', 'Dashboard', 'Status as the title and uptime as the hero bar. 
       {DIV}
       <section class="u-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Threats blocked</div><div class="sg-num" style="font-size:28px;margin:8px 0 12px;color:var(--ground-hi)">1,284</div><div class="barcode--v" style="height:20px;--bc:var(--ground-hi)"></div></div>
-          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Data routed</div><div class="sg-num" style="font-size:28px;margin:8px 0 18px;color:var(--ground-hi)">4.2<span class="sg-mono"> GB</span></div><div class="slot" style="--p:42%"></div></div>
+          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Threats blocked</div><div style="margin:10px 0 2px">{seg7("1284", 30)}</div></div>
+          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Data routed</div><div class="sg-num" style="font-size:24px;margin:8px 0 12px;color:var(--ground-hi)">4.2<span class="sg-mono"> / 10 GB</span></div>{cells(10, 4)}</div>
         </div>
         <div>
           <div class="set"><span class="sg-label">Kill switch</span><input class="tgl" type="checkbox" id="c-ks" checked aria-label="Kill switch"></div>
           <div class="set"><span class="sg-label">Block trackers</span><input class="tgl" type="checkbox" id="c-bt" checked aria-label="Block trackers"></div>
         </div>
         <button class="btn btn--block" type="button">Disconnect<svg><use href="#g-x-solid"/></svg></button>
+        {TICKER}
       </section>''', tab=tabbar(TAB_VPN, 0)))
 
 # ---------------------------------------------------------------- D fitness
 days = [('solid', '--ground-hi'), ('line', '--ground-dim'), ('solid', '--ground-hi'), ('solid', '--ground-hi'), ('line', '--ground-dim'), ('solid', '--ground-hi'), ('solid', '--coral')]
 dayrow = ''.join(f'<span>{X(k, 30, c)}<i>{d}</i></span>' for (k, c), d in zip(days, 'mtwtfss'))
-zones = ''.join(f'<span class="sg-mono">{z.upper()}</span><i class="slot" style="--p:{p}%;{"" if z == "z3" else "background:linear-gradient(90deg,var(--ground-hi) var(--p),var(--ground-3) 0)"}"></i><span class="sg-mono t-right">{t}</span>'
-                for z, p, t in [('z1', 18, '0:40'), ('z2', 64, '2:21'), ('z3', 22, '0:31'), ('z4', 6, '0:09')])
+zones = ''.join(f'<span class="sg-mono">{z.upper()}</span>{cells(12, n, hot=(n - 1 if z == "z3" else -1))}<span class="sg-mono t-right">{t}</span>'
+                for z, n, t in [('z1', 2, '0:40'), ('z2', 8, '2:21'), ('z3', 3, '0:31'), ('z4', 1, '0:09')])
 S['D'] = fig('D', 'Fitness', 'One giant number as the hero and hard X marks for run and rest days. Zones print as bars. French sits in the span rule.', utility(f'''
       {mast('Run log', '<span class="sg-fr">journal de course</span>', 'W46', meta('10–16<br>NOV'))}
-      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:baseline;gap:8px"><span class="sg-num" style="font-size:88px;letter-spacing:-.04em;color:var(--ground-hi)">42.6</span><span class="sg-cap" style="font-size:14px">km</span></div>
+      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px">{seg7("42.6", 76)}<span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
         <div class="dayrow">{dayrow}</div></div>
       {DIV}
       <section class="u-body">
@@ -128,7 +141,7 @@ S['E'] = fig('E', 'Wallet', 'The card is the one plate on the screen: a cut slab
       {DIV}
       <section class="u-body">
         <div><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Available balance</div><div class="sg-num" style="font-size:40px;margin-top:6px;color:var(--ground-hi)">€8,214.60</div></div>
-        <div class="seg"><button type="button">week</button><button type="button" aria-pressed="true">month</button><button type="button">year</button></div>
+        <div class="itabs"><button type="button">Week</button><button type="button" aria-pressed="true">Month</button><button type="button">Year</button></div>
         <div>
           <div class="row"><svg width="18" height="18" style="color:var(--coral)"><use href="#g-arrow"/></svg><span><span class="sg-label" style="display:block">Night Train Co.</span><span class="sg-mono">TRAVEL · 14:02</span></span><span class="sg-num" style="font-size:15px;color:var(--ground-hi)">−€118.00</span></div>
           <div class="row"><svg width="18" height="18" style="transform:rotate(180deg);color:var(--ground-hi)"><use href="#g-arrow"/></svg><span><span class="sg-label" style="display:block">Salary · Nov</span><span class="sg-mono">INCOME · 09:00</span></span><span class="sg-num" style="font-size:15px;color:var(--ground-hi)">+€3,940.00</span></div>
@@ -151,6 +164,7 @@ S['F'] = fig('F', 'Music player', 'A printed spectrum in a cut frame is the hero
           <button class="btn btn--coral" type="button" aria-label="Play" style="width:72px;height:72px;padding:0;--c:16px"><svg style="width:26px;height:26px"><use href="#g-play"/></svg></button>
           <button class="btn btn--ghost btn--icon" type="button" aria-label="Next"><svg><use href="#g-skip"/></svg></button>
         </div>
+        <div class="ruler" style="--v:70%"><div class="ruler-ticks"></div><div class="ruler-labels"><span>VOL</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div></div>
       </section>'''))
 
 # ---------------------------------------------------------------- G radar
@@ -159,6 +173,7 @@ S['G'] = fig('G', 'Radar scan', 'An octagonal scope in a cut frame is the hero. 
       <div class="u-hero u-hero--pad"><div class="chamfer brackets scope" style="--c:24px">
         <svg><use href="#g-scope"/></svg>
         <svg class="blip" style="left:63%;top:24%;color:var(--coral)"><use href="#g-mark"/></svg>
+        <div class="callout" style="left:calc(63% + 7px);top:calc(24% + 7px);--d:30px"><i></i><b></b><span>AX-04 · 2 M</span></div>
         <svg class="blip" style="left:31%;top:62%"><use href="#g-mark"/></svg>
         <svg class="blip" style="left:66%;top:71%"><use href="#g-mark"/></svg>
       </div></div>
@@ -210,7 +225,7 @@ S['J'] = fig('J', 'ID credential', 'The badge is the hero plate, with the line-a
         <h3 class="sg-wordmark">Mira<br>Okafor</h3>
         <div class="sg-mono badge-f">UNIT&nbsp;&nbsp;&nbsp; FIELD OPS<br>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AX-0917-C53<br>ISSUED&nbsp; 2026-03-02</div>
         <span class="sg-jp-v badge-jp">身分証明書</span>
-        <i class="barcode--v badge-bc"></i>
+        <svg class="badge-bc" viewBox="0 0 21 21" style="width:62px;height:62px;color:var(--ink)"><use href="#g-matrix"/></svg>
       </div></div>
       {DIV}
       <section class="u-body u-body--end"><div style="display:grid;grid-template-columns:1fr auto;gap:12px"><button class="btn" type="button">Add to wallet</button><button class="btn btn--ghost" type="button">Show QR</button></div></section>'''))
@@ -225,7 +240,7 @@ S['K'] = fig('K', 'Alert sheet', 'Interruptions get the only large coral surface
       <i class="dim" style="position:absolute;inset:0;z-index:5"></i>
       <div class="u-sheet" style="z-index:10">
         <div class="hazard" style="--hz:#0c0c0a;margin-right:40px"></div>
-        <div style="display:flex;justify-content:space-between;align-items:center"><svg width="44" height="44"><use href="#g-x-solid"/></svg><span class="sg-mono t-right">ERR 0X09<br>14:22:07</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><svg width="44" height="44"><use href="#g-warn"/></svg><span class="sg-mono t-right">ERR 0X09<br>14:22:07</span></div>
         <h3 class="sg-wordmark" style="margin:0;font-size:26px">Connection<br>dropped</h3>
         <p class="sg-mono" style="margin:0;font-size:12px;line-height:1.5">LISBON-04 STOPPED RESPONDING. THE KILL SWITCH HAS PAUSED ALL TRAFFIC UNTIL YOU RECONNECT OR PICK ANOTHER SERVER.</p>
         <button class="btn btn--ink btn--block" type="button">Reconnect</button>
@@ -252,11 +267,9 @@ S['P'] = fig('P', 'Paywall', 'The chevron print is the hero. Plans print as fram
       <div class="u-hero u-hero--pad" style="display:flex;justify-content:flex-end"><svg viewBox="0 0 300 230" style="width:220px;height:auto;color:var(--ground-hi)"><use href="#g-chevrons"/></svg></div>
       {DIV}
       <section class="u-body u-body--end">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Monthly</div><div class="sg-num" style="font-size:28px;margin-top:8px;color:var(--ground-hi)">€4.99</div><div class="sg-mono u-dim" style="margin-top:4px">PER MONTH</div></div>
-          <div class="plate cut" style="padding:14px"><div class="sg-cap" style="font-size:11px">Yearly · save 35%</div><div class="sg-num" style="font-size:28px;margin-top:8px">€39.00</div><div class="sg-mono" style="margin-top:4px">€3.25 / MONTH</div></div>
-        </div>
-        <div class="sg-mono" style="display:grid;gap:7px;color:var(--ground-hi)"><span>▪ 10 DEVICES ON ONE PLAN</span><span>▪ RELAYS IN 60 CITIES</span><span>▪ PRIORITY TUNNELS AT PEAK HOURS</span></div>
+        <div class="ticket" style="--stub:84px"><div><div class="sg-cap" style="font-size:11px">Monthly</div><div class="sg-num" style="font-size:24px;margin-top:4px">€4.99</div></div><div><span class="sg-mono">PER</span><span class="sg-stencil" style="font-size:22px">MO</span></div></div>
+        <div class="ticket" style="--stub:84px;position:relative;background:var(--ground-hi);color:var(--ground)"><div><div class="sg-cap" style="font-size:11px">Yearly · €3.25 / mo</div><div class="sg-num" style="font-size:24px;margin-top:4px">€39.00</div></div><div style="border-left-color:var(--ground-dim)"><span class="sg-mono">PER</span><span class="sg-stencil" style="font-size:22px">YR</span></div><span class="stamp" style="position:absolute;right:98px;top:16px;font-size:14px;--gap:var(--ground-hi)">Save 35%</span></div>
+        <div class="sg-mono" style="color:var(--ground-hi)">10 DEVICES · 60 RELAY CITIES · PRIORITY TUNNELS</div>
         <button class="btn btn--coral btn--block" type="button">Start 7-day free trial</button>
         <div class="sg-fr u-dim" style="text-align:center;font-size:11.5px">Résiliable à tout moment · paiement via l'App Store</div>
       </section>'''))
@@ -274,9 +287,10 @@ S['A'] = fig('A', 'Launch', 'Reference 1 made industrial: two cut bars, the 45°
       {BAR(104, 58, cls='bar--bleed-r', style='top:290px;left:72px;right:0')}
       <i class="band" style="top:420px;left:0;width:240px;height:240px;clip-path:polygon(150px 0,240px 0,0 240px,0 150px)"></i>
       <div class="t-right" style="top:430px;right:24px;color:var(--ground-hi)"><div class="sg-num" style="font-size:28px">09</div><div class="sg-mono" style="margin-top:8px;font-size:12px;line-height:1.5">REF:<br>OPSEC/AHI<br>SP C53</div></div>
-      <div class="barcode" style="top:560px;right:24px;width:96px;height:80px;--bc:var(--ground-hi)"></div>
-      <div class="hazard" style="top:690px;left:24px;right:24px"></div>
-      <div style="top:730px;left:24px;right:24px"><div class="sg-mono" style="display:flex;justify-content:space-between;margin-bottom:10px;color:var(--ground-hi)"><span>SEALING TUNNEL</span><span>64%</span></div><div class="slot" style="--p:64%"></div></div>
+      <div class="barcode" style="top:548px;right:24px;width:96px;height:72px;--bc:var(--ground-hi)"></div>
+      <div class="bootlog" style="top:668px;left:24px;right:24px"><span>Keys verified</span><span>Relays 3 / 3</span><span class="run">Sealing tunnel · 64%<i class="caret"></i></span></div>
+      <div class="hazard hazard--run" style="top:740px;left:24px;right:24px"></div>
+      <div class="slot" style="top:780px;left:24px;right:24px;--p:64%"></div>
       <i class="home"></i>
     </div></div>''', tier='poster')
 
@@ -287,8 +301,8 @@ S['L'] = fig('L', 'Empty state', 'Two hard X outlines make the illustration, and
       <div class="sg-mono" style="top:70px;right:24px;color:var(--ground-dim)">ERR 0X09</div>
       <h3 class="sg-wordmark" style="margin:0;top:446px;left:24px;font-size:44px;color:var(--ground-hi)">No<br>signal</h3>
       <div class="sg-jp" style="top:444px;right:24px;font-size:40px;line-height:1.05;writing-mode:vertical-rl;color:var(--ground-hi)">圏外</div>
-      <p class="sg-mono" style="margin:0;top:548px;left:24px;right:70px;font-size:12px;line-height:1.5;color:var(--on-ground)">WE COULDN'T REACH THE NETWORK. CHECK WI-FI OR MOBILE DATA, THEN TRY AGAIN.</p>
-      <div style="top:630px;left:24px;right:24px;display:grid;gap:10px"><button class="btn btn--block" type="button">Try again</button><button class="btn btn--ghost btn--block" type="button">Open offline files</button></div>
+      <div class="caution" style="top:544px;left:24px;right:24px"><div><svg><use href="#g-warn"/></svg><b>Out of range</b><p>WE COULDN'T REACH THE NETWORK. CHECK WI-FI OR MOBILE DATA.</p></div></div>
+      <div style="top:652px;left:24px;right:24px;display:grid;gap:10px"><button class="btn btn--block" type="button">Try again</button><button class="btn btn--ghost btn--block" type="button">Open offline files</button></div>
       <i class="band" style="right:0;bottom:0;width:110px;height:110px;clip-path:polygon(100% 0,100% 100%,0 100%)"></i>
       <i class="home"></i>
     </div></div>''', tier='poster')
@@ -303,7 +317,7 @@ S['M'] = fig('M', 'Onboarding', 'Three cut bars in alternating directions, then 
       <svg style="top:318px;right:24px;width:80px;height:80px;color:var(--ground-hi)"><use href="#g-x-solid"/></svg>
       <div class="hazard" style="top:440px;left:24px;right:24px"></div>
       <div style="top:490px;left:24px;right:24px;color:var(--ground-hi)"><div class="sg-fr" style="font-size:13px">acheminer chaque paquet</div><h3 class="sg-wordmark" style="margin:10px 0 0;font-size:44px">Route<br>every<br>packet</h3><p class="sg-mono" style="margin:14px 0 0;font-size:12px;color:var(--on-ground)">THREE RELAYS · TWO KEYS · ZERO LOGS</p></div>
-      <div style="top:770px;left:24px;display:flex;gap:6px;align-items:center"><i style="width:14px;height:6px;background:var(--ground-3)"></i><i style="width:44px;height:6px;background:var(--coral)"></i><i style="width:14px;height:6px;background:var(--ground-3)"></i></div>
+      <ol class="steps" style="top:761px;left:24px;width:200px"><li class="done">Scan</li><li class="on">Keys</li><li>Seal</li></ol>
       <button class="btn" type="button" style="top:752px;right:24px">Next<svg><use href="#g-arrow"/></svg></button>
       <i class="home"></i>
     </div></div>''', tier='poster')
@@ -330,7 +344,48 @@ S['N'] = fig('N', 'Lock screen', 'The manifesto, after reference 2: the only pla
       <i class="home"></i>
     </div></div>''', tier='poster')
 
-ORDER = 'T A B C D E F G H I J K L M N O P'.split()
+
+# ---------------------------------------------------------------- Q device
+S['Q'] = fig('Q', 'Device info', 'A riveted data plate inside crop marks is the hero. The body has a caution tag, a rocker switch and the palette calibration strip.', utility(f"""
+      {mast('Device', 'unit ax-04', 'rev 2.6', meta('SN<br>0917'))}
+      <div class="u-hero u-hero--pad" style="padding-top:30px"><div class="marks"><div class="dataplate">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px"><span class="sg-wordmark" style="font-size:15px">AXIOM</span><span class="sg-stencil" style="font-size:26px">AX-04</span></div>
+        <div style="display:grid;grid-template-columns:1fr 70px;gap:16px;align-items:end"><div class="spec"><span>Serial</span><i></i><span>0917-C53</span><span>Firmware</span><i></i><span>4.2.0</span><span>Relay</span><i></i><span>LIS-04</span><span>Uptime</span><i></i><span>41 D</span></div>
+        <svg viewBox="0 0 21 21" width="70" height="70" style="color:var(--ink)"><use href="#g-matrix"/></svg></div>
+      </div></div></div>
+      {DIV}
+      <section class="u-body u-body--end">
+        <div class="caution"><div><svg><use href="#g-warn"/></svg><b>Firmware 4.2.1</b><p>REBOOT REQUIRED. THE TUNNEL PAUSES FOR 40 S.</p></div></div>
+        <div class="set"><span><span class="sg-label">Maintenance mode</span><small>ROUTE AROUND THIS UNIT</small></span><input class="rocker" type="checkbox" id="q-m" aria-label="Maintenance mode"></div>
+        <button class="btn btn--block" type="button">Install update</button>
+        <div class="colorbar" style="margin-top:auto"><span style="--k:var(--ground)">gnd</span><span style="--k:var(--ground-3)">g-3</span><span style="--k:var(--ground-hi)">print</span><span style="--k:var(--sage)">sage</span><span style="--k:var(--sage-hi)">plate</span><span style="--k:var(--ink)">ink</span><span style="--k:var(--coral)">coral</span></div>
+      </section>"""))
+
+# ---------------------------------------------------------------- R interval timer
+S['R'] = fig('R', 'Interval timer', 'A seven-segment clock with a coral colon is the hero. Rounds print as a cell meter and intensity as a ruler. The one action is a keycap. 計時 means timekeeping.', utility(f"""
+      {mast('Interval', 'round 3', 'of 8', jp('計時'))}
+      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px">{seg7("02:47", 92, "2")}<div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
+      {DIV}
+      <section class="u-body u-body--end" style="gap:16px">
+        <div><div class="u-label" style="margin-bottom:10px"><span>Rounds</span><span>3 / 8</span></div>{cells(8, 2, hot=2, tall=True)}</div>
+        <div><div class="u-label" style="margin-bottom:4px"><span>Intensity</span><span>7</span></div><div class="ruler" style="--v:70%"><div class="ruler-ticks"></div><div class="ruler-labels"><span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span></div></div></div>
+        <button class="keycap" type="button" style="margin-top:6px"><span>Pause</span><small>HOLD 1 S TO END</small><i class="led"></i></button>
+      </section>"""))
+
+# ---------------------------------------------------------------- S transfer
+S['S'] = fig('S', 'Transfer', 'Chevron steps are the hero. The transfer prints as a ticket stub with a worn stamp, and sending is a keycap. 確認 means confirm. French fine print.', utility(f"""
+      {mast('Transfer', 'step 2', 'of 3', seal('確認'))}
+      <div class="u-hero u-hero--pad"><ol class="steps"><li class="done">Amount</li><li class="on">Confirm</li><li>Sent</li></ol></div>
+      {DIV}
+      <section class="u-body u-body--end" style="gap:16px">
+        <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE · SPLIT</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div>
+          <span class="stamp" style="position:absolute;right:104px;bottom:14px;font-size:14px;--gap:var(--sage-hi)">Verified</span></div>
+        <div class="spec spec--ground"><span>From</span><i></i><span>Main ·· 4417</span><span>Arrives</span><i></i><span>Instantly</span><span>Fee</span><i></i><span>€0.00</span></div>
+        <button class="keycap" type="button" style="margin-top:6px"><span>Send €240</span><small>HOLD 1 S</small><i class="led"></i></button>
+        <div class="sg-fr u-dim" style="text-align:center;font-size:12px">virement instantané · sans frais</div>
+      </section>"""))
+
+ORDER = 'T A B C D E F G H I J K L M N O P Q R S'.split()
 grid = '\n'.join(S[k] for k in ORDER)
 src = SRC.read_text()
 a = src.index('<div class="screens">') + len('<div class="screens">')

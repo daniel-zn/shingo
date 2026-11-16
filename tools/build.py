@@ -106,6 +106,64 @@ def octagon(cx, cy, r):
     return " ".join(f"{f(cx + r * math.cos(math.radians(22.5 + 45 * k)))},{f(cy + r * math.sin(math.radians(22.5 + 45 * k)))}" for k in range(8))
 
 
+# ---------------------------------------------------------------- seven-segment
+SEG = {"0": "abcdef", "1": "bc", "2": "abged", "3": "abgcd", "4": "fgbc", "5": "afgcd", "6": "afgedc",
+       "7": "abc", "8": "abcdefg", "9": "abcdfg", "-": "g", " ": "", "E": "afged", "r": "eg", "o": "cdeg", "P": "abefg", "A": "abcefg"}
+
+
+def _segs(w=36, h=64, t=7, g=1.6):
+    def hseg(x0, x1, yc):
+        return [(x0, yc), (x0 + t / 2, yc - t / 2), (x1 - t / 2, yc - t / 2), (x1, yc), (x1 - t / 2, yc + t / 2), (x0 + t / 2, yc + t / 2)]
+    def vseg(xc, y0, y1):
+        return [(xc, y0), (xc + t / 2, y0 + t / 2), (xc + t / 2, y1 - t / 2), (xc, y1), (xc - t / 2, y1 - t / 2), (xc - t / 2, y0 + t / 2)]
+    x0, x1, m = t / 2 + g, w - t / 2 - g, h / 2
+    return {"a": hseg(x0, x1, t / 2), "g": hseg(x0, x1, m), "d": hseg(x0, x1, h - t / 2),
+            "f": vseg(t / 2, t / 2 + g, m - g), "b": vseg(w - t / 2, t / 2 + g, m - g),
+            "e": vseg(t / 2, m + g, h - t / 2 - g), "c": vseg(w - t / 2, m + g, h - t / 2 - g)}
+
+
+def seg7(text, height=48, hot="", ghost=True, cls=""):
+    """Inline SVG seven-segment readout. Characters in `hot` (indexes) light coral.
+    Unlit segments draw in --off unless ghost=False. Supports 0-9 - . : and a few letters."""
+    w, h, gap = 36, 64, 8
+    S = _segs()
+    parts, x = [], 0
+    for i, ch in enumerate(text):
+        state = "hot" if str(i) in hot.split(",") else "on"
+        if ch == ".":
+            parts.append(f'<rect class="{state}" x="{x}" y="{h-7}" width="7" height="7"/>'); x += 7 + gap; continue
+        if ch == ":":
+            parts.append(f'<rect class="{state}" x="{x}" y="{h*0.28:.1f}" width="7" height="7"/><rect class="{state}" x="{x}" y="{h*0.64:.1f}" width="7" height="7"/>'); x += 7 + gap; continue
+        lit = SEG.get(ch, "")
+        for k, pts in S.items():
+            if k in lit or ghost:
+                c = state if k in lit else "off"
+                parts.append(f'<polygon class="{c}" points="{" ".join(f"{f(px + x)},{f(py)}" for px, py in pts)}"/>')
+        x += w + gap
+    W = x - gap + 10
+    return (f'<svg class="seg7 {cls}" viewBox="0 0 {W} {h}" height="{height}" width="{f(height * W / h)}" role="img" aria-label="{text}">'
+            f'<g transform="translate(9 0) skewX(-8)">{"".join(parts)}</g></svg>')
+
+
+def _matrix(n=21, seed=7):
+    import random
+    rnd = random.Random(seed)
+    cells = []
+    def finder(x0, y0):
+        for y in range(7):
+            for x in range(7):
+                if x in (0, 6) or y in (0, 6) or (2 <= x <= 4 and 2 <= y <= 4):
+                    cells.append((x0 + x, y0 + y))
+    for fx, fy in ((0, 0), (n - 7, 0), (0, n - 7)):
+        finder(fx, fy)
+    reserved = lambda x, y: (x < 8 and y < 8) or (x >= n - 8 and y < 8) or (x < 8 and y >= n - 8)
+    for y in range(n):
+        for x in range(n):
+            if not reserved(x, y) and rnd.random() < 0.48:
+                cells.append((x, y))
+    return "".join(f'<rect x="{x}" y="{y}" width="1" height="1"/>' for x, y in cells)
+
+
 XP = x_path(12.5, 32)   # rounded X: origins poster only
 XS = x_sharp()          # sharp X: the interface
 
@@ -146,6 +204,10 @@ for _ay, _d1 in zip([18, 82, 146, 210], [70, 150, 40, 112]):
     _chev.append(f'<path d="M-30 {_ay+180} L150 {_ay} L330 {_ay+180}" fill="none" stroke="currentColor" stroke-width="26" stroke-linejoin="miter" stroke-dasharray="{_d1} 16 9999"/>')
 _chev.append('<path d="M0 0 H62 L0 62Z" fill="currentColor"/><path d="M300 0 V44 L256 0Z" fill="currentColor"/>')
 G["chevrons"] = ("0 0 300 230", "".join(_chev))
+G["warn"] = ("0 0 100 100", '<path fill-rule="evenodd" fill="currentColor" d="M50 6 L96 90 H4 Z M44 34 H56 V64 H44 Z M44 70 H56 V80 H44 Z"/>')
+G["reg"] = ("0 0 100 100", '<path d="M50 4V96 M4 50H96" stroke="currentColor" stroke-width="4"/><path d="M26 26H74V74H26Z" fill="none" stroke="currentColor" stroke-width="4"/><path d="M40 40H60V60H40Z" fill="currentColor"/>')
+G["matrix"] = ("0 0 21 21", f'<g fill="currentColor">{_matrix()}</g>')
+G["wave"] = ("0 0 240 60", '<polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" points="0,30 20,30 26,8 34,52 42,8 50,52 56,30 90,30 96,18 102,42 108,30 140,30 146,4 154,56 162,4 170,56 176,30 210,30 216,22 222,38 228,30 240,30"/>')
 G["slash"] = ("0 0 100 100", '<path d="M20 80 L80 20" stroke="currentColor" stroke-width="3"/>')
 
 topo = [f'<circle cx="50" cy="50" r="47" fill="none" stroke="{C["ink"]}" stroke-width="1.4"/>',
@@ -319,6 +381,7 @@ def main():
         svg = poster(mode[0]).replace("<defs>", "<defs>" + defs, 1)
         (ROOT / "assets" / "svg" / f"poster-{mode}.svg").write_text(resolve(svg, mode) + "\n")
     src = (ROOT / "web" / "gallery.src.html").read_text()
+    src = re.sub(r"<!--@SEG7\|([^|]*)\|(\d+)\|([^>]*?)-->", lambda m: seg7(m.group(1), int(m.group(2)), m.group(3)), src)
     src = src.replace("<!--@LANGUAGES-->", (ROOT / "web" / "partials" / "languages.html").read_text())
     src = src.replace("<!--@KEYART_DARK-->", keyart("dark")).replace("<!--@KEYART_LIGHT-->", keyart("light"))
     src = src.replace("<!--@SWATCHES-->", "".join(

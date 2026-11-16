@@ -126,6 +126,30 @@ public struct DashboardExample: View {
     }
 }
 
+// MARK: - R · Interval timer (instruments on the utility grammar)
+
+public struct IntervalExample: View {
+    @State private var intensity = 0.7
+    public init() {}
+    public var body: some View {
+        SGUtilityScreen("Interval", span: (Text("round 3"), Text("of 8")), tag: .japanese("計時")) {
+            VStack(spacing: 10) {
+                SGSegDisplay("02:47", height: 92, hot: [2])
+                Text("Work 45 s · rest 15 s · next: rest").sgMono(11).foregroundStyle(SG.groundDim)
+            }
+            .frame(maxWidth: .infinity)
+        } content: {
+            SGGroupLabel("Rounds", "3 / 8")
+            SGCellMeter(count: 8, filled: 2, hot: 2, tall: true)
+            SGGroupLabel("Intensity", "7")
+            SGRuler(value: $intensity, labels: ["0", "2", "4", "6", "8", "10"])
+            Button("Pause") { }.buttonStyle(SGKeycapStyle(hint: "Hold 1 s to end"))
+        }
+    }
+}
+
+#Preview("R · Interval · dark") { IntervalExample().preferredColorScheme(.dark).onAppear { SGFont.register() } }
+#Preview("R · Interval · light") { IntervalExample().preferredColorScheme(.light).onAppear { SGFont.register() } }
 #Preview("A · Launch · dark") { LaunchExample().preferredColorScheme(.dark).onAppear { SGFont.register() } }
 #Preview("A · Launch · light") { LaunchExample().preferredColorScheme(.light).onAppear { SGFont.register() } }
 #Preview("C · Dashboard · dark") { DashboardExample().preferredColorScheme(.dark).onAppear { SGFont.register() } }
