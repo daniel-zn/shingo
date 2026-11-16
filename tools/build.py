@@ -19,13 +19,18 @@ C = dict(ink="var(--ink)", sage="var(--sage)", hi="var(--sage-hi)", lo="var(--sa
          line="var(--sage-line)", ghost="var(--sage-ghost)", coral="var(--coral)",
          oninc="var(--on-ground)", ghi="var(--ground-hi)", ground="var(--ground)", ground2="var(--ground-2)")
 PALETTE = {
-    "dark":  {"ground": "#0c0c0a", "ground-2": "#1f201b", "ground-3": "#2b2c26", "on-ground": "#d9dbd3", "ground-hi": "#c3c6bd",
-              "sage": "#b8bbb0", "sage-hi": "#c3c6bd", "sage-lo": "#a9aca1", "sage-line": "#8e9089", "sage-ghost": "#cdd0c7",
-              "ink": "#0c0c0a", "coral": "#ff715e", "coral-deep": "#e65b48"},
-    "light": {"ground": "#bcbfb4", "ground-2": "#adb0a5", "ground-3": "#a1a499", "on-ground": "#1c1d19", "ground-hi": "#0f100d",
-              "sage": "#e3e5dd", "sage-hi": "#f0f1ec", "sage-lo": "#d2d4cb", "sage-line": "#72746b", "sage-ghost": "#f7f8f4",
-              "ink": "#10110e", "coral": "#ff715e", "coral-deep": "#e65b48"},
+    "dark":  {"ground": "#0b0b0a", "ground-2": "#1b1c18", "ground-3": "#2e2f2a", "on-ground": "#c9ccc2", "ground-hi": "#dcdfd5", "ground-dim": "#8b8d85",
+              "sage": "#b8bbb0", "sage-hi": "#c9ccc2", "sage-lo": "#a9aca1", "sage-line": "#8e9089", "sage-ghost": "#cdd0c7",
+              "ink": "#0c0c0a", "ink-dim": "#4d4f49", "coral": "#ff715e", "coral-deep": "#e65b48"},
+    "light": {"ground": "#bcbfb4", "ground-2": "#b0b3a8", "ground-3": "#9fa297", "on-ground": "#1c1d19", "ground-hi": "#0f100d", "ground-dim": "#4d4f47",
+              "sage": "#e3e5dd", "sage-hi": "#eceee7", "sage-lo": "#d2d4cb", "sage-line": "#72746b", "sage-ghost": "#f7f8f4",
+              "ink": "#10110e", "ink-dim": "#5a5c54", "coral": "#ff715e", "coral-deep": "#e65b48"},
 }
+ROLES = {"ground": "striped background", "ground-2": "stripe highlight", "ground-3": "rules, frames, tracks",
+         "on-ground": "body text on the ground", "ground-hi": "the print: titles, line art, plates of text", "ground-dim": "secondary print",
+         "sage": "plates, outer bar", "sage-hi": "plates you press or carry", "sage-lo": "pressed plates", "sage-line": "hairlines on plates",
+         "sage-ghost": "faint marks on plates", "ink": "text on plates, solid objects", "ink-dim": "secondary text on plates",
+         "coral": "the signal", "coral-deep": "pressed signal"}
 
 
 def resolve(svg, mode):
@@ -81,14 +86,47 @@ def blob(cx, cy, r, seed, amp=0.07, n=72):
     return "M" + " L".join(f"{f(x)} {f(y)}" for x, y in pts) + " Z"
 
 
-XP = x_path(12.5, 32)
+def x_sharp(h=12.5, L=33.0, c=50.0):
+    """Industrial X: two crossed bars with square-cut ends (no rounding)."""
+    r2 = math.sqrt(0.5); s_ = h * math.sqrt(2)
+    d = (r2, -r2); n = (r2, r2)
+    a1 = (L * d[0] - h * n[0], L * d[1] - h * n[1]); a2 = (L * d[0] + h * n[0], L * d[1] + h * n[1])
+    def rot(p, k):
+        x, y = p
+        for _ in range(k): x, y = -y, x
+        return x, y
+    pts = []
+    for k in range(4):
+        for q in ((0, -s_), a1, a2):
+            x, y = rot(q, k); pts.append(f"{f(c + x)} {f(c + y)}")
+    return "M" + " L".join(pts) + " Z"
+
+
+def octagon(cx, cy, r):
+    return " ".join(f"{f(cx + r * math.cos(math.radians(22.5 + 45 * k)))},{f(cy + r * math.sin(math.radians(22.5 + 45 * k)))}" for k in range(8))
+
+
+XP = x_path(12.5, 32)   # rounded X: origins poster only
+XS = x_sharp()          # sharp X: the interface
 
 # ---------------------------------------------------------------- glyphs
 # id -> (viewBox, inner svg). Mono glyphs use currentColor.
 G = {}
-G["x-line"] = ("0 0 100 100", f'<path d="{XP}" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/>')
-G["x-solid"] = ("0 0 100 100", f'<path d="{XP}" fill="currentColor"/>')
-G["mark"] = ("0 0 100 100", f'<g transform="rotate(45 50 50)"><path fill-rule="evenodd" fill="currentColor" d="{rrect(19,19,62,62,17)} {rrect(37,41,20,20,6)}"/></g>')
+G["x-line"] = ("0 0 100 100", f'<path d="{XS}" fill="none" stroke="currentColor" stroke-width="6.5" stroke-linejoin="miter"/>')
+G["x-solid"] = ("0 0 100 100", f'<path d="{XS}" fill="currentColor"/>')
+G["mark"] = ("0 0 100 100", '<g transform="rotate(45 50 50)"><path fill-rule="evenodd" fill="currentColor" d="M20 20H80V80H20Z M38 42H58V62H38Z"/></g>')
+G["reticle"] = ("0 0 100 100", '<path d="M8 32V8H32 M68 8H92V32 M92 68V92H68 M32 92H8V68" fill="none" stroke="currentColor" stroke-width="7"/><path d="M50 34V66M34 50H66" stroke="currentColor" stroke-width="6"/>')
+G["grid"] = ("0 0 100 100", '<path d="M10 10H90V90H10Z M36.7 10V90 M63.3 10V90 M10 36.7H90 M10 63.3H90" fill="none" stroke="currentColor" stroke-width="6"/>')
+G["signal"] = ("0 0 100 100", '<g fill="currentColor"><path d="M8 70H24V92H8Z"/><path d="M32 52H48V92H32Z"/><path d="M56 32H72V92H56Z"/><path d="M80 10H96V92H80Z"/></g>')
+_scope = [f'<polygon points="{octagon(100, 100, r)}" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".55"/>' for r in (92, 70, 48, 26)]
+_scope.append('<path d="M100 4V196 M4 100H196" stroke="currentColor" stroke-width="1" opacity=".4"/>')
+_scope.append('<polygon points="100,100 178,52 190,84" fill="var(--coral)" opacity=".5"/>')
+G["scope"] = ("0 0 200 200", "".join(_scope))
+_spec = []
+for i in range(40):
+    hgt = 10 + 62 * abs(math.sin(i * 0.53) * math.cos(i * 0.21 + 1.1))
+    _spec.append(f'<rect x="{i*6}" y="{f(80-hgt)}" width="3.5" height="{f(hgt)}" fill="currentColor"/>')
+G["spectrum"] = ("0 0 240 80", "".join(_spec))
 G["plus"] = ("0 0 100 100", '<path d="M50 6V94M6 50H94" stroke="currentColor" stroke-width="7"/>')
 G["arrow"] = ("0 0 100 100", '<path d="M18 82 L62 38" stroke="currentColor" stroke-width="14"/><path d="M36 18H82V64Z" fill="currentColor"/>')
 G["globe"] = ("0 0 100 64", '<g fill="none" stroke="currentColor" stroke-width="3.2"><ellipse cx="50" cy="32" rx="46" ry="28"/><ellipse cx="50" cy="32" rx="24" ry="28"/><ellipse cx="50" cy="32" rx="8" ry="28"/><path d="M4 32H96M9 18H91M9 46H91"/></g>')
@@ -258,6 +296,22 @@ def poster(sfx="d"):
     return out
 
 
+def keyart(mode):
+    """Key art: the shirt's print stack + the poster's instrument column, in HTML."""
+    return f'''<figure class="mode-{mode}"><div class="ka tex"><div class="ka-in">
+      <div class="ka-mast"><span class="u-code">SK·09·LIS</span><span class="sg-wordmark wear">AXIOM</span></div>
+      <div class="slab-cut ka-slab wear"></div><div class="ka-head brackets"><svg><use href="#g-head"/></svg></div>
+      <div class="yearspan sg-num ka-year">20<i></i>26</div>
+      <div class="ka-trio"><div class="sg-label">Signal engineering</div><div class="sg-jp sg-justify">信号工学</div><div class="sg-label">Ingénierie du signal</div></div>
+      <div class="ka-side"><div><div class="sg-num">09</div><div class="sg-mono">#bab9ad</div></div>
+        <svg viewBox="0 0 100 100"><use href="#g-x-line"/></svg><svg viewBox="0 0 100 100"><use href="#g-x-solid"/></svg>
+        <i class="barcode"></i><div class="sg-mono">REF:<br>OPSEC/AHI<br>SP C53</div></div>
+      <div class="ka-chev"><svg class="wear" viewBox="0 0 300 230"><use href="#g-chevrons"/></svg></div>
+      <div class="hazard ka-haz wear"></div>
+      <div class="ka-foot"><div><div class="sg-label">Axiom signal systems</div><div class="sg-mono">COMSEC MONITORING · NETWORK OPERATIONS AND DEFENSE</div></div><i class="barcode--v"></i></div>
+    </div></div><figcaption class="cap"><b>Key art · {mode}</b><span>{"bone print on ink stripes" if mode == "dark" else "ink print on sage stripes"}</span></figcaption></figure>'''
+
+
 def main():
     export_glyphs()
     defs = sprite().split("<defs>")[1].split("</defs>")[0]
@@ -265,6 +319,11 @@ def main():
         svg = poster(mode[0]).replace("<defs>", "<defs>" + defs, 1)
         (ROOT / "assets" / "svg" / f"poster-{mode}.svg").write_text(resolve(svg, mode) + "\n")
     src = (ROOT / "web" / "gallery.src.html").read_text()
+    src = src.replace("<!--@LANGUAGES-->", (ROOT / "web" / "partials" / "languages.html").read_text())
+    src = src.replace("<!--@KEYART_DARK-->", keyart("dark")).replace("<!--@KEYART_LIGHT-->", keyart("light"))
+    src = src.replace("<!--@SWATCHES-->", "".join(
+        f'<div><i style="background:var(--{k})"></i><b>{k}</b><span>{v}<br>dark {PALETTE["dark"][k]} · light {PALETTE["light"][k]}</span></div>'
+        for k, v in ROLES.items()))
     css = (ROOT / "web" / "shingo.css").read_text()
     out = (src.replace("<!--@CSS-->", css).replace("<!--@SPRITE-->", sprite())
               .replace("<!--@POSTER_DARK-->", poster("d")).replace("<!--@POSTER_LIGHT-->", poster("l")))

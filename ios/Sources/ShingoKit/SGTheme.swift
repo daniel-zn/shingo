@@ -4,10 +4,10 @@ import CoreText
 
 // MARK: - Color tokens (mirror tokens/tokens.json)
 //
-// Two modes, same layering:
-//   dark  = ink stripe ground, sage slabs          (the original poster)
-//   light = sage stripe ground, paper slabs        (never white)
-// Ink stays ink (buttons, slots, solid X, tab bar) and coral stays coral.
+// Industrial print system, two modes with the same layering:
+//   dark  = ink stripe ground, bone print, sage plates
+//   light = sage stripe ground, ink print, paper plates (never white)
+// Coral is the signal and is the same in both.
 
 public extension Color {
     init(hex: UInt32, opacity: Double = 1) {
@@ -30,50 +30,56 @@ public extension Color {
 }
 
 public enum SG {
-    // ground: the striped background and what sits directly on it
-    public static let ground    = Color(light: 0xBCBFB4, dark: 0x0C0C0A)
-    public static let ground2   = Color(light: 0xADB0A5, dark: 0x1F201B)   // stripe highlight
-    public static let ground3   = Color(light: 0xA1A499, dark: 0x2B2C26)   // rules / rings on the ground
-    public static let onGround  = Color(light: 0x1C1D19, dark: 0xD9DBD3)   // text on the ground
-    public static let groundHi  = Color(light: 0x0F100D, dark: 0xC3C6BD)   // titles & art on the ground
-    public static let groundDim = Color(light: 0x50524A, dark: 0x8E9089)   // sublines & meta on the ground
-    // slabs: the lighter layer (pills, tiles, panels)
+    // ground: the striped background, and the print on it
+    public static let ground    = Color(light: 0xBCBFB4, dark: 0x0B0B0A)
+    public static let ground2   = Color(light: 0xB0B3A8, dark: 0x1B1C18)   // stripe highlight
+    public static let ground3   = Color(light: 0x9FA297, dark: 0x2E2F2A)   // rules, frames, tracks
+    public static let onGround  = Color(light: 0x1C1D19, dark: 0xC9CCC2)   // body text on the ground
+    public static let groundHi  = Color(light: 0x0F100D, dark: 0xDCDFD5)   // the print: titles, line art
+    public static let groundDim = Color(light: 0x4D4F47, dark: 0x8B8D85)   // secondary print
+    // plates: filled blocks for things you press or carry
     public static let sage      = Color(light: 0xE3E5DD, dark: 0xB8BBB0)
-    public static let sageHi    = Color(light: 0xF0F1EC, dark: 0xC3C6BD)
+    public static let sageHi    = Color(light: 0xECEEE7, dark: 0xC9CCC2)
     public static let sageLo    = Color(light: 0xD2D4CB, dark: 0xA9ACA1)
     public static let sageLine  = Color(light: 0x72746B, dark: 0x8E9089)
-    public static let sageGhost = Color(light: 0xF7F8F4, dark: 0xCDD0C7)
-    // ink: text on slabs and solid objects, the same in both modes
+    // ink: text on plates and solid objects
     public static let ink       = Color(light: 0x10110E, dark: 0x0C0C0A)
-    public static let inkDim    = Color(light: 0x5A5C54, dark: 0x4D4F49)   // secondary text on slabs
-    public static let inkRaised = Color(hex: 0x2B2C26)                    // pressed ink, tab-bar edge
-    public static let onInk     = Color(hex: 0xC3C6BD)                    // text on ink objects
-    // accent
+    public static let inkDim    = Color(light: 0x5A5C54, dark: 0x4D4F49)
+    public static let inkFixed  = Color(hex: 0x0C0C0A)                    // text on coral, both modes
+    // signal
     public static let coral     = Color(hex: 0xFF715E)
     public static let coralDeep = Color(hex: 0xE65B48)
 
-    // geometry
+    // geometry: one angle (45°), three cut sizes
     public static let hair: CGFloat = 1.5
     public static let stripePeriod: CGFloat = 6
     public static let gutter: CGFloat = 24
+    public static let cutS: CGFloat = 6
+    public static let cutM: CGFloat = 12
+    public static let cutL: CGFloat = 24
 }
 
-// MARK: - Type
+// MARK: - Type: one family in three widths + a terminal mono
 
 public enum SGFont {
-    /// Archivo Expanded Black — wordmarks & titles (always uppercase).
-    public static func wordmark(_ size: CGFloat) -> Font { .custom("ArchivoExpanded-Black", size: size) }
-    /// Archivo Bold — numerals (use .monospacedDigit()).
-    public static func number(_ size: CGFloat) -> Font { .custom("Archivo-Bold", size: size).monospacedDigit() }
-    /// Archivo Medium — labels, tracked tight.
-    public static func label(_ size: CGFloat) -> Font { .custom("Archivo-Medium", size: size) }
-    /// JetBrains Mono — telemetry / metadata.
-    public static func mono(_ size: CGFloat = 11) -> Font { .custom("JetBrainsMono-Regular", size: size) }
+    /// Saira Expanded ExtraBold: wordmarks, titles, display (uppercase).
+    public static func display(_ size: CGFloat) -> Font { .custom("SairaExpanded-ExtraBold", size: size) }
+    /// Saira Bold: numerals.
+    public static func number(_ size: CGFloat) -> Font { .custom("Saira-Bold", size: size).monospacedDigit() }
+    /// Saira Condensed SemiBold: labels in caps ("FUTURE ENGINEERING").
+    public static func cap(_ size: CGFloat) -> Font { .custom("SairaCondensed-SemiBold", size: size) }
+    /// Saira Medium: body and row labels.
+    public static func body(_ size: CGFloat = 15) -> Font { .custom("Saira-Medium", size: size) }
+    /// Saira Bold: emphasised body (the trilingual stack).
+    public static func bodyBold(_ size: CGFloat = 15) -> Font { .custom("Saira-Bold", size: size) }
+    /// Share Tech Mono: telemetry and metadata.
+    public static func mono(_ size: CGFloat = 11) -> Font { .custom("ShareTechMono-Regular", size: size) }
 
     /// Call once at launch (e.g. in your App init). Registers the bundled OFL fonts
     /// so you don't need UIAppFonts entries in Info.plist.
     public static func register() {
-        let names = ["ArchivoExpanded-Black", "Archivo-Bold", "Archivo-Medium", "JetBrainsMono-Regular", "JetBrainsMono-Bold", "Archivo-MediumItalic"]
+        let names = ["SairaExpanded-ExtraBold", "Saira-Bold", "Saira-Medium", "Saira-Regular",
+                     "SairaCondensed-SemiBold", "Saira-MediumItalic", "ShareTechMono-Regular"]
         for name in names {
             guard let url = Bundle.module.url(forResource: name, withExtension: "ttf") else { continue }
             CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
@@ -82,16 +88,18 @@ public enum SGFont {
 }
 
 public extension View {
+    /// Display / title / inline wordmark. Sizes: 44, 26, 15.
     func sgWordmark(_ size: CGFloat) -> some View {
-        font(SGFont.wordmark(size)).textCase(.uppercase).tracking(-size * 0.01).lineSpacing(-size * 0.12)
+        font(SGFont.display(size)).textCase(.uppercase)
     }
-    func sgLabel(_ size: CGFloat = 15) -> some View {
-        font(SGFont.label(size)).tracking(-size * 0.035)
+    /// Condensed caps label, tracked out.
+    func sgCap(_ size: CGFloat = 12) -> some View {
+        font(SGFont.cap(size)).textCase(.uppercase).tracking(size * 0.12)
     }
-    func sgMono(_ size: CGFloat = 11) -> some View {
-        font(SGFont.mono(size))
+    func sgLabel(_ size: CGFloat = 15) -> some View { font(SGFont.body(size)) }
+    /// Telemetry. Uppercase by default, like the print.
+    func sgMono(_ size: CGFloat = 11, upper: Bool = true) -> some View {
+        font(SGFont.mono(size)).textCase(upper ? .uppercase : nil).tracking(size * 0.04)
     }
-    func sgNumber(_ size: CGFloat) -> some View {
-        font(SGFont.number(size)).tracking(-size * 0.02)
-    }
+    func sgNumber(_ size: CGFloat) -> some View { font(SGFont.number(size)) }
 }

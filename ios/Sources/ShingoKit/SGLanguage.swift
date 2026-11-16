@@ -9,8 +9,8 @@ public extension SGFont {
     static func jp(_ size: CGFloat, bold: Bool = true) -> Font {
         .custom(bold ? "HiraginoSans-W6" : "HiraginoSans-W3", size: size)
     }
-    /// French asides: Archivo Medium Italic (bundled).
-    static func fr(_ size: CGFloat) -> Font { .custom("Archivo-MediumItalic", size: size) }
+    /// French asides: Saira Medium Italic (bundled).
+    static func fr(_ size: CGFloat) -> Font { .custom("Saira-MediumItalic", size: size) }
 }
 
 public extension View {
@@ -49,7 +49,7 @@ public struct Hanko: View {
         VerticalText(text, size: size * 0.3, spacing: 0.1, bold: true)
             .foregroundStyle(color)
             .frame(width: size, height: size)
-            .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(color, lineWidth: 2.5))
+            .overlay(Rectangle().strokeBorder(color, lineWidth: 2.5))
             .rotationEffect(.degrees(-4))
     }
 }
@@ -148,9 +148,9 @@ public struct ManifestoExample: View {
     public var body: some View {
         ZStack {
             SG.ground.ignoresSafeArea()
-            StripeField(angle: .degrees(-38)).opacity(0.55).ignoresSafeArea()
+            StripeField().ignoresSafeArea()
             VStack(alignment: .leading, spacing: 11) {
-                Text("AXIOM").sgWordmark(54)
+                Text("AXIOM").sgWordmark(SGMetrics.display)
                 HStack {
                     Text("lundi 16 novembre").sgFR(14)
                     Spacer()
@@ -164,13 +164,13 @@ public struct ManifestoExample: View {
                 }
                 YearSpan()
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("SIGNAL ENGINEERING").font(.custom("Archivo-Bold", size: 23))
+                    Text("SIGNAL ENGINEERING").font(SGFont.bodyBold(23))
                     HStack { ForEach(Array("信号工学"), id: \.self) { Text(String($0)).sgJP(22); if $0 != "学" { Spacer() } } }
-                    Text("INGÉNIERIE DU SIGNAL").font(.custom("Archivo-Bold", size: 23))
+                    Text("INGÉNIERIE DU SIGNAL").font(SGFont.bodyBold(23))
                 }
                 ChevronStack().padding(.horizontal, 24)
                 HazardBar()
-                Text("AXIOM SIGNAL SYSTEMS").font(.custom("Archivo-Bold", size: 15))
+                Text("AXIOM SIGNAL SYSTEMS").font(SGFont.bodyBold(15))
                 Barcode(axis: .horizontal, color: SG.groundHi).frame(height: 30)
             }
             .foregroundStyle(SG.groundHi)

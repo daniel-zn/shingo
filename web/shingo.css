@@ -1,175 +1,203 @@
 /* ==========================================================================
-   SHINGŌ 信号 — web reference implementation
-   Layout concept: a striped "ground", lighter sage slabs cut by one coral
-   diagonal, nested stadium pills as the hero form, mono telemetry text
-   right-aligned in the margins.
+   SHINGŌ 信号 — industrial print system (web reference implementation)
+
+   Direction: sci-fi industrial. Content is PRINTED on a striped ground,
+   like a technical garment print: hard edges, 45° chamfers, hazard bars,
+   chevrons, barcodes, corner brackets, mono telemetry, one coral signal.
+
+   One angle: every diagonal is 45° (chamfers, hazard stripes, chevrons,
+   the stripe texture). Corners are cut on the top-right / bottom-left axis.
+   No border-radius anywhere except radar rings and the device frame.
 
    Two modes, same layering:
-     dark  = ink stripe ground, sage slabs          (the original poster)
-     light = sage stripe ground, paper slabs        (never white)
-   Ink stays ink in both (buttons, slots, solid X, tab bar) and coral stays coral.
+     dark  = ink stripe ground, bone print, sage plates
+     light = sage stripe ground, ink print, paper plates (never white)
+   Coral is the same in both.
 
    Token roles
-     --ground*      striped background and what sits directly on it
-     --on-ground    text on the ground;  --ground-hi  titles/art on the ground
-     --sage*        slabs, pills, tiles (the lighter layer)
-     --ink          text on slabs + solid objects (both modes)
-     --coral*       the only accent
+     --ground*      striped background;  --ground-hi = the print colour
+     --on-ground    body text on the ground; --ground-dim = secondary
+     --sage*        plates (filled blocks), the lighter layer
+     --ink          text on plates + solid objects
+     --coral        the signal: one block per screen + active states
    Force a mode on any subtree with .mode-light / .mode-dark.
    Mirrors tokens/tokens.json and ios/Sources/ShingoKit/SGTheme.swift
    ========================================================================== */
 
 :root, .mode-dark {
-  --ground: #0c0c0a;  --ground-2: #1f201b;  --ground-3: #2b2c26;
-  --on-ground: #d9dbd3;  --ground-hi: #c3c6bd;  --ground-dim: #8e9089;
-  --sage: #b8bbb0;  --sage-hi: #c3c6bd;  --sage-lo: #a9aca1;  --sage-line: #8e9089;  --sage-ghost: #cdd0c7;
+  --ground: #0b0b0a;  --ground-2: #1b1c18;  --ground-3: #2e2f2a;
+  --on-ground: #c9ccc2;  --ground-hi: #dcdfd5;  --ground-dim: #8b8d85;
+  --sage: #b8bbb0;  --sage-hi: #c9ccc2;  --sage-lo: #a9aca1;  --sage-line: #8e9089;  --sage-ghost: #cdd0c7;
   --ink: #0c0c0a;  --ink-dim: #4d4f49;  --coral: #ff715e;  --coral-deep: #e65b48;
   color-scheme: dark;
 }
 .mode-light {
-  --ground: #bcbfb4;  --ground-2: #adb0a5;  --ground-3: #a1a499;
-  --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #50524a;
-  --sage: #e3e5dd;  --sage-hi: #f0f1ec;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
+  --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
+  --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
+  --sage: #e3e5dd;  --sage-hi: #eceee7;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
   --ink: #10110e;  --ink-dim: #5a5c54;  --coral: #ff715e;  --coral-deep: #e65b48;
   color-scheme: light;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --ground: #bcbfb4;  --ground-2: #adb0a5;  --ground-3: #a1a499;
-    --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #50524a;
-    --sage: #e3e5dd;  --sage-hi: #f0f1ec;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
+    --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
+    --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
+    --sage: #e3e5dd;  --sage-hi: #eceee7;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
     --ink: #10110e;  --ink-dim: #5a5c54;  color-scheme: light;
   }
 }
 :root[data-theme="light"] {
-  --ground: #bcbfb4;  --ground-2: #adb0a5;  --ground-3: #a1a499;
-  --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #50524a;
-  --sage: #e3e5dd;  --sage-hi: #f0f1ec;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
+  --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
+  --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
+  --sage: #e3e5dd;  --sage-hi: #eceee7;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
   --ink: #10110e;  --ink-dim: #5a5c54;  color-scheme: light;
 }
 .mode-dark, .mode-light { color: var(--on-ground); }
 
 :root {
-  /* ---- type ---- */
-  --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif; /* expanded black */
-  --f-sans: "Archivo", "Helvetica Neue", Arial, sans-serif;    /* medium, tight */
-  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --f-jp: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; /* iOS: Hiragino Sans */
+  /* ---- type: one family in three widths + a terminal mono ---- */
+  --f-display: "Saira", "Eurostile", "Arial Narrow", sans-serif;   /* expanded 125%, 800 */
+  --f-sans: "Saira", "Eurostile", "Helvetica Neue", sans-serif;     /* normal / condensed */
+  --f-mono: "Share Tech Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --f-jp: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
 
   /* ---- geometry ---- */
   --hair: 1.5px;
   --stripe-period: 6px;
+  --angle: -45deg;            /* the one diagonal */
+  --cut-s: 6px; --cut-m: 12px; --cut-l: 24px;
 }
 
 /* ------------------------------------------------------------------ type */
-.sg-wordmark { font-family: var(--f-display); font-stretch: 125%; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; line-height: .88; }
-.sg-label    { font-family: var(--f-sans); font-weight: 500; letter-spacing: -0.035em; line-height: 1.15; }
-.sg-num      { font-family: var(--f-display); font-stretch: 112%; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; }
-.sg-mono     { font-family: var(--f-mono); font-weight: 400; font-size: 11px; line-height: 1.22; letter-spacing: 0; }
+.sg-wordmark { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; text-transform: uppercase; letter-spacing: -.005em; line-height: .9; }
+.sg-cap      { font-family: var(--f-sans); font-stretch: 75%; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; line-height: 1.1; }
+.sg-label    { font-family: var(--f-sans); font-weight: 500; letter-spacing: 0; line-height: 1.2; }
+.sg-num      { font-family: var(--f-display); font-stretch: 112.5%; font-weight: 700; letter-spacing: -.01em; font-variant-numeric: tabular-nums; line-height: 1; }
+.sg-mono     { font-family: var(--f-mono); font-weight: 400; font-size: 11px; line-height: 1.25; letter-spacing: .02em; }
 .sg-ghost    { color: var(--sage-ghost); }
 .t-right     { text-align: right; }
 
 /* ---------------------------------------------------------- stripe field */
-/* Soft-edged diagonal lines. Stack .facet layers with their own angle and
-   clip-path to get the poster's faceted, folded-paper ground. */
-.tex { background: repeating-linear-gradient(var(--a, -38deg), var(--ground) 0, var(--ground-2) calc(var(--stripe-period) * .5), var(--ground) var(--stripe-period)); }
-.facet { position: absolute; inset: 0; background: repeating-linear-gradient(var(--a, -55deg), var(--ground) 0, var(--ground-2) calc(var(--stripe-period) * .5), var(--ground) var(--stripe-period)); }
+.tex { background: repeating-linear-gradient(var(--a, var(--angle)), var(--ground) 0, var(--ground-2) calc(var(--stripe-period) * .5), var(--ground) var(--stripe-period)); }
+.facet { position: absolute; inset: 0; background: repeating-linear-gradient(var(--a, 45deg), var(--ground) 0, var(--ground-2) calc(var(--stripe-period) * .5), var(--ground) var(--stripe-period)); }
 
-/* ------------------------------------------------------------ slabs */
+/* ------------------------------------------------------------ cut shapes */
+/* .cut: chamfer top-right + bottom-left (the system axis). --c sets the size. */
+.cut { --c: var(--cut-m); clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+/* .tagcut: one cut, bottom-right (the shirt's slab) */
+.tagcut { --c: 16px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%); }
 .slab { position: absolute; background: var(--sage); }
 .band { position: absolute; background: var(--coral); }
+.signal { background: var(--coral); color: #0c0c0a; }
+.plate { background: var(--sage-hi); color: var(--ink); }
 
-/* ---------------------------------------------------- nested stadium pill */
-/* <div class="pill"><div class="pill__mid"><div class="pill__core"><i class="pill__slot"></i></div></div></div>
-   --h sets the height; everything else is proportional (measured off the poster).
-   .pill--bleed-l / --bleed-r square off the side that runs off the screen. */
-.pill { --h: 150px; --rl: 999px; --rr: 999px; height: var(--h); padding: calc(var(--h) * .18); background: var(--sage); border-radius: var(--rl) var(--rr) var(--rr) var(--rl); display: flex; box-sizing: border-box; }
-.pill--bleed-l { --rl: 0; padding-left: 0; }
-.pill--bleed-r { --rr: 0; padding-right: 0; }
-.pill__mid { flex: 1; display: flex; align-items: center; background: var(--sage-hi); border-radius: inherit; padding-right: calc(var(--h) * .24); }
-.pill--bleed-r .pill__mid { padding-right: 0; }
-.pill--bleed-l .pill__mid { padding-left: 0; }
-.pill:not(.pill--bleed-l) .pill__mid { padding-left: calc(var(--h) * .24); }
-.pill__core { flex: 1; height: calc(var(--h) * .15); display: flex; align-items: center; background: var(--sage); border-radius: inherit; padding: 0 calc(var(--h) * .06); }
-.pill--bleed-l .pill__core { padding-left: 0; }
-.pill__slot { flex: 1; height: max(3px, calc(var(--h) * .03)); border-radius: 9px; --p: 100%; background: linear-gradient(90deg, var(--slot-a, var(--ink)) var(--p), var(--slot-b, var(--coral)) 0); }
-.pill--bleed-l .pill__slot { border-top-left-radius: 0; border-bottom-left-radius: 0; }
-.pill--ink { background: var(--ground-3); } .pill--ink .pill__mid { background: var(--ground-2); } .pill--ink .pill__core { background: var(--ground-3); } .pill--ink .pill__slot { --slot-a: var(--ground-hi); }
-
-/* -------------------------------------------------------------- buttons */
-.btn { all: unset; box-sizing: border-box; height: 52px; padding: 0 24px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  font-family: var(--f-display); font-stretch: 125%; font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: .01em; cursor: pointer;
-  background: var(--ink); color: var(--sage-hi); }
-.btn:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
-.btn svg { width: 16px; height: 16px; }
-.btn--coral { background: var(--coral); color: var(--ink); }
-.btn--sage  { background: var(--sage-hi); color: var(--ink); box-shadow: inset 0 0 0 6px var(--sage-lo); }
-.btn--ghost { background: transparent; color: currentColor; box-shadow: inset 0 0 0 var(--hair) currentColor; }
-.btn--block { display: flex; width: 100%; }
-.btn--sm { height: 36px; padding: 0 16px; font-size: 11px; }
-.btn--icon { width: 52px; padding: 0; }
-
-/* --------------------------------------------------------------- toggle */
-.tgl { appearance: none; -webkit-appearance: none; margin: 0; flex: none; width: 60px; height: 32px; border-radius: 999px; background: var(--sage-lo); position: relative; cursor: pointer; box-shadow: inset 0 0 0 5px var(--sage); transition: background .18s; }
-.tgl::before { content: ""; position: absolute; left: 11px; right: 11px; top: 14.5px; height: 3px; border-radius: 3px; background: var(--ink); opacity: .35; }
-.tgl::after { content: ""; position: absolute; top: 5px; left: 5px; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); transition: transform .18s; }
-.tgl:checked { background: var(--coral); box-shadow: inset 0 0 0 5px var(--coral-deep); }
-.tgl:checked::after { transform: translateX(28px); }
-.tgl:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-@media (prefers-reduced-motion: reduce) { .tgl, .tgl::after { transition: none; } }
-
-/* ---------------------------------------------------- chips & segmented */
-.chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 11px; border-radius: 999px; font: 400 10.5px/1 var(--f-mono); box-shadow: inset 0 0 0 var(--hair) var(--sage-line); color: inherit; }
-.chip--on { background: var(--ink); color: var(--sage-hi); box-shadow: none; }
-.chip--coral { background: var(--coral); color: var(--ink); box-shadow: none; }
-.chip i { width: 6px; height: 6px; background: currentColor; transform: rotate(45deg); border-radius: 1.5px; }
-
-.seg { display: flex; padding: 4px; border-radius: 999px; background: var(--sage-lo); gap: 2px; }
-.seg button { all: unset; flex: 1; text-align: center; height: 32px; border-radius: 999px; font: 400 11px/32px var(--f-mono); color: var(--ink); cursor: pointer; }
-.seg button[aria-pressed="true"] { background: var(--ink); color: var(--sage-hi); }
-.seg--ink { background: var(--ground-3); } .seg--ink button { color: var(--on-ground); } .seg--ink button[aria-pressed="true"] { background: var(--ground-hi); color: var(--ground); }
-
-/* ----------------------------------------------------- chamfered frame */
-/* Thin outline with two cut corners (top-right, bottom-left) — the poster's
-   technical frame. Line colour = --line, fill = --fill. */
-.chamfer { --c: 16px; --line: var(--sage-line); --fill: var(--sage); position: relative; padding: 16px; isolation: isolate; }
+/* outlined chamfer frame: line = --line, fill = --fill */
+.chamfer { --c: var(--cut-m); --line: var(--ground-3); --fill: var(--ground); position: relative; padding: 14px; isolation: isolate; }
 .chamfer::before, .chamfer::after { content: ""; position: absolute; z-index: -1; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
 .chamfer::before { inset: 0; background: var(--line); }
 .chamfer::after { inset: var(--hair); background: var(--fill); }
 
+/* HUD corner brackets */
+.brackets { --bk: var(--ground-hi); --bl: 12px;
+  background:
+    linear-gradient(var(--bk) 0 0) 0 0 / var(--bl) var(--hair), linear-gradient(var(--bk) 0 0) 0 0 / var(--hair) var(--bl),
+    linear-gradient(var(--bk) 0 0) 100% 0 / var(--bl) var(--hair), linear-gradient(var(--bk) 0 0) 100% 0 / var(--hair) var(--bl),
+    linear-gradient(var(--bk) 0 0) 0 100% / var(--bl) var(--hair), linear-gradient(var(--bk) 0 0) 0 100% / var(--hair) var(--bl),
+    linear-gradient(var(--bk) 0 0) 100% 100% / var(--bl) var(--hair), linear-gradient(var(--bk) 0 0) 100% 100% / var(--hair) var(--bl);
+  background-repeat: no-repeat; }
+
+/* ------------------------------------------------- nested bar (hero form) */
+/* The industrial descendant of the nested pill: three plates and a slot,
+   with one 45° cut at the leading end. --h sets the height.
+   <div class="bar"><div class="bar__mid"><div class="bar__core"><i class="bar__slot"></i></div></div></div>
+   .bar--bleed-r flips it to run off the right edge. */
+.bar { --h: 120px; --k: calc(var(--h) * .42); height: var(--h); box-sizing: border-box; display: flex; padding: calc(var(--h) * .16) calc(var(--h) * .16) calc(var(--h) * .16) 0; background: var(--sage);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%); }
+.bar__mid { flex: 1; display: flex; align-items: center; padding-right: calc(var(--h) * .3); background: var(--sage-hi);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k) * .62), calc(100% - var(--k) * .62) 100%, 0 100%); }
+.bar__core { flex: 1; height: calc(var(--h) * .16); display: flex; align-items: center; padding-right: calc(var(--h) * .06); background: var(--sage); }
+.bar__slot { flex: 1; height: max(3px, calc(var(--h) * .035)); --p: 100%; background: linear-gradient(90deg, var(--slot-a, var(--ink)) var(--p), var(--slot-b, var(--coral)) 0); }
+.bar--bleed-r { padding: calc(var(--h) * .16) 0 calc(var(--h) * .16) calc(var(--h) * .16);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, var(--k) 100%, 0 calc(100% - var(--k))); }
+.bar--bleed-r .bar__mid { padding: 0 0 0 calc(var(--h) * .3); clip-path: polygon(0 0, 100% 0, 100% 100%, calc(var(--k) * .62) 100%, 0 calc(100% - var(--k) * .62)); }
+.bar--bleed-r .bar__core { padding: 0 0 0 calc(var(--h) * .06); }
+
+/* -------------------------------------------------------------- buttons */
+.btn { all: unset; box-sizing: border-box; position: relative; isolation: isolate; height: 48px; padding: 0 22px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
+  font-family: var(--f-sans); font-stretch: 75%; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: .12em;
+  --c: 10px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
+  background: var(--ground-hi); color: var(--ground); }
+.btn:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+.btn svg { width: 15px; height: 15px; }
+.btn--coral { background: var(--coral); color: #0c0c0a; }
+.btn--plate { background: var(--sage-hi); color: var(--ink); }
+.btn--ink   { background: #0c0c0a; color: #dcdfd5; }
+.btn--ghost { background: transparent; color: var(--btn-line, var(--ground-hi)); }
+.btn--ghost::before, .btn--ghost::after { content: ""; position: absolute; z-index: -1; clip-path: inherit; }
+.btn--ghost::before { inset: 0; background: currentColor; }
+.btn--ghost::after { inset: var(--hair); background: var(--btn-fill, var(--ground)); clip-path: polygon(0 0, calc(100% - var(--c) + 1px) 0, 100% calc(var(--c) - 1px), 100% 100%, calc(var(--c) - 1px) 100%, 0 calc(100% - var(--c) + 1px)); }
+.btn--block { display: flex; width: 100%; }
+.btn--sm { height: 32px; padding: 0 14px; font-size: 12px; --c: 7px; }
+.btn--icon { width: 48px; padding: 0; }
+
+/* --------------------------------------------------------------- toggle */
+.tgl { appearance: none; -webkit-appearance: none; margin: 0; flex: none; width: 58px; height: 28px; position: relative; cursor: pointer;
+  --c: 7px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
+  background: repeating-linear-gradient(-45deg, var(--ground-3) 0 3px, transparent 3px 6px), var(--ground-2); }
+.tgl::after { content: ""; position: absolute; top: 4px; left: 4px; width: 22px; height: 20px; background: var(--ground-dim);
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px)); transition: transform .16s; }
+.tgl:checked { background: var(--coral); }
+.tgl:checked::after { transform: translateX(28px); background: #0c0c0a; }
+.tgl:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .tgl::after { transition: none; } }
+
+/* ---------------------------------------------------- chips & segmented */
+.chip { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; font: 400 10.5px/1 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: inherit;
+  box-shadow: inset 0 0 0 var(--hair) var(--ground-dim); --c: 5px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.chip--on { background: var(--ground-hi); color: var(--ground); box-shadow: none; }
+.chip--coral { background: var(--coral); color: #0c0c0a; box-shadow: none; }
+.chip i { width: 6px; height: 6px; background: currentColor; transform: rotate(45deg); }
+
+.seg { display: flex; gap: 3px; padding: 3px; background: var(--ground-3); --c: 8px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.seg button { all: unset; flex: 1; text-align: center; height: 30px; font: 400 11px/30px var(--f-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--on-ground); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ground-hi); color: var(--ground); }
+.seg--ink { background: var(--ground-3); }
+
+/* ------------------------------------------------------------- field */
 .field { display: grid; gap: 6px; }
-.field > span { font: 400 10.5px/1 var(--f-mono); }
-.field input { all: unset; box-sizing: border-box; height: 48px; padding: 0 16px; font: 500 15px var(--f-sans); letter-spacing: -.02em; color: var(--ink); width: 100%; }
-.field .chamfer { --c: 12px; padding: 0; --fill: var(--sage-hi); }
-.field .chamfer:focus-within { --line: var(--ink); }
+.field > span { font: 400 10.5px/1 var(--f-mono); text-transform: uppercase; letter-spacing: .08em; }
+.field input { all: unset; box-sizing: border-box; height: 46px; padding: 0 14px; font: 500 15px var(--f-sans); color: var(--ground-hi); width: 100%; }
+.field .chamfer { --c: 10px; padding: 0; --line: var(--ground-dim); }
+.field .chamfer:focus-within { --line: var(--coral); }
 
 /* ------------------------------------------------------ data furniture */
 .barcode { background: repeating-linear-gradient(180deg, var(--bc, var(--ink)) 0 2px, transparent 2px 5px, var(--bc, var(--ink)) 5px 6px, transparent 6px 9px, var(--bc, var(--ink)) 9px 10px, transparent 10px 15px); }
 .barcode--v { background: repeating-linear-gradient(90deg, var(--bc, var(--ink)) 0 2px, transparent 2px 4px, var(--bc, var(--ink)) 4px 5px, transparent 5px 8px, var(--bc, var(--ink)) 8px 11px, transparent 11px 13px); }
-.rule { display: flex; align-items: center; gap: 0; height: 8px; }
-.rule::before { content: ""; flex: 1; height: 1.5px; background: var(--sage-line); }
-.rule::after { content: ""; width: 26px; height: 8px; background: var(--sage-line); }
-.slot { height: 6px; border-radius: 6px; --p: 40%; background: linear-gradient(90deg, var(--coral) var(--p), var(--ink) 0); }
-.slot--on-ink { background: linear-gradient(90deg, var(--coral) var(--p), var(--ground-3) 0); }
-.dot { width: 4px; height: 4px; border-radius: 50%; background: var(--sage-line); display: inline-block; }
+.rule { display: flex; align-items: center; height: 8px; }
+.rule::before { content: ""; flex: 1; height: 1.5px; background: currentColor; }
+.rule::after { content: ""; width: 26px; height: 8px; background: currentColor; }
+.slot { height: 6px; --p: 40%; background: linear-gradient(90deg, var(--coral) var(--p), var(--ground-3) 0); }
+.ticks { height: 8px; background: repeating-linear-gradient(90deg, var(--ground-dim) 0 1.5px, transparent 1.5px 8px); }
+.dot { width: 5px; height: 5px; background: var(--ground-dim); display: inline-block; }
 .ico { width: 1em; height: 1em; display: inline-block; vertical-align: middle; flex: none; }
-.cross { position: absolute; width: 22px; height: 22px; color: var(--sage-hi); }
+.cross { position: absolute; width: 20px; height: 20px; color: var(--ground-hi); }
 
 /* ================================================== three languages
    English runs the interface. Japanese is texture (vertical captions,
-   stamps, outlined display kanji). French is the aside (italic). */
+   seals, display kanji). French is the italic aside. */
 .sg-jp   { font-family: var(--f-jp); font-weight: 700; letter-spacing: .04em; line-height: 1.15; font-feature-settings: "palt"; }
 .sg-jp-v { font-family: var(--f-jp); font-weight: 500; font-size: 11px; line-height: 1; letter-spacing: .32em; writing-mode: vertical-rl; text-orientation: upright; }
-.sg-jp-outline { font-family: var(--f-jp); font-weight: 700; line-height: 1; color: transparent; -webkit-text-stroke: 1.3px var(--stroke, var(--sage-line)); }
-.sg-fr   { font-family: var(--f-sans); font-style: italic; font-weight: 500; letter-spacing: -.02em; }
+.sg-jp-outline { font-family: var(--f-jp); font-weight: 700; line-height: 1; color: transparent; -webkit-text-stroke: 1.3px var(--stroke, var(--ground-dim)); }
+.sg-fr   { font-family: var(--f-sans); font-style: italic; font-weight: 500; letter-spacing: 0; text-transform: none; }
 .sg-justify { text-align: justify; text-align-last: justify; }
 
-/* hanko seal: coral square, vertical kanji, slightly off-axis like a hand stamp */
-.hanko { box-sizing: border-box; width: 56px; height: 56px; display: grid; place-items: center; border: 2.5px solid var(--coral); border-radius: 4px; color: var(--coral);
-  font-family: var(--f-jp); font-weight: 700; font-size: 17px; line-height: 1; letter-spacing: .12em; writing-mode: vertical-rl; transform: rotate(-4deg); }
+/* hanko seal: square, vertical kanji, slightly off-axis */
+.hanko { box-sizing: border-box; width: 52px; height: 52px; display: grid; place-items: center; border: 2.5px solid var(--coral); color: var(--coral);
+  font-family: var(--f-jp); font-weight: 700; font-size: 16px; line-height: 1; letter-spacing: .12em; writing-mode: vertical-rl; transform: rotate(-4deg); }
 
 /* print motifs */
-.hazard { --hz: var(--sage-hi); height: 26px; box-sizing: border-box; padding-block: 4px; border-block: var(--hair) solid var(--hz); background: repeating-linear-gradient(-45deg, var(--hz) 0 11px, transparent 11px 22px) content-box; }
+.hazard { --hz: var(--ground-hi); height: 24px; box-sizing: border-box; padding-block: 4px; border-block: var(--hair) solid var(--hz); background: repeating-linear-gradient(-45deg, var(--hz) 0 10px, transparent 10px 20px) content-box; }
+.hazard--slim { height: 14px; padding-block: 3px; background: repeating-linear-gradient(-45deg, var(--hz) 0 6px, transparent 6px 12px) content-box; }
 .yearspan { display: flex; align-items: center; gap: 12px; }
 .yearspan i { flex: 1; height: 1.5px; background: currentColor; }
 .slab-cut { background: var(--coral); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); }
@@ -177,31 +205,37 @@
 
 /* ================================================== screen grammar
    Two tiers.
-   UTILITY screens (most of an app) share one template, top to bottom:
-     header  .u-hd     title (28) + mono subline + ONE tag on the right
-                       (vertical Japanese, a hanko, short meta, or an action)
-     hero    .u-hero   at most ONE form: a pill, a number, a card, a disc, a scope
-     cut     .u-cut    the slab edge: always a 28 pt rise with a 12 pt coral strip
-     slab    .u-slab   content on a 24 pt gutter, ink on sage
-   POSTER screens (launch, onboarding, lock screen, empty state) may compose
-   freely and are the only place for the 45-degree coral band and stacked pills.
-   Type: display 44 · title 28 · inline 15 (wordmark). Numbers: 88 · 40 · 28 · 15.
-   Coral: the cut, plus at most one action and small state markers.
-   Languages: Japanese in the header tag (or a hanko), French in the subline. */
+   UTILITY screens print on the striped ground, top to bottom:
+     masthead .u-hd    vertical code + title (26) + ONE tag on the right
+                       (vertical Japanese, a hanko, short meta or one action)
+                       then a span rule: "value ────── value"
+     hero     .u-hero  at most ONE form: a bar, a number, a plate, a scope, chevrons
+     divider  .hazard  a hazard bar on the gutter
+     body     .u-body  rows and frames, hairlines in ground-3, labels in condensed caps
+   POSTER screens (launch, onboarding, lock screen, empty state) compose freely.
+   Type: display 44 · title 26 · inline 15 (Saira expanded 800);
+         labels Saira condensed caps 12–14; body Saira 15; telemetry Share Tech Mono 11.
+   Coral: one signal block or one primary action per screen, plus small states.
+   Languages: Japanese in the masthead tag (or a seal); French in the span rule. */
 .u { display: flex; flex-direction: column; }
-.u > .u-hd, .u > .u-hero, .u > .u-cut, .u > .u-slab { position: relative; }
-.u-hd { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; row-gap: 7px; align-items: start; padding: 64px 24px 0; }
-.u-title { grid-column: 1; margin: 0; font-family: var(--f-display); font-stretch: 125%; font-weight: 900; font-size: 28px; line-height: .9; text-transform: uppercase; letter-spacing: -.01em; color: var(--ground-hi); }
-.u-sub { grid-column: 1; font: 400 11px/1.3 var(--f-mono); color: var(--ground-dim); }
-.u-sub .sg-fr { font-size: 12px; color: var(--on-ground); }
-.u-tag { grid-column: 2; grid-row: 1 / span 2; justify-self: end; }          /* position only */
-.u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); color: var(--ground-dim); }
+.u > .u-hd, .u > .u-hero, .u > .u-div, .u > .u-body { position: relative; }
+.u-hd { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; align-items: end; padding: 62px 24px 0; }
+.u-code { grid-column: 1; grid-row: 1; writing-mode: vertical-rl; transform: rotate(180deg); font: 400 7px/1 var(--f-mono); letter-spacing: .24em; color: var(--ground-dim); padding-bottom: 2px; }
+.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: 26px; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
+.u-tag { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
+.u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ground-dim); }
 .u-hd .sg-jp-v { color: var(--ground-dim); }
-.u-hero { padding: 22px 0 18px; }
+.u-span { grid-column: 1 / -1; margin-top: 12px; display: flex; align-items: center; gap: 10px; font: 400 11px var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--on-ground); }
+.u-span i { flex: 1; height: var(--hair); background: var(--ground-dim); }
+.u-span .sg-fr { font-size: 12px; letter-spacing: 0; }
+.u-hero { padding: 20px 0 18px; }
 .u-hero--pad { padding-left: 24px; padding-right: 24px; }
-.u-cut { flex: none; height: 40px; margin-bottom: -28px; background: var(--coral); clip-path: polygon(0 28px, 100% 0, 100% 12px, 0 40px); z-index: 1; }
-.u-slab { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 16px; padding: 46px 24px 112px; background: var(--sage); color: var(--ink); clip-path: polygon(0 28px, 100% 0, 100% 100%, 0 100%); }
-.u-slab--end { padding-bottom: 40px; }
-.u-label { display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: var(--hair) solid var(--sage-lo); font: 400 11px var(--f-mono); color: var(--ink-dim); }
-.u-dim { color: var(--ink-dim); }
-.u-sheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 24px 40px; background: var(--coral); color: #0c0c0a; clip-path: polygon(0 28px, 100% 0, 100% 100%, 0 100%); display: flex; flex-direction: column; gap: 16px; }
+.u-div { margin: 0 24px; flex: none; }
+.u-body { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 14px; padding: 18px 24px 108px; color: var(--on-ground); }
+.u-body--end { padding-bottom: 40px; }
+.u-label { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 6px; border-bottom: var(--hair) solid var(--ground-hi);
+  font-family: var(--f-sans); font-stretch: 75%; font-weight: 600; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.u-label span:last-child { font: 400 11px var(--f-mono); color: var(--ground-dim); }
+.u-dim { color: var(--ground-dim); }
+.u-sheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 40px; background: var(--coral); color: #0c0c0a; display: flex; flex-direction: column; gap: 16px;
+  clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 44px, 100% 100%, 0 100%); }
