@@ -4,7 +4,24 @@
 
 ![posters in both modes](docs/posters.png)
 
-Open `dist/index.html` in a browser for the full gallery: a poster study, 16 iPhone screens, widgets, components and language rules. Use the switch in the corner to flip modes.
+Open `dist/index.html` in a browser for the full gallery: a poster study, 17 iPhone screens on one template, widgets, components and language rules. Use the switch in the corner to flip modes.
+
+## Art direction
+
+Shingō stays unified by repeating a few decisions everywhere, not by adding ornament.
+
+1. **Two tiers.** Poster screens (launch, onboarding, lock screen, empty state) compose freely. Every other screen follows the utility template.
+2. **One template.** Header, then hero, then cut, then slab. The header holds a 28 pt title, a mono subline and exactly one tag. The hero is at most one form: a pill, a number, a card, a disc or a scope.
+3. **One cut.** Every utility slab starts with the same 28 pt rise and a 12 pt coral edge. The 45° band belongs to poster screens.
+4. **Three sizes.** Wordmark type comes in 44 (display), 28 (title) and 15 (inline) only.
+5. **One coral action.** Besides the cut, coral marks at most one action plus small states.
+6. **Tag and aside.** Japanese goes in the header tag or a seal. French goes in the subline. Each appears once at most.
+
+| template | dashboard | settings |
+|---|---|---|
+| ![](docs/dark/screen-t.png) | ![](docs/dark/screen-c.png) | ![](docs/light/screen-i.png) |
+
+On the web this is `.u`, `.u-hd`, `.u-hero`, `.u-cut` and `.u-slab` in `web/shingo.css`. In SwiftUI it's `SGUtilityScreen` and `SGCut` in `SGScreen.swift`. `tools/screens.py` regenerates the gallery screens from the same template.
 
 ## Light and dark
 
@@ -45,7 +62,8 @@ tokens/tokens.json            colours, type, geometry ratios, usage rules
 tokens/lexicon.json           EN / 日本語 / FR phrase list with readings
 web/shingo.css                light/dark tokens + components (.pill .btn .tgl .seg .chamfer .slot .barcode .tex)
 web/gallery.src.html          gallery source: poster study, 16 screens, widgets, component sheet, language rules
-tools/build.py                generates glyphs + poster SVG, exports assets, builds dist/
+tools/build.py                generates glyphs + poster SVGs, exports assets, builds dist/
+tools/screens.py              regenerates the gallery screens from the utility template
 tools/screenshot.js           renders every screen to PNG with the preinstalled Playwright
 dist/index.html               the built, self-contained gallery (open in a browser; light/dark switch)
 assets/svg/*.svg              vector glyphs; multi-colour ones as -dark/-light pairs; poster-dark/-light.svg
@@ -54,6 +72,7 @@ ios/                          Swift package "ShingoKit" (iOS 17+), all colours d
   Sources/ShingoKit/SGShapes.swift          RoundedX, DiamondMark, ChamferRect, UnitPolygon, Crosshair, ArrowNE
   Sources/ShingoKit/SGTextures.swift        StripeField (Canvas), Barcode, RingsCoil, RecordDisc, RadarScope
   Sources/ShingoKit/SGComponents.swift      NestedPill, SGButtonStyle, SGToggleStyle, SGSegmented, SGChip, SGRule, SGSlot, SGTabBar
+  Sources/ShingoKit/SGScreen.swift      SGUtilityScreen, SGCut, SGGroupLabel: the screen grammar
   Sources/ShingoKit/SGLanguage.swift        SGFont.jp/.fr, VerticalText, Hanko, HazardBar, ChevronStack, HeadProfile, YearSpan, ManifestoExample
   Sources/ShingoKit/Examples/               LaunchExample + DashboardExample with #Previews
   Sources/ShingoKit/Resources/Fonts/        Archivo + JetBrains Mono TTFs (SIL OFL)

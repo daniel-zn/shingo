@@ -27,7 +27,8 @@ const fs = require('fs');
     await p.waitForTimeout(300);
     const figs = await p.$$('.screens figure .phone');
     for (let i = 0; i < figs.length; i++) {
-      await figs[i].screenshot({ path: path.join(dir, `screen-${String.fromCharCode(97 + i)}.png`) });
+      const letter = await figs[i].evaluate(el => el.closest('figure').querySelector('figcaption b').textContent.trim()[0].toLowerCase());
+      await figs[i].screenshot({ path: path.join(dir, `screen-${letter}.png`) });
     }
     await (await p.$$('.sec'))[2].screenshot({ path: path.join(dir, 'widgets.png') });
     await (await p.$('.sheet')).screenshot({ path: path.join(dir, 'components.png') });

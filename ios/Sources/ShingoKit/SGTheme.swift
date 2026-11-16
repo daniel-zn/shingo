@@ -36,6 +36,7 @@ public enum SG {
     public static let ground3   = Color(light: 0xA1A499, dark: 0x2B2C26)   // rules / rings on the ground
     public static let onGround  = Color(light: 0x1C1D19, dark: 0xD9DBD3)   // text on the ground
     public static let groundHi  = Color(light: 0x0F100D, dark: 0xC3C6BD)   // titles & art on the ground
+    public static let groundDim = Color(light: 0x50524A, dark: 0x8E9089)   // sublines & meta on the ground
     // slabs: the lighter layer (pills, tiles, panels)
     public static let sage      = Color(light: 0xE3E5DD, dark: 0xB8BBB0)
     public static let sageHi    = Color(light: 0xF0F1EC, dark: 0xC3C6BD)
@@ -44,6 +45,7 @@ public enum SG {
     public static let sageGhost = Color(light: 0xF7F8F4, dark: 0xCDD0C7)
     // ink: text on slabs and solid objects, the same in both modes
     public static let ink       = Color(light: 0x10110E, dark: 0x0C0C0A)
+    public static let inkDim    = Color(light: 0x5A5C54, dark: 0x4D4F49)   // secondary text on slabs
     public static let inkRaised = Color(hex: 0x2B2C26)                    // pressed ink, tab-bar edge
     public static let onInk     = Color(hex: 0xC3C6BD)                    // text on ink objects
     // accent

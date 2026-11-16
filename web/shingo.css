@@ -21,31 +21,31 @@
 
 :root, .mode-dark {
   --ground: #0c0c0a;  --ground-2: #1f201b;  --ground-3: #2b2c26;
-  --on-ground: #d9dbd3;  --ground-hi: #c3c6bd;
+  --on-ground: #d9dbd3;  --ground-hi: #c3c6bd;  --ground-dim: #8e9089;
   --sage: #b8bbb0;  --sage-hi: #c3c6bd;  --sage-lo: #a9aca1;  --sage-line: #8e9089;  --sage-ghost: #cdd0c7;
-  --ink: #0c0c0a;  --coral: #ff715e;  --coral-deep: #e65b48;
+  --ink: #0c0c0a;  --ink-dim: #4d4f49;  --coral: #ff715e;  --coral-deep: #e65b48;
   color-scheme: dark;
 }
 .mode-light {
   --ground: #bcbfb4;  --ground-2: #adb0a5;  --ground-3: #a1a499;
-  --on-ground: #1c1d19;  --ground-hi: #0f100d;
+  --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #50524a;
   --sage: #e3e5dd;  --sage-hi: #f0f1ec;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
-  --ink: #10110e;  --coral: #ff715e;  --coral-deep: #e65b48;
+  --ink: #10110e;  --ink-dim: #5a5c54;  --coral: #ff715e;  --coral-deep: #e65b48;
   color-scheme: light;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --ground: #bcbfb4;  --ground-2: #adb0a5;  --ground-3: #a1a499;
-    --on-ground: #1c1d19;  --ground-hi: #0f100d;
+    --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #50524a;
     --sage: #e3e5dd;  --sage-hi: #f0f1ec;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
-    --ink: #10110e;  color-scheme: light;
+    --ink: #10110e;  --ink-dim: #5a5c54;  color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --ground: #bcbfb4;  --ground-2: #adb0a5;  --ground-3: #a1a499;
-  --on-ground: #1c1d19;  --ground-hi: #0f100d;
+  --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #50524a;
   --sage: #e3e5dd;  --sage-hi: #f0f1ec;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
-  --ink: #10110e;  color-scheme: light;
+  --ink: #10110e;  --ink-dim: #5a5c54;  color-scheme: light;
 }
 .mode-dark, .mode-light { color: var(--on-ground); }
 
@@ -174,3 +174,34 @@
 .yearspan i { flex: 1; height: 1.5px; background: currentColor; }
 .slab-cut { background: var(--coral); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); }
 .wear { filter: url(#wear); }
+
+/* ================================================== screen grammar
+   Two tiers.
+   UTILITY screens (most of an app) share one template, top to bottom:
+     header  .u-hd     title (28) + mono subline + ONE tag on the right
+                       (vertical Japanese, a hanko, short meta, or an action)
+     hero    .u-hero   at most ONE form: a pill, a number, a card, a disc, a scope
+     cut     .u-cut    the slab edge: always a 28 pt rise with a 12 pt coral strip
+     slab    .u-slab   content on a 24 pt gutter, ink on sage
+   POSTER screens (launch, onboarding, lock screen, empty state) may compose
+   freely and are the only place for the 45-degree coral band and stacked pills.
+   Type: display 44 · title 28 · inline 15 (wordmark). Numbers: 88 · 40 · 28 · 15.
+   Coral: the cut, plus at most one action and small state markers.
+   Languages: Japanese in the header tag (or a hanko), French in the subline. */
+.u { display: flex; flex-direction: column; }
+.u > .u-hd, .u > .u-hero, .u > .u-cut, .u > .u-slab { position: relative; }
+.u-hd { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; row-gap: 7px; align-items: start; padding: 64px 24px 0; }
+.u-title { grid-column: 1; margin: 0; font-family: var(--f-display); font-stretch: 125%; font-weight: 900; font-size: 28px; line-height: .9; text-transform: uppercase; letter-spacing: -.01em; color: var(--ground-hi); }
+.u-sub { grid-column: 1; font: 400 11px/1.3 var(--f-mono); color: var(--ground-dim); }
+.u-sub .sg-fr { font-size: 12px; color: var(--on-ground); }
+.u-tag { grid-column: 2; grid-row: 1 / span 2; justify-self: end; }          /* position only */
+.u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); color: var(--ground-dim); }
+.u-hd .sg-jp-v { color: var(--ground-dim); }
+.u-hero { padding: 22px 0 18px; }
+.u-hero--pad { padding-left: 24px; padding-right: 24px; }
+.u-cut { flex: none; height: 40px; margin-bottom: -28px; background: var(--coral); clip-path: polygon(0 28px, 100% 0, 100% 12px, 0 40px); z-index: 1; }
+.u-slab { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 16px; padding: 46px 24px 112px; background: var(--sage); color: var(--ink); clip-path: polygon(0 28px, 100% 0, 100% 100%, 0 100%); }
+.u-slab--end { padding-bottom: 40px; }
+.u-label { display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: var(--hair) solid var(--sage-lo); font: 400 11px var(--f-mono); color: var(--ink-dim); }
+.u-dim { color: var(--ink-dim); }
+.u-sheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 24px 40px; background: var(--coral); color: #0c0c0a; clip-path: polygon(0 28px, 100% 0, 100% 100%, 0 100%); display: flex; flex-direction: column; gap: 16px; }
