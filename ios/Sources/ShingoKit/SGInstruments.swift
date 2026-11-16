@@ -21,16 +21,16 @@ public struct SGSegDisplay: View {
                                            "6": "afgedc", "7": "abc", "8": "abcdefg", "9": "abcdfg", "-": "g", " ": ""]
 
     private var unitWidth: CGFloat {
-        text.reduce(CGFloat(0)) { $0 + (($1 == "." || $1 == ":") ? 15 : 44) } - 8 + 10
+        text.reduce(CGFloat(0)) { $0 + (($1 == "." || $1 == ":") ? 16 : 53) } - 9 + 10
     }
 
     public var body: some View {
         Canvas { ctx, size in
-            let s = size.height / 64
+            let s = size.height / 60
             ctx.translateBy(x: 7 * s, y: 0)
             ctx.concatenate(CGAffineTransform(a: 1, b: 0, c: -0.1051, d: 1, tx: 0, ty: 0)) // skewX(-6°)
             ctx.scaleBy(x: s, y: s)
-            let t: CGFloat = 5.2, w: CGFloat = 36, h: CGFloat = 64, g: CGFloat = 1.3
+            let t: CGFloat = 5.6, w: CGFloat = 44, h: CGFloat = 60, g: CGFloat = 1.3
             func hseg(_ x0: CGFloat, _ x1: CGFloat, _ yc: CGFloat) -> Path {
                 Path { p in p.addLines([CGPoint(x: x0, y: yc), CGPoint(x: x0 + t/2, y: yc - t/2), CGPoint(x: x1 - t/2, y: yc - t/2),
                                         CGPoint(x: x1, y: yc), CGPoint(x: x1 - t/2, y: yc + t/2), CGPoint(x: x0 + t/2, y: yc + t/2)]); p.closeSubpath() }
@@ -47,20 +47,20 @@ public struct SGSegDisplay: View {
             for (i, ch) in text.enumerated() {
                 let lit: Color = hot.contains(i) ? SG.coral : SG.groundHi
                 if ch == "." {
-                    ctx.fill(Path(CGRect(x: x, y: h - 7, width: 7, height: 7)), with: .color(lit)); x += 15; continue
+                    ctx.fill(Path(CGRect(x: x, y: h - 7, width: 7, height: 7)), with: .color(lit)); x += 16; continue
                 }
                 if ch == ":" {
                     ctx.fill(Path(CGRect(x: x, y: h * 0.28, width: 7, height: 7)), with: .color(lit))
-                    ctx.fill(Path(CGRect(x: x, y: h * 0.64, width: 7, height: 7)), with: .color(lit)); x += 15; continue
+                    ctx.fill(Path(CGRect(x: x, y: h * 0.64, width: 7, height: 7)), with: .color(lit)); x += 16; continue
                 }
                 let on = Self.map[ch] ?? ""
                 for (k, path) in segs where on.contains(k) || ghost {
                     ctx.fill(path.offsetBy(dx: x, dy: 0), with: .color(on.contains(k) ? lit : SG.ground3))
                 }
-                x += 44
+                x += 53
             }
         }
-        .frame(width: height * unitWidth / 64, height: height)
+        .frame(width: height * unitWidth / 60, height: height)
         .accessibilityLabel(Text(text))
     }
 }
@@ -300,7 +300,7 @@ public struct SGKeycapStyle: ButtonStyle {
         ZStack {
             ChamferRect(cut: 14).fill(print ? SG.groundDim : SG.coralDeep).padding(.top, 3)
             HStack {
-                configuration.label.font(SGFont.title(22)).textCase(.uppercase).tracking(1.3)
+                configuration.label.font(SGFont.title(18)).textCase(.uppercase).tracking(0.4)
                 Spacer()
                 if !hint.isEmpty { Text(hint).sgMono(10) }
                 Rectangle().fill(SG.inkFixed).frame(width: 8, height: 8)

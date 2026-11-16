@@ -1,6 +1,6 @@
 # Shingō 信号
 
-*Shingō* is Japanese for "signal". It's an industrial interface system for iOS and the web. Interfaces are **printed** on a striped ground in hard, industrial signage type: 45° cuts, hazard bars, chevrons, barcodes, seven-segment readouts, stencil serials and mono telemetry, with one coral signal per screen. English leads, with Japanese and French woven in sparingly. Every screen ships in light and dark.
+*Shingō* is Japanese for "signal". It's an industrial interface system for iOS and the web. Interfaces are **printed** on a striped ground in wide, short, hard type: 45° cuts, hazard bars, chevrons, barcodes, seven-segment readouts, stencil serials and mono telemetry, with one coral signal per screen. English leads, with Japanese and French woven in sparingly. Every screen ships in light and dark.
 
 ![key art in both modes](docs/keyart.png)
 
@@ -13,7 +13,7 @@ The look is sci-fi industrial, after a trilingual technical print, in the sage, 
 1. **Print on the ground.** Content prints straight onto the stripes. Filled plates are only for things you press or carry: keys, cards, badges.
 2. **One angle.** Every diagonal is 45°: corner cuts, hazard stripes, chevrons and the stripe field. Cuts sit on the top-right and bottom-left axis at 6, 12 or 24 pt. Nothing is rounded except radar rings.
 3. **One grammar.** Utility screens go masthead, then one hero, then a hazard bar, then the body. The masthead holds a vertical micro-code, a 26 pt title, exactly one tag and a span rule (`08:14 ────── LIS-04`). Poster screens (launch, onboarding, lock screen, empty state) compose freely.
-4. **Hard type.** Industrial signage faces only. Big Shoulders Display for display wordmarks (44 pt and up), with its stencil cut for serials and stamps. Barlow Condensed (DIN-like) for titles (26), inline wordmarks (15), labels and numbers. Barlow for body text, IBM Plex Mono for telemetry, and BIZ UDGothic for kanji (Hiragino Sans on iOS). Big numbers are thin seven-segment readouts.
+4. **Wide, short, hard type.** One grotesk at three widths: Anybody Extra-Expanded ExtraBold for display (40 pt), Anybody Expanded for titles (22), inline wordmarks (14), labels and numbers, and Anybody at normal width for body text. Saira Stencil One stamps serials, IBM Plex Mono carries telemetry, and BIZ UDGothic sets kanji (Hiragino Sans on iOS). Big numbers are wide seven-segment readouts. Nothing is condensed or rounded.
 5. **One signal.** Coral marks one block or one primary action per screen, plus small states like unread and the active tab.
 6. **Tag and aside.** Japanese goes in the masthead tag or a seal. French goes in the span rule. Each appears once at most. All three languages stack only once per app, on the lock screen.
 
@@ -61,7 +61,7 @@ ios/                          Swift package "ShingoKit" (iOS 17+), all colours d
   Sources/ShingoKit/SGInstruments.swift  SGSegDisplay, SGCellMeter, SGRuler, SGSteps, SGIndexTabs, SGCaution, SGStamp, SGTicket, SGKeycapStyle, SGRockerStyle, SGDataPlate, SGSpecRow, SGMatrixCode, .printMarks(), SGColorBar, SGTicker, SGBootLog, SGLamps, SGBlueprint, SGCallout, SGWave
   Sources/ShingoKit/SGLanguage.swift    VerticalText, Hanko, HazardBar, ChevronStack, HeadProfile, YearSpan, ManifestoExample
   Sources/ShingoKit/Examples/           LaunchExample, DashboardExample, IntervalExample with light/dark #Previews
-  Sources/ShingoKit/Resources/Fonts/    Big Shoulders Display + Stencil, Barlow, Barlow Condensed, IBM Plex Mono (SIL OFL)
+  Sources/ShingoKit/Resources/Fonts/    Anybody (3 widths + italic), Saira Stencil One, IBM Plex Mono (SIL OFL)
 docs/                         screenshots of every screen in docs/dark and docs/light
 ```
 
@@ -143,4 +143,4 @@ It was first measured against `nexu-io/open-design`'s brutalist skill, a text-on
 
 ## Fonts
 
-Big Shoulders Display, Big Shoulders Stencil Display, Barlow, Barlow Condensed and IBM Plex Mono are licensed under the SIL Open Font License 1.1. You may bundle them in an app. Japanese uses Hiragino Sans, which ships with iOS, and BIZ UDGothic on the web. BIZ UDGothic isn't bundled because it's 4 MB.
+Anybody, Saira Stencil One and IBM Plex Mono are licensed under the SIL Open Font License 1.1. You may bundle them in an app. Japanese uses Hiragino Sans, which ships with iOS, and BIZ UDGothic on the web. BIZ UDGothic isn't bundled because it's 4 MB.

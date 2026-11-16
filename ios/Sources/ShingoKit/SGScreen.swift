@@ -16,9 +16,9 @@ import SwiftUI
 // Languages: Japanese in the masthead tag or a seal; French in the span rule.
 
 public enum SGMetrics {
-    public static let display: CGFloat = 44
-    public static let title: CGFloat = 26
-    public static let inline: CGFloat = 15
+    public static let display: CGFloat = 40
+    public static let title: CGFloat = 22
+    public static let inline: CGFloat = 14
 }
 
 /// What goes in the masthead's single right-hand slot.

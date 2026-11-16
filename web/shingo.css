@@ -2,8 +2,8 @@
    SHINGŌ 信号 — industrial print system (web reference implementation)
 
    Direction: sci-fi industrial. Content is PRINTED on a striped ground,
-   set in hard industrial signage type (Big Shoulders, Barlow, IBM Plex Mono,
-   a stencil cut),
+   set in wide, short, hard type (Anybody at three widths, IBM Plex Mono,
+   a wide stencil),
    like a technical garment print: hard edges, 45° chamfers, hazard bars,
    chevrons, barcodes, corner brackets, mono telemetry, one coral signal.
 
@@ -57,14 +57,14 @@
 .mode-dark, .mode-light { color: var(--on-ground); }
 
 :root {
-  /* ---- type: hard, industrial signage ---- */
-  --f-display: "Big Shoulders Display", "Barlow Condensed", "Arial Narrow", sans-serif; /* 800: display 40 pt+ */
-  --f-title: "Barlow Condensed", "Arial Narrow", sans-serif;          /* 700: titles 26, inline 15, numerals */
-  --f-cap: "Barlow Condensed", "Arial Narrow", sans-serif;            /* 600 caps: labels, buttons */
-  --f-sans: "Barlow", "Helvetica Neue", Arial, sans-serif;            /* 500: body */
-  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace; /* 500: telemetry */
-  --f-stencil: "Big Shoulders Stencil Display", "Big Shoulders Display", sans-serif; /* serials, stamps */
-  --f-fr: "Barlow", "Helvetica Neue", sans-serif;                     /* italic 500: French asides */
+  /* ---- type: wide, short, hard ---- */
+  --f-display: "Anybody", "Eurostile Extended", "Arial Black", sans-serif;   /* 150% / 800: display 40 pt+ */
+  --f-title: "Anybody", "Eurostile Extended", "Arial", sans-serif;           /* 125% / 700: titles, inline, numerals */
+  --f-cap: "Anybody", "Eurostile Extended", "Arial", sans-serif;             /* 125% / 600 caps: labels, buttons */
+  --f-sans: "Anybody", "Helvetica Neue", Arial, sans-serif;                  /* 100% / 500: body */
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;      /* 500: telemetry */
+  --f-stencil: "Saira Stencil One", "Anybody", sans-serif;                   /* wide stencil: serials, stamps */
+  --f-fr: "Anybody", "Helvetica Neue", sans-serif;                           /* italic 500: French asides */
   --f-jp: "BIZ UDGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; /* 700: signage kanji */
 
   /* ---- geometry ---- */
@@ -75,12 +75,12 @@
 }
 
 /* ------------------------------------------------------------------ type */
-.sg-display  { font-family: var(--f-display); font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: .86; }   /* 40 pt and up */
-.sg-wordmark { font-family: var(--f-title); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; line-height: .92; }                        /* titles 26, inline 15 */
-.sg-cap      { font-family: var(--f-cap); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; line-height: 1.1; }
+.sg-display  { font-family: var(--f-display); font-stretch: 150%; font-weight: 800; text-transform: uppercase; letter-spacing: 0; line-height: .9; }   /* 40 pt and up */
+.sg-wordmark { font-family: var(--f-title); font-stretch: 125%; font-weight: 700; text-transform: uppercase; letter-spacing: .01em; line-height: .95; }                        /* titles 26, inline 15 */
+.sg-cap      { font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; line-height: 1.1; }
 .sg-label    { font-family: var(--f-sans); font-weight: 500; letter-spacing: 0; line-height: 1.25; }
-.sg-num      { font-family: var(--f-title); font-weight: 700; letter-spacing: .01em; font-variant-numeric: tabular-nums; line-height: 1; }
-.sg-stencil  { font-family: var(--f-stencil); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; line-height: .9; }
+.sg-num      { font-family: var(--f-title); font-stretch: 125%; font-weight: 700; letter-spacing: .01em; font-variant-numeric: tabular-nums; line-height: 1; }
+.sg-stencil  { font-family: var(--f-stencil); font-weight: 400; text-transform: uppercase; letter-spacing: .02em; line-height: .9; }
 .sg-mono     { font-family: var(--f-mono); font-weight: 500; font-size: 11px; line-height: 1.3; letter-spacing: 0; }
 .sg-ghost    { color: var(--sage-ghost); }
 .t-right     { text-align: right; }
@@ -132,7 +132,7 @@
 
 /* -------------------------------------------------------------- buttons */
 .btn { all: unset; box-sizing: border-box; position: relative; isolation: isolate; height: 48px; padding: 0 22px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
-  font-family: var(--f-cap); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: .12em;
+  font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
   --c: 10px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
   background: var(--ground-hi); color: var(--ground); }
 .btn:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
@@ -221,16 +221,16 @@
      divider  .hazard  a hazard bar on the gutter
      body     .u-body  rows and frames, hairlines in ground-3, labels in condensed caps
    POSTER screens (launch, onboarding, lock screen, empty state) compose freely.
-   Type: display 44+ (Big Shoulders 800) · title 26 · inline 15 (Barlow Condensed 700);
-         labels Barlow Condensed caps 12–14; body Barlow 15; telemetry IBM Plex Mono 11;
-         numerals as thin seven-segment readouts or the stencil; kanji in BIZ UDGothic.
+   Type: display 40 (Anybody 150% 800) · title 22 · inline 14 (Anybody 125% 700);
+         labels Anybody 125% caps 10–12; body Anybody 15; telemetry IBM Plex Mono 11;
+         numerals as seven-segment readouts or the wide stencil; kanji in BIZ UDGothic.
    Coral: one signal block or one primary action per screen, plus small states.
    Languages: Japanese in the masthead tag (or a seal); French in the span rule. */
 .u { display: flex; flex-direction: column; }
 .u > .u-hd, .u > .u-hero, .u > .u-div, .u > .u-body { position: relative; }
 .u-hd { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; align-items: end; padding: 60px 24px 0; }
 .u-code { grid-column: 1; grid-row: 1; writing-mode: vertical-rl; transform: rotate(180deg); font: 400 7px/1 var(--f-mono); letter-spacing: .24em; color: var(--ground-dim); padding-bottom: 2px; }
-.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-title); font-weight: 700; font-size: 26px; letter-spacing: .03em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
+.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-title); font-stretch: 125%; font-weight: 700; font-size: 22px; letter-spacing: .01em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
 .u-tag { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
 .u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ground-dim); }
 .u-hd .sg-jp-v { color: var(--ground-dim); font-size: 12px; }
@@ -243,7 +243,7 @@
 .u-body { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 14px; padding: 18px 24px 108px; color: var(--on-ground); }
 .u-body--end { padding-bottom: 40px; }
 .u-label { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 6px; border-bottom: var(--hair) solid var(--ground-hi);
-  font-family: var(--f-cap); font-weight: 600; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+  font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
 .u-label span:last-child { font: 400 11px var(--f-mono); color: var(--ground-dim); }
 .u-dim { color: var(--ground-dim); }
 .u-sheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 40px; background: var(--coral); color: #0c0c0a; display: flex; flex-direction: column; gap: 16px;
@@ -277,7 +277,7 @@
 /* chevron steps: a process as arrows */
 .steps { display: flex; gap: 3px; list-style: none; margin: 0; padding: 0; }
 .steps li { flex: 1; height: 30px; display: grid; place-items: center; padding-left: 6px; background: var(--ground-3); color: var(--ground-dim);
-  font: 600 11px var(--f-cap); letter-spacing: .14em; text-transform: uppercase;
+  font: 600 expanded 11px var(--f-cap); letter-spacing: .06em; text-transform: uppercase;
   clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 50%, calc(100% - 11px) 100%, 0 100%, 11px 50%); }
 .steps li:first-child { clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 50%, calc(100% - 11px) 100%, 0 100%); padding-left: 0; }
 .steps .done { background: var(--ground-hi); color: var(--ground); }
@@ -286,7 +286,7 @@
 /* index tabs: manual-divider tabs on a print rule */
 .itabs { display: flex; gap: 4px; border-bottom: 2px solid var(--ground-hi); }
 .itabs button { all: unset; cursor: pointer; padding: 8px 18px 6px 12px; background: var(--ground-3); color: var(--ground-dim);
-  font: 600 11px var(--f-cap); letter-spacing: .14em; text-transform: uppercase;
+  font: 600 expanded 11px var(--f-cap); letter-spacing: .06em; text-transform: uppercase;
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); }
 .itabs button[aria-pressed="true"] { background: var(--ground-hi); color: var(--ground); }
 .itabs button:focus-visible { outline: 2px solid var(--coral); outline-offset: -2px; }
@@ -295,12 +295,12 @@
 .caution { padding: 5px; background: repeating-linear-gradient(-45deg, var(--coral) 0 8px, #0c0c0a 8px 16px); }
 .caution > div { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 12px; align-items: start; padding: 12px 14px; background: var(--ground); }
 .caution svg { width: 30px; height: 30px; color: var(--coral); grid-row: span 2; }
-.caution b { font: 600 13px var(--f-cap); letter-spacing: .14em; text-transform: uppercase; color: var(--ground-hi); }
+.caution b { font: 600 expanded 12px var(--f-cap); letter-spacing: .08em; text-transform: uppercase; color: var(--ground-hi); }
 .caution p { margin: 0; font: 400 11px/1.45 var(--f-mono); color: var(--on-ground); }
 
 /* rubber stamp: stencil caps in a double frame, worn */
 .stamp { display: inline-grid; place-items: center; padding: 5px 10px 4px; --st: var(--coral); --gap: var(--ground); color: var(--st);
-  border: 2px solid var(--st); font: 800 17px/1 var(--f-stencil); letter-spacing: .16em; text-transform: uppercase; transform: rotate(-2deg); filter: url(#wear); }
+  border: 2px solid var(--st); font: 400 15px/1 var(--f-stencil); letter-spacing: .1em; text-transform: uppercase; transform: rotate(-2deg); filter: url(#wear); }
 
 /* ticket stub: plate with square notches and a perforation */
 .ticket { --stub: 92px; display: grid; grid-template-columns: minmax(0, 1fr) var(--stub); background: var(--sage-hi); color: var(--ink);
@@ -311,7 +311,7 @@
 
 /* keycap: a physical push button, top plate over a shadow plate */
 .keycap { all: unset; box-sizing: border-box; position: relative; isolation: isolate; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  width: 100%; height: 64px; padding: 0 20px 3px; color: #0c0c0a; font: 700 22px var(--f-title); letter-spacing: .06em; text-transform: uppercase; }
+  width: 100%; height: 64px; padding: 0 20px 3px; color: #0c0c0a; font: 700 expanded 22px var(--f-title); letter-spacing: .06em; text-transform: uppercase; }
 .keycap::before, .keycap::after { content: ""; position: absolute; z-index: -1; --c: 14px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
 .keycap::before { inset: 3px 0 0; background: var(--kc-shade, var(--coral-deep)); }
 .keycap::after { inset: 0 0 3px; background: var(--kc, var(--coral)); transition: transform .08s; }

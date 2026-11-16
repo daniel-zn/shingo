@@ -2,14 +2,14 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Big+Shoulders+Stencil+Display:wght@800&family=Barlow+Condensed:wght@600;700&family=Barlow:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900&family=Saira+Stencil+One&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@700&display=swap">
 <style>
 /* ==========================================================================
    SHINGŌ 信号 — industrial print system (web reference implementation)
 
    Direction: sci-fi industrial. Content is PRINTED on a striped ground,
-   set in hard industrial signage type (Big Shoulders, Barlow, IBM Plex Mono,
-   a stencil cut),
+   set in wide, short, hard type (Anybody at three widths, IBM Plex Mono,
+   a wide stencil),
    like a technical garment print: hard edges, 45° chamfers, hazard bars,
    chevrons, barcodes, corner brackets, mono telemetry, one coral signal.
 
@@ -63,14 +63,14 @@
 .mode-dark, .mode-light { color: var(--on-ground); }
 
 :root {
-  /* ---- type: hard, industrial signage ---- */
-  --f-display: "Big Shoulders Display", "Barlow Condensed", "Arial Narrow", sans-serif; /* 800: display 40 pt+ */
-  --f-title: "Barlow Condensed", "Arial Narrow", sans-serif;          /* 700: titles 26, inline 15, numerals */
-  --f-cap: "Barlow Condensed", "Arial Narrow", sans-serif;            /* 600 caps: labels, buttons */
-  --f-sans: "Barlow", "Helvetica Neue", Arial, sans-serif;            /* 500: body */
-  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace; /* 500: telemetry */
-  --f-stencil: "Big Shoulders Stencil Display", "Big Shoulders Display", sans-serif; /* serials, stamps */
-  --f-fr: "Barlow", "Helvetica Neue", sans-serif;                     /* italic 500: French asides */
+  /* ---- type: wide, short, hard ---- */
+  --f-display: "Anybody", "Eurostile Extended", "Arial Black", sans-serif;   /* 150% / 800: display 40 pt+ */
+  --f-title: "Anybody", "Eurostile Extended", "Arial", sans-serif;           /* 125% / 700: titles, inline, numerals */
+  --f-cap: "Anybody", "Eurostile Extended", "Arial", sans-serif;             /* 125% / 600 caps: labels, buttons */
+  --f-sans: "Anybody", "Helvetica Neue", Arial, sans-serif;                  /* 100% / 500: body */
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;      /* 500: telemetry */
+  --f-stencil: "Saira Stencil One", "Anybody", sans-serif;                   /* wide stencil: serials, stamps */
+  --f-fr: "Anybody", "Helvetica Neue", sans-serif;                           /* italic 500: French asides */
   --f-jp: "BIZ UDGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; /* 700: signage kanji */
 
   /* ---- geometry ---- */
@@ -81,12 +81,12 @@
 }
 
 /* ------------------------------------------------------------------ type */
-.sg-display  { font-family: var(--f-display); font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: .86; }   /* 40 pt and up */
-.sg-wordmark { font-family: var(--f-title); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; line-height: .92; }                        /* titles 26, inline 15 */
-.sg-cap      { font-family: var(--f-cap); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; line-height: 1.1; }
+.sg-display  { font-family: var(--f-display); font-stretch: 150%; font-weight: 800; text-transform: uppercase; letter-spacing: 0; line-height: .9; }   /* 40 pt and up */
+.sg-wordmark { font-family: var(--f-title); font-stretch: 125%; font-weight: 700; text-transform: uppercase; letter-spacing: .01em; line-height: .95; }                        /* titles 26, inline 15 */
+.sg-cap      { font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; line-height: 1.1; }
 .sg-label    { font-family: var(--f-sans); font-weight: 500; letter-spacing: 0; line-height: 1.25; }
-.sg-num      { font-family: var(--f-title); font-weight: 700; letter-spacing: .01em; font-variant-numeric: tabular-nums; line-height: 1; }
-.sg-stencil  { font-family: var(--f-stencil); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; line-height: .9; }
+.sg-num      { font-family: var(--f-title); font-stretch: 125%; font-weight: 700; letter-spacing: .01em; font-variant-numeric: tabular-nums; line-height: 1; }
+.sg-stencil  { font-family: var(--f-stencil); font-weight: 400; text-transform: uppercase; letter-spacing: .02em; line-height: .9; }
 .sg-mono     { font-family: var(--f-mono); font-weight: 500; font-size: 11px; line-height: 1.3; letter-spacing: 0; }
 .sg-ghost    { color: var(--sage-ghost); }
 .t-right     { text-align: right; }
@@ -138,7 +138,7 @@
 
 /* -------------------------------------------------------------- buttons */
 .btn { all: unset; box-sizing: border-box; position: relative; isolation: isolate; height: 48px; padding: 0 22px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
-  font-family: var(--f-cap); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: .12em;
+  font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
   --c: 10px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
   background: var(--ground-hi); color: var(--ground); }
 .btn:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
@@ -227,16 +227,16 @@
      divider  .hazard  a hazard bar on the gutter
      body     .u-body  rows and frames, hairlines in ground-3, labels in condensed caps
    POSTER screens (launch, onboarding, lock screen, empty state) compose freely.
-   Type: display 44+ (Big Shoulders 800) · title 26 · inline 15 (Barlow Condensed 700);
-         labels Barlow Condensed caps 12–14; body Barlow 15; telemetry IBM Plex Mono 11;
-         numerals as thin seven-segment readouts or the stencil; kanji in BIZ UDGothic.
+   Type: display 40 (Anybody 150% 800) · title 22 · inline 14 (Anybody 125% 700);
+         labels Anybody 125% caps 10–12; body Anybody 15; telemetry IBM Plex Mono 11;
+         numerals as seven-segment readouts or the wide stencil; kanji in BIZ UDGothic.
    Coral: one signal block or one primary action per screen, plus small states.
    Languages: Japanese in the masthead tag (or a seal); French in the span rule. */
 .u { display: flex; flex-direction: column; }
 .u > .u-hd, .u > .u-hero, .u > .u-div, .u > .u-body { position: relative; }
 .u-hd { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; align-items: end; padding: 60px 24px 0; }
 .u-code { grid-column: 1; grid-row: 1; writing-mode: vertical-rl; transform: rotate(180deg); font: 400 7px/1 var(--f-mono); letter-spacing: .24em; color: var(--ground-dim); padding-bottom: 2px; }
-.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-title); font-weight: 700; font-size: 26px; letter-spacing: .03em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
+.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-title); font-stretch: 125%; font-weight: 700; font-size: 22px; letter-spacing: .01em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
 .u-tag { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
 .u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ground-dim); }
 .u-hd .sg-jp-v { color: var(--ground-dim); font-size: 12px; }
@@ -249,7 +249,7 @@
 .u-body { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 14px; padding: 18px 24px 108px; color: var(--on-ground); }
 .u-body--end { padding-bottom: 40px; }
 .u-label { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 6px; border-bottom: var(--hair) solid var(--ground-hi);
-  font-family: var(--f-cap); font-weight: 600; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+  font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
 .u-label span:last-child { font: 400 11px var(--f-mono); color: var(--ground-dim); }
 .u-dim { color: var(--ground-dim); }
 .u-sheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 40px; background: var(--coral); color: #0c0c0a; display: flex; flex-direction: column; gap: 16px;
@@ -283,7 +283,7 @@
 /* chevron steps: a process as arrows */
 .steps { display: flex; gap: 3px; list-style: none; margin: 0; padding: 0; }
 .steps li { flex: 1; height: 30px; display: grid; place-items: center; padding-left: 6px; background: var(--ground-3); color: var(--ground-dim);
-  font: 600 11px var(--f-cap); letter-spacing: .14em; text-transform: uppercase;
+  font: 600 expanded 11px var(--f-cap); letter-spacing: .06em; text-transform: uppercase;
   clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 50%, calc(100% - 11px) 100%, 0 100%, 11px 50%); }
 .steps li:first-child { clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 50%, calc(100% - 11px) 100%, 0 100%); padding-left: 0; }
 .steps .done { background: var(--ground-hi); color: var(--ground); }
@@ -292,7 +292,7 @@
 /* index tabs: manual-divider tabs on a print rule */
 .itabs { display: flex; gap: 4px; border-bottom: 2px solid var(--ground-hi); }
 .itabs button { all: unset; cursor: pointer; padding: 8px 18px 6px 12px; background: var(--ground-3); color: var(--ground-dim);
-  font: 600 11px var(--f-cap); letter-spacing: .14em; text-transform: uppercase;
+  font: 600 expanded 11px var(--f-cap); letter-spacing: .06em; text-transform: uppercase;
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); }
 .itabs button[aria-pressed="true"] { background: var(--ground-hi); color: var(--ground); }
 .itabs button:focus-visible { outline: 2px solid var(--coral); outline-offset: -2px; }
@@ -301,12 +301,12 @@
 .caution { padding: 5px; background: repeating-linear-gradient(-45deg, var(--coral) 0 8px, #0c0c0a 8px 16px); }
 .caution > div { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 12px; align-items: start; padding: 12px 14px; background: var(--ground); }
 .caution svg { width: 30px; height: 30px; color: var(--coral); grid-row: span 2; }
-.caution b { font: 600 13px var(--f-cap); letter-spacing: .14em; text-transform: uppercase; color: var(--ground-hi); }
+.caution b { font: 600 expanded 12px var(--f-cap); letter-spacing: .08em; text-transform: uppercase; color: var(--ground-hi); }
 .caution p { margin: 0; font: 400 11px/1.45 var(--f-mono); color: var(--on-ground); }
 
 /* rubber stamp: stencil caps in a double frame, worn */
 .stamp { display: inline-grid; place-items: center; padding: 5px 10px 4px; --st: var(--coral); --gap: var(--ground); color: var(--st);
-  border: 2px solid var(--st); font: 800 17px/1 var(--f-stencil); letter-spacing: .16em; text-transform: uppercase; transform: rotate(-2deg); filter: url(#wear); }
+  border: 2px solid var(--st); font: 400 15px/1 var(--f-stencil); letter-spacing: .1em; text-transform: uppercase; transform: rotate(-2deg); filter: url(#wear); }
 
 /* ticket stub: plate with square notches and a perforation */
 .ticket { --stub: 92px; display: grid; grid-template-columns: minmax(0, 1fr) var(--stub); background: var(--sage-hi); color: var(--ink);
@@ -317,7 +317,7 @@
 
 /* keycap: a physical push button, top plate over a shadow plate */
 .keycap { all: unset; box-sizing: border-box; position: relative; isolation: isolate; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  width: 100%; height: 64px; padding: 0 20px 3px; color: #0c0c0a; font: 700 22px var(--f-title); letter-spacing: .06em; text-transform: uppercase; }
+  width: 100%; height: 64px; padding: 0 20px 3px; color: #0c0c0a; font: 700 expanded 22px var(--f-title); letter-spacing: .06em; text-transform: uppercase; }
 .keycap::before, .keycap::after { content: ""; position: absolute; z-index: -1; --c: 14px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
 .keycap::before { inset: 3px 0 0; background: var(--kc-shade, var(--coral-deep)); }
 .keycap::after { inset: 0 0 3px; background: var(--kc, var(--coral)); transition: transform .08s; }
@@ -411,7 +411,7 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 .hd { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px; align-items: end; padding-bottom: 28px; }
 .hd-mark { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
 .hd-mark .u-code { font-size: 8px; padding-bottom: 6px; }
-.hd h1 { margin: 0; font-size: clamp(38px, 10vw, 138px); color: var(--ground-hi); line-height: .82; }
+.hd h1 { margin: 0; font-size: clamp(30px, 7.2vw, 96px); color: var(--ground-hi); line-height: .82; }
 .hd-jp { font-size: clamp(22px, 3vw, 40px); color: var(--coral); align-self: flex-start; }
 .hd .yearspan { margin-top: 18px; color: var(--ground-hi); font-size: 20px; }
 .hd .lede { font-size: 18px; line-height: 1.45; max-width: 56ch; margin: 18px 0 0; color: var(--on-ground); }
@@ -429,7 +429,7 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 .sec { padding-top: 64px; }
 .sec-h { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 18px; align-items: end; margin-bottom: 26px; }
 .sec-h .sg-num { color: var(--coral); font-size: 22px; grid-row: span 2; align-self: start; padding-top: 6px; }
-.sec-h h2 { margin: 0; font-size: clamp(28px, 4vw, 44px); color: var(--ground-hi); }
+.sec-h h2 { margin: 0; font-size: clamp(22px, 3.2vw, 38px); color: var(--ground-hi); }
 .sec-h .sg-mono { color: var(--ground-dim); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
 
 /* key art */
@@ -439,13 +439,13 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 .ka-in { position: absolute; inset: 6cqw; display: grid; grid-template-columns: minmax(0, 1fr) 21cqw; grid-template-rows: auto auto auto auto 1fr auto auto; column-gap: 5cqw; row-gap: 3.2cqw; }
 .ka-mast { grid-column: 1 / -1; display: flex; align-items: flex-end; gap: 2cqw; }
 .ka-mast .u-code { font-size: 1.3cqw; padding-bottom: 1cqw; }
-.ka-mast .sg-display { font-size: 25cqw; line-height: .8; }
+.ka-mast .sg-display { font-size: 15.5cqw; line-height: .8; }
 .ka-slab { height: 10cqw; }
 .ka-head { display: grid; place-items: center; }
 .ka-head svg { width: 12cqw; height: 12cqw; }
 .ka-year { grid-column: 1 / -1; font-size: 3.6cqw; }
 .ka-trio { display: grid; gap: .6cqw; align-content: start; }
-.ka-trio .sg-label { font-family: var(--f-title); font-size: 5.4cqw; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; line-height: 1; }
+.ka-trio .sg-label { font-family: var(--f-title); font-stretch: 125%; font-size: 3.6cqw; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; line-height: 1; }
 .ka-trio .sg-jp { font-size: 4.3cqw; }
 .ka-side { grid-row: 4 / 6; grid-column: 2; display: flex; flex-direction: column; gap: 3cqw; align-items: stretch; }
 .ka-side .sg-num { font-size: 6cqw; text-align: right; }
@@ -456,31 +456,31 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 .ka-chev svg { width: 100%; height: auto; display: block; }
 .ka-haz { grid-column: 1 / -1; height: 4.4cqw; padding-block: .8cqw; }
 .ka-foot { grid-column: 1 / -1; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4cqw; align-items: end; }
-.ka-foot .sg-label { font-family: var(--f-title); font-size: 3.8cqw; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.ka-foot .sg-label { font-family: var(--f-title); font-stretch: 125%; font-size: 3cqw; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
 .ka-foot .sg-mono { font-size: 1.6cqw; color: var(--ground-dim); margin-top: .8cqw; }
 .ka-foot .barcode--v { height: 7cqw; --bc: var(--ground-hi); }
 figcaption.cap { display: flex; justify-content: space-between; gap: 12px; }
-figcaption.cap b { font: 600 13px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+figcaption.cap b { font: 600 expanded 13px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 figcaption.cap span { font: 400 11px var(--f-mono); color: var(--ground-dim); text-transform: uppercase; }
 
 /* anatomy */
 .anatomy { margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .anatomy > div { background: var(--ground); padding: 16px; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; align-items: start; }
 .anatomy .sw { width: 64px; height: 56px; display: grid; place-items: center; }
-.anatomy h3 { margin: 0 0 4px; font: 600 14px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.anatomy h3 { margin: 0 0 4px; font: 600 expanded 14px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .anatomy p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--on-ground); }
 .anatomy code { font-family: var(--f-mono); font-size: 11px; color: var(--coral); }
 
 /* screens */
 .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); margin-bottom: 40px; }
 .rules > div { background: var(--ground); padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
-.rules b { font: 600 14px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.rules b { font: 600 expanded 14px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .rules p { margin: 0; font-size: 13px; line-height: 1.45; color: var(--on-ground); }
 .rules i { font: normal 400 11px var(--f-mono); color: var(--coral); }
 .screens { display: grid; grid-template-columns: repeat(auto-fill, minmax(410px, 1fr)); gap: 56px 32px; justify-items: center; }
 .screens figure { margin: 0; display: grid; gap: 16px; justify-items: center; }
 .screens figcaption { width: 410px; max-width: 100%; display: grid; gap: 4px; }
-.screens figcaption b { font: 600 14px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.screens figcaption b { font: 600 expanded 14px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .screens figcaption span { font: 400 11.5px/1.45 var(--f-mono); color: var(--ground-dim); }
 em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-transform: uppercase; letter-spacing: .08em; }
 
@@ -498,7 +498,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .home { bottom: 8px; left: 50%; width: 138px; height: 5px; margin-left: -69px; border-radius: 3px; background: var(--hb, var(--on-ground)); z-index: 30; }
 
 .tabbar { left: 16px; right: 16px; bottom: 24px; height: 60px; padding: 0; --c: 12px; --line: var(--ground-3); --fill: var(--ground); display: flex; justify-content: space-around; align-items: center; z-index: 25; }
-.tabbar a { display: grid; justify-items: center; gap: 4px; color: var(--ground-dim); text-decoration: none; font: 600 10px var(--f-cap); letter-spacing: .14em; text-transform: uppercase; }
+.tabbar a { display: grid; justify-items: center; gap: 4px; color: var(--ground-dim); text-decoration: none; font: 600 expanded 10px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; }
 .tabbar a::before { content: ""; width: 18px; height: 3px; background: transparent; }
 .tabbar a svg { width: 20px; height: 20px; }
 .tabbar a[aria-current] { color: var(--coral); }
@@ -515,7 +515,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .set { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--ground-3); }
 .set .sg-label { font-size: 15px; color: var(--ground-hi); }
 .set small { display: block; font: 400 10.5px/1.3 var(--f-mono); color: var(--ground-dim); margin-top: 3px; }
-.av { width: 38px; height: 38px; display: grid; place-items: center; background: var(--sage-hi); color: var(--ink); font: 700 14px var(--f-title); letter-spacing: .04em; --c: 8px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.av { width: 38px; height: 38px; display: grid; place-items: center; background: var(--sage-hi); color: var(--ink); font: 700 expanded 14px var(--f-title); letter-spacing: .04em; --c: 8px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
 .av--line { background: var(--ground-3); color: var(--ground-hi); }
 .unread { width: 8px; height: 8px; background: var(--coral); transform: rotate(45deg); display: inline-block; }
 .dim { background: rgba(6,6,5,.62); }
@@ -566,7 +566,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 
 /* component sheet */
 .sheet { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px 36px; }
-.sheet h3 { margin: 0 0 14px; display: flex; justify-content: space-between; gap: 10px; padding-bottom: 6px; border-bottom: var(--hair) solid var(--ground-hi); font: 600 12px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.sheet h3 { margin: 0 0 14px; display: flex; justify-content: space-between; gap: 10px; padding-bottom: 6px; border-bottom: var(--hair) solid var(--ground-hi); font: 600 expanded 12px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .sheet h3 span:last-child { font: 400 10.5px var(--f-mono); color: var(--ground-dim); text-transform: none; letter-spacing: 0; }
 .sheet > div { min-width: 0; }
 .typescale > div > span { min-width: 0; overflow-wrap: anywhere; }
@@ -578,7 +578,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px 10px; }
 .swatches div { display: grid; gap: 4px; font: 400 10px/1.35 var(--f-mono); color: var(--ground-dim); }
 .swatches i { height: 52px; box-shadow: inset 0 0 0 1px var(--ground-3); }
-.swatches b { font: 600 12px var(--f-cap); letter-spacing: .1em; text-transform: uppercase; color: var(--ground-hi); }
+.swatches b { font: 600 expanded 12px var(--f-cap); letter-spacing: .1em; text-transform: uppercase; color: var(--ground-hi); }
 .typescale { display: grid; gap: 14px; }
 .typescale > div { display: grid; grid-template-columns: minmax(0, 170px) minmax(0, 1fr); gap: 12px; align-items: baseline; color: var(--ground-hi); }
 .typescale .sg-mono { color: var(--ground-dim); font-size: 10.5px; text-transform: uppercase; }
@@ -588,7 +588,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .insts { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .inst { background: var(--ground); padding: 18px; display: grid; grid-template-rows: auto auto 1fr; gap: 8px; min-width: 0; }
 .inst--wide { grid-column: span 2; }
-.inst h3 { margin: 0; display: flex; justify-content: space-between; gap: 10px; font: 600 13px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.inst h3 { margin: 0; display: flex; justify-content: space-between; gap: 10px; font: 600 expanded 13px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .inst h3 span:last-child { font: 400 10px var(--f-mono); letter-spacing: 0; text-transform: none; color: var(--coral); }
 .inst p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--on-ground); max-width: 52ch; }
 .inst .demo { align-self: end; display: flex; align-items: center; padding: 14px 0 4px; min-width: 0; }
@@ -598,7 +598,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .lang { background: var(--ground); padding: 20px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; }
 .lang-k { font-size: 26px; line-height: 1; color: var(--ground-hi); }
-.lang h3 { margin: 6px 0 0; font: 600 14px var(--f-cap); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
+.lang h3 { margin: 6px 0 0; font: 600 expanded 14px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .lang p { margin: 0; font-size: 13.5px; line-height: 1.5; max-width: 46ch; }
 .lang-ex { margin-top: 10px; min-height: 72px; padding: 12px; display: flex; align-items: center; gap: 10px; color: var(--ground-hi); --stroke: var(--ground-hi); box-shadow: inset 0 0 0 1px var(--ground-3); }
 .lex-wrap { margin-top: 24px; overflow-x: auto; border: var(--hair) solid var(--ground-3); }
@@ -686,7 +686,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div><div class="sw"><div class="hazard" style="width:64px"></div></div><div><h3>Hazard bar</h3><p>45° stripes between two hairlines. It divides the masthead from the body on every utility screen. <code>.hazard</code> · <code>HazardBar</code></p></div></div>
     <div><div class="sw"><div class="chamfer brackets" style="width:56px;height:48px;--c:12px;padding:0;--fill:var(--ground);--line:var(--ground-dim)"></div></div><div><h3>Cuts and brackets</h3><p>Every corner cut is 45° on the top-right and bottom-left axis, at 6, 12 or 24&nbsp;pt. HUD brackets frame focus areas. <code>.cut .chamfer .brackets</code></p></div></div>
     <div><div class="sw"><svg viewBox="0 0 300 230" width="62" height="48" style="color:var(--ground-hi)"><use href="#g-chevrons"/></svg></div><div><h3>Print motifs</h3><p>Chevrons, barcode, the line-art head, the coral tag slab and the year span. They are generated, so they recolor with tokens. <code>assets/svg/*</code></p></div></div>
-    <div><div class="sw" style="justify-items:start;gap:2px"><span class="sg-wordmark" style="font-size:15px;color:var(--ground-hi)">AXIOM</span><span class="sg-stencil" style="font-size:16px;color:var(--ground-hi)">09</span><span class="sg-mono" style="font-size:9px;color:var(--ground-dim)">SP C53</span></div><div><h3>Hard type</h3><p>Industrial signage faces only. Big Shoulders for display, with its stencil cut for serials. Barlow Condensed (DIN-like) for titles, labels and numbers, and Barlow for body text. IBM Plex Mono carries telemetry and BIZ UDGothic sets kanji. Readouts are seven-segment.</p></div></div>
+    <div><div class="sw" style="justify-items:start;gap:2px"><span class="sg-wordmark" style="font-size:15px;color:var(--ground-hi)">AXIOM</span><span class="sg-stencil" style="font-size:16px;color:var(--ground-hi)">09</span><span class="sg-mono" style="font-size:9px;color:var(--ground-dim)">SP C53</span></div><div><h3>Wide, short, hard type</h3><p>One grotesk at three widths: Anybody extra-expanded for display, expanded for titles, labels and numbers, and normal for body text. Saira Stencil One stamps serials, IBM Plex Mono carries telemetry and BIZ UDGothic sets kanji.</p></div></div>
     <div><div class="sw"><span class="slab-cut" style="width:56px;height:22px"></span></div><div><h3>One signal</h3><p>Coral appears as one block or one primary action per screen, plus small states like unread and the active tab. Everything else is print.</p></div></div>
   </div>
 </section>
@@ -731,7 +731,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div class="phone"><div class="scr tex">
       <i class="facet" style="clip-path:polygon(0 0,100% 0,100% 6%,0 34%)"></i>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
-      <div style="top:64px;left:22px;display:flex;align-items:flex-end;gap:8px;color:var(--ground-hi)"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:44px">AXIOM</span></div>
+      <div style="top:64px;left:22px;display:flex;align-items:flex-end;gap:8px;color:var(--ground-hi)"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:40px">AXIOM</span></div>
       <div class="sg-cap" style="top:116px;left:42px;font-size:12px;color:var(--ground-dim)">Secure workspace</div>
       <i class="band" style="top:56px;right:0;width:120px;height:120px;clip-path:polygon(100% 0,100% 100%,0 100%)"></i>
       <svg style="top:150px;right:20px;width:84px;height:84px;color:var(--ground-hi)"><use href="#g-x-line"/></svg>
@@ -779,7 +779,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="u-div hazard"></div>
       <section class="u-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Threats blocked</div><div style="margin:10px 0 2px"><svg class="seg7 " viewBox="0 0 178 64" height="30" width="83.44" role="img" aria-label="1284"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="33.4,3.9 36,6.5 36,28.1 33.4,30.7 30.8,28.1 30.8,6.5"/><polygon class="on" points="33.4,33.3 36,35.9 36,57.5 33.4,60.1 30.8,57.5 30.8,35.9"/><polygon class="on" points="47.9,2.6 50.5,0 73.5,0 76.1,2.6 73.5,5.2 50.5,5.2"/><polygon class="on" points="47.9,32 50.5,29.4 73.5,29.4 76.1,32 73.5,34.6 50.5,34.6"/><polygon class="on" points="47.9,61.4 50.5,58.8 73.5,58.8 76.1,61.4 73.5,64 50.5,64"/><polygon class="on" points="77.4,3.9 80,6.5 80,28.1 77.4,30.7 74.8,28.1 74.8,6.5"/><polygon class="on" points="46.6,33.3 49.2,35.9 49.2,57.5 46.6,60.1 44,57.5 44,35.9"/><polygon class="on" points="91.9,2.6 94.5,0 117.5,0 120.1,2.6 117.5,5.2 94.5,5.2"/><polygon class="on" points="91.9,32 94.5,29.4 117.5,29.4 120.1,32 117.5,34.6 94.5,34.6"/><polygon class="on" points="91.9,61.4 94.5,58.8 117.5,58.8 120.1,61.4 117.5,64 94.5,64"/><polygon class="on" points="90.6,3.9 93.2,6.5 93.2,28.1 90.6,30.7 88,28.1 88,6.5"/><polygon class="on" points="121.4,3.9 124,6.5 124,28.1 121.4,30.7 118.8,28.1 118.8,6.5"/><polygon class="on" points="90.6,33.3 93.2,35.9 93.2,57.5 90.6,60.1 88,57.5 88,35.9"/><polygon class="on" points="121.4,33.3 124,35.9 124,57.5 121.4,60.1 118.8,57.5 118.8,35.9"/><polygon class="on" points="135.9,32 138.5,29.4 161.5,29.4 164.1,32 161.5,34.6 138.5,34.6"/><polygon class="on" points="134.6,3.9 137.2,6.5 137.2,28.1 134.6,30.7 132,28.1 132,6.5"/><polygon class="on" points="165.4,3.9 168,6.5 168,28.1 165.4,30.7 162.8,28.1 162.8,6.5"/><polygon class="on" points="165.4,33.3 168,35.9 168,57.5 165.4,60.1 162.8,57.5 162.8,35.9"/></g></svg></div></div>
+          <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Threats blocked</div><div style="margin:10px 0 2px"><svg class="seg7 " viewBox="0 0 213 60" height="30" width="106.5" role="img" aria-label="1284"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><polygon class="on" points="110.1,2.8 112.9,0 143.1,0 145.9,2.8 143.1,5.6 112.9,5.6"/><polygon class="on" points="110.1,30 112.9,27.2 143.1,27.2 145.9,30 143.1,32.8 112.9,32.8"/><polygon class="on" points="110.1,57.2 112.9,54.4 143.1,54.4 145.9,57.2 143.1,60 112.9,60"/><polygon class="on" points="108.8,4.1 111.6,6.9 111.6,25.9 108.8,28.7 106,25.9 106,6.9"/><polygon class="on" points="147.2,4.1 150,6.9 150,25.9 147.2,28.7 144.4,25.9 144.4,6.9"/><polygon class="on" points="108.8,31.3 111.6,34.1 111.6,53.1 108.8,55.9 106,53.1 106,34.1"/><polygon class="on" points="147.2,31.3 150,34.1 150,53.1 147.2,55.9 144.4,53.1 144.4,34.1"/><polygon class="on" points="163.1,30 165.9,27.2 196.1,27.2 198.9,30 196.1,32.8 165.9,32.8"/><polygon class="on" points="161.8,4.1 164.6,6.9 164.6,25.9 161.8,28.7 159,25.9 159,6.9"/><polygon class="on" points="200.2,4.1 203,6.9 203,25.9 200.2,28.7 197.4,25.9 197.4,6.9"/><polygon class="on" points="200.2,31.3 203,34.1 203,53.1 200.2,55.9 197.4,53.1 197.4,34.1"/></g></svg></div></div>
           <div class="chamfer"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Data routed</div><div class="sg-num" style="font-size:24px;margin:8px 0 12px;color:var(--ground-hi)">4.2<span class="sg-mono"> / 10 GB</span></div><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
         </div>
         <div>
@@ -802,7 +802,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Run log</h3><div class="u-tag u-meta">10–16<br>NOV</div><div class="u-span"><span><span class="sg-fr">journal de course</span></span><i></i><span>W46</span></div></header>
-      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px"><svg class="seg7 " viewBox="0 0 149 64" height="76" width="176.94" role="img" aria-label="42.6"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="3.9,32 6.5,29.4 29.5,29.4 32.1,32 29.5,34.6 6.5,34.6"/><polygon class="on" points="2.6,3.9 5.2,6.5 5.2,28.1 2.6,30.7 0,28.1 0,6.5"/><polygon class="on" points="33.4,3.9 36,6.5 36,28.1 33.4,30.7 30.8,28.1 30.8,6.5"/><polygon class="on" points="33.4,33.3 36,35.9 36,57.5 33.4,60.1 30.8,57.5 30.8,35.9"/><polygon class="on" points="47.9,2.6 50.5,0 73.5,0 76.1,2.6 73.5,5.2 50.5,5.2"/><polygon class="on" points="47.9,32 50.5,29.4 73.5,29.4 76.1,32 73.5,34.6 50.5,34.6"/><polygon class="on" points="47.9,61.4 50.5,58.8 73.5,58.8 76.1,61.4 73.5,64 50.5,64"/><polygon class="on" points="77.4,3.9 80,6.5 80,28.1 77.4,30.7 74.8,28.1 74.8,6.5"/><polygon class="on" points="46.6,33.3 49.2,35.9 49.2,57.5 46.6,60.1 44,57.5 44,35.9"/><rect class="on" x="88" y="57" width="7" height="7"/><polygon class="on" points="106.9,2.6 109.5,0 132.5,0 135.1,2.6 132.5,5.2 109.5,5.2"/><polygon class="on" points="106.9,32 109.5,29.4 132.5,29.4 135.1,32 132.5,34.6 109.5,34.6"/><polygon class="on" points="106.9,61.4 109.5,58.8 132.5,58.8 135.1,61.4 132.5,64 109.5,64"/><polygon class="on" points="105.6,3.9 108.2,6.5 108.2,28.1 105.6,30.7 103,28.1 103,6.5"/><polygon class="on" points="105.6,33.3 108.2,35.9 108.2,57.5 105.6,60.1 103,57.5 103,35.9"/><polygon class="on" points="136.4,33.3 139,35.9 139,57.5 136.4,60.1 133.8,57.5 133.8,35.9"/></g></svg><span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
+      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px"><svg class="seg7 " viewBox="0 0 176 60" height="76" width="222.93" role="img" aria-label="42.6"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="4.1,30 6.9,27.2 37.1,27.2 39.9,30 37.1,32.8 6.9,32.8"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><rect class="on" x="106" y="53" width="7" height="7"/><polygon class="on" points="126.1,2.8 128.9,0 159.1,0 161.9,2.8 159.1,5.6 128.9,5.6"/><polygon class="on" points="126.1,30 128.9,27.2 159.1,27.2 161.9,30 159.1,32.8 128.9,32.8"/><polygon class="on" points="126.1,57.2 128.9,54.4 159.1,54.4 161.9,57.2 159.1,60 128.9,60"/><polygon class="on" points="124.8,4.1 127.6,6.9 127.6,25.9 124.8,28.7 122,25.9 122,6.9"/><polygon class="on" points="124.8,31.3 127.6,34.1 127.6,53.1 124.8,55.9 122,53.1 122,34.1"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/></g></svg><span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
         <div class="dayrow"><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>m</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>w</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>f</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>s</i></span><span><svg width="30" height="30" style="color:var(--coral)"><use href="#g-x-solid"/></svg><i>s</i></span></div></div>
       <div class="u-div hazard"></div>
       <section class="u-body">
@@ -856,7 +856,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       </div></div>
       <div class="u-div hazard"></div>
       <section class="u-body u-body--end">
-        <div><h3 class="sg-wordmark" style="margin:0;font-size:26px;color:var(--ground-hi)">Night transit</h3><div class="sg-mono u-dim" style="margin-top:6px">LOW ORBIT CHOIR — SIGNAL FADE</div></div>
+        <div><h3 class="sg-wordmark" style="margin:0;font-size:22px;color:var(--ground-hi)">Night transit</h3><div class="sg-mono u-dim" style="margin-top:6px">LOW ORBIT CHOIR — SIGNAL FADE</div></div>
         <div class="slot" style="--p:38%"></div>
         <div style="display:flex;justify-content:center;align-items:center;gap:22px;margin-top:6px">
           <button class="btn btn--ghost btn--icon" type="button" aria-label="Previous"><svg style="transform:scaleX(-1)"><use href="#g-skip"/></svg></button>
@@ -971,7 +971,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="u-sheet" style="z-index:10">
         <div class="hazard" style="--hz:#0c0c0a;margin-right:40px"></div>
         <div style="display:flex;justify-content:space-between;align-items:center"><svg width="44" height="44"><use href="#g-warn"/></svg><span class="sg-mono t-right">ERR 0X09<br>14:22:07</span></div>
-        <h3 class="sg-wordmark" style="margin:0;font-size:26px">Connection<br>dropped</h3>
+        <h3 class="sg-wordmark" style="margin:0;font-size:22px">Connection<br>dropped</h3>
         <p class="sg-mono" style="margin:0;font-size:12px;line-height:1.5">LISBON-04 STOPPED RESPONDING. THE KILL SWITCH HAS PAUSED ALL TRAFFIC UNTIL YOU RECONNECT OR PICK ANOTHER SERVER.</p>
         <button class="btn btn--ink btn--block" type="button">Reconnect</button>
         <button class="btn btn--ghost btn--block" type="button" style="--btn-line:#0c0c0a;--btn-fill:var(--coral)">Choose another server</button>
@@ -989,7 +989,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <svg style="top:96px;left:-36px;width:310px;height:310px;color:var(--ground-3)"><use href="#g-x-line"/></svg>
       <svg style="top:250px;left:196px;width:150px;height:150px;color:var(--ground-hi)"><use href="#g-x-line"/></svg>
       <div class="sg-mono" style="top:70px;right:24px;color:var(--ground-dim)">ERR 0X09</div>
-      <h3 class="sg-display" style="margin:0;top:446px;left:24px;font-size:44px;color:var(--ground-hi)">No<br>signal</h3>
+      <h3 class="sg-display" style="margin:0;top:446px;left:24px;font-size:40px;color:var(--ground-hi)">No<br>signal</h3>
       <div class="sg-jp" style="top:444px;right:24px;font-size:40px;line-height:1.05;writing-mode:vertical-rl;color:var(--ground-hi)">圏外</div>
       <div class="caution" style="top:544px;left:24px;right:24px"><div><svg><use href="#g-warn"/></svg><b>Out of range</b><p>WE COULDN'T REACH THE NETWORK. CHECK WI-FI OR MOBILE DATA.</p></div></div>
       <div style="top:652px;left:24px;right:24px;display:grid;gap:10px"><button class="btn btn--block" type="button">Try again</button><button class="btn btn--ghost btn--block" type="button">Open offline files</button></div>
@@ -1011,7 +1011,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="bar " style="--h:88px;top:314px;left:0;width:240px"><div class="bar__mid"><div class="bar__core"><i class="bar__slot" style="--p:20%"></i></div></div></div>
       <svg style="top:318px;right:24px;width:80px;height:80px;color:var(--ground-hi)"><use href="#g-x-solid"/></svg>
       <div class="hazard" style="top:440px;left:24px;right:24px"></div>
-      <div style="top:490px;left:24px;right:24px;color:var(--ground-hi)"><div class="sg-fr" style="font-size:13px">acheminer chaque paquet</div><h3 class="sg-display" style="margin:10px 0 0;font-size:44px">Route<br>every<br>packet</h3><p class="sg-mono" style="margin:14px 0 0;font-size:12px;color:var(--on-ground)">THREE RELAYS · TWO KEYS · ZERO LOGS</p></div>
+      <div style="top:490px;left:24px;right:24px;color:var(--ground-hi)"><div class="sg-fr" style="font-size:13px">acheminer chaque paquet</div><h3 class="sg-display" style="margin:10px 0 0;font-size:40px">Route<br>every<br>packet</h3><p class="sg-mono" style="margin:14px 0 0;font-size:12px;color:var(--on-ground)">THREE RELAYS · TWO KEYS · ZERO LOGS</p></div>
       <ol class="steps" style="top:761px;left:24px;width:200px"><li class="done">Scan</li><li class="on">Keys</li><li>Seal</li></ol>
       <button class="btn" type="button" style="top:752px;right:24px">Next<svg><use href="#g-arrow"/></svg></button>
       <i class="home"></i>
@@ -1025,14 +1025,14 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div class="phone"><div class="scr tex">
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--ground-hi)">
-        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display wear" style="font-size:54px">AXIOM</span></div>
+        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display wear" style="font-size:46px">AXIOM</span></div>
         <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sg-fr" style="font-size:14px">lundi 16 novembre</span><span class="sg-num" style="font-size:14px">9:41</span></div>
         <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut wear" style="flex:1;height:56px"></div><svg width="58" height="58"><use href="#g-head"/></svg></div>
         <div class="yearspan sg-num" style="font-size:21px">20<i></i>26</div>
         <div style="display:grid;gap:3px">
-          <div class="sg-wordmark" style="font-size:26px">Signal engineering</div>
+          <div class="sg-wordmark" style="font-size:20px">Signal engineering</div>
           <div class="sg-jp sg-justify" style="font-size:22px">信号工学</div>
-          <div class="sg-wordmark" style="font-size:26px">Ingénierie du signal</div>
+          <div class="sg-wordmark" style="font-size:20px">Ingénierie du signal</div>
         </div>
         <svg class="wear" viewBox="0 0 300 230" style="width:84%;height:auto;align-self:center;margin-top:2px"><use href="#g-chevrons"/></svg>
         <div class="hazard wear"></div>
@@ -1053,7 +1053,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Field notes</h3><div class="u-tag sg-jp-v">第九号</div><div class="u-span"><span>nº 09 · lena sato</span><i></i><span>6 min</span></div></header>
-      <div class="u-hero u-hero--pad"><h3 class="sg-display" style="margin:0;font-size:44px;color:var(--ground-hi)">The quiet<br>network</h3></div>
+      <div class="u-hero u-hero--pad"><h3 class="sg-display" style="margin:0;font-size:34px;color:var(--ground-hi)">The quiet<br>network</h3></div>
       <div class="u-div hazard"></div>
       <section class="u-body u-body--end" style="gap:18px">
         <p class="sg-label" style="margin:0;font-size:15px;line-height:1.55">Most of what keeps you safe online is invisible. Packets leave your phone, cross three relays and arrive without anyone reading them.</p>
@@ -1078,7 +1078,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="u-div hazard"></div>
       <section class="u-body u-body--end">
         <div class="ticket" style="--stub:84px"><div><div class="sg-cap" style="font-size:11px">Monthly</div><div class="sg-num" style="font-size:24px;margin-top:4px">€4.99</div></div><div><span class="sg-mono">PER</span><span class="sg-stencil" style="font-size:22px">MO</span></div></div>
-        <div class="ticket" style="--stub:84px;position:relative;background:var(--ground-hi);color:var(--ground)"><div><div class="sg-cap" style="font-size:11px">Yearly · €3.25 / mo</div><div class="sg-num" style="font-size:24px;margin-top:4px">€39.00</div></div><div style="border-left-color:var(--ground-dim)"><span class="sg-mono">PER</span><span class="sg-stencil" style="font-size:22px">YR</span></div><span class="stamp" style="position:absolute;right:98px;top:16px;font-size:14px;--gap:var(--ground-hi)">Save 35%</span></div>
+        <div class="ticket" style="--stub:84px;position:relative;background:var(--ground-hi);color:var(--ground)"><div><div class="sg-cap" style="font-size:11px">Yearly</div><div class="sg-num" style="font-size:24px;margin-top:4px">€39.00</div></div><div style="border-left-color:var(--ground-dim)"><span class="sg-mono">PER</span><span class="sg-stencil" style="font-size:22px">YR</span></div><span class="stamp" style="position:absolute;right:98px;top:16px;font-size:14px;--gap:var(--ground-hi)">Save 35%</span></div>
         <div class="sg-mono" style="color:var(--ground-hi)">10 DEVICES · 60 RELAY CITIES · PRIORITY TUNNELS</div>
         <button class="btn btn--coral btn--block" type="button">Start 7-day free trial</button>
         <div class="sg-fr u-dim" style="text-align:center;font-size:11.5px">Résiliable à tout moment · paiement via l'App Store</div>
@@ -1121,7 +1121,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Interval</h3><div class="u-tag sg-jp-v">計時</div><div class="u-span"><span>round 3</span><i></i><span>of 8</span></div></header>
-      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px"><svg class="seg7 " viewBox="0 0 193 64" height="92" width="277.44" role="img" aria-label="02:47"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="3.9,2.6 6.5,0 29.5,0 32.1,2.6 29.5,5.2 6.5,5.2"/><polygon class="on" points="3.9,61.4 6.5,58.8 29.5,58.8 32.1,61.4 29.5,64 6.5,64"/><polygon class="on" points="2.6,3.9 5.2,6.5 5.2,28.1 2.6,30.7 0,28.1 0,6.5"/><polygon class="on" points="33.4,3.9 36,6.5 36,28.1 33.4,30.7 30.8,28.1 30.8,6.5"/><polygon class="on" points="2.6,33.3 5.2,35.9 5.2,57.5 2.6,60.1 0,57.5 0,35.9"/><polygon class="on" points="33.4,33.3 36,35.9 36,57.5 33.4,60.1 30.8,57.5 30.8,35.9"/><polygon class="on" points="47.9,2.6 50.5,0 73.5,0 76.1,2.6 73.5,5.2 50.5,5.2"/><polygon class="on" points="47.9,32 50.5,29.4 73.5,29.4 76.1,32 73.5,34.6 50.5,34.6"/><polygon class="on" points="47.9,61.4 50.5,58.8 73.5,58.8 76.1,61.4 73.5,64 50.5,64"/><polygon class="on" points="77.4,3.9 80,6.5 80,28.1 77.4,30.7 74.8,28.1 74.8,6.5"/><polygon class="on" points="46.6,33.3 49.2,35.9 49.2,57.5 46.6,60.1 44,57.5 44,35.9"/><rect class="hot" x="88" y="17.9" width="7" height="7"/><rect class="hot" x="88" y="41.0" width="7" height="7"/><polygon class="on" points="106.9,32 109.5,29.4 132.5,29.4 135.1,32 132.5,34.6 109.5,34.6"/><polygon class="on" points="105.6,3.9 108.2,6.5 108.2,28.1 105.6,30.7 103,28.1 103,6.5"/><polygon class="on" points="136.4,3.9 139,6.5 139,28.1 136.4,30.7 133.8,28.1 133.8,6.5"/><polygon class="on" points="136.4,33.3 139,35.9 139,57.5 136.4,60.1 133.8,57.5 133.8,35.9"/><polygon class="on" points="150.9,2.6 153.5,0 176.5,0 179.1,2.6 176.5,5.2 153.5,5.2"/><polygon class="on" points="180.4,3.9 183,6.5 183,28.1 180.4,30.7 177.8,28.1 177.8,6.5"/><polygon class="on" points="180.4,33.3 183,35.9 183,57.5 180.4,60.1 177.8,57.5 177.8,35.9"/></g></svg><div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
+      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px"><svg class="seg7 " viewBox="0 0 229 60" height="92" width="351.13" role="img" aria-label="02:47"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="4.1,2.8 6.9,0 37.1,0 39.9,2.8 37.1,5.6 6.9,5.6"/><polygon class="on" points="4.1,57.2 6.9,54.4 37.1,54.4 39.9,57.2 37.1,60 6.9,60"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="2.8,31.3 5.6,34.1 5.6,53.1 2.8,55.9 0,53.1 0,34.1"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><rect class="hot" x="106" y="16.8" width="7" height="7"/><rect class="hot" x="106" y="38.4" width="7" height="7"/><polygon class="on" points="126.1,30 128.9,27.2 159.1,27.2 161.9,30 159.1,32.8 128.9,32.8"/><polygon class="on" points="124.8,4.1 127.6,6.9 127.6,25.9 124.8,28.7 122,25.9 122,6.9"/><polygon class="on" points="163.2,4.1 166,6.9 166,25.9 163.2,28.7 160.4,25.9 160.4,6.9"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/><polygon class="on" points="179.1,2.8 181.9,0 212.1,0 214.9,2.8 212.1,5.6 181.9,5.6"/><polygon class="on" points="216.2,4.1 219,6.9 219,25.9 216.2,28.7 213.4,25.9 213.4,6.9"/><polygon class="on" points="216.2,31.3 219,34.1 219,53.1 216.2,55.9 213.4,53.1 213.4,34.1"/></g></svg><div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
       <div class="u-div hazard"></div>
       <section class="u-body u-body--end" style="gap:16px">
         <div><div class="u-label" style="margin-bottom:10px"><span>Rounds</span><span>3 / 8</span></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="hot"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
@@ -1144,7 +1144,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="u-hero u-hero--pad"><ol class="steps"><li class="done">Amount</li><li class="on">Confirm</li><li>Sent</li></ol></div>
       <div class="u-div hazard"></div>
       <section class="u-body u-body--end" style="gap:16px">
-        <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE · SPLIT</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div>
+        <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div>
           <span class="stamp" style="position:absolute;right:104px;bottom:14px;font-size:14px;--gap:var(--sage-hi)">Verified</span></div>
         <div class="spec spec--ground"><span>From</span><i></i><span>Main ·· 4417</span><span>Arrives</span><i></i><span>Instantly</span><span>Fee</span><i></i><span>€0.00</span></div>
         <button class="keycap" type="button" style="margin-top:6px"><span>Send €240</span><small>HOLD 1 S</small><i class="led"></i></button>
@@ -1248,18 +1248,18 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="swatches"><div><i style="background:var(--ground)"></i><b>ground</b><span>striped background<br>dark #0b0b0a · light #bcbfb4</span></div><div><i style="background:var(--ground-2)"></i><b>ground-2</b><span>stripe highlight<br>dark #1b1c18 · light #b0b3a8</span></div><div><i style="background:var(--ground-3)"></i><b>ground-3</b><span>rules, frames, tracks<br>dark #2e2f2a · light #9fa297</span></div><div><i style="background:var(--on-ground)"></i><b>on-ground</b><span>body text on the ground<br>dark #c9ccc2 · light #1c1d19</span></div><div><i style="background:var(--ground-hi)"></i><b>ground-hi</b><span>the print: titles, line art, plates of text<br>dark #dcdfd5 · light #0f100d</span></div><div><i style="background:var(--ground-dim)"></i><b>ground-dim</b><span>secondary print<br>dark #8b8d85 · light #4d4f47</span></div><div><i style="background:var(--sage)"></i><b>sage</b><span>plates, outer bar<br>dark #b8bbb0 · light #e3e5dd</span></div><div><i style="background:var(--sage-hi)"></i><b>sage-hi</b><span>plates you press or carry<br>dark #c9ccc2 · light #eceee7</span></div><div><i style="background:var(--sage-lo)"></i><b>sage-lo</b><span>pressed plates<br>dark #a9aca1 · light #d2d4cb</span></div><div><i style="background:var(--sage-line)"></i><b>sage-line</b><span>hairlines on plates<br>dark #8e9089 · light #72746b</span></div><div><i style="background:var(--sage-ghost)"></i><b>sage-ghost</b><span>faint marks on plates<br>dark #cdd0c7 · light #f7f8f4</span></div><div><i style="background:var(--ink)"></i><b>ink</b><span>text on plates, solid objects<br>dark #0c0c0a · light #10110e</span></div><div><i style="background:var(--ink-dim)"></i><b>ink-dim</b><span>secondary text on plates<br>dark #4d4f49 · light #5a5c54</span></div><div><i style="background:var(--coral)"></i><b>coral</b><span>the signal<br>dark #ff715e · light #ff715e</span></div><div><i style="background:var(--coral-deep)"></i><b>coral-deep</b><span>pressed signal<br>dark #e65b48 · light #e65b48</span></div></div>
     </div>
     <div style="grid-column:1/-1">
-      <h3><span>type scale</span><span>Big Shoulders · Barlow · IBM Plex Mono · BIZ UDGothic (OFL)</span></h3>
+      <h3><span>type scale</span><span>Anybody · Saira Stencil One · IBM Plex Mono · BIZ UDGothic (OFL)</span></h3>
       <div class="typescale">
-        <div><span class="sg-mono">display 44 · big shoulders 800</span><span class="sg-display" style="font-size:44px">Axiom</span></div>
-        <div><span class="sg-mono">title 26 · barlow cond 700</span><span class="sg-wordmark" style="font-size:26px">Night transit</span></div>
-        <div><span class="sg-mono">number 40 · barlow cond 700</span><span class="sg-num" style="font-size:40px">€8,214.60</span></div>
-        <div><span class="sg-mono">label 13 · barlow cond 600</span><span class="sg-cap" style="font-size:13px">Future engineering · time in zone</span></div>
-        <div><span class="sg-mono">body 15 · barlow 500</span><span class="sg-label" style="font-size:15px">Kill switch pauses traffic if the tunnel drops.</span></div>
+        <div><span class="sg-mono">display 40 · anybody 150% 800</span><span class="sg-display" style="font-size:40px">Axiom</span></div>
+        <div><span class="sg-mono">title 22 · anybody 125% 700</span><span class="sg-wordmark" style="font-size:22px">Night transit</span></div>
+        <div><span class="sg-mono">number 36 · anybody 125% 700</span><span class="sg-num" style="font-size:40px">€8,214.60</span></div>
+        <div><span class="sg-mono">label 11 · anybody 125% 600</span><span class="sg-cap" style="font-size:11px">Future engineering · time in zone</span></div>
+        <div><span class="sg-mono">body 15 · anybody 500</span><span class="sg-label" style="font-size:15px">Kill switch pauses traffic if the tunnel drops.</span></div>
         <div><span class="sg-mono">mono 11 · ibm plex mono</span><span class="sg-mono" style="font-size:11px">COMSEC MONITORING · NETWORK OPERATIONS · SP C53</span></div>
-        <div><span class="sg-mono">aside · barlow italic</span><span class="sg-fr" style="font-size:15px">ingénierie du signal</span></div>
-        <div><span class="sg-mono">stencil · big shoulders</span><span class="sg-stencil" style="font-size:34px">Unit 09</span></div>
+        <div><span class="sg-mono">aside · anybody italic</span><span class="sg-fr" style="font-size:15px">ingénierie du signal</span></div>
+        <div><span class="sg-mono">stencil · saira stencil one</span><span class="sg-stencil" style="font-size:30px">Unit 09</span></div>
         <div><span class="sg-mono">kanji · biz udgothic</span><span class="sg-jp" style="font-size:22px">信号工学 · 保護中</span></div>
-        <div><span class="sg-mono">readout · seven-segment</span><span><svg class="seg7 " viewBox="0 0 193 64" height="40" width="120.62" role="img" aria-label="08:14"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="3.9,2.6 6.5,0 29.5,0 32.1,2.6 29.5,5.2 6.5,5.2"/><polygon class="on" points="3.9,61.4 6.5,58.8 29.5,58.8 32.1,61.4 29.5,64 6.5,64"/><polygon class="on" points="2.6,3.9 5.2,6.5 5.2,28.1 2.6,30.7 0,28.1 0,6.5"/><polygon class="on" points="33.4,3.9 36,6.5 36,28.1 33.4,30.7 30.8,28.1 30.8,6.5"/><polygon class="on" points="2.6,33.3 5.2,35.9 5.2,57.5 2.6,60.1 0,57.5 0,35.9"/><polygon class="on" points="33.4,33.3 36,35.9 36,57.5 33.4,60.1 30.8,57.5 30.8,35.9"/><polygon class="on" points="47.9,2.6 50.5,0 73.5,0 76.1,2.6 73.5,5.2 50.5,5.2"/><polygon class="on" points="47.9,32 50.5,29.4 73.5,29.4 76.1,32 73.5,34.6 50.5,34.6"/><polygon class="on" points="47.9,61.4 50.5,58.8 73.5,58.8 76.1,61.4 73.5,64 50.5,64"/><polygon class="on" points="46.6,3.9 49.2,6.5 49.2,28.1 46.6,30.7 44,28.1 44,6.5"/><polygon class="on" points="77.4,3.9 80,6.5 80,28.1 77.4,30.7 74.8,28.1 74.8,6.5"/><polygon class="on" points="46.6,33.3 49.2,35.9 49.2,57.5 46.6,60.1 44,57.5 44,35.9"/><polygon class="on" points="77.4,33.3 80,35.9 80,57.5 77.4,60.1 74.8,57.5 74.8,35.9"/><rect class="hot" x="88" y="17.9" width="7" height="7"/><rect class="hot" x="88" y="41.0" width="7" height="7"/><polygon class="on" points="136.4,3.9 139,6.5 139,28.1 136.4,30.7 133.8,28.1 133.8,6.5"/><polygon class="on" points="136.4,33.3 139,35.9 139,57.5 136.4,60.1 133.8,57.5 133.8,35.9"/><polygon class="on" points="150.9,32 153.5,29.4 176.5,29.4 179.1,32 176.5,34.6 153.5,34.6"/><polygon class="on" points="149.6,3.9 152.2,6.5 152.2,28.1 149.6,30.7 147,28.1 147,6.5"/><polygon class="on" points="180.4,3.9 183,6.5 183,28.1 180.4,30.7 177.8,28.1 177.8,6.5"/><polygon class="on" points="180.4,33.3 183,35.9 183,57.5 180.4,60.1 177.8,57.5 177.8,35.9"/></g></svg></span></div>
+        <div><span class="sg-mono">readout · seven-segment</span><span><svg class="seg7 " viewBox="0 0 229 60" height="40" width="152.67" role="img" aria-label="08:14"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="4.1,2.8 6.9,0 37.1,0 39.9,2.8 37.1,5.6 6.9,5.6"/><polygon class="on" points="4.1,57.2 6.9,54.4 37.1,54.4 39.9,57.2 37.1,60 6.9,60"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="2.8,31.3 5.6,34.1 5.6,53.1 2.8,55.9 0,53.1 0,34.1"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="55.8,4.1 58.6,6.9 58.6,25.9 55.8,28.7 53,25.9 53,6.9"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><polygon class="on" points="94.2,31.3 97,34.1 97,53.1 94.2,55.9 91.4,53.1 91.4,34.1"/><rect class="hot" x="106" y="16.8" width="7" height="7"/><rect class="hot" x="106" y="38.4" width="7" height="7"/><polygon class="on" points="163.2,4.1 166,6.9 166,25.9 163.2,28.7 160.4,25.9 160.4,6.9"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/><polygon class="on" points="179.1,30 181.9,27.2 212.1,27.2 214.9,30 212.1,32.8 181.9,32.8"/><polygon class="on" points="177.8,4.1 180.6,6.9 180.6,25.9 177.8,28.7 175,25.9 175,6.9"/><polygon class="on" points="216.2,4.1 219,6.9 219,25.9 216.2,28.7 213.4,25.9 213.4,6.9"/><polygon class="on" points="216.2,31.3 219,34.1 219,53.1 216.2,55.9 213.4,53.1 213.4,34.1"/></g></svg></span></div>
       </div>
     </div>
   </div>
@@ -1270,7 +1270,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
   <div class="sec-h"><span class="sg-num">05</span><h2 class="sg-display">Instruments</h2><span class="sg-mono">useful, decorative parts extrapolated from the system · every one is live</span></div>
   <div class="insts">
     <div class="inst inst--wide"><h3><span>Seven-segment readout</span><span>seg7() · SGSegDisplay</span></h3><p>Big numerals for timers, speed, balances and counters, in thin slanted segments. Any digit can light coral.</p>
-      <div class="demo" style="gap:28px;flex-wrap:wrap"><svg class="seg7 " viewBox="0 0 193 64" height="56" width="168.88" role="img" aria-label="02:47"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="3.9,2.6 6.5,0 29.5,0 32.1,2.6 29.5,5.2 6.5,5.2"/><polygon class="on" points="3.9,61.4 6.5,58.8 29.5,58.8 32.1,61.4 29.5,64 6.5,64"/><polygon class="on" points="2.6,3.9 5.2,6.5 5.2,28.1 2.6,30.7 0,28.1 0,6.5"/><polygon class="on" points="33.4,3.9 36,6.5 36,28.1 33.4,30.7 30.8,28.1 30.8,6.5"/><polygon class="on" points="2.6,33.3 5.2,35.9 5.2,57.5 2.6,60.1 0,57.5 0,35.9"/><polygon class="on" points="33.4,33.3 36,35.9 36,57.5 33.4,60.1 30.8,57.5 30.8,35.9"/><polygon class="on" points="47.9,2.6 50.5,0 73.5,0 76.1,2.6 73.5,5.2 50.5,5.2"/><polygon class="on" points="47.9,32 50.5,29.4 73.5,29.4 76.1,32 73.5,34.6 50.5,34.6"/><polygon class="on" points="47.9,61.4 50.5,58.8 73.5,58.8 76.1,61.4 73.5,64 50.5,64"/><polygon class="on" points="77.4,3.9 80,6.5 80,28.1 77.4,30.7 74.8,28.1 74.8,6.5"/><polygon class="on" points="46.6,33.3 49.2,35.9 49.2,57.5 46.6,60.1 44,57.5 44,35.9"/><rect class="hot" x="88" y="17.9" width="7" height="7"/><rect class="hot" x="88" y="41.0" width="7" height="7"/><polygon class="on" points="106.9,32 109.5,29.4 132.5,29.4 135.1,32 132.5,34.6 109.5,34.6"/><polygon class="on" points="105.6,3.9 108.2,6.5 108.2,28.1 105.6,30.7 103,28.1 103,6.5"/><polygon class="on" points="136.4,3.9 139,6.5 139,28.1 136.4,30.7 133.8,28.1 133.8,6.5"/><polygon class="on" points="136.4,33.3 139,35.9 139,57.5 136.4,60.1 133.8,57.5 133.8,35.9"/><polygon class="on" points="150.9,2.6 153.5,0 176.5,0 179.1,2.6 176.5,5.2 153.5,5.2"/><polygon class="on" points="180.4,3.9 183,6.5 183,28.1 180.4,30.7 177.8,28.1 177.8,6.5"/><polygon class="on" points="180.4,33.3 183,35.9 183,57.5 180.4,60.1 177.8,57.5 177.8,35.9"/></g></svg><svg class="seg7 " viewBox="0 0 149 64" height="56" width="130.38" role="img" aria-label="42.6"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="3.9,32 6.5,29.4 29.5,29.4 32.1,32 29.5,34.6 6.5,34.6"/><polygon class="on" points="2.6,3.9 5.2,6.5 5.2,28.1 2.6,30.7 0,28.1 0,6.5"/><polygon class="on" points="33.4,3.9 36,6.5 36,28.1 33.4,30.7 30.8,28.1 30.8,6.5"/><polygon class="on" points="33.4,33.3 36,35.9 36,57.5 33.4,60.1 30.8,57.5 30.8,35.9"/><polygon class="on" points="47.9,2.6 50.5,0 73.5,0 76.1,2.6 73.5,5.2 50.5,5.2"/><polygon class="on" points="47.9,32 50.5,29.4 73.5,29.4 76.1,32 73.5,34.6 50.5,34.6"/><polygon class="on" points="47.9,61.4 50.5,58.8 73.5,58.8 76.1,61.4 73.5,64 50.5,64"/><polygon class="on" points="77.4,3.9 80,6.5 80,28.1 77.4,30.7 74.8,28.1 74.8,6.5"/><polygon class="on" points="46.6,33.3 49.2,35.9 49.2,57.5 46.6,60.1 44,57.5 44,35.9"/><rect class="on" x="88" y="57" width="7" height="7"/><polygon class="on" points="106.9,2.6 109.5,0 132.5,0 135.1,2.6 132.5,5.2 109.5,5.2"/><polygon class="on" points="106.9,32 109.5,29.4 132.5,29.4 135.1,32 132.5,34.6 109.5,34.6"/><polygon class="on" points="106.9,61.4 109.5,58.8 132.5,58.8 135.1,61.4 132.5,64 109.5,64"/><polygon class="on" points="105.6,3.9 108.2,6.5 108.2,28.1 105.6,30.7 103,28.1 103,6.5"/><polygon class="on" points="105.6,33.3 108.2,35.9 108.2,57.5 105.6,60.1 103,57.5 103,35.9"/><polygon class="on" points="136.4,33.3 139,35.9 139,57.5 136.4,60.1 133.8,57.5 133.8,35.9"/></g></svg><svg class="seg7 " viewBox="0 0 134 64" height="56" width="117.25" role="img" aria-label="-18"><g transform="translate(7 0) skewX(-6)"><polygon class="hot" points="3.9,32 6.5,29.4 29.5,29.4 32.1,32 29.5,34.6 6.5,34.6"/><polygon class="on" points="77.4,3.9 80,6.5 80,28.1 77.4,30.7 74.8,28.1 74.8,6.5"/><polygon class="on" points="77.4,33.3 80,35.9 80,57.5 77.4,60.1 74.8,57.5 74.8,35.9"/><polygon class="on" points="91.9,2.6 94.5,0 117.5,0 120.1,2.6 117.5,5.2 94.5,5.2"/><polygon class="on" points="91.9,32 94.5,29.4 117.5,29.4 120.1,32 117.5,34.6 94.5,34.6"/><polygon class="on" points="91.9,61.4 94.5,58.8 117.5,58.8 120.1,61.4 117.5,64 94.5,64"/><polygon class="on" points="90.6,3.9 93.2,6.5 93.2,28.1 90.6,30.7 88,28.1 88,6.5"/><polygon class="on" points="121.4,3.9 124,6.5 124,28.1 121.4,30.7 118.8,28.1 118.8,6.5"/><polygon class="on" points="90.6,33.3 93.2,35.9 93.2,57.5 90.6,60.1 88,57.5 88,35.9"/><polygon class="on" points="121.4,33.3 124,35.9 124,57.5 121.4,60.1 118.8,57.5 118.8,35.9"/></g></svg></div></div>
+      <div class="demo" style="gap:28px;flex-wrap:wrap"><svg class="seg7 " viewBox="0 0 229 60" height="56" width="213.73" role="img" aria-label="02:47"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="4.1,2.8 6.9,0 37.1,0 39.9,2.8 37.1,5.6 6.9,5.6"/><polygon class="on" points="4.1,57.2 6.9,54.4 37.1,54.4 39.9,57.2 37.1,60 6.9,60"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="2.8,31.3 5.6,34.1 5.6,53.1 2.8,55.9 0,53.1 0,34.1"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><rect class="hot" x="106" y="16.8" width="7" height="7"/><rect class="hot" x="106" y="38.4" width="7" height="7"/><polygon class="on" points="126.1,30 128.9,27.2 159.1,27.2 161.9,30 159.1,32.8 128.9,32.8"/><polygon class="on" points="124.8,4.1 127.6,6.9 127.6,25.9 124.8,28.7 122,25.9 122,6.9"/><polygon class="on" points="163.2,4.1 166,6.9 166,25.9 163.2,28.7 160.4,25.9 160.4,6.9"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/><polygon class="on" points="179.1,2.8 181.9,0 212.1,0 214.9,2.8 212.1,5.6 181.9,5.6"/><polygon class="on" points="216.2,4.1 219,6.9 219,25.9 216.2,28.7 213.4,25.9 213.4,6.9"/><polygon class="on" points="216.2,31.3 219,34.1 219,53.1 216.2,55.9 213.4,53.1 213.4,34.1"/></g></svg><svg class="seg7 " viewBox="0 0 176 60" height="56" width="164.27" role="img" aria-label="42.6"><g transform="translate(7 0) skewX(-6)"><polygon class="on" points="4.1,30 6.9,27.2 37.1,27.2 39.9,30 37.1,32.8 6.9,32.8"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><rect class="on" x="106" y="53" width="7" height="7"/><polygon class="on" points="126.1,2.8 128.9,0 159.1,0 161.9,2.8 159.1,5.6 128.9,5.6"/><polygon class="on" points="126.1,30 128.9,27.2 159.1,27.2 161.9,30 159.1,32.8 128.9,32.8"/><polygon class="on" points="126.1,57.2 128.9,54.4 159.1,54.4 161.9,57.2 159.1,60 128.9,60"/><polygon class="on" points="124.8,4.1 127.6,6.9 127.6,25.9 124.8,28.7 122,25.9 122,6.9"/><polygon class="on" points="124.8,31.3 127.6,34.1 127.6,53.1 124.8,55.9 122,53.1 122,34.1"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/></g></svg><svg class="seg7 " viewBox="0 0 160 60" height="56" width="149.33" role="img" aria-label="-18"><g transform="translate(7 0) skewX(-6)"><polygon class="hot" points="4.1,30 6.9,27.2 37.1,27.2 39.9,30 37.1,32.8 6.9,32.8"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="94.2,31.3 97,34.1 97,53.1 94.2,55.9 91.4,53.1 91.4,34.1"/><polygon class="on" points="110.1,2.8 112.9,0 143.1,0 145.9,2.8 143.1,5.6 112.9,5.6"/><polygon class="on" points="110.1,30 112.9,27.2 143.1,27.2 145.9,30 143.1,32.8 112.9,32.8"/><polygon class="on" points="110.1,57.2 112.9,54.4 143.1,54.4 145.9,57.2 143.1,60 112.9,60"/><polygon class="on" points="108.8,4.1 111.6,6.9 111.6,25.9 108.8,28.7 106,25.9 106,6.9"/><polygon class="on" points="147.2,4.1 150,6.9 150,25.9 147.2,28.7 144.4,25.9 144.4,6.9"/><polygon class="on" points="108.8,31.3 111.6,34.1 111.6,53.1 108.8,55.9 106,53.1 106,34.1"/><polygon class="on" points="147.2,31.3 150,34.1 150,53.1 147.2,55.9 144.4,53.1 144.4,34.1"/></g></svg></div></div>
     <div class="inst"><h3><span>Cell meter</span><span>.cells · SGCellMeter</span></h3><p>Slanted cells for levels: battery, signal, data caps, rounds and intensity. The last cell can run hot.</p>
       <div class="demo" style="display:grid;gap:12px"><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i><i></i></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
     <div class="inst"><h3><span>Ruler slider</span><span>.ruler · SGRuler</span></h3><p>A tick scale with a coral needle for volume, zoom, temperature or intensity. Drag it.</p>
@@ -1305,8 +1305,8 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="demo" style="display:block"><div class="chamfer brackets" style="--c:10px;padding:10px 12px"><svg viewBox="0 0 240 60" style="width:100%;height:52px;color:var(--ground-hi)"><use href="#g-wave"/></svg></div></div></div>
     <div class="inst"><h3><span>Status lamps</span><span>.lamps · SGLamps</span></h3><p>A row of square indicators for system state at a glance: power, link, encryption, fault. A fault lamp blinks coral.</p>
       <div class="demo" style="display:block"><div class="lamps"><span class="lamp on">PWR</span><span class="lamp on">Link</span><span class="lamp on">Enc</span><span class="lamp">Sync</span><span class="lamp hot">Fault</span></div></div></div>
-    <div class="inst"><h3><span>Stencil serial</span><span>.sg-stencil</span></h3><p>The stencil cut of the display face, for unit numbers, serials and stamped labels. Use it like spray paint on equipment, once per screen.</p>
-      <div class="demo" style="gap:18px;align-items:baseline;color:var(--ground-hi)"><span class="sg-stencil" style="font-size:56px">09</span><span class="sg-stencil" style="font-size:28px">Unit AX-04</span></div></div>
+    <div class="inst"><h3><span>Stencil serial</span><span>.sg-stencil</span></h3><p>A wide stencil for unit numbers, serials and stamped labels. Use it like spray paint on equipment, once per screen.</p>
+      <div class="demo" style="gap:18px;align-items:baseline;color:var(--ground-hi)"><span class="sg-stencil" style="font-size:46px">09</span><span class="sg-stencil" style="font-size:22px">Unit AX-04</span></div></div>
   </div>
 </section>
 

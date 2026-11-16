@@ -157,7 +157,7 @@ S['F'] = fig('F', 'Music player', 'A printed spectrum in a cut frame is the hero
       </div></div>
       {DIV}
       <section class="u-body u-body--end">
-        <div><h3 class="sg-wordmark" style="margin:0;font-size:26px;color:var(--ground-hi)">Night transit</h3><div class="sg-mono u-dim" style="margin-top:6px">LOW ORBIT CHOIR — SIGNAL FADE</div></div>
+        <div><h3 class="sg-wordmark" style="margin:0;font-size:22px;color:var(--ground-hi)">Night transit</h3><div class="sg-mono u-dim" style="margin-top:6px">LOW ORBIT CHOIR — SIGNAL FADE</div></div>
         <div class="slot" style="--p:38%"></div>
         <div style="display:flex;justify-content:center;align-items:center;gap:22px;margin-top:6px">
           <button class="btn btn--ghost btn--icon" type="button" aria-label="Previous"><svg style="transform:scaleX(-1)"><use href="#g-skip"/></svg></button>
@@ -241,7 +241,7 @@ S['K'] = fig('K', 'Alert sheet', 'Interruptions get the only large coral surface
       <div class="u-sheet" style="z-index:10">
         <div class="hazard" style="--hz:#0c0c0a;margin-right:40px"></div>
         <div style="display:flex;justify-content:space-between;align-items:center"><svg width="44" height="44"><use href="#g-warn"/></svg><span class="sg-mono t-right">ERR 0X09<br>14:22:07</span></div>
-        <h3 class="sg-wordmark" style="margin:0;font-size:26px">Connection<br>dropped</h3>
+        <h3 class="sg-wordmark" style="margin:0;font-size:22px">Connection<br>dropped</h3>
         <p class="sg-mono" style="margin:0;font-size:12px;line-height:1.5">LISBON-04 STOPPED RESPONDING. THE KILL SWITCH HAS PAUSED ALL TRAFFIC UNTIL YOU RECONNECT OR PICK ANOTHER SERVER.</p>
         <button class="btn btn--ink btn--block" type="button">Reconnect</button>
         <button class="btn btn--ghost btn--block" type="button" style="--btn-line:#0c0c0a;--btn-fill:var(--coral)">Choose another server</button>
@@ -252,7 +252,7 @@ S['K'] = fig('K', 'Alert sheet', 'Interruptions get the only large coral surface
 # ---------------------------------------------------------------- O editorial
 S['O'] = fig('O', 'Long read', 'The headline is the hero, set at display size. A French pull quote with a coral rule is the one ornament in the body.', utility(f'''
       {mast('Field notes', 'nº 09 · lena sato', '6 min', jp('第九号'))}
-      <div class="u-hero u-hero--pad"><h3 class="sg-display" style="margin:0;font-size:44px;color:var(--ground-hi)">The quiet<br>network</h3></div>
+      <div class="u-hero u-hero--pad"><h3 class="sg-display" style="margin:0;font-size:34px;color:var(--ground-hi)">The quiet<br>network</h3></div>
       {DIV}
       <section class="u-body u-body--end" style="gap:18px">
         <p class="sg-label" style="margin:0;font-size:15px;line-height:1.55">Most of what keeps you safe online is invisible. Packets leave your phone, cross three relays and arrive without anyone reading them.</p>
@@ -268,7 +268,7 @@ S['P'] = fig('P', 'Paywall', 'The chevron print is the hero. Plans print as fram
       {DIV}
       <section class="u-body u-body--end">
         <div class="ticket" style="--stub:84px"><div><div class="sg-cap" style="font-size:11px">Monthly</div><div class="sg-num" style="font-size:24px;margin-top:4px">€4.99</div></div><div><span class="sg-mono">PER</span><span class="sg-stencil" style="font-size:22px">MO</span></div></div>
-        <div class="ticket" style="--stub:84px;position:relative;background:var(--ground-hi);color:var(--ground)"><div><div class="sg-cap" style="font-size:11px">Yearly · €3.25 / mo</div><div class="sg-num" style="font-size:24px;margin-top:4px">€39.00</div></div><div style="border-left-color:var(--ground-dim)"><span class="sg-mono">PER</span><span class="sg-stencil" style="font-size:22px">YR</span></div><span class="stamp" style="position:absolute;right:98px;top:16px;font-size:14px;--gap:var(--ground-hi)">Save 35%</span></div>
+        <div class="ticket" style="--stub:84px;position:relative;background:var(--ground-hi);color:var(--ground)"><div><div class="sg-cap" style="font-size:11px">Yearly</div><div class="sg-num" style="font-size:24px;margin-top:4px">€39.00</div></div><div style="border-left-color:var(--ground-dim)"><span class="sg-mono">PER</span><span class="sg-stencil" style="font-size:22px">YR</span></div><span class="stamp" style="position:absolute;right:98px;top:16px;font-size:14px;--gap:var(--ground-hi)">Save 35%</span></div>
         <div class="sg-mono" style="color:var(--ground-hi)">10 DEVICES · 60 RELAY CITIES · PRIORITY TUNNELS</div>
         <button class="btn btn--coral btn--block" type="button">Start 7-day free trial</button>
         <div class="sg-fr u-dim" style="text-align:center;font-size:11.5px">Résiliable à tout moment · paiement via l'App Store</div>
@@ -278,7 +278,7 @@ S['P'] = fig('P', 'Paywall', 'The chevron print is the hero. Plans print as fram
 S['A'] = fig('A', 'Launch', 'Reference 1 made industrial: two cut bars, the 45° coral band, a hard X and right-aligned telemetry. The bar slot is the boot progress.', f'''<div class="phone"><div class="scr tex">
       <i class="facet" style="clip-path:polygon(0 0,100% 0,100% 6%,0 34%)"></i>
       {SB}
-      <div style="top:64px;left:22px;display:flex;align-items:flex-end;gap:8px;color:var(--ground-hi)"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:44px">AXIOM</span></div>
+      <div style="top:64px;left:22px;display:flex;align-items:flex-end;gap:8px;color:var(--ground-hi)"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:40px">AXIOM</span></div>
       <div class="sg-cap" style="top:116px;left:42px;font-size:12px;color:var(--ground-dim)">Secure workspace</div>
       <i class="band" style="top:56px;right:0;width:120px;height:120px;clip-path:polygon(100% 0,100% 100%,0 100%)"></i>
       <svg style="top:150px;right:20px;width:84px;height:84px;color:var(--ground-hi)"><use href="#g-x-line"/></svg>
@@ -299,7 +299,7 @@ S['L'] = fig('L', 'Empty state', 'Two hard X outlines make the illustration, and
       <svg style="top:96px;left:-36px;width:310px;height:310px;color:var(--ground-3)"><use href="#g-x-line"/></svg>
       <svg style="top:250px;left:196px;width:150px;height:150px;color:var(--ground-hi)"><use href="#g-x-line"/></svg>
       <div class="sg-mono" style="top:70px;right:24px;color:var(--ground-dim)">ERR 0X09</div>
-      <h3 class="sg-display" style="margin:0;top:446px;left:24px;font-size:44px;color:var(--ground-hi)">No<br>signal</h3>
+      <h3 class="sg-display" style="margin:0;top:446px;left:24px;font-size:40px;color:var(--ground-hi)">No<br>signal</h3>
       <div class="sg-jp" style="top:444px;right:24px;font-size:40px;line-height:1.05;writing-mode:vertical-rl;color:var(--ground-hi)">圏外</div>
       <div class="caution" style="top:544px;left:24px;right:24px"><div><svg><use href="#g-warn"/></svg><b>Out of range</b><p>WE COULDN'T REACH THE NETWORK. CHECK WI-FI OR MOBILE DATA.</p></div></div>
       <div style="top:652px;left:24px;right:24px;display:grid;gap:10px"><button class="btn btn--block" type="button">Try again</button><button class="btn btn--ghost btn--block" type="button">Open offline files</button></div>
@@ -316,7 +316,7 @@ S['M'] = fig('M', 'Onboarding', 'Three cut bars in alternating directions, then 
       {BAR(88, 20, style='top:314px;left:0;width:240px')}
       <svg style="top:318px;right:24px;width:80px;height:80px;color:var(--ground-hi)"><use href="#g-x-solid"/></svg>
       <div class="hazard" style="top:440px;left:24px;right:24px"></div>
-      <div style="top:490px;left:24px;right:24px;color:var(--ground-hi)"><div class="sg-fr" style="font-size:13px">acheminer chaque paquet</div><h3 class="sg-display" style="margin:10px 0 0;font-size:44px">Route<br>every<br>packet</h3><p class="sg-mono" style="margin:14px 0 0;font-size:12px;color:var(--on-ground)">THREE RELAYS · TWO KEYS · ZERO LOGS</p></div>
+      <div style="top:490px;left:24px;right:24px;color:var(--ground-hi)"><div class="sg-fr" style="font-size:13px">acheminer chaque paquet</div><h3 class="sg-display" style="margin:10px 0 0;font-size:40px">Route<br>every<br>packet</h3><p class="sg-mono" style="margin:14px 0 0;font-size:12px;color:var(--on-ground)">THREE RELAYS · TWO KEYS · ZERO LOGS</p></div>
       <ol class="steps" style="top:761px;left:24px;width:200px"><li class="done">Scan</li><li class="on">Keys</li><li>Seal</li></ol>
       <button class="btn" type="button" style="top:752px;right:24px">Next<svg><use href="#g-arrow"/></svg></button>
       <i class="home"></i>
@@ -325,14 +325,14 @@ S['M'] = fig('M', 'Onboarding', 'Three cut bars in alternating directions, then 
 S['N'] = fig('N', 'Lock screen', 'The manifesto, after reference 2: the only place all three languages stack, with chevrons, hazard bar and a worn screen-print filter.', f'''<div class="phone"><div class="scr tex">
       {SB}
       <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--ground-hi)">
-        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display wear" style="font-size:54px">AXIOM</span></div>
+        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display wear" style="font-size:46px">AXIOM</span></div>
         <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sg-fr" style="font-size:14px">lundi 16 novembre</span><span class="sg-num" style="font-size:14px">9:41</span></div>
         <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut wear" style="flex:1;height:56px"></div><svg width="58" height="58"><use href="#g-head"/></svg></div>
         <div class="yearspan sg-num" style="font-size:21px">20<i></i>26</div>
         <div style="display:grid;gap:3px">
-          <div class="sg-wordmark" style="font-size:26px">Signal engineering</div>
+          <div class="sg-wordmark" style="font-size:20px">Signal engineering</div>
           <div class="sg-jp sg-justify" style="font-size:22px">信号工学</div>
-          <div class="sg-wordmark" style="font-size:26px">Ingénierie du signal</div>
+          <div class="sg-wordmark" style="font-size:20px">Ingénierie du signal</div>
         </div>
         <svg class="wear" viewBox="0 0 300 230" style="width:84%;height:auto;align-self:center;margin-top:2px"><use href="#g-chevrons"/></svg>
         <div class="hazard wear"></div>
@@ -378,7 +378,7 @@ S['S'] = fig('S', 'Transfer', 'Chevron steps are the hero. The transfer prints a
       <div class="u-hero u-hero--pad"><ol class="steps"><li class="done">Amount</li><li class="on">Confirm</li><li>Sent</li></ol></div>
       {DIV}
       <section class="u-body u-body--end" style="gap:16px">
-        <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE · SPLIT</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div>
+        <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div>
           <span class="stamp" style="position:absolute;right:104px;bottom:14px;font-size:14px;--gap:var(--sage-hi)">Verified</span></div>
         <div class="spec spec--ground"><span>From</span><i></i><span>Main ·· 4417</span><span>Arrives</span><i></i><span>Instantly</span><span>Fee</span><i></i><span>€0.00</span></div>
         <button class="keycap" type="button" style="margin-top:6px"><span>Send €240</span><small>HOLD 1 S</small><i class="led"></i></button>

@@ -111,7 +111,7 @@ SEG = {"0": "abcdef", "1": "bc", "2": "abged", "3": "abgcd", "4": "fgbc", "5": "
        "7": "abc", "8": "abcdefg", "9": "abcdfg", "-": "g", " ": "", "E": "afged", "r": "eg", "o": "cdeg", "P": "abefg", "A": "abcefg"}
 
 
-def _segs(w=36, h=64, t=5.2, g=1.3):
+def _segs(w=44, h=60, t=5.6, g=1.3):
     def hseg(x0, x1, yc):
         return [(x0, yc), (x0 + t / 2, yc - t / 2), (x1 - t / 2, yc - t / 2), (x1, yc), (x1 - t / 2, yc + t / 2), (x0 + t / 2, yc + t / 2)]
     def vseg(xc, y0, y1):
@@ -125,7 +125,7 @@ def _segs(w=36, h=64, t=5.2, g=1.3):
 def seg7(text, height=48, hot="", ghost=False, cls=""):
     """Inline SVG seven-segment readout. Characters in `hot` (indexes) light coral.
     Unlit segments draw in --off unless ghost=False. Supports 0-9 - . : and a few letters."""
-    w, h, gap = 36, 64, 8
+    w, h, gap = 44, 60, 9
     S = _segs()
     parts, x = [], 0
     for i, ch in enumerate(text):

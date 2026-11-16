@@ -7,8 +7,8 @@ import SwiftUI
 public extension SGFont {
     /// Japanese signage gothic. Hiragino Sans ships with iOS (the web uses BIZ UDGothic).
     static func jp(_ size: CGFloat, bold: Bool = true) -> Font { .custom(bold ? "HiraginoSans-W6" : "HiraginoSans-W3", size: size) }
-    /// French asides: Barlow Medium Italic (bundled).
-    static func fr(_ size: CGFloat) -> Font { .custom("Barlow-MediumItalic", size: size) }
+    /// French asides: Anybody Medium Italic (bundled).
+    static func fr(_ size: CGFloat) -> Font { .custom("Anybody-MediumItalic", size: size) }
 }
 
 public extension View {

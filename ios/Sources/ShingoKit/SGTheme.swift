@@ -59,31 +59,31 @@ public enum SG {
     public static let cutL: CGFloat = 24
 }
 
-// MARK: - Type: hard, industrial signage
+// MARK: - Type: wide, short, hard
 
 public enum SGFont {
-    /// Big Shoulders Display ExtraBold: display wordmarks, 40 pt and up (uppercase).
-    public static func display(_ size: CGFloat) -> Font { .custom("BigShouldersDisplay-ExtraBold", size: size) }
-    /// Barlow Condensed Bold: titles (26), inline wordmarks (15). DIN-like signage.
-    public static func title(_ size: CGFloat) -> Font { .custom("BarlowCondensed-Bold", size: size) }
-    /// Barlow Condensed Bold: numerals in text.
-    public static func number(_ size: CGFloat) -> Font { .custom("BarlowCondensed-Bold", size: size).monospacedDigit() }
-    /// Barlow Condensed SemiBold: labels in caps ("FUTURE ENGINEERING").
-    public static func cap(_ size: CGFloat) -> Font { .custom("BarlowCondensed-SemiBold", size: size) }
-    /// Barlow Medium: body and row labels.
-    public static func body(_ size: CGFloat = 15) -> Font { .custom("Barlow-Medium", size: size) }
-    /// Barlow Condensed Bold: emphasised lines (the trilingual stack).
-    public static func bodyBold(_ size: CGFloat = 15) -> Font { .custom("BarlowCondensed-Bold", size: size) }
+    /// Anybody Extra-Expanded ExtraBold: display wordmarks, 40 pt and up (uppercase). Wide and short.
+    public static func display(_ size: CGFloat) -> Font { .custom("AnybodyExtraExpanded-ExtraBold", size: size) }
+    /// Anybody Expanded Bold: titles (22), inline wordmarks (14).
+    public static func title(_ size: CGFloat) -> Font { .custom("AnybodyExpanded-Bold", size: size) }
+    /// Anybody Expanded Bold: numerals in text.
+    public static func number(_ size: CGFloat) -> Font { .custom("AnybodyExpanded-Bold", size: size).monospacedDigit() }
+    /// Anybody Expanded SemiBold: labels in caps ("FUTURE ENGINEERING").
+    public static func cap(_ size: CGFloat) -> Font { .custom("AnybodyExpanded-SemiBold", size: size) }
+    /// Anybody Medium: body and row labels.
+    public static func body(_ size: CGFloat = 15) -> Font { .custom("Anybody-Medium", size: size) }
+    /// Anybody Expanded Bold: emphasised lines (the trilingual stack).
+    public static func bodyBold(_ size: CGFloat = 15) -> Font { .custom("AnybodyExpanded-Bold", size: size) }
     /// IBM Plex Mono Medium: telemetry and metadata.
     public static func mono(_ size: CGFloat = 11) -> Font { .custom("IBMPlexMono-Medium", size: size) }
-    /// Big Shoulders Stencil: stamped numerals, serials, stamps. Once per screen.
-    public static func stencil(_ size: CGFloat) -> Font { .custom("BigShouldersStencilDisplay-ExtraBold", size: size) }
+    /// Saira Stencil One: stamped numerals, serials, stamps. Wide. Once per screen.
+    public static func stencil(_ size: CGFloat) -> Font { .custom("SairaStencilOne-Regular", size: size) }
 
     /// Call once at launch (e.g. in your App init). Registers the bundled OFL fonts
     /// so you don't need UIAppFonts entries in Info.plist.
     public static func register() {
-        let names = ["BigShouldersDisplay-ExtraBold", "BigShouldersStencilDisplay-ExtraBold", "BarlowCondensed-Bold", "BarlowCondensed-SemiBold",
-                     "Barlow-Medium", "Barlow-SemiBold", "Barlow-MediumItalic", "IBMPlexMono-Medium"]
+        let names = ["AnybodyExtraExpanded-ExtraBold", "AnybodyExpanded-Bold", "AnybodyExpanded-SemiBold", "Anybody-Medium",
+                     "Anybody-MediumItalic", "SairaStencilOne-Regular", "IBMPlexMono-Medium"]
         for name in names {
             guard let url = Bundle.module.url(forResource: name, withExtension: "ttf") else { continue }
             CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
@@ -92,13 +92,13 @@ public enum SGFont {
 }
 
 public extension View {
-    /// Wordmark: Big Shoulders at 40 pt and up (display), Barlow Condensed Bold below (titles 26, inline 15).
+    /// Wordmark: Anybody Extra-Expanded at 40 pt and up (display), Anybody Expanded Bold below (titles 22, inline 14).
     func sgWordmark(_ size: CGFloat) -> some View {
-        font(size >= 40 ? SGFont.display(size) : SGFont.title(size)).textCase(.uppercase).tracking(size >= 40 ? size * 0.01 : size * 0.02)
+        font(size >= 34 ? SGFont.display(size) : SGFont.title(size)).textCase(.uppercase).tracking(size * 0.01)
     }
     /// Condensed caps label, tracked out.
     func sgCap(_ size: CGFloat = 12) -> some View {
-        font(SGFont.cap(size)).textCase(.uppercase).tracking(size * 0.12)
+        font(SGFont.cap(size)).textCase(.uppercase).tracking(size * 0.05)
     }
     func sgLabel(_ size: CGFloat = 15) -> some View { font(SGFont.body(size)) }
     /// Telemetry. Uppercase by default, like the print.
