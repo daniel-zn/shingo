@@ -13,7 +13,7 @@ The look is sci-fi industrial, after a trilingual technical print, in the sage, 
 1. **Print on the ground.** Content prints straight onto the stripes. Filled plates are only for things you press or carry: keys, cards, badges.
 2. **One angle.** Every diagonal is 45°: corner cuts, hazard stripes, chevrons and the stripe field. Cuts sit on the top-right and bottom-left axis at 6, 12 or 24 pt. Nothing is rounded except radar rings.
 3. **One grammar.** Utility screens go masthead, then one hero, then a hazard bar, then the body. The masthead holds a vertical micro-code, a 26 pt title, exactly one tag and a span rule (`08:14 ────── LIS-04`). Poster screens (launch, onboarding, lock screen, empty state) compose freely.
-4. **Hard type.** Tektur Black for wordmarks (44 / 26 / 15 only), with letter corners cut like the system's 45° cuts. Tektur Condensed caps for labels, Tektur for body text, Kode Mono for telemetry, Big Shoulders Stencil for serials and stamps, and DotGothic16 for kanji. Big numbers are seven-segment readouts.
+4. **Hard type.** Tektur Black for display wordmarks (44 pt and up), with letter corners cut like the system's 45° cuts. Chakra Petch Bold for titles (26), inline wordmarks (15) and numbers. Tektur Condensed caps for labels, Tektur for body text, Kode Mono for telemetry, Big Shoulders Stencil for serials and stamps, and DotGothic16 for kanji. Big numbers are seven-segment readouts.
 5. **One signal.** Coral marks one block or one primary action per screen, plus small states like unread and the active tab.
 6. **Tag and aside.** Japanese goes in the masthead tag or a seal. French goes in the span rule. Each appears once at most. All three languages stack only once per app, on the lock screen.
 
@@ -61,7 +61,7 @@ ios/                          Swift package "ShingoKit" (iOS 17+), all colours d
   Sources/ShingoKit/SGInstruments.swift  SGSegDisplay, SGCellMeter, SGRuler, SGSteps, SGIndexTabs, SGCaution, SGStamp, SGTicket, SGKeycapStyle, SGRockerStyle, SGDataPlate, SGSpecRow, SGMatrixCode, .printMarks(), SGColorBar, SGTicker, SGBootLog, SGLamps, SGBlueprint, SGCallout, SGWave
   Sources/ShingoKit/SGLanguage.swift    VerticalText, Hanko, HazardBar, ChevronStack, HeadProfile, YearSpan, ManifestoExample
   Sources/ShingoKit/Examples/           LaunchExample, DashboardExample, IntervalExample with light/dark #Previews
-  Sources/ShingoKit/Resources/Fonts/    Tektur, Kode Mono, Big Shoulders Stencil, Chakra Petch Italic, DotGothic16 (SIL OFL)
+  Sources/ShingoKit/Resources/Fonts/    Tektur, Chakra Petch (Bold + Medium Italic), Kode Mono, Big Shoulders Stencil, DotGothic16 (SIL OFL)
 docs/                         screenshots of every screen in docs/dark and docs/light
 ```
 

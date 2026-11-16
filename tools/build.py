@@ -361,7 +361,7 @@ def poster(sfx="d"):
 def keyart(mode):
     """Key art: the shirt's print stack + the poster's instrument column, in HTML."""
     return f'''<figure class="mode-{mode}"><div class="ka tex"><div class="ka-in">
-      <div class="ka-mast"><span class="u-code">SK·09·LIS</span><span class="sg-wordmark wear">AXIOM</span></div>
+      <div class="ka-mast"><span class="u-code">SK·09·LIS</span><span class="sg-display wear">AXIOM</span></div>
       <div class="slab-cut ka-slab wear"></div><div class="ka-head brackets"><svg><use href="#g-head"/></svg></div>
       <div class="yearspan sg-num ka-year">20<i></i>26</div>
       <div class="ka-trio"><div class="sg-label">Signal engineering</div><div class="sg-jp sg-justify">信号工学</div><div class="sg-label">Ingénierie du signal</div></div>

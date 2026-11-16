@@ -301,7 +301,7 @@ public struct SGKeycapStyle: ButtonStyle {
         ZStack {
             ChamferRect(cut: 14).fill(print ? SG.groundDim : SG.coralDeep).padding(.top, 6)
             HStack {
-                configuration.label.font(SGFont.display(20)).textCase(.uppercase).tracking(1.6)
+                configuration.label.font(SGFont.title(21)).textCase(.uppercase).tracking(1.2)
                 Spacer()
                 if !hint.isEmpty { Text(hint).sgMono(10) }
                 Rectangle().fill(SG.inkFixed).frame(width: 10, height: 10)

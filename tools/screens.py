@@ -252,7 +252,7 @@ S['K'] = fig('K', 'Alert sheet', 'Interruptions get the only large coral surface
 # ---------------------------------------------------------------- O editorial
 S['O'] = fig('O', 'Long read', 'The headline is the hero, set at display size. A French pull quote with a coral rule is the one ornament in the body.', utility(f'''
       {mast('Field notes', 'nº 09 · lena sato', '6 min', jp('第九号'))}
-      <div class="u-hero u-hero--pad"><h3 class="sg-wordmark" style="margin:0;font-size:44px;color:var(--ground-hi)">The quiet<br>network</h3></div>
+      <div class="u-hero u-hero--pad"><h3 class="sg-display" style="margin:0;font-size:44px;color:var(--ground-hi)">The quiet<br>network</h3></div>
       {DIV}
       <section class="u-body u-body--end" style="gap:18px">
         <p class="sg-label" style="margin:0;font-size:15px;line-height:1.55">Most of what keeps you safe online is invisible. Packets leave your phone, cross three relays and arrive without anyone reading them.</p>
@@ -278,7 +278,7 @@ S['P'] = fig('P', 'Paywall', 'The chevron print is the hero. Plans print as fram
 S['A'] = fig('A', 'Launch', 'Reference 1 made industrial: two cut bars, the 45° coral band, a hard X and right-aligned telemetry. The bar slot is the boot progress.', f'''<div class="phone"><div class="scr tex">
       <i class="facet" style="clip-path:polygon(0 0,100% 0,100% 6%,0 34%)"></i>
       {SB}
-      <div style="top:64px;left:22px;display:flex;align-items:flex-end;gap:8px;color:var(--ground-hi)"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-wordmark" style="font-size:44px">AXIOM</span></div>
+      <div style="top:64px;left:22px;display:flex;align-items:flex-end;gap:8px;color:var(--ground-hi)"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:44px">AXIOM</span></div>
       <div class="sg-cap" style="top:116px;left:42px;font-size:12px;color:var(--ground-dim)">Secure workspace</div>
       <i class="band" style="top:56px;right:0;width:120px;height:120px;clip-path:polygon(100% 0,100% 100%,0 100%)"></i>
       <svg style="top:150px;right:20px;width:84px;height:84px;color:var(--ground-hi)"><use href="#g-x-line"/></svg>
@@ -299,7 +299,7 @@ S['L'] = fig('L', 'Empty state', 'Two hard X outlines make the illustration, and
       <svg style="top:96px;left:-36px;width:310px;height:310px;color:var(--ground-3)"><use href="#g-x-line"/></svg>
       <svg style="top:250px;left:196px;width:150px;height:150px;color:var(--ground-hi)"><use href="#g-x-line"/></svg>
       <div class="sg-mono" style="top:70px;right:24px;color:var(--ground-dim)">ERR 0X09</div>
-      <h3 class="sg-wordmark" style="margin:0;top:446px;left:24px;font-size:44px;color:var(--ground-hi)">No<br>signal</h3>
+      <h3 class="sg-display" style="margin:0;top:446px;left:24px;font-size:44px;color:var(--ground-hi)">No<br>signal</h3>
       <div class="sg-jp" style="top:444px;right:24px;font-size:40px;line-height:1.05;writing-mode:vertical-rl;color:var(--ground-hi)">圏外</div>
       <div class="caution" style="top:544px;left:24px;right:24px"><div><svg><use href="#g-warn"/></svg><b>Out of range</b><p>WE COULDN'T REACH THE NETWORK. CHECK WI-FI OR MOBILE DATA.</p></div></div>
       <div style="top:652px;left:24px;right:24px;display:grid;gap:10px"><button class="btn btn--block" type="button">Try again</button><button class="btn btn--ghost btn--block" type="button">Open offline files</button></div>
@@ -316,7 +316,7 @@ S['M'] = fig('M', 'Onboarding', 'Three cut bars in alternating directions, then 
       {BAR(88, 20, style='top:314px;left:0;width:240px')}
       <svg style="top:318px;right:24px;width:80px;height:80px;color:var(--ground-hi)"><use href="#g-x-solid"/></svg>
       <div class="hazard" style="top:440px;left:24px;right:24px"></div>
-      <div style="top:490px;left:24px;right:24px;color:var(--ground-hi)"><div class="sg-fr" style="font-size:13px">acheminer chaque paquet</div><h3 class="sg-wordmark" style="margin:10px 0 0;font-size:44px">Route<br>every<br>packet</h3><p class="sg-mono" style="margin:14px 0 0;font-size:12px;color:var(--on-ground)">THREE RELAYS · TWO KEYS · ZERO LOGS</p></div>
+      <div style="top:490px;left:24px;right:24px;color:var(--ground-hi)"><div class="sg-fr" style="font-size:13px">acheminer chaque paquet</div><h3 class="sg-display" style="margin:10px 0 0;font-size:44px">Route<br>every<br>packet</h3><p class="sg-mono" style="margin:14px 0 0;font-size:12px;color:var(--on-ground)">THREE RELAYS · TWO KEYS · ZERO LOGS</p></div>
       <ol class="steps" style="top:761px;left:24px;width:200px"><li class="done">Scan</li><li class="on">Keys</li><li>Seal</li></ol>
       <button class="btn" type="button" style="top:752px;right:24px">Next<svg><use href="#g-arrow"/></svg></button>
       <i class="home"></i>
@@ -325,7 +325,7 @@ S['M'] = fig('M', 'Onboarding', 'Three cut bars in alternating directions, then 
 S['N'] = fig('N', 'Lock screen', 'The manifesto, after reference 2: the only place all three languages stack, with chevrons, hazard bar and a worn screen-print filter.', f'''<div class="phone"><div class="scr tex">
       {SB}
       <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--ground-hi)">
-        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-wordmark wear" style="font-size:44px">AXIOM</span></div>
+        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display wear" style="font-size:44px">AXIOM</span></div>
         <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sg-fr" style="font-size:14px">lundi 16 novembre</span><span class="sg-num" style="font-size:14px">9:41</span></div>
         <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut wear" style="flex:1;height:56px"></div><svg width="58" height="58"><use href="#g-head"/></svg></div>
         <div class="yearspan sg-num" style="font-size:21px">20<i></i>26</div>

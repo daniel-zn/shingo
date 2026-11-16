@@ -62,10 +62,12 @@ public enum SG {
 // MARK: - Type: hard, chamfered, industrial
 
 public enum SGFont {
-    /// Tektur Black: wordmarks, titles, display (uppercase). Cut-corner letterforms.
+    /// Tektur Black: display wordmarks, 40 pt and up (uppercase). Cut-corner letterforms.
     public static func display(_ size: CGFloat) -> Font { .custom("Tektur-Black", size: size) }
-    /// Tektur ExtraBold: numerals in text.
-    public static func number(_ size: CGFloat) -> Font { .custom("Tektur-ExtraBold", size: size).monospacedDigit() }
+    /// Chakra Petch Bold: titles (26) and inline wordmarks (15). Angular, never bubbly.
+    public static func title(_ size: CGFloat) -> Font { .custom("ChakraPetch-Bold", size: size) }
+    /// Chakra Petch Bold: numerals in text.
+    public static func number(_ size: CGFloat) -> Font { .custom("ChakraPetch-Bold", size: size).monospacedDigit() }
     /// Tektur Condensed SemiBold: labels in caps ("FUTURE ENGINEERING").
     public static func cap(_ size: CGFloat) -> Font { .custom("TekturCondensed-SemiBold", size: size) }
     /// Tektur Medium: body and row labels.
@@ -81,7 +83,7 @@ public enum SGFont {
     /// so you don't need UIAppFonts entries in Info.plist.
     public static func register() {
         let names = ["Tektur-Black", "Tektur-ExtraBold", "Tektur-Bold", "Tektur-Medium", "TekturCondensed-SemiBold",
-                     "KodeMono-Regular", "BigShouldersStencilDisplay-ExtraBold", "ChakraPetch-MediumItalic", "DotGothic16-Regular"]
+                     "KodeMono-Regular", "BigShouldersStencilDisplay-ExtraBold", "ChakraPetch-Bold", "ChakraPetch-MediumItalic", "DotGothic16-Regular"]
         for name in names {
             guard let url = Bundle.module.url(forResource: name, withExtension: "ttf") else { continue }
             CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
@@ -90,9 +92,9 @@ public enum SGFont {
 }
 
 public extension View {
-    /// Display / title / inline wordmark. Sizes: 44, 26, 15.
+    /// Wordmark: Tektur Black at 40 pt and up (display), Chakra Petch Bold below (titles 26, inline 15).
     func sgWordmark(_ size: CGFloat) -> some View {
-        font(SGFont.display(size)).textCase(.uppercase)
+        font(size >= 40 ? SGFont.display(size) : SGFont.title(size)).textCase(.uppercase).tracking(size >= 40 ? size * 0.01 : size * 0.02)
     }
     /// Condensed caps label, tracked out.
     func sgCap(_ size: CGFloat = 12) -> some View {
