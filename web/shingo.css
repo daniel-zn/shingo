@@ -29,30 +29,30 @@
 :root, .mode-dark {
   --ground: #0b0b0a;  --ground-2: #1b1c18;  --ground-3: #2e2f2a;
   --on-ground: #c9ccc2;  --ground-hi: #dcdfd5;  --ground-dim: #8b8d85;
-  --sage: #b8bbb0;  --sage-hi: #c9ccc2;  --sage-lo: #a9aca1;  --sage-line: #8e9089;  --sage-ghost: #cdd0c7;
-  --ink: #0c0c0a;  --ink-dim: #4d4f49;  --coral: #ff715e;  --coral-deep: #e65b48;
+  --sage: #dcdfd5;  --sage-hi: #dcdfd5;  --sage-lo: #8b8d85;  --sage-line: #8b8d85;  --sage-ghost: #c9ccc2;
+  --ink: #0b0b0a;  --ink-dim: #55574f;  --coral: #ff715e;  --coral-deep: #e65b48;
   color-scheme: dark;
 }
 .mode-light {
   --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
-  --sage: #e3e5dd;  --sage-hi: #eceee7;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
-  --ink: #10110e;  --ink-dim: #5a5c54;  --coral: #ff715e;  --coral-deep: #e65b48;
+  --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
+  --ink: #bcbfb4;  --ink-dim: #8e9187;  --coral: #ff715e;  --coral-deep: #e65b48;
   color-scheme: light;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
     --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
-    --sage: #e3e5dd;  --sage-hi: #eceee7;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
-    --ink: #10110e;  --ink-dim: #5a5c54;  color-scheme: light;
+    --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
+    --ink: #bcbfb4;  --ink-dim: #8e9187;  color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
-  --sage: #e3e5dd;  --sage-hi: #eceee7;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
-  --ink: #10110e;  --ink-dim: #5a5c54;  color-scheme: light;
+  --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
+  --ink: #bcbfb4;  --ink-dim: #8e9187;  color-scheme: light;
 }
 .mode-dark, .mode-light { color: var(--on-ground); }
 
@@ -119,13 +119,13 @@
    with one 45° cut at the leading end. --h sets the height.
    <div class="bar"><div class="bar__mid"><div class="bar__core"><i class="bar__slot"></i></div></div></div>
    .bar--bleed-r flips it to run off the right edge. */
-.bar { --h: 120px; --k: calc(var(--h) * .42); height: var(--h); box-sizing: border-box; display: flex; padding: calc(var(--h) * .16) calc(var(--h) * .16) calc(var(--h) * .16) 0; background: var(--sage);
+.bar { --h: 120px; --k: calc(var(--h) * .42); height: var(--h); box-sizing: border-box; display: flex; padding: calc(var(--h) * .12) calc(var(--h) * .12) calc(var(--h) * .12) 0; background: var(--ground-hi);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%); }
-.bar__mid { flex: 1; display: flex; align-items: center; padding-right: calc(var(--h) * .3); background: var(--sage-hi);
+.bar__mid { flex: 1; display: flex; align-items: center; padding-right: calc(var(--h) * .3); background: var(--ground);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k) * .62), calc(100% - var(--k) * .62) 100%, 0 100%); }
-.bar__core { flex: 1; height: calc(var(--h) * .16); display: flex; align-items: center; padding-right: calc(var(--h) * .06); background: var(--sage); }
-.bar__slot { flex: 1; height: max(3px, calc(var(--h) * .035)); --p: 100%; background: linear-gradient(90deg, var(--slot-a, var(--ink)) var(--p), var(--slot-b, var(--coral)) 0); }
-.bar--bleed-r { padding: calc(var(--h) * .16) 0 calc(var(--h) * .16) calc(var(--h) * .16);
+.bar__core { flex: 1; height: calc(var(--h) * .2); display: flex; align-items: center; padding-right: calc(var(--h) * .06); background: var(--ground-hi); }
+.bar__slot { flex: 1; height: max(3px, calc(var(--h) * .05)); --p: 100%; background: linear-gradient(90deg, var(--slot-a, var(--ground)) var(--p), var(--slot-b, var(--coral)) 0); }
+.bar--bleed-r { padding: calc(var(--h) * .12) 0 calc(var(--h) * .12) calc(var(--h) * .12);
   clip-path: polygon(0 0, 100% 0, 100% 100%, var(--k) 100%, 0 calc(100% - var(--k))); }
 .bar--bleed-r .bar__mid { padding: 0 0 0 calc(var(--h) * .3); clip-path: polygon(0 0, 100% 0, 100% 100%, calc(var(--k) * .62) 100%, 0 calc(100% - var(--k) * .62)); }
 .bar--bleed-r .bar__core { padding: 0 0 0 calc(var(--h) * .06); }
@@ -154,8 +154,8 @@
   background: repeating-linear-gradient(-45deg, var(--ground-3) 0 3px, transparent 3px 6px), var(--ground-2); }
 .tgl::after { content: ""; position: absolute; top: 4px; left: 4px; width: 22px; height: 20px; background: var(--ground-dim);
   clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px)); transition: transform .16s; }
-.tgl:checked { background: var(--coral); }
-.tgl:checked::after { transform: translateX(28px); background: #0c0c0a; }
+.tgl:checked { background: var(--ground-hi); }
+.tgl:checked::after { transform: translateX(28px); background: var(--ground); }
 .tgl:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .tgl::after { transition: none; } }
 
@@ -184,7 +184,8 @@
 .rule { display: flex; align-items: center; height: 8px; }
 .rule::before { content: ""; flex: 1; height: 1.5px; background: currentColor; }
 .rule::after { content: ""; width: 26px; height: 8px; background: currentColor; }
-.slot { height: 6px; --p: 40%; background: linear-gradient(90deg, var(--coral) var(--p), var(--ground-3) 0); }
+.slot { height: 6px; --p: 40%; background: linear-gradient(90deg, var(--ground-hi) var(--p), var(--ground-3) 0); }
+.slot--signal { background: linear-gradient(90deg, var(--coral) var(--p), var(--ground-3) 0); }
 .ticks { height: 8px; background: repeating-linear-gradient(90deg, var(--ground-dim) 0 1.5px, transparent 1.5px 8px); }
 .dot { width: 5px; height: 5px; background: var(--ground-dim); display: inline-block; }
 .ico { width: 1em; height: 1em; display: inline-block; vertical-align: middle; flex: none; }
@@ -230,7 +231,7 @@
 .u > .u-hd, .u > .u-hero, .u > .u-div, .u > .u-body { position: relative; }
 .u-hd { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; align-items: end; padding: 60px 24px 0; }
 .u-code { grid-column: 1; grid-row: 1; writing-mode: vertical-rl; transform: rotate(180deg); font: 400 7px/1 var(--f-mono); letter-spacing: .24em; color: var(--ground-dim); padding-bottom: 2px; }
-.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-title); font-stretch: 125%; font-weight: 700; font-size: 22px; letter-spacing: .01em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
+.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-title); font-stretch: 125%; font-weight: 700; font-size: 24px; letter-spacing: .01em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
 .u-tag { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
 .u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ground-dim); }
 .u-hd .sg-jp-v { color: var(--ground-dim); font-size: 12px; }
@@ -328,7 +329,7 @@
 .rocker::before, .rocker::after { position: absolute; top: 4px; bottom: 4px; width: 36px; display: grid; place-items: center; font: 700 14px var(--f-mono); }
 .rocker::before { content: "I"; left: 4px; color: var(--ground-dim); }
 .rocker::after { content: "O"; right: 4px; background: var(--ground-hi); color: var(--ground); }
-.rocker:checked::before { background: var(--coral); color: #0c0c0a; }
+.rocker:checked::before { background: var(--ground-hi); color: var(--ground); }
 .rocker:checked::after { background: transparent; color: var(--ground-dim); }
 .rocker:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
 

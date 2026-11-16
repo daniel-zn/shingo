@@ -290,7 +290,7 @@ S['A'] = fig('A', 'Launch', 'Reference 1 made industrial: two cut bars, the 45°
       <div class="barcode" style="top:548px;right:24px;width:96px;height:72px;--bc:var(--ground-hi)"></div>
       <div class="bootlog" style="top:668px;left:24px;right:24px"><span>Keys verified</span><span>Relays 3 / 3</span><span class="run">Sealing tunnel · 64%<i class="caret"></i></span></div>
       <div class="hazard hazard--run" style="top:740px;left:24px;right:24px"></div>
-      <div class="slot" style="top:780px;left:24px;right:24px;--p:64%"></div>
+      <div class="slot slot--signal" style="top:780px;left:24px;right:24px;--p:64%"></div>
       <i class="home"></i>
     </div></div>''', tier='poster')
 

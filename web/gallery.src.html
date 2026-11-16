@@ -115,10 +115,10 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .key .sg-mono { font-size: 8.5px; letter-spacing: .18em; }
 .key--flat { background: transparent; color: var(--ground-hi); }
 .row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--ground-3); }
-.row .sg-label { font-size: 15px; color: var(--ground-hi); }
+.row .sg-label { font: 600 expanded 12.5px var(--f-cap); letter-spacing: .04em; text-transform: uppercase; color: var(--ground-hi); }
 .row .sg-mono { color: var(--ground-dim); }
 .set { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--ground-3); }
-.set .sg-label { font-size: 15px; color: var(--ground-hi); }
+.set .sg-label { font: 600 expanded 12.5px var(--f-cap); letter-spacing: .04em; text-transform: uppercase; color: var(--ground-hi); }
 .set small { display: block; font: 400 10.5px/1.3 var(--f-mono); color: var(--ground-dim); margin-top: 3px; }
 .av { width: 38px; height: 38px; display: grid; place-items: center; background: var(--sage-hi); color: var(--ink); font: 700 expanded 14px var(--f-title); letter-spacing: .04em; --c: 8px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
 .av--line { background: var(--ground-3); color: var(--ground-hi); }
@@ -217,6 +217,8 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 /* origins */
 .origins { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px; align-items: start; }
 .origins svg.poster { width: 100%; height: auto; display: block; }
+.origins .mode-dark { --sage: #b8bbb0; --sage-hi: #c3c6bd; --sage-lo: #a9aca1; --sage-line: #8e9089; --sage-ghost: #cdd0c7; --ink: #0c0c0a; }
+.origins .mode-light { --sage: #e3e5dd; --sage-hi: #eceee7; --sage-lo: #d2d4cb; --sage-line: #72746b; --sage-ghost: #f7f8f4; --ink: #10110e; }
 .origins figure { margin: 0; display: grid; gap: 10px; min-width: 0; overflow: hidden; }
 .origins-txt { display: grid; gap: 12px; }
 .origins-txt p { margin: 0; font-size: 14px; line-height: 1.55; }
@@ -270,7 +272,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div><div class="sw"><div class="chamfer brackets" style="width:56px;height:48px;--c:12px;padding:0;--fill:var(--ground);--line:var(--ground-dim)"></div></div><div><h3>Cuts and brackets</h3><p>Every corner cut is 45° on the top-right and bottom-left axis, at 6, 12 or 24&nbsp;pt. HUD brackets frame focus areas. <code>.cut .chamfer .brackets</code></p></div></div>
     <div><div class="sw"><svg viewBox="0 0 300 230" width="62" height="48" style="color:var(--ground-hi)"><use href="#g-chevrons"/></svg></div><div><h3>Print motifs</h3><p>Chevrons, barcode, the line-art head, the coral tag slab and the year span. They are generated, so they recolor with tokens. <code>assets/svg/*</code></p></div></div>
     <div><div class="sw" style="justify-items:start;gap:2px"><span class="sg-wordmark" style="font-size:15px;color:var(--ground-hi)">AXIOM</span><span class="sg-stencil" style="font-size:16px;color:var(--ground-hi)">09</span><span class="sg-mono" style="font-size:9px;color:var(--ground-dim)">SP C53</span></div><div><h3>Wide, short, hard type</h3><p>One grotesk at three widths: Anybody extra-expanded for display, expanded for titles, labels and numbers, and normal for body text. Saira Stencil One stamps serials, IBM Plex Mono carries telemetry and BIZ UDGothic sets kanji.</p></div></div>
-    <div><div class="sw"><span class="slab-cut" style="width:56px;height:22px"></span></div><div><h3>One signal</h3><p>Coral appears as one block or one primary action per screen, plus small states like unread and the active tab. Everything else is print.</p></div></div>
+    <div><div class="sw"><span class="slab-cut" style="width:56px;height:22px"></span></div><div><h3>Two inks, one signal</h3><p>Print and ground only, like a garment screen print. Coral is the single extra ink: one block or one primary action per screen, plus small states.</p></div></div>
   </div>
 </section>
 
@@ -278,11 +280,11 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 <section class="sec">
   <div class="sec-h"><span class="sg-num">02</span><h2 class="sg-display">Screens</h2><span class="sg-mono">iPhone 390 × 844 pt · one grammar, two tiers · placeholder brand "AXIOM"</span></div>
   <div class="rules">
-    <div><i>01</i><b>Print on the ground</b><p>Content prints straight onto the stripes. Plates (filled blocks) are kept for things you press or carry: keys, cards, badges.</p></div>
+    <div><i>01</i><b>Two inks</b><p>Everything is print on ground: solid shapes in the print ink with text knocked out, or outlines. No third tone. Coral is the only extra ink.</p></div>
     <div><i>02</i><b>One grammar</b><p>Masthead, then one hero, then the hazard bar, then the body. Poster screens (launch, onboarding, lock, empty) compose freely.</p></div>
     <div><i>03</i><b>One angle</b><p>Every diagonal is 45°: corner cuts, hazard stripes, chevrons, the stripe field. Nothing is rounded except radar rings.</p></div>
     <div><i>04</i><b>Three sizes</b><p>Wordmark type at 44 for display, 26 for titles and 15 inline. Labels are condensed caps and telemetry is mono.</p></div>
-    <div><i>05</i><b>One signal</b><p>Coral marks one block or one primary action, plus small states. It never fills large areas outside an alert.</p></div>
+    <div><i>05</i><b>One signal</b><p>Coral marks one block or one primary action per screen, plus the latest or active state. Switches turn on in print, not coral.</p></div>
     <div><i>06</i><b>Tag and aside</b><p>Japanese lives in the masthead tag or a seal. French lives in the span rule. Each appears once at most.</p></div>
   </div>
   <div class="screens">
@@ -326,7 +328,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="barcode" style="top:548px;right:24px;width:96px;height:72px;--bc:var(--ground-hi)"></div>
       <div class="bootlog" style="top:668px;left:24px;right:24px"><span>Keys verified</span><span>Relays 3 / 3</span><span class="run">Sealing tunnel · 64%<i class="caret"></i></span></div>
       <div class="hazard hazard--run" style="top:740px;left:24px;right:24px"></div>
-      <div class="slot" style="top:780px;left:24px;right:24px;--p:64%"></div>
+      <div class="slot slot--signal" style="top:780px;left:24px;right:24px;--p:64%"></div>
       <i class="home"></i>
     </div></div>
     <figcaption><b>A · Launch</b><span><em class="tier">poster</em> Reference 1 made industrial: two cut bars, the 45° coral band, a hard X and right-aligned telemetry. The bar slot is the boot progress.</span></figcaption>

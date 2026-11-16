@@ -35,30 +35,30 @@
 :root, .mode-dark {
   --ground: #0b0b0a;  --ground-2: #1b1c18;  --ground-3: #2e2f2a;
   --on-ground: #c9ccc2;  --ground-hi: #dcdfd5;  --ground-dim: #8b8d85;
-  --sage: #b8bbb0;  --sage-hi: #c9ccc2;  --sage-lo: #a9aca1;  --sage-line: #8e9089;  --sage-ghost: #cdd0c7;
-  --ink: #0c0c0a;  --ink-dim: #4d4f49;  --coral: #ff715e;  --coral-deep: #e65b48;
+  --sage: #dcdfd5;  --sage-hi: #dcdfd5;  --sage-lo: #8b8d85;  --sage-line: #8b8d85;  --sage-ghost: #c9ccc2;
+  --ink: #0b0b0a;  --ink-dim: #55574f;  --coral: #ff715e;  --coral-deep: #e65b48;
   color-scheme: dark;
 }
 .mode-light {
   --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
-  --sage: #e3e5dd;  --sage-hi: #eceee7;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
-  --ink: #10110e;  --ink-dim: #5a5c54;  --coral: #ff715e;  --coral-deep: #e65b48;
+  --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
+  --ink: #bcbfb4;  --ink-dim: #8e9187;  --coral: #ff715e;  --coral-deep: #e65b48;
   color-scheme: light;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
     --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
-    --sage: #e3e5dd;  --sage-hi: #eceee7;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
-    --ink: #10110e;  --ink-dim: #5a5c54;  color-scheme: light;
+    --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
+    --ink: #bcbfb4;  --ink-dim: #8e9187;  color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
-  --sage: #e3e5dd;  --sage-hi: #eceee7;  --sage-lo: #d2d4cb;  --sage-line: #72746b;  --sage-ghost: #f7f8f4;
-  --ink: #10110e;  --ink-dim: #5a5c54;  color-scheme: light;
+  --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
+  --ink: #bcbfb4;  --ink-dim: #8e9187;  color-scheme: light;
 }
 .mode-dark, .mode-light { color: var(--on-ground); }
 
@@ -125,13 +125,13 @@
    with one 45° cut at the leading end. --h sets the height.
    <div class="bar"><div class="bar__mid"><div class="bar__core"><i class="bar__slot"></i></div></div></div>
    .bar--bleed-r flips it to run off the right edge. */
-.bar { --h: 120px; --k: calc(var(--h) * .42); height: var(--h); box-sizing: border-box; display: flex; padding: calc(var(--h) * .16) calc(var(--h) * .16) calc(var(--h) * .16) 0; background: var(--sage);
+.bar { --h: 120px; --k: calc(var(--h) * .42); height: var(--h); box-sizing: border-box; display: flex; padding: calc(var(--h) * .12) calc(var(--h) * .12) calc(var(--h) * .12) 0; background: var(--ground-hi);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%); }
-.bar__mid { flex: 1; display: flex; align-items: center; padding-right: calc(var(--h) * .3); background: var(--sage-hi);
+.bar__mid { flex: 1; display: flex; align-items: center; padding-right: calc(var(--h) * .3); background: var(--ground);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k) * .62), calc(100% - var(--k) * .62) 100%, 0 100%); }
-.bar__core { flex: 1; height: calc(var(--h) * .16); display: flex; align-items: center; padding-right: calc(var(--h) * .06); background: var(--sage); }
-.bar__slot { flex: 1; height: max(3px, calc(var(--h) * .035)); --p: 100%; background: linear-gradient(90deg, var(--slot-a, var(--ink)) var(--p), var(--slot-b, var(--coral)) 0); }
-.bar--bleed-r { padding: calc(var(--h) * .16) 0 calc(var(--h) * .16) calc(var(--h) * .16);
+.bar__core { flex: 1; height: calc(var(--h) * .2); display: flex; align-items: center; padding-right: calc(var(--h) * .06); background: var(--ground-hi); }
+.bar__slot { flex: 1; height: max(3px, calc(var(--h) * .05)); --p: 100%; background: linear-gradient(90deg, var(--slot-a, var(--ground)) var(--p), var(--slot-b, var(--coral)) 0); }
+.bar--bleed-r { padding: calc(var(--h) * .12) 0 calc(var(--h) * .12) calc(var(--h) * .12);
   clip-path: polygon(0 0, 100% 0, 100% 100%, var(--k) 100%, 0 calc(100% - var(--k))); }
 .bar--bleed-r .bar__mid { padding: 0 0 0 calc(var(--h) * .3); clip-path: polygon(0 0, 100% 0, 100% 100%, calc(var(--k) * .62) 100%, 0 calc(100% - var(--k) * .62)); }
 .bar--bleed-r .bar__core { padding: 0 0 0 calc(var(--h) * .06); }
@@ -160,8 +160,8 @@
   background: repeating-linear-gradient(-45deg, var(--ground-3) 0 3px, transparent 3px 6px), var(--ground-2); }
 .tgl::after { content: ""; position: absolute; top: 4px; left: 4px; width: 22px; height: 20px; background: var(--ground-dim);
   clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px)); transition: transform .16s; }
-.tgl:checked { background: var(--coral); }
-.tgl:checked::after { transform: translateX(28px); background: #0c0c0a; }
+.tgl:checked { background: var(--ground-hi); }
+.tgl:checked::after { transform: translateX(28px); background: var(--ground); }
 .tgl:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .tgl::after { transition: none; } }
 
@@ -190,7 +190,8 @@
 .rule { display: flex; align-items: center; height: 8px; }
 .rule::before { content: ""; flex: 1; height: 1.5px; background: currentColor; }
 .rule::after { content: ""; width: 26px; height: 8px; background: currentColor; }
-.slot { height: 6px; --p: 40%; background: linear-gradient(90deg, var(--coral) var(--p), var(--ground-3) 0); }
+.slot { height: 6px; --p: 40%; background: linear-gradient(90deg, var(--ground-hi) var(--p), var(--ground-3) 0); }
+.slot--signal { background: linear-gradient(90deg, var(--coral) var(--p), var(--ground-3) 0); }
 .ticks { height: 8px; background: repeating-linear-gradient(90deg, var(--ground-dim) 0 1.5px, transparent 1.5px 8px); }
 .dot { width: 5px; height: 5px; background: var(--ground-dim); display: inline-block; }
 .ico { width: 1em; height: 1em; display: inline-block; vertical-align: middle; flex: none; }
@@ -236,7 +237,7 @@
 .u > .u-hd, .u > .u-hero, .u > .u-div, .u > .u-body { position: relative; }
 .u-hd { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; align-items: end; padding: 60px 24px 0; }
 .u-code { grid-column: 1; grid-row: 1; writing-mode: vertical-rl; transform: rotate(180deg); font: 400 7px/1 var(--f-mono); letter-spacing: .24em; color: var(--ground-dim); padding-bottom: 2px; }
-.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-title); font-stretch: 125%; font-weight: 700; font-size: 22px; letter-spacing: .01em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
+.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-title); font-stretch: 125%; font-weight: 700; font-size: 24px; letter-spacing: .01em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
 .u-tag { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
 .u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ground-dim); }
 .u-hd .sg-jp-v { color: var(--ground-dim); font-size: 12px; }
@@ -334,7 +335,7 @@
 .rocker::before, .rocker::after { position: absolute; top: 4px; bottom: 4px; width: 36px; display: grid; place-items: center; font: 700 14px var(--f-mono); }
 .rocker::before { content: "I"; left: 4px; color: var(--ground-dim); }
 .rocker::after { content: "O"; right: 4px; background: var(--ground-hi); color: var(--ground); }
-.rocker:checked::before { background: var(--coral); color: #0c0c0a; }
+.rocker:checked::before { background: var(--ground-hi); color: var(--ground); }
 .rocker:checked::after { background: transparent; color: var(--ground-dim); }
 .rocker:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
 
@@ -510,10 +511,10 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .key .sg-mono { font-size: 8.5px; letter-spacing: .18em; }
 .key--flat { background: transparent; color: var(--ground-hi); }
 .row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--ground-3); }
-.row .sg-label { font-size: 15px; color: var(--ground-hi); }
+.row .sg-label { font: 600 expanded 12.5px var(--f-cap); letter-spacing: .04em; text-transform: uppercase; color: var(--ground-hi); }
 .row .sg-mono { color: var(--ground-dim); }
 .set { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--ground-3); }
-.set .sg-label { font-size: 15px; color: var(--ground-hi); }
+.set .sg-label { font: 600 expanded 12.5px var(--f-cap); letter-spacing: .04em; text-transform: uppercase; color: var(--ground-hi); }
 .set small { display: block; font: 400 10.5px/1.3 var(--f-mono); color: var(--ground-dim); margin-top: 3px; }
 .av { width: 38px; height: 38px; display: grid; place-items: center; background: var(--sage-hi); color: var(--ink); font: 700 expanded 14px var(--f-title); letter-spacing: .04em; --c: 8px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
 .av--line { background: var(--ground-3); color: var(--ground-hi); }
@@ -612,6 +613,8 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 /* origins */
 .origins { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px; align-items: start; }
 .origins svg.poster { width: 100%; height: auto; display: block; }
+.origins .mode-dark { --sage: #b8bbb0; --sage-hi: #c3c6bd; --sage-lo: #a9aca1; --sage-line: #8e9089; --sage-ghost: #cdd0c7; --ink: #0c0c0a; }
+.origins .mode-light { --sage: #e3e5dd; --sage-hi: #eceee7; --sage-lo: #d2d4cb; --sage-line: #72746b; --sage-ghost: #f7f8f4; --ink: #10110e; }
 .origins figure { margin: 0; display: grid; gap: 10px; min-width: 0; overflow: hidden; }
 .origins-txt { display: grid; gap: 12px; }
 .origins-txt p { margin: 0; font-size: 14px; line-height: 1.55; }
@@ -687,7 +690,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div><div class="sw"><div class="chamfer brackets" style="width:56px;height:48px;--c:12px;padding:0;--fill:var(--ground);--line:var(--ground-dim)"></div></div><div><h3>Cuts and brackets</h3><p>Every corner cut is 45° on the top-right and bottom-left axis, at 6, 12 or 24&nbsp;pt. HUD brackets frame focus areas. <code>.cut .chamfer .brackets</code></p></div></div>
     <div><div class="sw"><svg viewBox="0 0 300 230" width="62" height="48" style="color:var(--ground-hi)"><use href="#g-chevrons"/></svg></div><div><h3>Print motifs</h3><p>Chevrons, barcode, the line-art head, the coral tag slab and the year span. They are generated, so they recolor with tokens. <code>assets/svg/*</code></p></div></div>
     <div><div class="sw" style="justify-items:start;gap:2px"><span class="sg-wordmark" style="font-size:15px;color:var(--ground-hi)">AXIOM</span><span class="sg-stencil" style="font-size:16px;color:var(--ground-hi)">09</span><span class="sg-mono" style="font-size:9px;color:var(--ground-dim)">SP C53</span></div><div><h3>Wide, short, hard type</h3><p>One grotesk at three widths: Anybody extra-expanded for display, expanded for titles, labels and numbers, and normal for body text. Saira Stencil One stamps serials, IBM Plex Mono carries telemetry and BIZ UDGothic sets kanji.</p></div></div>
-    <div><div class="sw"><span class="slab-cut" style="width:56px;height:22px"></span></div><div><h3>One signal</h3><p>Coral appears as one block or one primary action per screen, plus small states like unread and the active tab. Everything else is print.</p></div></div>
+    <div><div class="sw"><span class="slab-cut" style="width:56px;height:22px"></span></div><div><h3>Two inks, one signal</h3><p>Print and ground only, like a garment screen print. Coral is the single extra ink: one block or one primary action per screen, plus small states.</p></div></div>
   </div>
 </section>
 
@@ -695,11 +698,11 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 <section class="sec">
   <div class="sec-h"><span class="sg-num">02</span><h2 class="sg-display">Screens</h2><span class="sg-mono">iPhone 390 × 844 pt · one grammar, two tiers · placeholder brand "AXIOM"</span></div>
   <div class="rules">
-    <div><i>01</i><b>Print on the ground</b><p>Content prints straight onto the stripes. Plates (filled blocks) are kept for things you press or carry: keys, cards, badges.</p></div>
+    <div><i>01</i><b>Two inks</b><p>Everything is print on ground: solid shapes in the print ink with text knocked out, or outlines. No third tone. Coral is the only extra ink.</p></div>
     <div><i>02</i><b>One grammar</b><p>Masthead, then one hero, then the hazard bar, then the body. Poster screens (launch, onboarding, lock, empty) compose freely.</p></div>
     <div><i>03</i><b>One angle</b><p>Every diagonal is 45°: corner cuts, hazard stripes, chevrons, the stripe field. Nothing is rounded except radar rings.</p></div>
     <div><i>04</i><b>Three sizes</b><p>Wordmark type at 44 for display, 26 for titles and 15 inline. Labels are condensed caps and telemetry is mono.</p></div>
-    <div><i>05</i><b>One signal</b><p>Coral marks one block or one primary action, plus small states. It never fills large areas outside an alert.</p></div>
+    <div><i>05</i><b>One signal</b><p>Coral marks one block or one primary action per screen, plus the latest or active state. Switches turn on in print, not coral.</p></div>
     <div><i>06</i><b>Tag and aside</b><p>Japanese lives in the masthead tag or a seal. French lives in the span rule. Each appears once at most.</p></div>
   </div>
   <div class="screens">
@@ -743,7 +746,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="barcode" style="top:548px;right:24px;width:96px;height:72px;--bc:var(--ground-hi)"></div>
       <div class="bootlog" style="top:668px;left:24px;right:24px"><span>Keys verified</span><span>Relays 3 / 3</span><span class="run">Sealing tunnel · 64%<i class="caret"></i></span></div>
       <div class="hazard hazard--run" style="top:740px;left:24px;right:24px"></div>
-      <div class="slot" style="top:780px;left:24px;right:24px;--p:64%"></div>
+      <div class="slot slot--signal" style="top:780px;left:24px;right:24px;--p:64%"></div>
       <i class="home"></i>
     </div></div>
     <figcaption><b>A · Launch</b><span><em class="tier">poster</em> Reference 1 made industrial: two cut bars, the 45° coral band, a hard X and right-aligned telemetry. The bar slot is the boot progress.</span></figcaption>
@@ -1245,7 +1248,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     </div>
     <div style="grid-column:1/-1">
       <h3><span>color roles · both modes</span><span>tokens/tokens.json</span></h3>
-      <div class="swatches"><div><i style="background:var(--ground)"></i><b>ground</b><span>striped background<br>dark #0b0b0a · light #bcbfb4</span></div><div><i style="background:var(--ground-2)"></i><b>ground-2</b><span>stripe highlight<br>dark #1b1c18 · light #b0b3a8</span></div><div><i style="background:var(--ground-3)"></i><b>ground-3</b><span>rules, frames, tracks<br>dark #2e2f2a · light #9fa297</span></div><div><i style="background:var(--on-ground)"></i><b>on-ground</b><span>body text on the ground<br>dark #c9ccc2 · light #1c1d19</span></div><div><i style="background:var(--ground-hi)"></i><b>ground-hi</b><span>the print: titles, line art, plates of text<br>dark #dcdfd5 · light #0f100d</span></div><div><i style="background:var(--ground-dim)"></i><b>ground-dim</b><span>secondary print<br>dark #8b8d85 · light #4d4f47</span></div><div><i style="background:var(--sage)"></i><b>sage</b><span>plates, outer bar<br>dark #b8bbb0 · light #e3e5dd</span></div><div><i style="background:var(--sage-hi)"></i><b>sage-hi</b><span>plates you press or carry<br>dark #c9ccc2 · light #eceee7</span></div><div><i style="background:var(--sage-lo)"></i><b>sage-lo</b><span>pressed plates<br>dark #a9aca1 · light #d2d4cb</span></div><div><i style="background:var(--sage-line)"></i><b>sage-line</b><span>hairlines on plates<br>dark #8e9089 · light #72746b</span></div><div><i style="background:var(--sage-ghost)"></i><b>sage-ghost</b><span>faint marks on plates<br>dark #cdd0c7 · light #f7f8f4</span></div><div><i style="background:var(--ink)"></i><b>ink</b><span>text on plates, solid objects<br>dark #0c0c0a · light #10110e</span></div><div><i style="background:var(--ink-dim)"></i><b>ink-dim</b><span>secondary text on plates<br>dark #4d4f49 · light #5a5c54</span></div><div><i style="background:var(--coral)"></i><b>coral</b><span>the signal<br>dark #ff715e · light #ff715e</span></div><div><i style="background:var(--coral-deep)"></i><b>coral-deep</b><span>pressed signal<br>dark #e65b48 · light #e65b48</span></div></div>
+      <div class="swatches"><div><i style="background:var(--ground)"></i><b>ground</b><span>striped background<br>dark #0b0b0a · light #bcbfb4</span></div><div><i style="background:var(--ground-2)"></i><b>ground-2</b><span>stripe highlight<br>dark #1b1c18 · light #b0b3a8</span></div><div><i style="background:var(--ground-3)"></i><b>ground-3</b><span>rules, frames, tracks<br>dark #2e2f2a · light #9fa297</span></div><div><i style="background:var(--on-ground)"></i><b>on-ground</b><span>body text on the ground<br>dark #c9ccc2 · light #1c1d19</span></div><div><i style="background:var(--ground-hi)"></i><b>ground-hi</b><span>the print: titles, line art, plates of text<br>dark #dcdfd5 · light #0f100d</span></div><div><i style="background:var(--ground-dim)"></i><b>ground-dim</b><span>secondary print<br>dark #8b8d85 · light #4d4f47</span></div><div><i style="background:var(--sage)"></i><b>sage</b><span>solid print plates<br>dark #dcdfd5 · light #0f100d</span></div><div><i style="background:var(--sage-hi)"></i><b>sage-hi</b><span>plates you press or carry (= print)<br>dark #dcdfd5 · light #0f100d</span></div><div><i style="background:var(--sage-lo)"></i><b>sage-lo</b><span>perforations, pressed plates<br>dark #8b8d85 · light #4d4f47</span></div><div><i style="background:var(--sage-line)"></i><b>sage-line</b><span>hairlines on plates<br>dark #8b8d85 · light #4d4f47</span></div><div><i style="background:var(--sage-ghost)"></i><b>sage-ghost</b><span>faint marks on plates<br>dark #c9ccc2 · light #2e2f2a</span></div><div><i style="background:var(--ink)"></i><b>ink</b><span>text knocked out of plates (= ground)<br>dark #0b0b0a · light #bcbfb4</span></div><div><i style="background:var(--ink-dim)"></i><b>ink-dim</b><span>secondary text on plates<br>dark #55574f · light #8e9187</span></div><div><i style="background:var(--coral)"></i><b>coral</b><span>the signal<br>dark #ff715e · light #ff715e</span></div><div><i style="background:var(--coral-deep)"></i><b>coral-deep</b><span>pressed signal<br>dark #e65b48 · light #e65b48</span></div></div>
     </div>
     <div style="grid-column:1/-1">
       <h3><span>type scale</span><span>Anybody · Saira Stencil One · IBM Plex Mono · BIZ UDGothic (OFL)</span></h3>

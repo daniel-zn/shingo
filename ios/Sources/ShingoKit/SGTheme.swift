@@ -37,14 +37,14 @@ public enum SG {
     public static let onGround  = Color(light: 0x1C1D19, dark: 0xC9CCC2)   // body text on the ground
     public static let groundHi  = Color(light: 0x0F100D, dark: 0xDCDFD5)   // the print: titles, line art
     public static let groundDim = Color(light: 0x4D4F47, dark: 0x8B8D85)   // secondary print
-    // plates: filled blocks for things you press or carry
-    public static let sage      = Color(light: 0xE3E5DD, dark: 0xB8BBB0)
-    public static let sageHi    = Color(light: 0xECEEE7, dark: 0xC9CCC2)
-    public static let sageLo    = Color(light: 0xD2D4CB, dark: 0xA9ACA1)
-    public static let sageLine  = Color(light: 0x72746B, dark: 0x8E9089)
-    // ink: text on plates and solid objects
-    public static let ink       = Color(light: 0x10110E, dark: 0x0C0C0A)
-    public static let inkDim    = Color(light: 0x5A5C54, dark: 0x4D4F49)
+    // plates: solid print with knocked-out text (two-ink screen print, no third tone)
+    public static let sage      = Color(light: 0x0F100D, dark: 0xDCDFD5)
+    public static let sageHi    = Color(light: 0x0F100D, dark: 0xDCDFD5)
+    public static let sageLo    = Color(light: 0x4D4F47, dark: 0x8B8D85)
+    public static let sageLine  = Color(light: 0x4D4F47, dark: 0x8B8D85)
+    // ink: text knocked out of a plate (= the ground colour)
+    public static let ink       = Color(light: 0xBCBFB4, dark: 0x0B0B0A)
+    public static let inkDim    = Color(light: 0x8E9187, dark: 0x55574F)
     public static let inkFixed  = Color(hex: 0x0C0C0A)                    // text on coral, both modes
     // signal
     public static let coral     = Color(hex: 0xFF715E)

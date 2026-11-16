@@ -20,16 +20,16 @@ C = dict(ink="var(--ink)", sage="var(--sage)", hi="var(--sage-hi)", lo="var(--sa
          oninc="var(--on-ground)", ghi="var(--ground-hi)", ground="var(--ground)", ground2="var(--ground-2)")
 PALETTE = {
     "dark":  {"ground": "#0b0b0a", "ground-2": "#1b1c18", "ground-3": "#2e2f2a", "on-ground": "#c9ccc2", "ground-hi": "#dcdfd5", "ground-dim": "#8b8d85",
-              "sage": "#b8bbb0", "sage-hi": "#c9ccc2", "sage-lo": "#a9aca1", "sage-line": "#8e9089", "sage-ghost": "#cdd0c7",
-              "ink": "#0c0c0a", "ink-dim": "#4d4f49", "coral": "#ff715e", "coral-deep": "#e65b48"},
+              "sage": "#dcdfd5", "sage-hi": "#dcdfd5", "sage-lo": "#8b8d85", "sage-line": "#8b8d85", "sage-ghost": "#c9ccc2",
+              "ink": "#0b0b0a", "ink-dim": "#55574f", "coral": "#ff715e", "coral-deep": "#e65b48"},
     "light": {"ground": "#bcbfb4", "ground-2": "#b0b3a8", "ground-3": "#9fa297", "on-ground": "#1c1d19", "ground-hi": "#0f100d", "ground-dim": "#4d4f47",
-              "sage": "#e3e5dd", "sage-hi": "#eceee7", "sage-lo": "#d2d4cb", "sage-line": "#72746b", "sage-ghost": "#f7f8f4",
-              "ink": "#10110e", "ink-dim": "#5a5c54", "coral": "#ff715e", "coral-deep": "#e65b48"},
+              "sage": "#0f100d", "sage-hi": "#0f100d", "sage-lo": "#4d4f47", "sage-line": "#4d4f47", "sage-ghost": "#2e2f2a",
+              "ink": "#bcbfb4", "ink-dim": "#8e9187", "coral": "#ff715e", "coral-deep": "#e65b48"},
 }
 ROLES = {"ground": "striped background", "ground-2": "stripe highlight", "ground-3": "rules, frames, tracks",
          "on-ground": "body text on the ground", "ground-hi": "the print: titles, line art, plates of text", "ground-dim": "secondary print",
-         "sage": "plates, outer bar", "sage-hi": "plates you press or carry", "sage-lo": "pressed plates", "sage-line": "hairlines on plates",
-         "sage-ghost": "faint marks on plates", "ink": "text on plates, solid objects", "ink-dim": "secondary text on plates",
+         "sage": "solid print plates", "sage-hi": "plates you press or carry (= print)", "sage-lo": "perforations, pressed plates", "sage-line": "hairlines on plates",
+         "sage-ghost": "faint marks on plates", "ink": "text knocked out of plates (= ground)", "ink-dim": "secondary text on plates",
          "coral": "the signal", "coral-deep": "pressed signal"}
 
 
@@ -377,9 +377,13 @@ def keyart(mode):
 def main():
     export_glyphs()
     defs = sprite().split("<defs>")[1].split("</defs>")[0]
+    REF1 = {"dark": {"sage": "#b8bbb0", "sage-hi": "#c3c6bd", "sage-lo": "#a9aca1", "sage-line": "#8e9089", "sage-ghost": "#cdd0c7", "ink": "#0c0c0a"},
+            "light": {"sage": "#e3e5dd", "sage-hi": "#eceee7", "sage-lo": "#d2d4cb", "sage-line": "#72746b", "sage-ghost": "#f7f8f4", "ink": "#10110e"}}
     for mode in ("dark", "light"):
         svg = poster(mode[0]).replace("<defs>", "<defs>" + defs, 1)
+        saved = dict(PALETTE[mode]); PALETTE[mode].update(REF1[mode])
         (ROOT / "assets" / "svg" / f"poster-{mode}.svg").write_text(resolve(svg, mode) + "\n")
+        PALETTE[mode].clear(); PALETTE[mode].update(saved)
     src = (ROOT / "web" / "gallery.src.html").read_text()
     src = re.sub(r"<!--@SEG7\|([^|]*)\|(\d+)\|([^>]*?)-->", lambda m: seg7(m.group(1), int(m.group(2)), m.group(3)), src)
     src = src.replace("<!--@LANGUAGES-->", (ROOT / "web" / "partials" / "languages.html").read_text())

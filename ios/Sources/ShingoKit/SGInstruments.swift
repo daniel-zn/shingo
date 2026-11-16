@@ -324,8 +324,8 @@ public struct SGRockerStyle: ToggleStyle {
             configuration.label
             Spacer(minLength: 12)
             HStack(spacing: 0) {
-                Text("I").frame(width: 36, height: 28).background(configuration.isOn ? SG.coral : .clear)
-                    .foregroundStyle(configuration.isOn ? SG.inkFixed : SG.groundDim)
+                Text("I").frame(width: 36, height: 28).background(configuration.isOn ? SG.groundHi : .clear)
+                    .foregroundStyle(configuration.isOn ? SG.ground : SG.groundDim)
                 Text("O").frame(width: 36, height: 28).background(configuration.isOn ? .clear : SG.groundHi)
                     .foregroundStyle(configuration.isOn ? SG.groundDim : SG.ground)
             }

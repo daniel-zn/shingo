@@ -14,7 +14,7 @@ public struct SGBar: View {
     public var slotB: Color
 
     public init(height: CGFloat = 120, bleed: Bleed = .leading, progress: Double = 1,
-                slotA: Color = SG.ink, slotB: Color = SG.coral) {
+                slotA: Color = SG.ground, slotB: Color = SG.coral) {
         self.height = height; self.bleed = bleed; self.progress = progress
         self.slotA = slotA; self.slotB = slotB
     }
@@ -24,11 +24,11 @@ public struct SGBar: View {
         let corner: TagCut.Corner = bleed == .leading ? .bottomTrailing : .bottomLeading
         let freeEnd: Edge.Set = bleed == .leading ? .trailing : .leading
 
-        TagCut(cut: k, corner: corner).fill(SG.sage)
+        TagCut(cut: k, corner: corner).fill(SG.groundHi)
             .overlay {
-                TagCut(cut: k * 0.62, corner: corner).fill(SG.sageHi)
+                TagCut(cut: k * 0.62, corner: corner).fill(SG.ground)
                     .overlay {
-                        Rectangle().fill(SG.sage)
+                        Rectangle().fill(SG.groundHi)
                             .overlay {
                                 GeometryReader { g in
                                     HStack(spacing: 0) {
@@ -36,14 +36,14 @@ public struct SGBar: View {
                                         Rectangle().fill(slotB)
                                     }
                                 }
-                                .frame(height: max(3, height * 0.035))
+                                .frame(height: max(3, height * 0.05))
                                 .padding(freeEnd, height * 0.06)
                             }
-                            .frame(height: height * 0.16)
+                            .frame(height: height * 0.2)
                             .padding(freeEnd, height * 0.3)
                     }
-                    .padding(.vertical, height * 0.16)
-                    .padding(freeEnd, height * 0.16)
+                    .padding(.vertical, height * 0.12)
+                    .padding(freeEnd, height * 0.12)
             }
             .frame(height: height)
             .accessibilityHidden(true)
@@ -105,11 +105,11 @@ public struct SGToggleStyle: ToggleStyle {
     public init() {}
     public func makeBody(configuration: Configuration) -> some View {
         HStack {
-            configuration.label.foregroundStyle(SG.groundHi)
+            configuration.label.font(SGFont.cap(12.5)).textCase(.uppercase).foregroundStyle(SG.groundHi)
             Spacer(minLength: 12)
             ZStack(alignment: configuration.isOn ? .trailing : .leading) {
-                ChamferRect(cut: 7).fill(configuration.isOn ? SG.coral : SG.ground3)
-                ChamferRect(cut: 5).fill(configuration.isOn ? SG.inkFixed : SG.groundDim)
+                ChamferRect(cut: 7).fill(configuration.isOn ? SG.groundHi : SG.ground3)
+                ChamferRect(cut: 5).fill(configuration.isOn ? SG.ground : SG.groundDim)
                     .frame(width: 22, height: 20).padding(4)
             }
             .frame(width: 58, height: 28)
@@ -175,9 +175,9 @@ public struct SGChip: View {
 /// Flat progress bar: coral fill on a ground-3 track. No rounding.
 public struct SGSlot: View {
     public var progress: Double
-    public var fill: Color = SG.coral
+    public var fill: Color = SG.groundHi
     public var track: Color = SG.ground3
-    public init(progress: Double, fill: Color = SG.coral, track: Color = SG.ground3) {
+    public init(progress: Double, fill: Color = SG.groundHi, track: Color = SG.ground3) {
         self.progress = progress; self.fill = fill; self.track = track
     }
     public var body: some View {

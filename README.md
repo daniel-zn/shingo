@@ -10,11 +10,11 @@ Open `dist/index.html` in a browser for the full gallery: key art, 20 iPhone scr
 
 The look is sci-fi industrial, after a trilingual technical print, in the sage, ink and coral palette of a sage-and-coral poster.
 
-1. **Print on the ground.** Content prints straight onto the stripes. Filled plates are only for things you press or carry: keys, cards, badges.
+1. **Two inks.** Like a garment screen print, everything is print on ground. Solid shapes (keys, cards, badges, tickets, nested bars) are print ink with the text knocked out. There's no third tone. Coral is the only extra ink.
 2. **One angle.** Every diagonal is 45°: corner cuts, hazard stripes, chevrons and the stripe field. Cuts sit on the top-right and bottom-left axis at 6, 12 or 24 pt. Nothing is rounded except radar rings.
 3. **One grammar.** Utility screens go masthead, then one hero, then a hazard bar, then the body. The masthead holds a vertical micro-code, a 26 pt title, exactly one tag and a span rule (`08:14 ────── LIS-04`). Poster screens (launch, onboarding, lock screen, empty state) compose freely.
 4. **Wide, short, hard type.** One grotesk at three widths: Anybody Extra-Expanded ExtraBold for display (40 pt), Anybody Expanded for titles (22), inline wordmarks (14), labels and numbers, and Anybody at normal width for body text. Saira Stencil One stamps serials, IBM Plex Mono carries telemetry, and BIZ UDGothic sets kanji (Hiragino Sans on iOS). Big numbers are wide seven-segment readouts. Nothing is condensed or rounded.
-5. **One signal.** Coral marks one block or one primary action per screen, plus small states like unread and the active tab.
+5. **One signal.** Coral marks one block or one primary action per screen, plus the latest or active state. Switches turn on in print, not coral. Row labels are wide capitals, like the print.
 6. **Tag and aside.** Japanese goes in the masthead tag or a seal. French goes in the span rule. Each appears once at most. All three languages stack only once per app, on the lock screen.
 
 7. **Instruments.** Twenty parts extrapolated from the motifs, each with a job: seven-segment readout, cell meter, ruler slider, chevron steps, index tabs, caution tag, rubber stamp, ticket stub, keycap, rocker switch, data plate, print marks and colour bar, telemetry ticker, boot log, callout, blueprint grid, oscilloscope, status lamps and stencil serials.
@@ -29,8 +29,8 @@ The look is sci-fi industrial, after a trilingual technical print, in the sage, 
 
 | | ground (striped) | print | plates | signal |
 |---|---|---|---|---|
-| **Dark** | ink `#0b0b0a` | bone `#dcdfd5` | sage `#c9ccc2` | coral `#ff715e` |
-| **Light** | sage `#bcbfb4` | ink `#0f100d` | paper `#eceee7` (never white) | coral `#ff715e` |
+| **Dark** | ink `#0b0b0a` | bone `#dcdfd5` | bone, text knocked out | coral `#ff715e` |
+| **Light** | sage `#bcbfb4` | ink `#0f100d` | ink, text knocked out | coral `#ff715e` |
 
 Use role tokens, never raw hex. Things printed on the ground use `--ground-*`: `--ground-hi` is the print and `--ground-dim` is secondary print. Things on plates use `--sage-*` and `--ink`. Force a mode on any web subtree with `.mode-light` or `.mode-dark`. On iOS, every `SG` colour is dynamic and follows the system appearance or `.preferredColorScheme`.
 
