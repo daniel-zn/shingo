@@ -33,7 +33,7 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 **Imagery and motion**
 
-11. **Real photography only.** Photos are converted to the two-ink duotone of the current mode (`tools/photos.py`) and credited in `assets/photos/credits.json`. No illustrated or generated cities.
+11. **No pictorial scenes.** There is no photography and no illustrated or generated cities. Imagery comes from the shape system itself: backdrops, motifs and diagrams such as the relay network.
 12. **Stepped motion.** Never eased, turning only in 45° steps. Everything stays still when reduced motion is on.
 
 **Language**
@@ -70,11 +70,9 @@ web/gallery.src.html          gallery source
 web/partials/languages.html   the language section
 tools/screens.py              regenerates the gallery screens from the grammar
 tools/build.py                glyphs, motifs, backdrops, key art, posters; builds dist/
-tools/photos.py               converts licensed photos to dark and light duotones
 tools/screenshot.js           renders every screen in both modes (preinstalled Playwright)
 dist/index.html               the built, self-contained gallery
 assets/svg/*.svg              glyphs and icons (multi-colour ones as -dark/-light pairs)
-assets/photos/                duotone photos + credits.json (sources and licenses)
 ios/                          Swift package "ShingoKit" (iOS 17+), all colours dynamic
   Sources/ShingoKit/SGTheme.swift       SG colour tokens, SGFont, font registration
   Sources/ShingoKit/SGShapes.swift      SGHardX, DiamondMark, ChamferRect, TagCut, Brackets, UnitPolygon, SignalBars
@@ -165,7 +163,7 @@ Shingō started from two references: a sage and coral poster (palette, striped g
 
 ## SwiftUI coverage
 
-ShingoKit covers the tokens, type, alphabet shapes, components, instruments, icons, the screen grammar and eleven backdrops. The newer pieces are web-only so far: the motifs, six of the backdrops, the ops furniture, constructed type, posters, photos and motion. The Swift code hasn't been compiled yet.
+ShingoKit covers the tokens, type, alphabet shapes, components, instruments, icons, the screen grammar and eleven backdrops. The newer pieces are web-only so far: the motifs, six of the backdrops, the ops furniture, constructed type, the relay network diagram, posters and motion. The Swift code hasn't been compiled yet.
 
 ## Fonts
 

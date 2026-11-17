@@ -10,7 +10,7 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from build import seg7, exploded_x  # noqa: E402
+from build import seg7, exploded_x, relay_net, constructed, NET_CITIES, NET_ROUTES  # noqa: E402
 
 SRC = pathlib.Path(__file__).resolve().parent.parent / 'web' / 'gallery.src.html'
 
@@ -462,10 +462,10 @@ for k, cls in DIVIDER.items():
 
 
 # ---------------------------------------------------------------- Y briefing
-S['Y'] = fig('Y', 'Briefing', 'Field-operations print: a city scene in brackets with construction guides, a status matrix, redacted copy and a banner. 機密 means classified.', utility(f"""
+S['Y'] = fig('Y', 'Briefing', 'Field-operations print: the unit code in block letters over circuit traces with construction guides, a status matrix, redacted copy and a banner. 機密 means classified.', utility(f"""
       {mast('Briefing', 'clearance 09', 'eyes only', seal('機密'))}
       <div class="u-hero u-hero--pad"><div class="chamfer brackets" style="position:relative;height:200px;padding:0;--c:18px;overflow:hidden">
-        <svg viewBox="0 0 390 520" preserveAspectRatio="xMidYMax slice" style="position:absolute;inset:0;width:100%;height:100%"><use href="#g-sc-skyline"/></svg>
+        <svg viewBox="0 0 342 200" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true"><use href="#g-bg-pcb" x="-30" y="-120" width="390" height="844" style="opacity:.9"/><g transform="translate(24 96)">{constructed("AX-09", unit=7.4)[0]}</g></svg>
         <svg class="guides" viewBox="0 0 342 200" preserveAspectRatio="none"><path d="M0 64H342 M238 0V200" stroke="var(--ground-hi)" stroke-width=".8" opacity=".6"/><path d="M232 64h12 M238 58v12" stroke="var(--ground-hi)" stroke-width="1.5"/></svg>
         <div class="sg-mono" style="position:absolute;left:12px;top:12px;color:var(--ground-hi)">SECTOR 04 · LIS<br>38.71 N 9.14 W</div>
         <div class="sg-mono" style="position:absolute;right:12px;bottom:10px;color:var(--ground-hi)">2835 × 1890</div>
@@ -479,19 +479,15 @@ S['Y'] = fig('Y', 'Briefing', 'Field-operations print: a city scene in brackets 
       </section>"""))
 
 # ---------------------------------------------------------------- Z relay city
-S['Z'] = fig('Z', 'Relay city', 'A full-bleed monochrome rooftop scene with construction guides, city relays labelled over it, a stacked kanji plate and the exploded X as the one coral element. 中継都市 means relay city.', f"""<div class="phone"><div class="scr tex">
-      <svg viewBox="0 0 390 520" preserveAspectRatio="xMidYMax slice" style="left:0;right:0;bottom:0;width:100%;height:600px" aria-hidden="true"><use href="#g-sc-rooftop"/></svg>
+S['Z'] = fig('Z', 'Relay city', 'The relay network as a diagram: cut-square nodes on level and "/" routes, the active route in coral, construction guides and a stacked kanji plate. 中継都市 means relay city.', f"""<div class="phone"><div class="scr tex">
+      <svg class="sg-bg" aria-hidden="true"><use href="#g-bg-relays"/></svg>
+      <svg viewBox="0 0 300 280" style="top:250px;left:34px;width:300px;height:280px;overflow:visible" aria-hidden="true">{relay_net(NET_CITIES, NET_ROUTES, hot=3)}</svg>
       <svg class="guides" viewBox="0 0 390 844" preserveAspectRatio="none" aria-hidden="true">
         <path d="M0 214H390 M0 650H390 M58 120V844 M332 120V844" stroke="var(--ground-hi)" stroke-width=".8" opacity=".55"/>
         <path d="M326 214h12 M332 208v12 M52 650h12 M58 644v12" stroke="var(--ground-hi)" stroke-width="1.5"/>
-        {exploded_x(300, 340, 74)}
       </svg>
       {SB}
       <div style="top:66px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:flex-start;color:var(--ground-hi)"><div><div class="sg-mono" style="color:var(--ground-dim)">NETWORK · 5 RELAYS</div><div class="sg-display" style="font-size:40px;margin-top:8px">Relay<br>city</div></div><div class="sg-mono t-right" style="color:var(--ground-dim)">17 NOV<br>2026</div></div>
-      <div style="top:300px;left:76px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Lisbon</div><div class="sg-mono" style="font-size:9.5px">RELAY 04 · 23 MS</div></div>
-      <div style="top:430px;left:150px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Porto</div><div class="sg-mono" style="font-size:9.5px">RELAY 07 · 31 MS</div></div>
-      <div style="top:520px;left:76px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Osaka</div><div class="sg-mono" style="font-size:9.5px">RELAY 12 · 212 MS</div></div>
-      <div style="top:600px;left:200px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Lyon</div><div class="sg-mono" style="font-size:9.5px">RELAY 02 · 48 MS</div></div>
       <div style="left:0;bottom:90px;width:70px;height:240px;background:var(--ground-hi);color:var(--ground);clip-path:polygon(16px 0,100% 0,100% 100%,0 100%,0 16px);display:grid;align-content:center;justify-items:center;gap:6px"><span class="sg-jp" style="font-size:24px;line-height:1.05;writing-mode:vertical-rl">中継都市</span><span class="sg-mono" style="font-size:8px">Nº 05</span></div>
       <div style="left:90px;right:24px;bottom:44px;display:flex;justify-content:space-between" class="sg-mono"><span style="color:var(--ground-hi)">2835 × 1890 PX</span><span style="color:var(--ground-hi)">200 PPI</span></div>
       <i class="home"></i>

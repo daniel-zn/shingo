@@ -273,13 +273,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
 
 .xp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
-.sc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.sc-grid figure { margin: 0; display: grid; gap: 8px; }
-.sc-grid svg { display: block; width: 100%; height: auto; box-shadow: 0 0 0 1px var(--ground-3); }
-.sc-grid b { font: 600 expanded 11px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
-.sc-grid span { display: block; font-size: 12.5px; margin-top: 3px; }
-@media (max-width: 700px) { .sc-grid, .xp-grid { grid-template-columns: minmax(0, 1fr) !important; } }
-
+@media (max-width: 700px) { 
 /* languages */
 .langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .lang { background: var(--ground); padding: 20px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; }
@@ -920,7 +914,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Briefing</h3><div class="u-tag hanko">機密</div><div class="u-span"><span>clearance 09</span><i></i><span>eyes only</span></div></header>
       <div class="u-hero u-hero--pad"><div class="chamfer brackets" style="position:relative;height:200px;padding:0;--c:18px;overflow:hidden">
-        <svg viewBox="0 0 390 520" preserveAspectRatio="xMidYMax slice" style="position:absolute;inset:0;width:100%;height:100%"><use href="#g-sc-skyline"/></svg>
+        <svg viewBox="0 0 342 200" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true"><use href="#g-bg-pcb" x="-30" y="-120" width="390" height="844" style="opacity:.9"/><g transform="translate(24 96)"><path transform="translate(0 0) scale(7.4)" d="M1.4 0H6V6H4.6V3.8H1.4V6H0V1.4Z M1.4 1.4H4.6V2.4H1.4Z" fill="var(--ground-hi)" fill-rule="evenodd"/><path transform="translate(50.32 0) scale(7.4)" d="M0 0H2V2.2H0Z M4 0H6V2.2H4Z M1.2 1.9H4.8V4.1H1.2Z M0 3.8H2V6H0Z M4 3.8H6V6H4Z" fill="var(--ground-hi)" fill-rule="evenodd"/><path transform="translate(100.64 0) scale(7.4)" d="M0 2.4H3V3.6H0Z" fill="var(--ground-hi)" fill-rule="evenodd"/><path transform="translate(128.76 0) scale(7.4)" d="M1.4 0H6V4.6L4.6 6H0V1.4Z M1.4 1.4H4.6V4.6H1.4Z" fill="var(--ground-hi)" fill-rule="evenodd"/><path transform="translate(179.08 0) scale(7.4)" d="M1.4 0H6V4.6L4.6 6H0V4.6H4.6V3.8H0V1.4Z M1.4 1.4H4.6V2.4H1.4Z" fill="var(--ground-hi)" fill-rule="evenodd"/></g></svg>
         <svg class="guides" viewBox="0 0 342 200" preserveAspectRatio="none"><path d="M0 64H342 M238 0V200" stroke="var(--ground-hi)" stroke-width=".8" opacity=".6"/><path d="M232 64h12 M238 58v12" stroke="var(--ground-hi)" stroke-width="1.5"/></svg>
         <div class="sg-mono" style="position:absolute;left:12px;top:12px;color:var(--ground-hi)">SECTOR 04 · LIS<br>38.71 N 9.14 W</div>
         <div class="sg-mono" style="position:absolute;right:12px;bottom:10px;color:var(--ground-hi)">2835 × 1890</div>
@@ -935,30 +929,26 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       
       <i class="home"></i>
     </div></div>
-    <figcaption><b>Y · Briefing</b><span><em class="tier">utility</em> Field-operations print: a city scene in brackets with construction guides, a status matrix, redacted copy and a banner. 機密 means classified.</span></figcaption>
+    <figcaption><b>Y · Briefing</b><span><em class="tier">utility</em> Field-operations print: the unit code in block letters over circuit traces with construction guides, a status matrix, redacted copy and a banner. 機密 means classified.</span></figcaption>
   </figure>
 
 
   <!-- Z · relay city -->
   <figure data-tier="poster">
     <div class="phone"><div class="scr tex">
-      <svg viewBox="0 0 390 520" preserveAspectRatio="xMidYMax slice" style="left:0;right:0;bottom:0;width:100%;height:600px" aria-hidden="true"><use href="#g-sc-rooftop"/></svg>
+      <svg class="sg-bg" aria-hidden="true"><use href="#g-bg-relays"/></svg>
+      <svg viewBox="0 0 300 280" style="top:250px;left:34px;width:300px;height:280px;overflow:visible" aria-hidden="true"><polyline points="60,250 60,190 60,130" fill="none" stroke="var(--ground-hi)" stroke-width="1.5" stroke-linejoin="miter"/><polyline points="60,130 110,130 140,100 170,100" fill="none" stroke="var(--ground-hi)" stroke-width="1.5" stroke-linejoin="miter"/><polyline points="170,100 200,100 250,50 250,30" fill="none" stroke="var(--ground-hi)" stroke-width="1.5" stroke-linejoin="miter"/><polyline points="60,250 130,250 170,210 220,210" fill="none" stroke="var(--coral)" stroke-width="3" stroke-linejoin="miter"/><polyline points="220,210 220,140 250,110 250,30" fill="none" stroke="var(--ground-hi)" stroke-width="1.5" stroke-linejoin="miter"/><polygon points="57,244 66,244 66,253 63,256 54,256 54,247" fill="var(--ground)" stroke="var(--ground-hi)" stroke-width="1.5"/><rect x="58" y="248" width="4" height="4" fill="var(--ground-hi)"/><text x="72" y="248" class="xp-t" font-size="11" fill="var(--ground-hi)">LISBON</text><text x="72" y="259" class="xp-m" font-size="6.5" fill="var(--ground-dim)">RELAY 04 · 23 MS</text><polygon points="57,124 66,124 66,133 63,136 54,136 54,127" fill="var(--ground)" stroke="var(--ground-hi)" stroke-width="1.5"/><rect x="58" y="128" width="4" height="4" fill="var(--ground-hi)"/><text x="72" y="128" class="xp-t" font-size="11" fill="var(--ground-hi)">PORTO</text><text x="72" y="139" class="xp-m" font-size="6.5" fill="var(--ground-dim)">RELAY 07 · 31 MS</text><polygon points="167,94 176,94 176,103 173,106 164,106 164,97" fill="var(--ground)" stroke="var(--ground-hi)" stroke-width="1.5"/><rect x="168" y="98" width="4" height="4" fill="var(--ground-hi)"/><text x="182" y="98" class="xp-t" font-size="11" fill="var(--ground-hi)">LYON</text><text x="182" y="109" class="xp-m" font-size="6.5" fill="var(--ground-dim)">RELAY 02 · 48 MS</text><polygon points="247,24 256,24 256,33 253,36 244,36 244,27" fill="var(--ground)" stroke="var(--ground-hi)" stroke-width="1.5"/><rect x="248" y="28" width="4" height="4" fill="var(--ground-hi)"/><text x="262" y="28" class="xp-t" font-size="11" fill="var(--ground-hi)">OSAKA</text><text x="262" y="39" class="xp-m" font-size="6.5" fill="var(--ground-dim)">RELAY 12 · 212 MS</text><polygon points="217,204 226,204 226,213 223,216 214,216 214,207" fill="var(--ground)" stroke="var(--ground-hi)" stroke-width="1.5"/><rect x="218" y="208" width="4" height="4" fill="var(--ground-hi)"/><text x="232" y="208" class="xp-t" font-size="11" fill="var(--ground-hi)">SEOUL</text><text x="232" y="219" class="xp-m" font-size="6.5" fill="var(--ground-dim)">RELAY 09 · 188 MS</text></svg>
       <svg class="guides" viewBox="0 0 390 844" preserveAspectRatio="none" aria-hidden="true">
         <path d="M0 214H390 M0 650H390 M58 120V844 M332 120V844" stroke="var(--ground-hi)" stroke-width=".8" opacity=".55"/>
         <path d="M326 214h12 M332 208v12 M52 650h12 M58 644v12" stroke="var(--ground-hi)" stroke-width="1.5"/>
-        <polygon points="213.42,414 238.58,414 284.46,368.12 259.3,368.12" fill="var(--coral)"/><polygon points="269.66,357.76 294.82,357.76 330.34,322.24 305.18,322.24" fill="var(--coral)"/><polygon points="315.54,311.88 340.7,311.88 386.58,266 361.42,266" fill="var(--coral)"/><polygon points="213.42,266 238.58,266 284.46,311.88 259.3,311.88" fill="var(--coral)"/><polygon points="315.54,368.12 340.7,368.12 386.58,414 361.42,414" fill="var(--coral)"/>
       </svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="top:66px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:flex-start;color:var(--ground-hi)"><div><div class="sg-mono" style="color:var(--ground-dim)">NETWORK · 5 RELAYS</div><div class="sg-display" style="font-size:40px;margin-top:8px">Relay<br>city</div></div><div class="sg-mono t-right" style="color:var(--ground-dim)">17 NOV<br>2026</div></div>
-      <div style="top:300px;left:76px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Lisbon</div><div class="sg-mono" style="font-size:9.5px">RELAY 04 · 23 MS</div></div>
-      <div style="top:430px;left:150px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Porto</div><div class="sg-mono" style="font-size:9.5px">RELAY 07 · 31 MS</div></div>
-      <div style="top:520px;left:76px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Osaka</div><div class="sg-mono" style="font-size:9.5px">RELAY 12 · 212 MS</div></div>
-      <div style="top:600px;left:200px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Lyon</div><div class="sg-mono" style="font-size:9.5px">RELAY 02 · 48 MS</div></div>
       <div style="left:0;bottom:90px;width:70px;height:240px;background:var(--ground-hi);color:var(--ground);clip-path:polygon(16px 0,100% 0,100% 100%,0 100%,0 16px);display:grid;align-content:center;justify-items:center;gap:6px"><span class="sg-jp" style="font-size:24px;line-height:1.05;writing-mode:vertical-rl">中継都市</span><span class="sg-mono" style="font-size:8px">Nº 05</span></div>
       <div style="left:90px;right:24px;bottom:44px;display:flex;justify-content:space-between" class="sg-mono"><span style="color:var(--ground-hi)">2835 × 1890 PX</span><span style="color:var(--ground-hi)">200 PPI</span></div>
       <i class="home"></i>
     </div></div>
-    <figcaption><b>Z · Relay city</b><span><em class="tier">poster</em> A full-bleed monochrome rooftop scene with construction guides, city relays labelled over it, a stacked kanji plate and the exploded X as the one coral element. 中継都市 means relay city.</span></figcaption>
+    <figcaption><b>Z · Relay city</b><span><em class="tier">poster</em> The relay network as a diagram: cut-square nodes on level and "/" routes, the active route in coral, construction guides and a stacked kanji plate. 中継都市 means relay city.</span></figcaption>
   </figure>
 
   </div>

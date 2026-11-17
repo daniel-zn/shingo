@@ -448,8 +448,3 @@
 .hanko { border-color: var(--signal-text); }
 .stamp { --st: var(--signal-text); }
 
-/* photos: real photography as a two-ink duotone; one file per mode */
-.ph { display: block; width: 100%; height: 100%; }
-.ph-l { display: none; }
-:root[data-theme="light"] .ph-d { display: none; } :root[data-theme="light"] .ph-l { display: block; }
-@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .ph-d { display: none; } :root:not([data-theme="dark"]) .ph-l { display: block; } }
