@@ -18,7 +18,7 @@ public struct SGState: View {
     public var body: some View {
         HStack(spacing: 8) {
             mark.frame(width: kind == .syncing ? 22 : 11, height: 11)
-            Text(label ?? kind.rawValue).sgMono(10.5)
+            SGScrambleText(label ?? kind.rawValue, weight: .touch).sgMono(10.5)
         }
         .foregroundStyle(kind == .fault ? SG.signalText : (kind == .offline ? SG.groundDim : SG.groundHi))
         .accessibilityElement(children: .combine)
@@ -56,7 +56,7 @@ public struct SGSpecTable<Row: Identifiable, Cells: View>: View {
                 ForEach(columns.indices, id: \.self) { i in
                     VStack(alignment: columns[i].trailing ? .trailing : .leading, spacing: 2) {
                         Text(columns[i].code).sgMono(8.5).foregroundStyle(SG.groundDim)
-                        Text(columns[i].title)
+                        SGScrambleText(columns[i].title, weight: .label, delay: 0.09 + Double(i) * 0.018)
                     }
                     .frame(maxWidth: .infinity, alignment: columns[i].trailing ? .trailing : .leading)
                 }
@@ -132,7 +132,7 @@ public struct SGStepper: View {
     public var body: some View {
         HStack(spacing: 4) {
             key("−") { value = max(range.lowerBound, value - 1) }
-            Text("\(value)").font(SGFont.title(22)).monospacedDigit().foregroundStyle(SG.groundHi).frame(minWidth: 64)
+            SGScrambleText("\(value)", weight: .touch).font(SGFont.title(22)).monospacedDigit().foregroundStyle(SG.groundHi).frame(minWidth: 64)
             key("+") { value = min(range.upperBound, value + 1) }
         }
         .accessibilityElement()
@@ -174,7 +174,7 @@ public struct SGTelex: View {
         HStack(spacing: 12) {
             SGState(state)
             Text(typed.isEmpty && reduceMotion ? message : typed).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading)
-            Text(time).foregroundStyle(SG.groundDim)
+            SGScrambleText(time, weight: .data, delay: 0.3).foregroundStyle(SG.groundDim)
         }
         .sgMono(11).foregroundStyle(SG.groundHi)
         .padding(.horizontal, 14).padding(.vertical, 11)

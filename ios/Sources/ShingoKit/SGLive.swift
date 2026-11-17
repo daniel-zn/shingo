@@ -32,14 +32,42 @@ public enum SGHaptics {
 
 // MARK: Scramble
 
-/// Text that resolves from glyph noise when it appears or changes, each character at a random moment.
+/// How long a decode takes. Titles are slowest, then labels, then data; touch is a quick re-decode.
+public enum SGDecodeWeight {
+    case title, label, data, touch
+    var range: ClosedRange<Double> {
+        switch self { case .title: 0.32...0.72; case .label: 0.16...0.38; case .data: 0.20...0.52; case .touch: 0.12...0.26 }
+    }
+}
+
+/// Glyph noise that keeps each character's class: digits through digits, capitals through hard
+/// capitals, kanji through kanji. Punctuation and spaces never scramble, so structure holds.
+enum SGNoise {
+    static let digits = Array("0123456789"), upper = Array("XKZNRVHEW#/"), lower = Array("xkznrvhew#/"), kanji = Array("信号経路保護暗中封鎖")
+    static func pool(_ c: Character) -> [Character]? {
+        if c.isNumber && c.isASCII { return digits }
+        if c.isUppercase { return upper }
+        if c.isLowercase { return lower }
+        if let u = c.unicodeScalars.first?.value, (0x3040...0x30FF).contains(u) || (0x4E00...0x9FFF).contains(u) { return kanji }
+        return nil
+    }
+    static func glyph(_ c: Character) -> Character { pool(c)?.randomElement() ?? c }
+}
+
+/// Text that decodes from glyph noise when it appears and whenever it changes,
+/// each character locking at its own random moment.
+///
+///     SGScrambleText("Relay fleet")                       // title
+///     SGScrambleText(label, weight: .label, delay: 0.09)  // staggered down the screen
+///     SGScrambleText("\(hops)", weight: .touch)            // a value that changes
 public struct SGScrambleText: View {
-    var text: String
+    var text: String; var weight: SGDecodeWeight; var delay: Double
     @State private var shown: String
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    private static let noise = Array("/X#▮▚09-+")
 
-    public init(_ text: String) { self.text = text; _shown = State(initialValue: text) }
+    public init(_ text: String, weight: SGDecodeWeight = .title, delay: Double = 0) {
+        self.text = text; self.weight = weight; self.delay = delay; _shown = State(initialValue: text)
+    }
 
     public var body: some View {
         Text(shown)
@@ -47,22 +75,24 @@ public struct SGScrambleText: View {
             .task(id: text) { await run() }
     }
 
-    /// Each character locks at its own random moment; the title takes 0.32–0.72 s; frames land every 28–80 ms.
+    /// Frames land every 28–80 ms; each character flickers irregularly until it locks.
     private func run() async {
         guard !reduceMotion else { shown = text; return }
         let src = Array(text)
-        let total = Double.random(in: 0.32...0.72)
+        let total = Double.random(in: weight.range)
         let lock = src.map { _ in total * (0.15 + 0.85 * pow(Double.random(in: 0...1), 0.8)) }
-        var cur = src.map { _ in Self.noise.randomElement()! }
+        var cur = src.map { SGNoise.glyph($0) }
+        shown = String(cur)                       // hold the noise through the stagger delay
+        if delay > 0 { try? await Task.sleep(nanoseconds: UInt64(delay * 1e9)) }
         let t0 = Date()
-        while true {
+        while !Task.isCancelled {
             let t = Date().timeIntervalSince(t0)
             var done = true
-            for k in src.indices where src[k] != " " && t < lock[k] {
+            for k in src.indices where SGNoise.pool(src[k]) != nil && t < lock[k] {
                 done = false
-                if Double.random(in: 0...1) < 0.45 { cur[k] = Self.noise.randomElement()! }
+                if Double.random(in: 0...1) < 0.45 { cur[k] = SGNoise.glyph(src[k]) }
             }
-            shown = String(src.indices.map { k in (src[k] == " " || t >= lock[k]) ? src[k] : cur[k] })
+            shown = String(src.indices.map { k in (SGNoise.pool(src[k]) == nil || t >= lock[k]) ? src[k] : cur[k] })
             if done { break }
             try? await Task.sleep(nanoseconds: UInt64.random(in: 28_000_000...80_000_000))
         }
@@ -128,7 +158,7 @@ public struct SGHUDReadout: ViewModifier {
                 if pressed {
                     Brackets(length: 9).stroke(SG.coral, lineWidth: SG.hair).padding(-4)
                         .overlay(alignment: .topTrailing) {
-                            Text("▸ " + label.uppercased()).sgMono(9.5).foregroundStyle(SG.inkFixed)
+                            SGScrambleText("▸ " + label.uppercased(), weight: .touch).sgMono(9.5).foregroundStyle(SG.inkFixed)
                                 .padding(.horizontal, 6).padding(.vertical, 2)
                                 .background(SG.coral).fixedSize().offset(y: -18)
                         }

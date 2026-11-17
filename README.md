@@ -36,7 +36,9 @@ One spec. Everything in the repo follows it, and anything new must too.
 11. **No pictorial scenes.** There is no photography and no illustrated or generated cities. Imagery comes from the shape system itself: backdrops, motifs and diagrams such as the relay network.
 12. **Stepped motion.** Never eased, turning only in 45° steps. The one exception is tickers, which scroll continuously so they stay readable. Everything stays still when reduced motion is on.
 13. **Live behaviour.** The interface behaves like a machine:
-    - Titles resolve from glyph noise when they appear. Each character locks in at its own random moment, the flicker is irregular, and every title takes a slightly different time.
+    - Information decodes from glyph noise. Each character locks in at its own random moment, the flicker is irregular, and no two decodes take the same time. Noise keeps each character's class (digits flicker through digits, capitals through hard capitals, kanji through kanji); punctuation and spaces never scramble, so the structure of a line holds while it resolves.
+    - Decoding has three triggers. **Arrival:** a screen or section decodes top to bottom in three weights: titles (0.32–0.72 s), then labels, codes, column heads and buttons (0.16–0.38 s), then data such as span rules, spec values, table figures, states and imprint lines (0.2–0.52 s), staggered 18 ms apart. **Change:** a new value decodes (stepper, selected row, telex timestamp, HUD callout). **Touch:** buttons, keys, tabs and chips re-decode their label under the pointer (0.12–0.26 s).
+    - Paragraphs, inputs, tickers, telex messages (they type instead) and seven-segment readouts never decode.
     - Seven-segment readouts re-render in place: timers count, counters climb, coordinates drift.
     - Views change behind a hazard band that crosses on the diagonal in eight steps.
     - A HUD reticle snaps coral brackets and a callout to data under the pointer (on iOS, press and hold).
@@ -142,9 +144,9 @@ The repo is built to be lifted into anything. Pick the route that fits.
 
 1. Copy `dist/shingo.css`, `dist/shingo-live.js` and `dist/shingo-sprite.svg` into the app. The stylesheet imports the fonts from Google Fonts; self-host them if you need to.
 2. Inline the sprite once at the top of `<body>` (or fetch it and inject it), then use any glyph with `<svg><use href="#g-i-scan"/></svg>`.
-3. Put `class="tex"` on the page or app root for the striped ground, and `data-sg-live` on any region that should get the live layer (title scramble, readouts, HUD, wipe). Phone screens use `.scr`, desktop consoles `.con`.
+3. Put `class="tex"` on the page or app root for the striped ground, and `data-sg-live` on any region that should get the live layer (decode, readouts, HUD, wipe). Phone screens use `.scr`, desktop consoles `.con`. `data-decode-view` decodes any other element when it scrolls into view, `data-decode-change` decodes a value whenever its text changes, and `data-no-decode` opts a node out.
 4. Start from `dist/starter.html`: a masthead, readout hero, hazard divider, spec table, telex feed, form set and imprint, in both modes, responsive down to 390 px.
-5. Script hooks: `window.shingo.telex(stack, state, message, time)`, `window.shingo.wipe(el, fn)` and `window.shingo.scramble(el)`. States are `ok`, `warn`, `fault`, `off` and `busy`.
+5. Script hooks: `window.shingo.telex(stack, state, message, time)`, `window.shingo.wipe(el, fn)`, `window.shingo.scramble(region)` (the arrival decode), `window.shingo.decode(el, 'title'|'label'|'data'|'touch')` and `window.shingo.decodeOnChange(el)`. States are `ok`, `warn`, `fault`, `off` and `busy`.
 
 **Another design tool or platform**
 
@@ -227,7 +229,7 @@ Point the agent at `skills/shingo/SKILL.md`. It holds the rules in checklist for
 | `.search`, `.selectf` | `SGSearchField`, `Picker` in a `ChamferRect` frame | |
 | `.telex`, `window.shingo.telex()` | `SGTelex` | types in; faults buzz |
 | `.skel` | `SGSkeleton` | drafting hatch |
-| scramble, `.live-*`, `.sg-wipe`, `.sg-hud` | `SGScrambleText`, `SGLiveCountdown`, `.sgHazardWipe`, `.sgHUD` | the live layer |
+| decode (`data-decode-view`, `data-decode-change`, `data-no-decode`), `.live-*`, `.sg-wipe`, `.sg-hud` | `SGScrambleText(_:weight:delay:)`, `SGLiveCountdown`, `.sgHazardWipe`, `.sgHUD` | the live layer |
 
 ## Three languages
 

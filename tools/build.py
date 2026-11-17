@@ -912,6 +912,8 @@ def main():
     src = src.replace("<!--@SWATCHES-->", "".join(
         f'<div><i style="background:var(--{k})"></i><b>{k}</b><span>{v}<br>dark {PALETTE["dark"][k]} · light {PALETTE["light"][k]}</span></div>'
         for k, v in ROLES.items()))
+    # gallery chrome decodes as it scrolls into view (web/shingo-live.js)
+    src = re.sub(r'class="(sec-h|alpha-h|inst)(\b[^"]*)"', r'class="\1\2" data-decode-view', src)
     css = (ROOT / "web" / "shingo.css").read_text()
     out = (src.replace("<!--@CSS-->", css).replace("<!--@SPRITE-->", sprite()))
     (ROOT / "dist").mkdir(exist_ok=True)

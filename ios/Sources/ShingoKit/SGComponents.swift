@@ -199,9 +199,9 @@ public struct SGGroupLabel: View {
     public var body: some View {
         VStack(spacing: 6) {
             HStack(alignment: .firstTextBaseline) {
-                Text(label).sgCap(12).foregroundStyle(SG.groundHi)
+                SGScrambleText(label, weight: .label, delay: 0.09).sgCap(12).foregroundStyle(SG.groundHi)
                 Spacer()
-                Text(index).sgMono(11).foregroundStyle(SG.groundDim)
+                SGScrambleText(index, weight: .data, delay: 0.18).sgMono(11).foregroundStyle(SG.groundDim)
             }
             Rectangle().fill(SG.groundHi).frame(height: SG.hair)
         }

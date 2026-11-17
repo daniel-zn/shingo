@@ -35,7 +35,7 @@ public struct SGCode: View {
     var text: String
     public init(_ text: String) { self.text = text }
     public var body: some View {
-        Text(text).sgMono(7).tracking(1.6).foregroundStyle(SG.groundDim)
+        SGScrambleText(text, weight: .label).sgMono(7).tracking(1.6).foregroundStyle(SG.groundDim)
             .fixedSize()
             .rotationEffect(.degrees(-90))
             .frame(width: 9, height: CGFloat(text.count) * 6.5)
@@ -83,7 +83,7 @@ public struct SGUtilityScreen<Hero: View, Content: View>: View {
         VStack(spacing: 12) {
             HStack(alignment: .bottom, spacing: 10) {
                 SGCode(code)
-                Text(title).sgWordmark(SGMetrics.title).foregroundStyle(SG.groundHi)
+                SGScrambleText(title).sgWordmark(SGMetrics.title).foregroundStyle(SG.groundHi)
                 Spacer(minLength: 0)
                 tagView
             }

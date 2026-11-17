@@ -26,7 +26,7 @@ Source of truth, in this order: `README.md` (rules 1–18), `tokens/tokens.json`
 7. States: `.state--ok` solid square, `--warn` hatch, `--fault` coral X, `--off` dim X, `--busy` marching hatch (`SGState`). Never colour alone.
 8. Lists are spec tables (`.stable` / `SGSpecTable`). Checkboxes `.xcheck`, radios `.dradio`, steppers `.stepper`, search `.search`, select `.selectf`.
 9. Notifications are telex (`.telex`, `window.shingo.telex()` / `SGTelex`). Loading is hatch (`.skel--run` / `SGSkeleton`). No spinners, no shimmer.
-10. Motion is stepped (`steps()`), never eased; tickers are the one continuous exception. Titles scramble in with random per-character timing. Respect reduced motion.
+10. Motion is stepped (`steps()`), never eased; tickers are the one continuous exception. Text decodes from class-keeping glyph noise on arrival (titles → labels → data), on change (new values) and on touch (control labels); never paragraphs, inputs or readouts. Respect reduced motion.
 11. English runs the UI. At most one Japanese accent (vertical tag `.sg-jp-v` or seal `.hanko`) and one French aside (`.sg-fr`, usually in the span rule) per screen. Use `tokens/lexicon.json`.
 12. Larger screens keep the grammar and add a rail (see `.con` in the gallery).
 

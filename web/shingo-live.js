@@ -1,5 +1,6 @@
 /* Shingō live layer: machine behaviour for the print system.
-   - Scramble: titles resolve from glyph noise, stepped, once per reveal.
+   - Decode: text resolves from glyph noise when it arrives, changes or is touched;
+     titles slowest, then labels, then data, staggered down the screen.
    - Live readouts: seven-segment counters and countdowns re-render in place.
    - Coordinates: the last digits of live coordinates drift.
    - Transitions: a hazard band wipes along the one diagonal between views.
@@ -7,7 +8,9 @@
    Everything is stepped (no easing) and does nothing under reduced motion.
    Content is complete at rest: nothing is hidden waiting for script.
    Scope: .scr (phone screen), .con (console) or any element with data-sg-live.
-   API: window.shingo.{telex(stack, state, msg, time), wipe(el, fn), scramble(el)}. */
+   Decode: regions decode on arrival (.scr, .con, [data-sg-live], [data-decode-view]); controls on hover;
+   values on change ([data-decode-change]); opt a node out with [data-no-decode].
+   API: window.shingo.{telex(stack, state, msg, time), wipe(el, fn), scramble(region), decode(el, weight), decodeOnChange(el)}. */
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -55,37 +58,79 @@
     });
   }
 
-  /* ---------- scramble ---------- */
-  var NOISE = '/X#▮▚09-+';
-  function scramble(el) {
-    if (el.__sc) return; el.__sc = 1;
-    var nodes = [], w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
-    while (w.nextNode()) if (w.currentNode.nodeValue.trim()) nodes.push({ n: w.currentNode, src: w.currentNode.nodeValue });
-    // each character locks at its own random moment; the whole title takes 320–720 ms
-    var total = 320 + Math.random() * 400, t0 = performance.now();
+  /* ---------- decode ----------
+     Information decodes when it ARRIVES (reveal), CHANGES (new value) or is TOUCHED (hover, select).
+     Three weights, so the screen reads in order: titles slowest, then labels, then data.
+     Noise keeps each character's class (digits flicker through digits, letters through hard
+     capitals, kanji through kanji) so widths and structure hold; punctuation never scrambles.
+     Each character locks at its own random moment; frames land unevenly (28–80 ms). */
+  var NZ = { d: '0123456789', a: 'XKZNRVHEW#/', l: 'xkznrvhew#/', j: '信号経路保護暗中封鎖', o: '' };
+  function cls(c) {
+    if (c >= '0' && c <= '9') return 'd';
+    if (/[A-ZÀ-Þ]/.test(c)) return 'a';
+    if (/[a-zß-ÿ]/.test(c)) return 'l';
+    if (/[぀-ヿ一-鿿]/.test(c)) return 'j';
+    return 'o';
+  }
+  function noise(c) { var s = NZ[cls(c)]; return s ? s[Math.floor(Math.random() * s.length)] : c; }
+  var SKIP = 'svg, input, textarea, select, option, script, style, .ticker, .telex-m, .live-coord, [data-no-decode]';
+  // weight → total duration range (ms)
+  var WEIGHT = { title: [320, 720], label: [160, 380], data: [200, 520], touch: [120, 260] };
+  function scramble(el, weight, delay) {
+    if (reduce) return;
+    var w = WEIGHT[weight || 'title'], nodes = [], tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    while (tw.nextNode()) {
+      var n = tw.currentNode;
+      if (n.__sc || !n.nodeValue.trim() || (n.parentElement && n.parentElement.closest(SKIP))) continue;
+      n.__sc = 1; nodes.push({ n: n, src: n.nodeValue });
+    }
+    if (!nodes.length) return;
+    var total = w[0] + Math.random() * (w[1] - w[0]);
     nodes.forEach(function (o) {
       o.lock = Array.prototype.map.call(o.src, function () { return total * (.15 + .85 * Math.pow(Math.random(), .8)); });
-      o.cur = Array.prototype.map.call(o.src, function () { return NOISE[Math.floor(Math.random() * NOISE.length)]; });
+      o.cur = Array.prototype.map.call(o.src, noise);
     });
+    var t0;
     function frame() {
       var t = performance.now() - t0, done = true;
       nodes.forEach(function (o) {
         var s = '';
         for (var k = 0; k < o.src.length; k++) {
           var c = o.src[k];
-          if (c === ' ' || t >= o.lock[k]) { s += c; continue; }
+          if (t >= o.lock[k] || cls(c) === 'o') { s += c; continue; }
           done = false;
-          if (Math.random() < .45) o.cur[k] = NOISE[Math.floor(Math.random() * NOISE.length)];   // irregular flicker
+          if (Math.random() < .45) o.cur[k] = noise(c);   // irregular flicker
           s += o.cur[k];
         }
         o.n.nodeValue = s;
       });
-      if (done) { nodes.forEach(function (o) { o.n.nodeValue = o.src; }); el.__sc = 0; return; }
-      setTimeout(frame, 28 + Math.random() * 52);   // uneven frame rate, 28–80 ms
+      if (done) { nodes.forEach(function (o) { o.n.nodeValue = o.src; o.n.__sc = 0; }); return; }
+      setTimeout(frame, 28 + Math.random() * 52);
     }
-    frame();
+    // hold the noise during the stagger delay, so nothing shows clear text and then breaks up
+    nodes.forEach(function (o) { o.n.nodeValue = o.cur.join(''); });
+    setTimeout(function () { t0 = performance.now(); frame(); }, delay || 0);
   }
-  function scrambleScreen(scr) { scr.querySelectorAll('.u-title, .sg-display').forEach(scramble); }
+  var DECODE = [
+    ['title', '.u-title, .sg-display, .sec-h h2'],
+    ['label', '.u-label > span, .nframe > b, .smx b, .u-code, .stable th, .u-foot b, .tabbar a, .con-rail a span, .inst h3 > span:first-child, .alpha-h .sg-cap, .sec-h .sg-num, .optrow, .btn, .keycap > span, [data-decode="label"]'],
+    ['data', '.sec-h > .sg-mono, .alpha-h > .sg-mono, .inst h3 > span:last-child, .u-span > span, .u-meta, .spec > span, .stable td.n, .stable td b, .stable td .sg-mono, .smx span, .u-foot span, .state, .nframe .sg-num, [data-decode="data"]']
+  ];
+  // decode everything in a region on arrival, top to bottom, staggered by weight then document order
+  function scrambleScreen(scr) {
+    var i = 0;
+    DECODE.forEach(function (d, wi) {
+      scr.querySelectorAll(d[1]).forEach(function (el) {
+        scramble(el, d[0], Math.min(wi * 90 + i++ * 18, 700));
+      });
+    });
+  }
+  // values that change decode their new state
+  // (the decoder's own writes land on locked nodes, so they never retrigger it)
+  function decodeOnChange(el, weight) {
+    if (reduce || !('MutationObserver' in window)) return;
+    new MutationObserver(function () { scramble(el, weight || 'touch'); }).observe(el, { childList: true, characterData: true, subtree: true });
+  }
 
   /* ---------- transition: hazard wipe ---------- */
   function wipe(scr, mid) {
@@ -112,7 +157,7 @@
       var r = t.getBoundingClientRect(), s = scr.getBoundingClientRect(), ph = scr.closest('.phone'), z = (ph && parseFloat(getComputedStyle(ph).zoom)) || 1;
       var x = (r.left - s.left) / z, y = (r.top - s.top) / z, w = r.width / z, h = r.height / z;
       box.style.cssText = 'left:' + (x - 4) + 'px;top:' + (y - 4) + 'px;width:' + (w + 8) + 'px;height:' + (h + 8) + 'px';
-      box.querySelector('b').textContent = label(t);
+      box.querySelector('b').textContent = label(t); scramble(box.querySelector('b'), 'touch');
       box.classList.toggle('flip', y < 120);
       box.hidden = false;
     }
@@ -131,10 +176,12 @@
     var m = t.querySelector('.telex-m');
     if (reduce) { m.textContent = msg; return; }
     var i = 0;
-    (function type() { m.textContent = msg.slice(0, ++i) + (i < msg.length ? '▮' : ''); if (i < msg.length) setTimeout(type, 14 + Math.random() * 30); })();
+    scramble(t.querySelector('.state'), 'touch');
+    (function type() { m.textContent = msg.slice(0, ++i) + (i < msg.length ? '▮' : ''); if (i < msg.length) setTimeout(type, 14 + Math.random() * 30); else scramble(t.querySelector('.telex-t'), 'data'); })();
   }
   window.shingoTelex = telex;
-  window.shingo = { telex: telex, wipe: function (el, fn) { wipe(el, fn); }, scramble: function (el) { scrambleScreen(el); }, reduce: reduce };
+  window.shingo = { telex: telex, wipe: function (el, fn) { wipe(el, fn); }, scramble: function (el) { scrambleScreen(el); },
+    decode: function (el, weight) { scramble(el, weight); }, decodeOnChange: decodeOnChange, reduce: reduce };
   var FEED = [['ok', 'Relay 04 sealed · keys rotated'], ['warn', 'Relay 03 latency 212 ms · rerouting'], ['ok', 'Unit AX-04 firmware 4.2.1 verified'],
               ['fault', 'Relay 07 lost · kill switch engaged'], ['ok', 'Relay 07 restored · 31 ms'], ['busy', 'Syncing ledger · 7 / 10 packets']];
   document.querySelectorAll('[data-telex-feed]').forEach(function (stack) {
@@ -152,11 +199,13 @@
   /* steppers and spec-table selection */
   document.querySelectorAll('.stepper').forEach(function (st) {
     var out = st.querySelector('output'), b = st.querySelectorAll('button'), min = +(st.dataset.min || 0), max = +(st.dataset.max || 99);
-    b[0].addEventListener('click', function () { out.value = out.textContent = Math.max(min, +out.textContent - 1); });
-    b[1].addEventListener('click', function () { out.value = out.textContent = Math.min(max, +out.textContent + 1); });
+    var v = +out.textContent;   // the true value; the text may be mid-decode
+    function set(n) { v = n; out.textContent = n; scramble(out, 'touch'); }
+    b[0].addEventListener('click', function () { set(Math.max(min, v - 1)); });
+    b[1].addEventListener('click', function () { set(Math.min(max, v + 1)); });
   });
   document.querySelectorAll('.stable tbody').forEach(function (tb) {
-    tb.addEventListener('click', function (e) { var r = e.target.closest('tr'); if (!r) return; tb.querySelectorAll('tr').forEach(function (x) { x.setAttribute('aria-selected', x === r ? 'true' : 'false'); }); });
+    tb.addEventListener('click', function (e) { var r = e.target.closest('tr'); if (!r) return; if (r.getAttribute('aria-selected') === 'true') return; tb.querySelectorAll('tr').forEach(function (x) { x.setAttribute('aria-selected', x === r ? 'true' : 'false'); }); scramble(r, 'touch'); });
   });
 
   /* ---------- wire up ---------- */
@@ -169,6 +218,14 @@
       });
     });
   });
+  /* touch: controls re-decode their label under a fine pointer; values marked data-decode-change decode when they change */
+  if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+    document.addEventListener('pointerover', function (e) {
+      var el = e.target.closest && e.target.closest('.btn, .keycap, .tabbar a, .con-rail a, .chip, .seg button');
+      if (el && !(e.relatedTarget && el.contains(e.relatedTarget))) scramble(el, 'touch');
+    });
+  }
+  document.querySelectorAll('[data-decode-change]').forEach(function (el) { decodeOnChange(el, el.getAttribute('data-decode-change') || 'touch'); });
   document.querySelectorAll('.mo-wipe').forEach(function (box) {
     var views = box.querySelectorAll('.mo-view'), i = 0;
     if (reduce) return;
@@ -178,6 +235,6 @@
   liveReadouts();
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { scrambleScreen(e.target); io.unobserve(e.target); } }); }, { threshold: .5 });
-    document.querySelectorAll('.scr, .con, [data-sg-live]').forEach(function (s) { io.observe(s); });
+    document.querySelectorAll('.scr, .con, [data-sg-live], [data-decode-view]').forEach(function (s) { io.observe(s); });
   }
 })();
