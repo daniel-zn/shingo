@@ -27,6 +27,8 @@ The look is sci-fi industrial, after a trilingual technical print, in the sage, 
 
 11. **Content motifs.** Shapes taken from each screen's subject, drawn by the alphabet's rules: lock tumblers (passcode), postage stamp and cancel (inbox), DIP switch bank (settings), wind barbs (conditions), packet flow (transfer), cut fingerprint (credential), compass rose (route), level meters (player) and security microtext (wallet). There are also two new backdrops: elevation terraces (run log) and circuit traces (device). These are web only for now (`m-*` and `bg-*` symbols).
 
+12. **More backdrops.** Paywall tiers (nested chevron outlines), empty-state signal decay (rules whose dashes break apart), onboarding relays (three routes with node squares), long-read columns (an editorial column and baseline grid) and inbox airmail edges. That makes 17 in all, shown on the gallery's backdrop sheet. The line-art head has been removed from the system.
+
 | dashboard | interval timer | transfer | device |
 |---|---|---|---|
 | ![](docs/dark/screen-c.png) | ![](docs/dark/screen-r.png) | ![](docs/dark/screen-s.png) | ![](docs/light/screen-q.png) |
@@ -68,7 +70,7 @@ ios/                          Swift package "ShingoKit" (iOS 17+), all colours d
   Sources/ShingoKit/SGBackdrop.swift     SGBackdrop: the eleven backdrop compositions
   Sources/ShingoKit/SGScreen.swift      SGUtilityScreen, SGCode: the screen grammar
   Sources/ShingoKit/SGInstruments.swift  SGSegDisplay, SGCellMeter, SGRuler, SGSteps, SGIndexTabs, SGCaution, SGStamp, SGTicket, SGKeycapStyle, SGRockerStyle, SGDataPlate, SGSpecRow, SGMatrixCode, .printMarks(), SGColorBar, SGTicker, SGBootLog, SGLamps, SGBlueprint, SGCallout, SGWave
-  Sources/ShingoKit/SGLanguage.swift    VerticalText, Hanko, HazardBar, ChevronStack, HeadProfile, YearSpan, ManifestoExample
+  Sources/ShingoKit/SGLanguage.swift    VerticalText, Hanko, HazardBar, ChevronStack, YearSpan, ManifestoExample
   Sources/ShingoKit/Examples/           LaunchExample, DashboardExample, IntervalExample with light/dark #Previews
   Sources/ShingoKit/Resources/Fonts/    Anybody (3 widths + italic), Saira Stencil One, IBM Plex Mono (SIL OFL)
 docs/                         screenshots of every screen in docs/dark and docs/light

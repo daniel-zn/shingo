@@ -196,9 +196,6 @@ G["skip"] = ("0 0 100 100", '<path d="M18 22 L58 50 L18 78Z M50 22 L90 50 L50 78
 G["chev"] = ("0 0 100 100", '<path d="M36 18 L68 50 L36 82" fill="none" stroke="currentColor" stroke-width="11"/>')
 G["user"] = ("0 0 100 100", '<circle cx="50" cy="32" r="18" fill="currentColor"/><path d="M14 90 A36 30 0 0 1 86 90 Z" fill="currentColor"/>')
 # --- motifs from the trilingual print reference ---
-G["head"] = ("0 0 100 100", '<g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">'
-    '<path d="M32 94 C32 82 27 76 26 66 C17 54 17 30 33 18 C47 7 70 11 76 29 C79 37 79 43 83 50 L78 54 C80 58 78 62 76 64 C74 70 68 73 62 73 L62 94"/>'
-    '<path d="M40 15 C47 29 47 39 44 47"/><path d="M44 47 C51 44 54 55 46 57"/><path d="M26 66 C36 64 44 60 46 57"/></g>')
 _chev = []
 for _ay, _d1 in zip([18, 82, 146, 210], [70, 150, 40, 112]):
     _chev.append(f'<path d="M-30 {_ay+180} L150 {_ay} L330 {_ay+180}" fill="none" stroke="currentColor" stroke-width="26" stroke-linejoin="miter" stroke-dasharray="{_d1} 16 9999"/>')
@@ -215,7 +212,7 @@ _I = {
     "i-stats": '<path d="M5 20V15 M10 20V11 M15 20V7 M20 20V3"/>',
     "i-scan": '<path d="M3 8V3H8 M16 3H21V8 M21 16V21H16 M8 21H3V16 M12 9V15 M9 12H15"/>',
     "i-grid": '<path d="M3 3H21V21H3Z M9 3V21 M15 3V21 M3 9H21 M3 15H21"/>',
-    "i-me": '<path d="M10 3H17V10H8V5Z"/><path d="M3 21V17L6 14H18L21 17V21"/>',
+    "i-me": '<path d="M7 3H21V17L17 21H3V7Z M7 15H17 M7 18H13"/><path d="M12 6L15 9L12 12L9 9Z" fill="currentColor" stroke="none"/>',
     "i-send": '<path d="M4 20L19 5 M10 5H19V14"/>',
     "i-spam": '<path d="M5 5L19 19 M19 5L5 19"/>',
     "i-routes": '<path d="M3 19L9 13H15L21 7"/><path d="M2 18H5V21H2Z M19 5H22V8H19Z" fill="currentColor" stroke="none"/>',
@@ -512,6 +509,58 @@ G["bg-pcb"] = ("0 0 390 844", _bg_pcb())
 G["bg-terrace"] = ("0 0 390 844", _bg_terrace())
 
 
+
+def _bg_tiers():
+    o = []
+    for k in range(9):
+        apex, L = 70 + k * 46, 420
+        col = "var(--ground-3)" if k % 3 == 0 else "var(--ground-2)"
+        o.append(f'<polyline points="{195-L},{apex+L} 195,{apex} {195+L},{apex+L}" fill="none" stroke="{col}" stroke-width="{10 if k % 3 == 0 else 1.5}"/>')
+    return "".join(o)
+
+
+def _bg_decay():
+    o = []
+    for i, y in enumerate(range(150, 860, 22)):
+        dash, gap = max(2, 60 - i * 2), 2 + i * 2
+        o.append(f'<path d="M0 {y}H390" stroke="var(--ground-2)" stroke-width="2" stroke-dasharray="{dash} {gap}"/>')
+    o.append('<rect x="24" y="414" width="18" height="2" fill="var(--coral)"/>')
+    return "".join(o)
+
+
+def _bg_relays():
+    lines = [[(0, 660), (110, 660), (270, 500), (390, 500)], [(0, 730), (170, 730), (330, 570), (390, 570)], [(0, 820), (230, 820), (390, 660)]]
+    o = []
+    for t in lines:
+        o.append(f'<polyline points="{" ".join(f"{x},{y}" for x, y in t)}" fill="none" stroke="var(--ground-3)" stroke-width="1.5"/>')
+        for x, y in t[1:-1]:
+            o.append(f'<rect x="{x-6}" y="{y-6}" width="12" height="12" fill="none" stroke="var(--ground-3)" stroke-width="1.5"/>')
+    return "".join(o)
+
+
+def _bg_columns():
+    o = [f'<path d="M{x} 0V844" stroke="var(--ground-2)" stroke-width="1"/>' for x in (24, 105, 186, 267, 366)]
+    o += [f'<path d="M0 {y}H390" stroke="var(--ground-2)" stroke-width="1"/>' for y in range(300, 844, 22)]
+    o += ['<path d="M8 290H18 M24 274V284 M372 290H382 M366 274V284" stroke="var(--ground-dim)" stroke-width="1"/>']
+    return "".join(o)
+
+
+def _bg_airmail():
+    o = []
+    for y in range(-24, 880, 24):
+        for x0 in (0, 378):
+            col = "var(--ground-3)" if (y // 24) % 2 else "var(--ground-2)"
+            o.append(f'<polygon points="{x0},{y+12} {x0+12},{y} {x0+12},{y+12} {x0},{y+24}" fill="{col}"/>')
+    return "".join(o)
+
+
+G["bg-tiers"] = ("0 0 390 844", _bg_tiers())
+G["bg-decay"] = ("0 0 390 844", _bg_decay())
+G["bg-relays"] = ("0 0 390 844", _bg_relays())
+G["bg-columns"] = ("0 0 390 844", _bg_columns())
+G["bg-airmail"] = ("0 0 390 844", _bg_airmail())
+
+
 def sprite():
     out = ['<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>']
     for k, (vb, inner) in G.items():
@@ -646,7 +695,7 @@ def keyart(mode):
     """Key art: the shirt's print stack + the poster's instrument column, in HTML."""
     return f'''<figure class="mode-{mode}"><div class="ka tex"><div class="ka-in">
       <div class="ka-mast"><span class="u-code">SK·09·LIS</span><span class="sg-display">AXIOM</span></div>
-      <div class="slab-cut ka-slab"></div><div class="ka-head brackets"><svg><use href="#g-head"/></svg></div>
+      <div class="slab-cut ka-slab"></div><div class="ka-head brackets"><svg><use href="#g-reg"/></svg></div>
       <div class="yearspan sg-num ka-year">20<i></i>26</div>
       <div class="ka-trio"><div class="sg-label">Signal engineering</div><div class="sg-jp sg-justify">信号工学</div><div class="sg-label">Ingénierie du signal</div></div>
       <div class="ka-side"><div><div class="sg-num">09</div><div class="sg-mono">#bab9ad</div></div>

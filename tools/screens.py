@@ -221,7 +221,7 @@ S['J'] = fig('J', 'ID credential', 'The badge is the hero plate, with the line-a
       {mast('Credential', '<span class="sg-fr">carte de membre</span>', 'axiom', meta('VALID<br>2028'))}
       <div class="u-hero u-hero--pad"><div class="badge plate cut">
         <i class="badge-strip"></i>
-        <span class="badge-av brackets"><svg><use href="#g-head"/></svg></span>
+        <span class="badge-av brackets"><svg viewBox="0 0 60 64" style="width:56px;height:60px"><use href="#g-m-print"/></svg></span>
         <div class="badge-num"><span class="sg-num">09</span><span class="sg-cap" style="font-size:10px">Clearance</span></div>
         <h3 class="sg-wordmark">Mira<br>Okafor</h3>
         <div class="sg-mono badge-f">UNIT&nbsp;&nbsp;&nbsp; FIELD OPS<br>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AX-0917-C53<br>ISSUED&nbsp; 2026-03-02</div>
@@ -327,7 +327,7 @@ S['N'] = fig('N', 'Lock screen', 'The manifesto, after reference 2: the only pla
       <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--ground-hi)">
         <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:46px">AXIOM</span></div>
         <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sg-fr" style="font-size:14px">lundi 16 novembre</span><span class="sg-num" style="font-size:14px">9:41</span></div>
-        <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut" style="flex:1;height:56px"></div><svg width="58" height="58"><use href="#g-head"/></svg></div>
+        <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut" style="flex:1;height:56px"></div><svg width="58" height="58" style="color:var(--ground-hi)"><use href="#g-reg"/></svg></div>
         <div class="yearspan sg-num" style="font-size:21px">20<i></i>26</div>
         <div style="display:grid;gap:3px">
           <div class="sg-wordmark" style="font-size:20px">Signal engineering</div>
@@ -452,12 +452,17 @@ S['X'] = fig('X', 'Live activity', 'The system surfaces in the same print: an ex
 
 BACKDROP = {'B': 'lattice', 'C': 'tunnel', 'D': 'terrace', 'E': 'stack-card', 'F': 'bars', 'G': 'diamonds', 'H': 'plates',
             'I': 'notch', 'J': 'stack-badge', 'K': 'tunnel', 'O': 'wedge', 'Q': 'pcb', 'R': 'ticks', 'S': 'slashes', 'U': 'wedge', 'V': 'plates', 'W': 'slashes'}
+BACKDROP.update({'P': 'tiers', 'O': 'columns', 'H': 'airmail'})
 DIVIDER = {'C': 'div-ticks', 'D': 'div-ticks', 'F': 'div-ticks', 'G': 'div-ticks', 'R': 'div-ticks',
            'E': 'div-slash', 'H': 'div-slash', 'J': 'div-slash', 'O': 'div-slash', 'P': 'div-slash', 'S': 'div-slash', 'U': 'div-ticks', 'W': 'div-ticks'}
 for k, name in BACKDROP.items():
     S[k] = S[k].replace('<div class="phone"><div class="scr u tex">', f'<div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-{name}"/></svg>', 1)
 for k, cls in DIVIDER.items():
     S[k] = S[k].replace('<div class="u-div hazard"', f'<div class="u-div {cls}"')
+
+POSTER_BG = {'L': 'decay', 'M': 'relays'}
+for k, name in POSTER_BG.items():
+    S[k] = S[k].replace('<div class="phone"><div class="scr tex">', f'<div class="phone"><div class="scr tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-{name}"/></svg>', 1)
 
 ORDER = 'T A B C D E F G H I J K L M N O P Q R S U V W X'.split()
 grid = '\n'.join(S[k] for k in ORDER)

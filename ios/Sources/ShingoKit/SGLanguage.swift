@@ -102,28 +102,6 @@ public struct ChevronStack: View {
     }
 }
 
-/// Line-art head in profile (stroke it).
-public struct HeadProfile: Shape {
-    public init() {}
-    public func path(in rect: CGRect) -> Path {
-        let s = min(rect.width, rect.height) / 100
-        func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint { CGPoint(x: rect.minX + x * s, y: rect.minY + y * s) }
-        var path = Path()
-        path.move(to: p(32, 94))
-        path.addCurve(to: p(26, 66), control1: p(32, 82), control2: p(27, 76))
-        path.addCurve(to: p(33, 18), control1: p(17, 54), control2: p(17, 30))
-        path.addCurve(to: p(76, 29), control1: p(47, 7), control2: p(70, 11))
-        path.addCurve(to: p(83, 50), control1: p(79, 37), control2: p(79, 43))
-        path.addLine(to: p(78, 54))
-        path.addCurve(to: p(76, 64), control1: p(80, 58), control2: p(78, 62))
-        path.addCurve(to: p(62, 73), control1: p(74, 70), control2: p(68, 73))
-        path.addLine(to: p(62, 94))
-        path.move(to: p(40, 15)); path.addCurve(to: p(44, 47), control1: p(47, 29), control2: p(47, 39))
-        path.addCurve(to: p(46, 57), control1: p(51, 44), control2: p(54, 55))
-        path.move(to: p(26, 66)); path.addCurve(to: p(46, 57), control1: p(36, 64), control2: p(44, 60))
-        return path
-    }
-}
 
 /// "20 ———— 26"
 public struct YearSpan: View {
@@ -156,8 +134,8 @@ public struct ManifestoExample: View {
                 HStack(spacing: 14) {
                     UnitPolygon([.init(x: 0, y: 0), .init(x: 1, y: 0), .init(x: 1, y: 0.71), .init(x: 0.95, y: 1), .init(x: 0, y: 1)])
                         .fill(SG.coral).frame(height: 56)
-                    HeadProfile().stroke(SG.groundHi, style: StrokeStyle(lineWidth: 1.6, lineCap: .round, lineJoin: .round))
-                        .frame(width: 60, height: 60)
+                    ZStack { Crosshair().stroke(SG.groundHi, lineWidth: 2); Rectangle().strokeBorder(SG.groundHi, lineWidth: 2).padding(14) }
+                        .frame(width: 58, height: 58)
                 }
                 YearSpan()
                 VStack(alignment: .leading, spacing: 3) {
