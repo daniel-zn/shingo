@@ -636,6 +636,23 @@ def exploded_x(cx, cy, s, h=None, fill="var(--coral)"):
     return "".join(o)
 
 
+# ---------------------------------------------------------------- photos (real, licensed, duotone per mode)
+def _photo_uri(name, mode):
+    import base64
+    data = (ROOT / "assets" / "photos" / f"{name}-{mode}.jpg").read_bytes()
+    return "data:image/jpeg;base64," + base64.b64encode(data).decode()
+
+
+def photo_img(name, style="", pos="50% 50%"):
+    """Two <img> tags (dark/light duotone); CSS shows the one for the current mode."""
+    st = f"object-fit:cover;object-position:{pos};{style}"
+    return "".join(f'<img class="ph ph-{m[0]}" src="{_photo_uri(name, m)}" alt="" style="{st}">' for m in ("dark", "light"))
+
+
+def photo_svg(name, x, y, w, h, pos="xMidYMid slice"):
+    return "".join(f'<image class="ph-{m[0]}" href="{_photo_uri(name, m)}" x="{x}" y="{y}" width="{w}" height="{h}" preserveAspectRatio="{pos}"/>' for m in ("dark", "light"))
+
+
 def sprite():
     out = ['<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>']
     for k, (vb, inner) in G.items():
@@ -842,6 +859,7 @@ def main():
     defs = sprite().split("<defs>")[1].split("</defs>")[0]
     src = (ROOT / "web" / "gallery.src.html").read_text()
     src = re.sub(r"<!--@SEG7\|([^|]*)\|(\d+)\|([^>]*?)-->", lambda m: seg7(m.group(1), int(m.group(2)), m.group(3)), src)
+    src = re.sub(r"<!--@PHOTO\|([^|]+)\|([^|]*)\|([^>]*?)-->", lambda m: photo_img(m.group(1), m.group(2), m.group(3) or "50% 50%"), src)
     src = src.replace("<!--@EXPLORE-->", explorations())
     src = src.replace("<!--@CONSTRUCT-->", constructed("AXIOM", unit=10, x=2, y=2)[0] + constructed("AX-09", unit=4.2, x=2, y=72)[0])
     src = src.replace("<!--@XEXPL-->", exploded_x(100, 65, 52))
