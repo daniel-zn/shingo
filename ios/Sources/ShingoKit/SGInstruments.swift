@@ -439,8 +439,7 @@ public struct SGTicker: View {
             GeometryReader { g in
                 let line = Text(text + "   ◆   ").sgMono(11).foregroundStyle(SG.groundHi).fixedSize()
                 let speed = 30.0, width = CGFloat(text.count + 7) * 6.6
-                let raw = CGFloat(tl.date.timeIntervalSinceReferenceDate * speed).truncatingRemainder(dividingBy: width)
-                let x = reduceMotion ? 0 : -(raw / 6.6).rounded(.down) * 6.6   // steps one character at a time
+                let x = reduceMotion ? 0 : -CGFloat(tl.date.timeIntervalSinceReferenceDate * speed).truncatingRemainder(dividingBy: width)   // continuous: the one smooth motion
                 HStack(spacing: 0) { line; line; line }.offset(x: x).frame(width: g.size.width, alignment: .leading).clipped()
             }
         }

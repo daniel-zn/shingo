@@ -58,17 +58,30 @@
   function scramble(el) {
     if (el.__sc) return; el.__sc = 1;
     var nodes = [], w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
-    while (w.nextNode()) if (w.currentNode.nodeValue.trim()) nodes.push([w.currentNode, w.currentNode.nodeValue]);
-    var steps = 9, i = 0;
-    var id = setInterval(function () {
-      i++;
-      nodes.forEach(function (n) {
-        var src = n[1], keep = Math.floor(src.length * i / steps), s = '';
-        for (var k = 0; k < src.length; k++) s += (k < keep || src[k] === ' ') ? src[k] : NOISE[(k * 7 + i * 3) % NOISE.length];
-        n[0].nodeValue = s;
+    while (w.nextNode()) if (w.currentNode.nodeValue.trim()) nodes.push({ n: w.currentNode, src: w.currentNode.nodeValue });
+    // each character locks at its own random moment; the whole title takes 320–720 ms
+    var total = 320 + Math.random() * 400, t0 = performance.now();
+    nodes.forEach(function (o) {
+      o.lock = Array.prototype.map.call(o.src, function () { return total * (.15 + .85 * Math.pow(Math.random(), .8)); });
+      o.cur = Array.prototype.map.call(o.src, function () { return NOISE[Math.floor(Math.random() * NOISE.length)]; });
+    });
+    function frame() {
+      var t = performance.now() - t0, done = true;
+      nodes.forEach(function (o) {
+        var s = '';
+        for (var k = 0; k < o.src.length; k++) {
+          var c = o.src[k];
+          if (c === ' ' || t >= o.lock[k]) { s += c; continue; }
+          done = false;
+          if (Math.random() < .45) o.cur[k] = NOISE[Math.floor(Math.random() * NOISE.length)];   // irregular flicker
+          s += o.cur[k];
+        }
+        o.n.nodeValue = s;
       });
-      if (i >= steps) { clearInterval(id); nodes.forEach(function (n) { n[0].nodeValue = n[1]; }); el.__sc = 0; }
-    }, 45);
+      if (done) { nodes.forEach(function (o) { o.n.nodeValue = o.src; }); el.__sc = 0; return; }
+      setTimeout(frame, 28 + Math.random() * 52);   // uneven frame rate, 28–80 ms
+    }
+    frame();
   }
   function scrambleScreen(scr) { scr.querySelectorAll('.u-title, .sg-display').forEach(scramble); }
 

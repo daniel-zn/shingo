@@ -32,7 +32,7 @@ public enum SGHaptics {
 
 // MARK: Scramble
 
-/// Text that resolves from glyph noise when it appears or changes. Stepped, 9 frames at 45 ms.
+/// Text that resolves from glyph noise when it appears or changes, each character at a random moment.
 public struct SGScrambleText: View {
     var text: String
     @State private var shown: String
@@ -47,13 +47,24 @@ public struct SGScrambleText: View {
             .task(id: text) { await run() }
     }
 
+    /// Each character locks at its own random moment; the title takes 0.32–0.72 s; frames land every 28–80 ms.
     private func run() async {
         guard !reduceMotion else { shown = text; return }
-        let src = Array(text), steps = 9
-        for i in 1...steps {
-            let keep = src.count * i / steps
-            shown = String(src.enumerated().map { k, c in (k < keep || c == " ") ? c : Self.noise[(k * 7 + i * 3) % Self.noise.count] })
-            try? await Task.sleep(nanoseconds: 45_000_000)
+        let src = Array(text)
+        let total = Double.random(in: 0.32...0.72)
+        let lock = src.map { _ in total * (0.15 + 0.85 * pow(Double.random(in: 0...1), 0.8)) }
+        var cur = src.map { _ in Self.noise.randomElement()! }
+        let t0 = Date()
+        while true {
+            let t = Date().timeIntervalSince(t0)
+            var done = true
+            for k in src.indices where src[k] != " " && t < lock[k] {
+                done = false
+                if Double.random(in: 0...1) < 0.45 { cur[k] = Self.noise.randomElement()! }
+            }
+            shown = String(src.indices.map { k in (src[k] == " " || t >= lock[k]) ? src[k] : cur[k] })
+            if done { break }
+            try? await Task.sleep(nanoseconds: UInt64.random(in: 28_000_000...80_000_000))
         }
         shown = text
     }

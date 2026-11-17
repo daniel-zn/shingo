@@ -34,13 +34,13 @@ One spec. Everything in the repo follows it, and anything new must too.
 **Imagery and motion**
 
 11. **No pictorial scenes.** There is no photography and no illustrated or generated cities. Imagery comes from the shape system itself: backdrops, motifs and diagrams such as the relay network.
-12. **Stepped motion.** Never eased, turning only in 45° steps. Everything stays still when reduced motion is on.
+12. **Stepped motion.** Never eased, turning only in 45° steps. The one exception is tickers, which scroll continuously so they stay readable. Everything stays still when reduced motion is on.
 13. **Live behaviour.** The interface behaves like a machine:
-    - Titles resolve from glyph noise when they appear.
+    - Titles resolve from glyph noise when they appear. Each character locks in at its own random moment, the flicker is irregular, and every title takes a slightly different time.
     - Seven-segment readouts re-render in place: timers count, counters climb, coordinates drift.
     - Views change behind a hazard band that crosses on the diagonal in eight steps.
     - A HUD reticle snaps coral brackets and a callout to data under the pointer (on iOS, press and hold).
-    - Tickers advance a character at a time.
+    - Tickers scroll smoothly.
 
     On iOS each shape has a feel: a hard tick for switches and tabs, a double tick for keycaps, a heavy throw for the rocker, rising steps for cell meters, an error pattern for alerts and a success pattern for sealed. Web: `web/shingo-live.js`. iOS: `SGLive.swift` (`SGHaptics`, `SGScrambleText`, `SGLiveCountdown`, `.sgHazardWipe`, `.sgHUD`).
 
