@@ -249,4 +249,8 @@ ShingoKit covers the tokens, type, alphabet shapes, components, instruments, ico
 
 ## Fonts
 
-Anybody, Saira Stencil One and IBM Plex Mono are licensed under the SIL Open Font License 1.1. You may bundle them in an app. Japanese uses Hiragino Sans, which ships with iOS, and BIZ UDGothic on the web. BIZ UDGothic isn't bundled because it's 4 MB.
+Anybody, Saira Stencil One and IBM Plex Mono are licensed under the SIL Open Font License 1.1 (licence texts next to the fonts in `ios/Sources/ShingoKit/Resources/Fonts/OFL-*.txt`). You may bundle them in an app; keep the licence texts with them. Japanese uses Hiragino Sans, which ships with iOS, and BIZ UDGothic on the web. BIZ UDGothic isn't bundled because it's 4 MB.
+
+## Licence
+
+The code, tokens, artwork and docs are MIT licensed (see `LICENSE`). The bundled fonts keep their own SIL Open Font License.

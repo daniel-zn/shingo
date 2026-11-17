@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Shingō 信号: an industrial print design system for iOS and the web.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "style": "dist/shingo.css",
   "main": "dist/shingo-live.js",
   "files": [
