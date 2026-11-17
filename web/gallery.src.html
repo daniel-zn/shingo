@@ -212,6 +212,57 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .inst .demo { align-self: end; display: flex; align-items: center; padding: 14px 0 4px; min-width: 0; }
 @media (max-width: 700px) { .inst--wide { grid-column: auto; } }
 
+
+/* explorations */
+.xp-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.xp-grid figure { margin: 0; }
+.xp { display: block; width: 100%; height: auto; box-shadow: 0 0 0 1px var(--ground-3); }
+.xp-d { font-family: var(--f-display); font-stretch: 150%; font-weight: 800; }
+.xp-t { font-family: var(--f-title); font-stretch: 125%; font-weight: 700; }
+.xp-m { font-family: var(--f-mono); font-weight: 500; letter-spacing: .04em; }
+.xp-j { font-family: var(--f-jp); font-weight: 700; }
+.mo-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.mo-grid figure { margin: 0; display: grid; gap: 10px; }
+.mo-grid figcaption b { display: block; font: 600 expanded 11px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
+.mo-grid figcaption span { display: block; margin-top: 4px; font-size: 12.5px; line-height: 1.45; }
+.mo { position: relative; height: 180px; display: grid; place-items: center; align-content: center; gap: 14px; background: var(--ground); box-shadow: inset 0 0 0 1px var(--ground-3); overflow: hidden; }
+.mo-lbl { color: var(--ground-hi); }
+.mo-tunnel { width: 100%; height: 100%; }
+.mo-tunnel polygon[style] { fill: none; stroke: var(--ground-3); stroke-width: 1.5; animation: sg-pulse 2.4s steps(1) infinite; animation-delay: calc(var(--i) * .2s); }
+@keyframes sg-pulse { 0%, 8% { stroke: var(--ground-hi); } 9%, 100% { stroke: var(--ground-3); } }
+.mo-cells { width: 76%; }
+.mo-cells i { animation: sg-fill 2.4s steps(1) infinite; animation-delay: calc(var(--i) * .12s); }
+@keyframes sg-fill { 0% { background: var(--ground-3); } 4%, 70% { background: var(--ground-hi); } 71%, 100% { background: var(--ground-3); } }
+.mo-cells i:last-child { animation-name: sg-fill-hot; }
+@keyframes sg-fill-hot { 0% { background: var(--ground-3); } 4%, 70% { background: var(--coral); } 71%, 100% { background: var(--ground-3); } }
+.mo-scope { width: 160px; height: 160px; color: var(--ground-hi); }
+.mo-sweep { transform-origin: 100px 100px; animation: sg-rot 4s steps(8) infinite; }
+@keyframes sg-rot { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .mo-tunnel polygon[style], .mo-cells i, .mo-sweep { animation: none; } }
+@media (max-width: 980px) { .xp-grid, .mo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* new screen parts */
+.map { position: relative; height: 236px; box-sizing: border-box; padding: 0; --c: 18px; }
+.map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.thread { display: flex; flex-direction: column; gap: 10px; }
+.msg { max-width: 78%; padding: 10px 13px; font: 500 14px/1.4 var(--f-sans); }
+.msg small { display: block; margin-top: 5px; font: 500 9.5px var(--f-mono); text-transform: uppercase; color: var(--ground-dim); }
+.msg--in { align-self: flex-start; --c: 10px; --line: var(--ground-3); --fill: var(--ground); color: var(--on-ground); }
+.msg--out { align-self: flex-end; background: var(--ground-hi); color: var(--ground); --c: 10px;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.msg--out small { color: var(--ground-3); }
+.typing { align-self: flex-start; display: flex; gap: 4px; padding: 0 0 0 10px; }
+.typing i { width: 10px; height: 12px; background: var(--ground-3); transform: skewX(-45deg); animation: sg-fill-hot 1.2s steps(1) infinite; animation-delay: calc(var(--i) * .2s); }
+@media (prefers-reduced-motion: reduce) { .typing i { animation: none; } }
+.composer { display: grid; grid-template-columns: minmax(0, 1fr) 46px; gap: 8px; align-items: stretch; }
+.composer .chamfer { padding: 0 14px; --c: 10px; display: flex; align-items: center; font: 500 13px var(--f-sans); color: var(--ground-dim); height: 46px; box-sizing: border-box; }
+.island-x { top: 11px; left: 12px; right: 12px; height: 84px; border-radius: 42px; background: #000; z-index: 31; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 0 22px; color: #dcdfd5; }
+.la { left: 12px; right: 12px; bottom: 112px; padding: 16px 18px; background: var(--ground-hi); color: var(--ground); --c: 16px;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); display: grid; gap: 12px; }
+.la .steps li { background: var(--ground-dim); color: var(--ground); height: 24px; }
+.la .steps .done { background: var(--ground); color: var(--ground-hi); }
+.la .seg7 { color: var(--ground); --off: var(--ground-dim); }
+
 /* languages */
 .langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .lang { background: var(--ground); padding: 20px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; }
@@ -763,6 +814,93 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <figcaption><b>S · Transfer</b><span><em class="tier">utility</em> Chevron steps are the hero. The transfer prints as a ticket stub with a worn stamp, and sending is a keycap. 確認 means confirm. French fine print.</span></figcaption>
   </figure>
 
+
+  <!-- U · route -->
+  <figure data-tier="utility">
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-wedge"/></svg>
+      <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
+      
+      <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Route</h3><div class="u-tag sg-jp-v">経路</div><div class="u-span"><span>alfama</span><i></i><span>north gate</span></div></header>
+      <div class="u-hero u-hero--pad"><div class="chamfer brackets map"><svg viewBox="0 0 342 236" preserveAspectRatio="none" aria-hidden="true"><g stroke="var(--ground-3)" stroke-width="1.2"><path d="M0 40H342"/><path d="M0 96H342"/><path d="M0 160H342"/><path d="M0 210H342"/><path d="M52 0V236"/><path d="M128 0V236"/><path d="M206 0V236"/><path d="M286 0V236"/><path d="M-20 236L236 -20"/><path d="M110 256L366 0"/></g><polygon points="214,104 280,104 280,150 228,150 214,136" fill="var(--ground-2)"/><polygon points="60,170 112,170 112,204 74,204 60,190" fill="var(--ground-2)"/><polyline points="24,212 92,212 148,156 210,156 270,96 318,96" fill="none" stroke="var(--coral)" stroke-width="3.5" stroke-linejoin="miter"/><rect x="18" y="206" width="12" height="12" fill="var(--ground-hi)" transform="rotate(45 24 212)"/><rect x="311" y="89" width="14" height="14" fill="var(--coral)" transform="rotate(45 318 96)"/><text x="30" y="232" class="xp-m" font-size="8.5" fill="var(--ground-dim)">ALFAMA</text><text x="232" y="128" class="xp-m" font-size="8.5" fill="var(--ground-dim)">PARK</text><text x="270" y="82" class="xp-m" font-size="8.5" fill="var(--ground-hi)">NORTH GATE</text></svg></div></div>
+      <div class="u-div div-ticks"></div>
+      <section class="u-body">
+        <div class="stats3"><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Distance</span><b class="sg-num">4.8 km</b></div><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Arrive</span><b class="sg-num">10:22</b></div><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Climb</span><b class="sg-num">+96 m</b></div></div>
+        <div class="spec spec--ground"><span>Next</span><i></i><span>"/" onto Rua da Sé · 200 m</span></div>
+        <button class="btn btn--coral btn--block" type="button">Start route<svg><use href="#g-i-send"/></svg></button>
+      </section>
+      <nav class="tabbar chamfer"><a><svg><use href="#g-i-today"/></svg>today</a><a><svg><use href="#g-i-log"/></svg>log</a><a aria-current="page"><svg><use href="#g-i-routes"/></svg>routes</a><a><svg><use href="#g-i-me"/></svg>me</a></nav>
+      <i class="home"></i>
+    </div></div>
+    <figcaption><b>U · Route</b><span><em class="tier">utility</em> A street map drawn on the system grid: streets run level, upright or "/" only, the route is the one coral line, and stops are diamonds.</span></figcaption>
+  </figure>
+
+
+  <!-- V · thread -->
+  <figure data-tier="utility">
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-plates"/></svg>
+      <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
+      
+      <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Lena Sato</h3><div class="u-tag sg-jp-v">会話</div><div class="u-span"><span>sealed</span><i></i><span>online</span></div></header>
+      <div class="u-div div-slash" style="margin-top:20px"></div>
+      <section class="u-body u-body--end">
+        <div class="thread">
+          <div class="msg msg--in chamfer">Route map for Friday is attached. North gate at 10:30?<small>09:12 · AES-256</small></div>
+          <div class="msg msg--out">Works. I'll bring the second key.<small>09:14 · read</small></div>
+          <div class="msg msg--in chamfer">Relay 3 was slow yesterday. Take the Alfama route.<small>09:15</small></div>
+          <div class="msg msg--out">Copied. Leaving at 10:05.<small>09:16 · sent</small></div>
+          <div class="typing"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i></div>
+        </div>
+        <div class="composer" style="margin-top:auto"><div class="chamfer">Message · sealed</div><button class="btn btn--coral btn--icon" type="button" aria-label="Send"><svg><use href="#g-i-send"/></svg></button></div>
+      </section>
+      
+      <i class="home"></i>
+    </div></div>
+    <figcaption><b>V · Thread</b><span><em class="tier">utility</em> Messages as cut plates: incoming in outline, outgoing in solid print. The only coral is the typing indicator, three slash cells. 会話 means conversation.</span></figcaption>
+  </figure>
+
+
+  <!-- W · conditions -->
+  <figure data-tier="utility">
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-slashes"/></svg>
+      <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
+      
+      <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Conditions</h3><div class="u-tag u-meta">17<br>NOV</div><div class="u-span"><span><span class="sg-fr">conditions extérieures</span></span><i></i><span>lis</span></div></header>
+      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-start;gap:10px"><svg class="seg7 " viewBox="0 0 154 60" height="96" width="246.4" role="img" aria-label="-04"><g transform="translate(2 0)"><polygon class="on" points="4.1,30 6.9,27.2 37.1,27.2 39.9,30 37.1,32.8 6.9,32.8"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="55.8,4.1 58.6,6.9 58.6,25.9 55.8,28.7 53,25.9 53,6.9"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><polygon class="on" points="94.2,31.3 97,34.1 97,53.1 94.2,55.9 91.4,53.1 91.4,34.1"/><polygon class="on" points="110.1,30 112.9,27.2 143.1,27.2 145.9,30 143.1,32.8 112.9,32.8"/><polygon class="on" points="108.8,4.1 111.6,6.9 111.6,25.9 108.8,28.7 106,25.9 106,6.9"/><polygon class="on" points="147.2,4.1 150,6.9 150,25.9 147.2,28.7 144.4,25.9 144.4,6.9"/><polygon class="on" points="147.2,31.3 150,34.1 150,53.1 147.2,55.9 144.4,53.1 144.4,34.1"/></g></svg><span class="sg-cap" style="font-size:16px;color:var(--ground-hi);padding-top:6px">°C</span></div>
+        <div class="sg-mono" style="margin-top:10px;color:var(--ground-dim)">FEELS -09 · DEW -07 · SLEET FROM 14:00</div></div>
+      <div class="u-div div-ticks"></div>
+      <section class="u-body u-body--end">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="nframe"><b>Wind</b><div class="sg-num" style="font-size:22px;color:var(--ground-hi);margin-bottom:10px">38 km/h</div><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
+          <div class="nframe"><b>Humidity</b><div class="sg-num" style="font-size:22px;color:var(--ground-hi);margin-bottom:10px">82%</div><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></div></div>
+        </div>
+        <div class="lamps"><span class="lamp on">Rain</span><span class="lamp hot">Ice</span><span class="lamp on">Wind</span><span class="lamp">UV</span><span class="lamp">Fog</span></div>
+        <div class="u-foot"><div><b>Axiom signal systems</b><span>Station LIS-04 · 38.71 N</span></div><i class="barcode--v"></i></div>
+      </section>
+      
+      <i class="home"></i>
+    </div></div>
+    <figcaption><b>W · Conditions</b><span><em class="tier">utility</em> Temperature as a seven-segment readout over slanting rain bands. Wind fills a cell run, and the one fault lamp is ice. French in the span rule.</span></figcaption>
+  </figure>
+
+
+  <!-- X · live activity -->
+  <figure data-tier="poster">
+    <div class="phone"><div class="scr tex">
+      <svg class="sg-bg" aria-hidden="true"><use href="#g-bg-slashes"/></svg>
+      <div class="island-x"><svg width="18" height="18" style="color:var(--coral)"><use href="#g-mark"/></svg><span class="sg-mono" style="color:#dcdfd5">SENDING €240 · LENA SATO</span><span class="sg-num" style="font-size:16px;color:#dcdfd5">0:12</span></div>
+      <div style="top:150px;left:0;right:0;text-align:center;color:var(--ground-hi)"><div class="sg-fr" style="font-size:16px">mardi 17 novembre</div><div class="sg-display" style="font-size:92px;margin-top:8px">09:41</div></div>
+      <div class="la">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span class="sg-wordmark" style="font-size:14px">Axiom · transfer</span><span class="sg-mono">Nº 0917</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div class="sg-cap" style="font-size:10px">Arrives in</div><svg class="seg7 " viewBox="0 0 223 60" height="44" width="163.53" role="img" aria-label="00:12"><g transform="translate(2 0)"><polygon class="on" points="4.1,2.8 6.9,0 37.1,0 39.9,2.8 37.1,5.6 6.9,5.6"/><polygon class="on" points="4.1,57.2 6.9,54.4 37.1,54.4 39.9,57.2 37.1,60 6.9,60"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="2.8,31.3 5.6,34.1 5.6,53.1 2.8,55.9 0,53.1 0,34.1"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="55.8,4.1 58.6,6.9 58.6,25.9 55.8,28.7 53,25.9 53,6.9"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><polygon class="on" points="94.2,31.3 97,34.1 97,53.1 94.2,55.9 91.4,53.1 91.4,34.1"/><rect class="hot" x="106" y="16.8" width="7" height="7"/><rect class="hot" x="106" y="38.4" width="7" height="7"/><polygon class="on" points="163.2,4.1 166,6.9 166,25.9 163.2,28.7 160.4,25.9 160.4,6.9"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/><polygon class="on" points="179.1,2.8 181.9,0 212.1,0 214.9,2.8 212.1,5.6 181.9,5.6"/><polygon class="on" points="179.1,30 181.9,27.2 212.1,27.2 214.9,30 212.1,32.8 181.9,32.8"/><polygon class="on" points="179.1,57.2 181.9,54.4 212.1,54.4 214.9,57.2 212.1,60 181.9,60"/><polygon class="on" points="216.2,4.1 219,6.9 219,25.9 216.2,28.7 213.4,25.9 213.4,6.9"/><polygon class="on" points="177.8,31.3 180.6,34.1 180.6,53.1 177.8,55.9 175,53.1 175,34.1"/></g></svg></div><div class="t-right"><div class="sg-cap" style="font-size:10px">To Lena Sato</div><div class="sg-num" style="font-size:26px">€240.00</div></div></div>
+        <ol class="steps"><li class="done">Amount</li><li class="done">Confirm</li><li class="on">Sending</li></ol>
+      </div>
+      <span class="cut" style="bottom:40px;left:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--ground-hi)"><use href="#g-plus"/></svg></span>
+      <span class="cut" style="bottom:40px;right:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="22" height="22" style="color:var(--ground-hi)"><use href="#g-i-scan"/></svg></span>
+      <i class="home"></i>
+    </div></div>
+    <figcaption><b>X · Live activity</b><span><em class="tier">poster</em> The system surfaces in the same print: an expanded Dynamic Island and a Live Activity plate tracking a transfer, with slash steps and a seven-segment countdown.</span></figcaption>
+  </figure>
+
   </div>
 </section>
 
@@ -919,11 +1057,13 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
   </div>
 </section>
 
+<!--@EXPLORE-->
+
 <!--@LANGUAGES-->
 
 <!-- ========================================================== 06 ORIGINS -->
 <section class="sec">
-  <div class="sec-h"><span class="sg-num">07</span><h2 class="sg-display">Origins</h2><span class="sg-mono">reference 1, the sage and coral poster, rebuilt from primitives</span></div>
+  <div class="sec-h"><span class="sg-num">08</span><h2 class="sg-display">Origins</h2><span class="sg-mono">reference 1, the sage and coral poster, rebuilt from primitives</span></div>
   <div class="origins">
     <figure class="mode-dark"><!--@POSTER_DARK--><figcaption class="cap"><b>Reference 1 · dark</b><span>rebuilt 1:1 in layout</span></figcaption></figure>
     <figure class="mode-light"><!--@POSTER_LIGHT--><figcaption class="cap"><b>Reference 1 · light</b><span>same layering</span></figcaption></figure>

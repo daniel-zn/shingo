@@ -4,7 +4,7 @@
 
 ![key art in both modes](docs/keyart.png)
 
-Open `dist/index.html` in a browser for the full gallery: key art, 20 iPhone screens, widgets, components, 20 instruments, language rules and the origins. Use the switch in the corner to flip modes.
+Open `dist/index.html` in a browser for the full gallery: key art, 24 iPhone screens, widgets, components, 20 instruments, language rules and the origins. Use the switch in the corner to flip modes.
 
 ## Art direction
 
@@ -22,6 +22,8 @@ The look is sci-fi industrial, after a trilingual technical print, in the sage, 
 8. **Shape alphabet.** Twelve primitives, all on one angle: cut plate, tag, nested bar, slash, hazard, notch frame, hard X, diamond, chevrons, brackets, cell run and wedge. Icons are one family on a 24-unit grid with a 2-unit stroke, square caps and miter joins (`i-*` glyphs, `SGIcon`).
 
 9. **Backdrops.** Each utility screen sits on one large composition built from the alphabet: tunnel, slash field, plate stack, diamond walk, X lattice, spectrum floor, notch, blueprint wedge or edge rulers. They're tonal, so content stays legible. The divider varies by screen kind: hazard stripes for system and safety screens, a tick ruler for data, a slash run for money and content. (`.sg-bg` + `bg-*` symbols, `SGBackdrop`, `SGUtilityScreen(backdrop:)`)
+
+10. **Explorations.** A four-poster field series (Tunnel, Lattice, Slash, Signal), each built from one primitive, plus motion studies. Motion is stepped, never eased, and turns only in 45° steps: a tunnel pulse, a cell fill, a step sweep and a hazard march. All of it stays still when reduced motion is on.
 
 | dashboard | interval timer | transfer | device |
 |---|---|---|---|

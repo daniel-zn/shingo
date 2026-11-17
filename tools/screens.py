@@ -390,16 +390,73 @@ for k, ref in FOOT.items():
     i = S[k].index('</section>')
     S[k] = S[k][:i] + foot + S[k][i + len('</section>'):]
 
+
+# ---------------------------------------------------------------- U route
+S['U'] = fig('U', 'Route', 'A street map drawn on the system grid: streets run level, upright or "/" only, the route is the one coral line, and stops are diamonds.', utility(f"""
+      {mast('Route', 'alfama', 'north gate', jp('経路'))}
+      <div class="u-hero u-hero--pad"><div class="chamfer brackets map"><svg viewBox="0 0 342 236" preserveAspectRatio="none" aria-hidden="true"><g stroke="var(--ground-3)" stroke-width="1.2"><path d="M0 40H342"/><path d="M0 96H342"/><path d="M0 160H342"/><path d="M0 210H342"/><path d="M52 0V236"/><path d="M128 0V236"/><path d="M206 0V236"/><path d="M286 0V236"/><path d="M-20 236L236 -20"/><path d="M110 256L366 0"/></g><polygon points="214,104 280,104 280,150 228,150 214,136" fill="var(--ground-2)"/><polygon points="60,170 112,170 112,204 74,204 60,190" fill="var(--ground-2)"/><polyline points="24,212 92,212 148,156 210,156 270,96 318,96" fill="none" stroke="var(--coral)" stroke-width="3.5" stroke-linejoin="miter"/><rect x="18" y="206" width="12" height="12" fill="var(--ground-hi)" transform="rotate(45 24 212)"/><rect x="311" y="89" width="14" height="14" fill="var(--coral)" transform="rotate(45 318 96)"/><text x="30" y="232" class="xp-m" font-size="8.5" fill="var(--ground-dim)">ALFAMA</text><text x="232" y="128" class="xp-m" font-size="8.5" fill="var(--ground-dim)">PARK</text><text x="270" y="82" class="xp-m" font-size="8.5" fill="var(--ground-hi)">NORTH GATE</text></svg></div></div>
+      <div class="u-div div-ticks"></div>
+      <section class="u-body">
+        <div class="stats3"><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Distance</span><b class="sg-num">4.8 km</b></div><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Arrive</span><b class="sg-num">10:22</b></div><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Climb</span><b class="sg-num">+96 m</b></div></div>
+        <div class="spec spec--ground"><span>Next</span><i></i><span>"/" onto Rua da Sé · 200 m</span></div>
+        <button class="btn btn--coral btn--block" type="button">Start route<svg><use href="#g-i-send"/></svg></button>
+      </section>""", tab=tabbar([('i-today', 'today'), ('i-log', 'log'), ('i-routes', 'routes'), ('i-me', 'me')], 2)))
+
+# ---------------------------------------------------------------- V thread
+S['V'] = fig('V', 'Thread', 'Messages as cut plates: incoming in outline, outgoing in solid print. The only coral is the typing indicator, three slash cells. 会話 means conversation.', utility(f"""
+      {mast('Lena Sato', 'sealed', 'online', jp('会話'))}
+      <div class="u-div div-slash" style="margin-top:20px"></div>
+      <section class="u-body u-body--end">
+        <div class="thread">
+          <div class="msg msg--in chamfer">Route map for Friday is attached. North gate at 10:30?<small>09:12 · AES-256</small></div>
+          <div class="msg msg--out">Works. I'll bring the second key.<small>09:14 · read</small></div>
+          <div class="msg msg--in chamfer">Relay 3 was slow yesterday. Take the Alfama route.<small>09:15</small></div>
+          <div class="msg msg--out">Copied. Leaving at 10:05.<small>09:16 · sent</small></div>
+          <div class="typing"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i></div>
+        </div>
+        <div class="composer" style="margin-top:auto"><div class="chamfer">Message · sealed</div><button class="btn btn--coral btn--icon" type="button" aria-label="Send"><svg><use href="#g-i-send"/></svg></button></div>
+      </section>"""))
+
+# ---------------------------------------------------------------- W conditions
+S['W'] = fig('W', 'Conditions', 'Temperature as a seven-segment readout over slanting rain bands. Wind fills a cell run, and the one fault lamp is ice. French in the span rule.', utility(f"""
+      {mast('Conditions', '<span class="sg-fr">conditions extérieures</span>', 'lis', meta('17<br>NOV'))}
+      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-start;gap:10px">{seg7("-04", 96)}<span class="sg-cap" style="font-size:16px;color:var(--ground-hi);padding-top:6px">°C</span></div>
+        <div class="sg-mono" style="margin-top:10px;color:var(--ground-dim)">FEELS -09 · DEW -07 · SLEET FROM 14:00</div></div>
+      <div class="u-div div-ticks"></div>
+      <section class="u-body u-body--end">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="nframe"><b>Wind</b><div class="sg-num" style="font-size:22px;color:var(--ground-hi);margin-bottom:10px">38 km/h</div>{cells(10, 6)}</div>
+          <div class="nframe"><b>Humidity</b><div class="sg-num" style="font-size:22px;color:var(--ground-hi);margin-bottom:10px">82%</div>{cells(10, 8)}</div>
+        </div>
+        <div class="lamps"><span class="lamp on">Rain</span><span class="lamp hot">Ice</span><span class="lamp on">Wind</span><span class="lamp">UV</span><span class="lamp">Fog</span></div>
+        <div class="u-foot"><div><b>Axiom signal systems</b><span>Station LIS-04 · 38.71 N</span></div><i class="barcode--v"></i></div>
+      </section>"""))
+
+# ---------------------------------------------------------------- X live activity
+S['X'] = fig('X', 'Live activity', 'The system surfaces in the same print: an expanded Dynamic Island and a Live Activity plate tracking a transfer, with slash steps and a seven-segment countdown.', f"""<div class="phone"><div class="scr tex">
+      <svg class="sg-bg" aria-hidden="true"><use href="#g-bg-slashes"/></svg>
+      <div class="island-x"><svg width="18" height="18" style="color:var(--coral)"><use href="#g-mark"/></svg><span class="sg-mono" style="color:#dcdfd5">SENDING €240 · LENA SATO</span><span class="sg-num" style="font-size:16px;color:#dcdfd5">0:12</span></div>
+      <div style="top:150px;left:0;right:0;text-align:center;color:var(--ground-hi)"><div class="sg-fr" style="font-size:16px">mardi 17 novembre</div><div class="sg-display" style="font-size:92px;margin-top:8px">09:41</div></div>
+      <div class="la">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span class="sg-wordmark" style="font-size:14px">Axiom · transfer</span><span class="sg-mono">Nº 0917</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div class="sg-cap" style="font-size:10px">Arrives in</div>{seg7("00:12", 44, "2")}</div><div class="t-right"><div class="sg-cap" style="font-size:10px">To Lena Sato</div><div class="sg-num" style="font-size:26px">€240.00</div></div></div>
+        <ol class="steps"><li class="done">Amount</li><li class="done">Confirm</li><li class="on">Sending</li></ol>
+      </div>
+      <span class="cut" style="bottom:40px;left:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--ground-hi)"><use href="#g-plus"/></svg></span>
+      <span class="cut" style="bottom:40px;right:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="22" height="22" style="color:var(--ground-hi)"><use href="#g-i-scan"/></svg></span>
+      <i class="home"></i>
+    </div></div>""", tier='poster')
+
 BACKDROP = {'B': 'lattice', 'C': 'tunnel', 'D': 'slashes', 'E': 'stack-card', 'F': 'bars', 'G': 'diamonds', 'H': 'plates',
-            'I': 'notch', 'J': 'stack-badge', 'K': 'tunnel', 'O': 'wedge', 'Q': 'wedge', 'R': 'ticks', 'S': 'slashes'}
+            'I': 'notch', 'J': 'stack-badge', 'K': 'tunnel', 'O': 'wedge', 'Q': 'wedge', 'R': 'ticks', 'S': 'slashes', 'U': 'wedge', 'V': 'plates', 'W': 'slashes'}
 DIVIDER = {'C': 'div-ticks', 'D': 'div-ticks', 'F': 'div-ticks', 'G': 'div-ticks', 'R': 'div-ticks',
-           'E': 'div-slash', 'H': 'div-slash', 'J': 'div-slash', 'O': 'div-slash', 'P': 'div-slash', 'S': 'div-slash'}
+           'E': 'div-slash', 'H': 'div-slash', 'J': 'div-slash', 'O': 'div-slash', 'P': 'div-slash', 'S': 'div-slash', 'U': 'div-ticks', 'W': 'div-ticks'}
 for k, name in BACKDROP.items():
     S[k] = S[k].replace('<div class="phone"><div class="scr u tex">', f'<div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-{name}"/></svg>', 1)
 for k, cls in DIVIDER.items():
     S[k] = S[k].replace('<div class="u-div hazard"', f'<div class="u-div {cls}"')
 
-ORDER = 'T A B C D E F G H I J K L M N O P Q R S'.split()
+ORDER = 'T A B C D E F G H I J K L M N O P Q R S U V W X'.split()
 grid = '\n'.join(S[k] for k in ORDER)
 src = SRC.read_text()
 a = src.index('<div class="screens">') + len('<div class="screens">')

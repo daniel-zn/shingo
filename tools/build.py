@@ -494,6 +494,89 @@ def keyart(mode):
     </div></div><figcaption class="cap"><b>Key art · {mode}</b><span>{"bone print on ink stripes" if mode == "dark" else "ink print on sage stripes"}</span></figcaption></figure>'''
 
 
+# ---------------------------------------------------------------- explorations: poster series + motion
+def _xp_frame(n, word, jp, line, body):
+    """Shared poster frame: masthead, art window (40..470), footer with display word."""
+    return (f'<svg class="xp" viewBox="0 0 400 600" role="img" aria-label="Poster {n}: {word}">'
+            f'<rect width="400" height="600" fill="var(--ground)"/>{body}'
+            f'<text x="24" y="28" class="xp-d" font-size="15" fill="var(--ground-hi)">AXIOM</text>'
+            f'<text x="376" y="27" class="xp-m" font-size="9" fill="var(--ground-dim)" text-anchor="end">XP·{n} · SHINGŌ FIELD SERIES</text>'
+            f'<rect x="24" y="492" width="352" height="1.5" fill="var(--ground-hi)"/>'
+            f'<text x="22" y="554" class="xp-d" font-size="46" fill="var(--ground-hi)">{word}</text>'
+            f'<text x="376" y="482" class="xp-j" font-size="18" fill="var(--ground-hi)" text-anchor="end">{jp}</text>'
+            f'<text x="24" y="578" class="xp-m" font-size="9" fill="var(--ground-dim)">{line}</text>'
+            f'<text x="376" y="578" class="xp-m" font-size="9" fill="var(--ground-dim)" text-anchor="end">{n} / 04</text></svg>')
+
+
+def _xp_tunnel():
+    o = ['<clipPath id="xpc1"><rect x="0" y="44" width="400" height="418"/></clipPath><g clip-path="url(#xpc1)">',
+         '<path d="M-200 650 L600 -150" stroke="var(--ground-3)" stroke-width="1" stroke-dasharray="2 6"/>']
+    for i, h in enumerate(range(14, 300, 15)):
+        col = "var(--ground-hi)" if i < 4 else "var(--ground-3)"
+        o.append(f'<polygon points="{_chamf(200, 258, h * 1.15, h * .8, h * .3)}" fill="none" stroke="{col}" stroke-width="1.5"/>')
+    o.append(f'<polygon points="{_chamf(200, 258, 12, 8, 3)}" fill="var(--coral)"/></g>')
+    return _xp_frame("01", "TUNNEL", "隧道", "THREE RELAYS · ONE SEALED ROUTE", "".join(o))
+
+
+def _xp_lattice():
+    o = []
+    for r in range(7):
+        for c in range(6):
+            x, y = 22 + c * 60, 52 + r * 60
+            if (r, c) == (2, 4):
+                o.append(f'<path transform="translate({x} {y}) scale(.52)" d="{XS}" fill="var(--coral)"/>')
+            elif (r, c) == (4, 1):
+                o.append(f'<path transform="translate({x} {y}) scale(.52)" d="{XS}" fill="var(--ground-hi)"/>')
+            else:
+                o.append(f'<path transform="translate({x} {y}) scale(.52)" d="{XS}" fill="none" stroke="var(--ground-3)" stroke-width="3.5"/>')
+    return _xp_frame("02", "LATTICE", "格子", "42 NODES · ONE ACTIVE · ONE FAULT", "".join(o))
+
+
+def _xp_slash():
+    o = ['<clipPath id="xpc3"><rect x="0" y="44" width="400" height="418"/></clipPath><g clip-path="url(#xpc3)">']
+    for k in range(-12, 18):
+        x = k * 40
+        o.append(f'<polygon points="{x},474 {x+22},474 {x+452},44 {x+430},44" fill="var(--ground-hi)"/>')
+    o.append('</g>')
+    o.append(f'<polygon points="{_chamf(200, 260, 162, 74, 18)}" fill="var(--ground)"/>')
+    o.append(f'<polygon points="{_chamf(200, 260, 162, 74, 18)}" fill="none" stroke="var(--ground-hi)" stroke-width="1.5"/>')
+    o.append(f'<g transform="translate(66 226)">{seg7("09:41", 68, "2")}</g>')
+    o.append('<text x="56" y="210" class="xp-m" font-size="9" fill="var(--ground-dim)">LOCAL TIME · LIS</text>')
+    return _xp_frame("03", "SLASH", "斜線", "ONE ANGLE · RISING LEFT TO RIGHT", "".join(o))
+
+
+def _xp_signal():
+    body = ('<use href="#g-chevrons" x="40" y="62" width="320" height="246" style="color:var(--ground-hi)"/>'
+            '<text x="24" y="352" class="xp-t" font-size="19" fill="var(--ground-hi)">SIGNAL ENGINEERING</text>'
+            '<text x="24" y="382" class="xp-j" font-size="19" fill="var(--ground-hi)" textLength="230" lengthAdjust="spacing">信号工学</text>'
+            '<text x="24" y="410" class="xp-t" font-size="19" fill="var(--ground-hi)">INGÉNIERIE DU SIGNAL</text>'
+            '<polygon points="400,318 400,462 256,462" fill="var(--coral)"/>'
+            '<text x="24" y="450" class="xp-m" font-size="9" fill="var(--ground-dim)">REF: OPSEC/AHI · SP C53</text>')
+    return _xp_frame("04", "SIGNAL", "信号", "ENGLISH · 日本語 · FRANÇAIS", body)
+
+
+def _mo_tunnel():
+    rings = "".join(f'<polygon style="--i:{i}" points="{_chamf(150, 90, h * 1.15, h * .8, h * .3)}"/>' for i, h in enumerate(range(10, 130, 12)))
+    return (f'<svg class="mo-tunnel" viewBox="0 0 300 180">{rings}'
+            f'<polygon points="{_chamf(150, 90, 9, 6, 2)}" fill="var(--coral)" stroke="none"/></svg>')
+
+
+def explorations():
+    posters = [_xp_tunnel(), _xp_lattice(), _xp_slash(), _xp_signal()]
+    cells = "".join(f'<i style="--i:{i}"></i>' for i in range(12))
+    return f'''<section class="sec">
+  <div class="sec-h"><span class="sg-num">06</span><h2 class="sg-display">Explorations</h2><span class="sg-mono">a poster series and motion studies · each piece built from one primitive of the alphabet</span></div>
+  <div class="xp-grid">{"".join(f'<figure>{p}</figure>' for p in posters)}</div>
+  <div class="alpha-h" style="margin-top:36px"><span class="sg-cap">Motion</span><span class="sg-mono">stepped, never eased · 45° turns only · still when reduced motion is on</span></div>
+  <div class="mo-grid">
+    <figure><div class="mo">{_mo_tunnel()}</div><figcaption><b>Tunnel pulse</b><span>Connecting. A print frame travels outward ring by ring.</span></figcaption></figure>
+    <figure><div class="mo"><div class="cells cells--tall mo-cells">{cells}</div><div class="sg-mono mo-lbl">SYNCING RELAYS</div></div><figcaption><b>Cell fill</b><span>Indeterminate progress. Cells fill in order, then reset.</span></figcaption></figure>
+    <figure><div class="mo"><svg class="mo-scope" viewBox="0 0 200 200"><use href="#g-scope"/><g class="mo-sweep"><polygon points="100,100 196,100 190,72" fill="var(--coral)"/></g></svg></div><figcaption><b>Step sweep</b><span>Scanning. The sweep turns in eight 45° steps.</span></figcaption></figure>
+    <figure><div class="mo"><div class="hazard hazard--run" style="width:76%"></div><div class="sg-mono mo-lbl">WRITING FIRMWARE<i class="caret"></i></div></div><figcaption><b>March</b><span>Busy. Hazard stripes march along the one diagonal.</span></figcaption></figure>
+  </div>
+</section>'''
+
+
 def main():
     export_glyphs()
     defs = sprite().split("<defs>")[1].split("</defs>")[0]
@@ -506,6 +589,7 @@ def main():
         PALETTE[mode].clear(); PALETTE[mode].update(saved)
     src = (ROOT / "web" / "gallery.src.html").read_text()
     src = re.sub(r"<!--@SEG7\|([^|]*)\|(\d+)\|([^>]*?)-->", lambda m: seg7(m.group(1), int(m.group(2)), m.group(3)), src)
+    src = src.replace("<!--@EXPLORE-->", explorations())
     src = src.replace("<!--@LANGUAGES-->", (ROOT / "web" / "partials" / "languages.html").read_text())
     src = src.replace("<!--@KEYART_DARK-->", keyart("dark")).replace("<!--@KEYART_LIGHT-->", keyart("light"))
     src = src.replace("<!--@SWATCHES-->", "".join(
