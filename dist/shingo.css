@@ -388,8 +388,8 @@
 @keyframes sg-blink { 50% { opacity: 0; } }
 
 /* marching hazard (busy state) */
-.hazard--run { animation: sg-march 1.2s steps(6) infinite; }
-@keyframes sg-march { to { background-position: 16.97px 0; } }
+.hazard--run { background-size: 16.9706px 16.9706px; animation: sg-march 1.2s linear infinite; will-change: background-position; }   /* slides: continuous */
+@keyframes sg-march { to { background-position: 16.9706px 0; } }
 
 /* blueprint grid ground (edit / plan modes) */
 .blueprint { background:
@@ -458,7 +458,7 @@
 .sg-wipe { position: absolute; z-index: 60; top: -20%; bottom: -20%; width: 70%; left: -80%; pointer-events: none;
   background: repeating-linear-gradient(-45deg, var(--ground-hi) 0 14px, var(--ground) 14px 28px);
   border-left: 6px solid var(--coral); border-right: 6px solid var(--ground-hi);
-  transform: skewX(-45deg); animation: sg-wipe .52s steps(8) forwards; }
+  transform: skewX(-45deg); animation: sg-wipe .52s linear forwards; }
 @keyframes sg-wipe { to { left: 140%; } }
 .sg-hud { position: absolute; z-index: 50; pointer-events: none; }
 .sg-hud-r { position: absolute; inset: 0; --bk: var(--coral); --bl: 9px; }
@@ -482,8 +482,8 @@
 .state--fault::before, .state--off::before { clip-path: polygon(20% 0, 50% 30%, 80% 0, 100% 20%, 70% 50%, 100% 80%, 80% 100%, 50% 70%, 20% 100%, 0 80%, 30% 50%, 0 20%); }
 .state--fault::before { background: var(--coral); }
 .state--off { color: var(--ground-dim); } .state--off::before { background: var(--ground-dim); }
-.state--busy::before { width: 22px; background: repeating-linear-gradient(-45deg, var(--ground-hi) 0 2px, transparent 2px 5px); background-size: 7.07px 100%; animation: sg-march-s .9s steps(4) infinite; }
-@keyframes sg-march-s { to { background-position: 7.07px 0; } }
+.state--busy::before { width: 22px; background: repeating-linear-gradient(-45deg, var(--ground-hi) 0 2px, transparent 2px 5px); background-size: 7.0711px 7.0711px; animation: sg-march-s .9s linear infinite; }
+@keyframes sg-march-s { to { background-position: var(--march, 7.0711px) 0; } }
 
 /* spec table: a list as an engineering spec sheet */
 .stable { width: 100%; border-collapse: collapse; font: 500 13px var(--f-sans); color: var(--on-ground); }
@@ -540,7 +540,7 @@
 /* skeleton: drafting hatch while data loads */
 .skel { display: block; height: 14px; box-shadow: inset 0 0 0 1px var(--ground-3);
   background: repeating-linear-gradient(-45deg, var(--ground-3) 0 1px, transparent 1px 6px); }
-.skel--run { background-size: 8.49px 100%; animation: sg-march-s 1.2s steps(6) infinite; }
+.skel--run { --march: 8.4853px; background-size: 8.4853px 8.4853px; animation: sg-march-s 1.2s linear infinite; }
 .skel--t { height: 22px; width: 60%; } .skel--b { height: 64px; }
 @media (prefers-reduced-motion: reduce) { .state--busy::before, .skel--run { animation: none; } }
 

@@ -5,7 +5,7 @@
    - Coordinates: the last digits of live coordinates drift.
    - Transitions: a hazard band wipes along the one diagonal between views.
    - HUD: a bracket reticle snaps to data under the pointer with a callout.
-   Everything is stepped (no easing) and does nothing under reduced motion.
+   Nothing eases: slides (wipe) are linear, state changes are stepped; all off under reduced motion.
    Content is complete at rest: nothing is hidden waiting for script.
    Scope: .scr (phone screen), .con (console) or any element with data-sg-live.
    Decode: regions decode on arrival (.scr, .con, [data-sg-live], [data-decode-view]); controls on hover;

@@ -29,6 +29,6 @@ node tools/screenshot.js docs 1
 - Colours live in three places: `tokens/tokens.json`, `web/shingo.css`, `ios/Sources/ShingoKit/SGTheme.swift`. Change all three; the build fails otherwise.
 - New pieces go into CSS, SwiftUI and the gallery together, and must work in light and dark.
 - Keep CSS braces balanced; one broken `@media` swallows everything after it.
-- Motion is stepped; respect `prefers-reduced-motion` / `accessibilityReduceMotion`.
+- Never ease. Slides are continuous and linear, state changes are stepped; respect `prefers-reduced-motion` / `accessibilityReduceMotion`.
 - After a visual change, rebuild, screenshot both modes and look at the result before committing.
 - The Swift sources have not been compiled in CI (no toolchain here); keep to iOS 17 SwiftUI API.

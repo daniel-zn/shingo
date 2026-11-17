@@ -119,13 +119,13 @@ public struct SGLiveCountdown: View {
 
 // MARK: Transition: hazard wipe
 
-/// A hazard band crosses the view along the one diagonal in eight steps.
+/// A hazard band slides across the view along the one diagonal, continuously (slides are never stepped).
 public struct SGHazardWipe: ViewModifier {
-    var progress: CGFloat   // 0...1, quantised to 8 steps
+    var progress: CGFloat   // 0...1, continuous
     public func body(content: Content) -> some View {
         content.overlay {
             GeometryReader { g in
-                let p = (progress * 8).rounded(.down) / 8
+                let p = progress
                 if p > 0 && p < 1 {
                     HazardFill(a: SG.groundHi, b: SG.ground, period: 28)
                         .frame(width: g.size.width * 0.7, height: g.size.height * 1.4)
@@ -140,7 +140,7 @@ public struct SGHazardWipe: ViewModifier {
 }
 
 public extension AnyTransition {
-    /// Use with `.animation(.linear(duration: 0.52), value:)`; the band itself is quantised to 8 steps.
+    /// Use with `.animation(.linear(duration: 0.52), value:)` so the band slides at an even speed.
     static var sgHazardWipe: AnyTransition {
         .modifier(active: SGHazardWipe(progress: 0.5), identity: SGHazardWipe(progress: 0))
     }

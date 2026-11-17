@@ -34,15 +34,15 @@ One spec. Everything in the repo follows it, and anything new must too.
 **Imagery and motion**
 
 11. **No pictorial scenes.** There is no photography and no illustrated or generated cities. Imagery comes from the shape system itself: backdrops, motifs and diagrams such as the relay network.
-12. **Stepped motion.** Never eased, turning only in 45° steps. The one exception is tickers, which scroll continuously so they stay readable. Everything stays still when reduced motion is on.
+12. **Slides glide, states step.** Nothing is ever eased. Anything that travels sideways (tickers, marching hazard and hatch, the wipe band) moves continuously at an even, linear speed. Changes of state (blinks, cell fills, pulses, the radar sweep, text decode) step. Everything stays still when reduced motion is on.
 13. **Live behaviour.** The interface behaves like a machine:
     - Information decodes from glyph noise. Each character locks in at its own random moment, the flicker is irregular, and no two decodes take the same time. Noise keeps each character's class (digits flicker through digits, capitals through hard capitals, kanji through kanji); punctuation and spaces never scramble, so the structure of a line holds while it resolves.
     - Decoding has three triggers. **Arrival:** a screen or section decodes top to bottom in three weights: titles (0.32–0.72 s), then labels, codes, column heads and buttons (0.16–0.38 s), then data such as span rules, spec values, table figures, states and imprint lines (0.2–0.52 s), staggered 18 ms apart. **Change:** a new value decodes (stepper, selected row, telex timestamp, HUD callout). **Touch:** buttons, keys, tabs and chips re-decode their label under the pointer (0.12–0.26 s).
     - Paragraphs, inputs, tickers, telex messages (they type instead) and seven-segment readouts never decode.
     - Seven-segment readouts re-render in place: timers count, counters climb, coordinates drift.
-    - Views change behind a hazard band that crosses on the diagonal in eight steps.
+    - Views change behind a hazard band that slides across on the diagonal at an even speed.
     - A HUD reticle snaps coral brackets and a callout to data under the pointer (on iOS, press and hold).
-    - Tickers scroll smoothly.
+    - Tickers, marching hazard bars, busy states and loading hatch slide smoothly and loop without a seam.
 
     On iOS each shape has a feel: a hard tick for switches and tabs, a double tick for keycaps, a heavy throw for the rocker, rising steps for cell meters, an error pattern for alerts and a success pattern for sealed. Web: `web/shingo-live.js`. iOS: `SGLive.swift` (`SGHaptics`, `SGScrambleText`, `SGLiveCountdown`, `.sgHazardWipe`, `.sgHUD`).
 
@@ -54,7 +54,7 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 15. **States have shapes.** Every system state has one fixed mark, in every app: nominal is a solid square, caution is hatched, fault is a coral X, offline is a dim X and syncing is a marching hatch. Never signal state by colour alone.
 16. **Data is a spec sheet.** Lists are spec tables: coded columns (C-01…), a row index, tabular figures and the coral bar on the selected row. Form controls come from the alphabet: checkboxes are hard X boxes, radios are diamonds and steppers are cut keys.
-17. **The machine reports.** Notifications type in like a telex (state, message, timestamp; faults take a coral edge). Loading prints as drafting hatch that marches in steps, never a shimmer or a spinner.
+17. **The machine reports.** Notifications type in like a telex (state, message, timestamp; faults take a coral edge). Loading prints as drafting hatch that slides steadily, never a shimmer or a spinner.
 18. **Beyond the phone.** Larger screens keep the grammar and add a rail: masthead across the top, readouts as the hero, the spec table as the body, a side panel for the selection, and the imprint plus ticker as the footer (see the Console section of the gallery).
 
 | dashboard | interval timer | transfer | device |
@@ -174,7 +174,7 @@ Point the agent at `skills/shingo/SKILL.md`. It holds the rules in checklist for
 - [ ] Wide type only; big numbers are seven-segment readouts.
 - [ ] Utility screens follow the grammar: masthead → hero → divider → body → imprint.
 - [ ] States use the state shapes; lists are spec tables; loading is hatch.
-- [ ] Motion is stepped (tickers excepted) and stops under reduced motion.
+- [ ] Slides are continuous and linear, state changes step, nothing eases, and everything stops under reduced motion.
 
 ## Use in an iOS app
 
