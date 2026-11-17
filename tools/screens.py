@@ -68,7 +68,7 @@ TAB_VPN = [('i-home', 'home'), ('i-stats', 'stats'), ('i-scan', 'scan'), ('i-gri
 S = {}
 
 # ---------------------------------------------------------------- T template
-S['T'] = fig('T', 'Template', 'The grammar every utility screen follows: masthead, one hero, hazard bar, body. Swap the contents, keep the zones.', utility(f'''
+S['T'] = fig('T', 'Template', 'The grammar every utility screen follows: masthead, one hero, a divider, the body, the imprint, on one backdrop. Swap the contents, keep the zones.', utility(f'''
       {mast('Title', 'value · <span class="sg-fr">aparté</span>', 'value', jp('見出'), extra=' class="u-hd zone" style="padding-bottom:12px"').replace('class="u-hd"', '')}
       <div class="u-hero u-hero--pad zone" style="height:140px;box-sizing:border-box">{BAR(96, 70, style='margin-left:-24px;width:300px')}<span class="zl">hero · one form</span></div>
       <div class="u-div hazard"></div>
@@ -87,7 +87,7 @@ keys += ('<div class="key key--flat"><svg width="26" height="26"><use href="#g-r
          '<div class="key"><span class="sg-num">0</span><span class="sg-mono">&nbsp;</span></div>'
          '<div class="key key--flat"><svg width="22" height="22"><use href="#g-x-line"/></svg><span class="sg-mono">DEL</span></div>')
 dots = ''.join(X('solid', 28, '--ground-hi') for _ in range(2)) + X('solid', 28, '--coral') + ''.join(X('line', 28, '--ground-dim') for _ in range(3))
-S['B'] = fig('B', 'Passcode', 'Entry indicators are hard X marks, with coral for the latest digit. Keys are cut plates. The seal 認証 means authentication.', utility(f'''
+S['B'] = fig('B', 'Passcode', 'Lock tumblers align on the shear line as digits go in, hard X marks count entries, and keys are cut plates over an X lattice. 認証 means authentication.', utility(f'''
       {mast('Enter<br>passcode', 'attempt 1', '5 max', seal('認証'))}
       <div class="u-hero u-hero--pad" style="display:grid;gap:14px"><svg class="motif" viewBox="0 0 342 108" style="" aria-hidden="true"><use href="#g-m-tumblers"/></svg><div style="display:flex;gap:14px">{dots}</div></div>
       {DIV}
@@ -119,7 +119,7 @@ days = [('solid', '--ground-hi'), ('line', '--ground-dim'), ('solid', '--ground-
 dayrow = ''.join(f'<span>{X(k, 30, c)}<i>{d}</i></span>' for (k, c), d in zip(days, 'mtwtfss'))
 zones = ''.join(f'<span class="sg-mono">{z.upper()}</span>{cells(12, n, hot=(n - 1 if z == "z3" else -1))}<span class="sg-mono t-right">{t}</span>'
                 for z, n, t in [('z1', 2, '0:40'), ('z2', 8, '2:21'), ('z3', 3, '0:31'), ('z4', 1, '0:09')])
-S['D'] = fig('D', 'Fitness', 'One giant number as the hero and hard X marks for run and rest days. Zones print as bars. French sits in the span rule.', utility(f'''
+S['D'] = fig('D', 'Fitness', 'A seven-segment distance over elevation terraces, X marks for run and rest days, and heart-rate zones as cell runs. French sits in the span rule.', utility(f'''
       {mast('Run log', '<span class="sg-fr">journal de course</span>', 'W46', meta('10–16<br>NOV'))}
       <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px">{seg7("42.6", 76)}<span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
         <div class="dayrow">{dayrow}</div></div>
@@ -131,7 +131,7 @@ S['D'] = fig('D', 'Fitness', 'One giant number as the hero and hard X marks for 
       </section>''', tab=tabbar([('i-today', 'today'), ('i-log', 'log'), ('i-routes', 'routes'), ('i-me', 'me')], 1)))
 
 # ---------------------------------------------------------------- E wallet
-S['E'] = fig('E', 'Wallet', 'The card is the one plate on the screen: a cut slab with a contact pad and a coral strip. 財布 means wallet.', utility(f'''
+S['E'] = fig('E', 'Wallet', 'The card is the one plate: solid print with security microtext, a contact pad and a coral strip, over a stack of card outlines. 財布 means wallet.', utility(f'''
       {mast('Wallet', 'main', 'eur', jp('財布'))}
       <div class="u-hero u-hero--pad"><div class="pcard plate cut" style="--c:24px;position:relative"><svg class="motif" viewBox="0 0 342 140" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;color:var(--ink-dim);opacity:.22" aria-hidden="true"><use href="#g-m-micro"/></svg>
         <div class="pcard-top"><span class="sg-wordmark" style="font-size:15px">AXIOM</span><span class="sg-mono">DEBIT · 09</span></div>
@@ -149,7 +149,7 @@ S['E'] = fig('E', 'Wallet', 'The card is the one plate on the screen: a cut slab
       </section>''', tab=tabbar([('i-wallet', 'wallet'), ('i-spend', 'spend'), ('i-send', 'send'), ('i-me', 'me')], 0)))
 
 # ---------------------------------------------------------------- F player
-S['F'] = fig('F', 'Music player', 'A printed spectrum in a cut frame is the hero, with a coral playhead. The coral action is play.', utility(f'''
+S['F'] = fig('F', 'Music player', 'A printed spectrum in a cut frame with a coral playhead, left and right level meters by the controls, and play as the coral action.', utility(f'''
       {mast('Now playing', 'side a', '24-bit · 96 khz', meta('03<br>/ 12'))}
       <div class="u-hero u-hero--pad"><div class="chamfer brackets specframe" style="--c:24px">
         <svg viewBox="0 0 240 80" preserveAspectRatio="none"><use href="#g-spectrum"/></svg><i class="playhead"></i>
@@ -192,7 +192,7 @@ rows = [('LS', 'Lena Sato', 'ROUTE MAP FOR FRIDAY IS ATTACHED', '09:12', True, '
         ('AM', 'Ada Mensah', 'PHOTOS FROM THE FIELD TRIP', 'SAT', False, '')]
 rowhtml = ''.join(f'<div class="row"><span class="av{c}">{i}</span><span><span class="sg-label" style="display:block">{n}</span><span class="sg-mono">{m}</span></span>'
                   f'<span style="display:grid;justify-items:end;gap:6px"><span class="sg-mono">{t}</span>{"<i class=unread></i>" if u else ""}</span></div>' for i, n, m, t, u, c in rows)
-S['H'] = fig('H', 'Inbox', 'No hero form, so the filter takes the hero slot and the compose action is the masthead tag. Coral only marks unread.', utility(f'''
+S['H'] = fig('H', 'Inbox', 'A postage stamp and cancel bars head the inbox, airmail stripes run down both edges, and coral only marks unread. The compose action is the tag.', utility(f'''
       {mast('Inbox', '12 unread', 'end-to-end', '<button class="u-tag-btn btn btn--plate btn--icon" type="button" aria-label="New message"><svg><use href="#g-plus"/></svg></button>')}
       <div class="u-hero u-hero--pad" style="display:grid;gap:14px"><svg class="motif" viewBox="0 0 200 120" style="width:200px" aria-hidden="true"><use href="#g-m-stamp"/></svg><div class="itabs"><button type="button" aria-pressed="true">All</button><button type="button">Flagged</button><button type="button">Sealed</button></div></div>
       {DIV}
@@ -206,7 +206,7 @@ def group(label, n, rows_):
 
 tg = lambda id_, label, small, on: f'<div class="set"><span><span class="sg-label">{label}</span>{f"<small>{small}</small>" if small else ""}</span><input class="tgl" type="checkbox" id="{id_}"{" checked" if on else ""} aria-label="{label}"></div>'
 nav = lambda label, val: f'<div class="set"><span class="sg-label">{label}</span><span class="sg-mono u-dim" style="display:flex;gap:6px;align-items:center">{val} <svg width="10" height="10"><use href="#g-chev"/></svg></span></div>'
-S['I'] = fig('I', 'Settings', 'No hero, so the hazard bar follows the masthead directly. Groups are condensed-caps labels over printed rows. 設定 means settings.', utility(f'''
+S['I'] = fig('I', 'Settings', 'A DIP switch bank prints the config word as the hero, then grouped rows in wide caps. The last switch changed is coral. 設定 means settings.', utility(f'''
       {mast('Settings', 'v 4.2', 'build 2611', jp('設定'))}
       <div class="u-hero u-hero--pad"><svg class="motif" viewBox="0 0 342 100" style="" aria-hidden="true"><use href="#g-m-dip"/></svg></div>
       <div class="u-div hazard"></div>
@@ -217,7 +217,7 @@ S['I'] = fig('I', 'Settings', 'No hero, so the hazard bar follows the masthead d
       </section>'''))
 
 # ---------------------------------------------------------------- J credential
-S['J'] = fig('J', 'ID credential', 'The badge is the hero plate, with the line-art head in brackets, a coral strip and a barcode. 身分証明書 means ID certificate.', utility(f'''
+S['J'] = fig('J', 'ID credential', 'The badge is the hero plate: a cut fingerprint in brackets, a coral strip, a matrix code and a biometric match meter. 身分証明書 means ID certificate.', utility(f'''
       {mast('Credential', '<span class="sg-fr">carte de membre</span>', 'axiom', meta('VALID<br>2028'))}
       <div class="u-hero u-hero--pad"><div class="badge plate cut">
         <i class="badge-strip"></i>
@@ -307,7 +307,7 @@ S['L'] = fig('L', 'Empty state', 'Two hard X outlines make the illustration, and
       <i class="home"></i>
     </div></div>''', tier='poster')
 
-S['M'] = fig('M', 'Onboarding', 'Three cut bars in alternating directions, then the hazard bar and a display headline with French above it.', f'''<div class="phone"><div class="scr tex">
+S['M'] = fig('M', 'Onboarding', 'Three solid cut bars in alternating directions over relay routes, a hazard divider, and a display headline with French above it.', f'''<div class="phone"><div class="scr tex">
       {SB}
       <div class="sg-mono" style="top:70px;left:24px;color:var(--ground-dim)">STEP 02 / 03</div>
       <div class="sg-mono t-right" style="top:70px;right:24px;color:var(--ground-hi)">SKIP</div>
@@ -346,7 +346,7 @@ S['N'] = fig('N', 'Lock screen', 'The manifesto, after reference 2: the only pla
 
 
 # ---------------------------------------------------------------- Q device
-S['Q'] = fig('Q', 'Device info', 'A riveted data plate inside crop marks is the hero. The body has a caution tag, a rocker switch and the palette calibration strip.', utility(f"""
+S['Q'] = fig('Q', 'Device info', 'A riveted data plate in crop marks over circuit traces, a caution tag for the update and a rocker for maintenance mode.', utility(f"""
       {mast('Device', 'unit ax-04', 'rev 2.6', meta('SN<br>0917'))}
       <div class="u-hero u-hero--pad" style="padding-top:30px"><div class="marks"><div class="dataplate">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px"><span class="sg-wordmark" style="font-size:15px">AXIOM</span><span class="sg-stencil" style="font-size:26px">AX-04</span></div>
@@ -372,7 +372,7 @@ S['R'] = fig('R', 'Interval timer', 'A seven-segment clock with a coral colon is
       </section>"""))
 
 # ---------------------------------------------------------------- S transfer
-S['S'] = fig('S', 'Transfer', 'Chevron steps are the hero. The transfer prints as a ticket stub with a worn stamp, and sending is a keycap. 確認 means confirm. French fine print.', utility(f"""
+S['S'] = fig('S', 'Transfer', 'Slash steps as the hero, packets in flight from account to person, a ticket stub with an inspection stamp, and a keycap to send. 確認 means confirm.', utility(f"""
       {mast('Transfer', 'step 2', 'of 3', seal('確認'))}
       <div class="u-hero u-hero--pad"><ol class="steps"><li class="done">Amount</li><li class="on">Confirm</li><li>Sent</li></ol></div>
       {DIV}
@@ -420,7 +420,7 @@ S['V'] = fig('V', 'Thread', 'Messages as cut plates: incoming in outline, outgoi
       </section>"""))
 
 # ---------------------------------------------------------------- W conditions
-S['W'] = fig('W', 'Conditions', 'Temperature as a seven-segment readout over slanting rain bands. Wind fills a cell run, and the one fault lamp is ice. French in the span rule.', utility(f"""
+S['W'] = fig('W', 'Conditions', 'A seven-segment temperature over rain bands, wind and humidity as cell runs, wind barbs for the next six hours, and ice as the one fault lamp.', utility(f"""
       {mast('Conditions', '<span class="sg-fr">conditions extérieures</span>', 'lis', meta('17<br>NOV'))}
       <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-start;gap:10px">{seg7("-04", 96)}<span class="sg-cap" style="font-size:16px;color:var(--ground-hi);padding-top:6px">°C</span></div>
         <div class="sg-mono" style="margin-top:10px;color:var(--ground-dim)">FEELS -09 · DEW -07 · SLEET FROM 14:00</div></div>

@@ -40,7 +40,7 @@ public struct VerticalText: View {
 
 public struct Hanko: View {
     var text: String; var size: CGFloat; var color: Color
-    public init(_ text: String, size: CGFloat = 56, color: Color = SG.coral) {
+    public init(_ text: String, size: CGFloat = 56, color: Color = SG.signalText) {
         self.text = text; self.size = size; self.color = color
     }
     public var body: some View {

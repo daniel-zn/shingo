@@ -35,8 +35,8 @@ ROLES = {"ground": "striped background", "ground-2": "stripe highlight", "ground
 
 def resolve(svg, mode):
     """Replace var(--x) with the literal colour for one mode (for standalone files)."""
-    fonts = {"f-display": "Archivo, 'Archivo Expanded', sans-serif", "f-sans": "Archivo, sans-serif",
-             "f-mono": "'JetBrains Mono', monospace", "f-jp": "'Hiragino Sans', 'Noto Sans JP', sans-serif"}
+    fonts = {"f-display": "Anybody, sans-serif", "f-title": "Anybody, sans-serif", "f-cap": "Anybody, sans-serif", "f-sans": "Anybody, sans-serif",
+             "f-mono": "'IBM Plex Mono', monospace", "f-jp": "'BIZ UDGothic', 'Hiragino Sans', sans-serif", "f-stencil": "'Saira Stencil One', sans-serif"}
     return re.sub(r"var\(--([a-z0-9-]+)\)", lambda m: PALETTE[mode].get(m.group(1)) or fonts[m.group(1)], svg)
 
 
@@ -45,47 +45,6 @@ def f(v):
 
 
 # ---------------------------------------------------------------- geometry
-def x_path(h=14.0, L=30.0, c=50.0):
-    """Outline of two crossed stadiums (the poster's rounded X).
-    h = half arm width, L = centre-to-cap-centre distance. 100x100 box."""
-    s = h * math.sqrt(2)
-    r2 = math.sqrt(0.5)
-
-    def rot(p, k):  # rotate k*90deg clockwise (y down)
-        x, y = p
-        for _ in range(k):
-            x, y = -y, x
-        return x, y
-    # NE arm, local coords around 0,0
-    d = (r2, -r2); n = (r2, r2)
-    a1 = (L * d[0] - h * n[0], L * d[1] - h * n[1])
-    a2 = (L * d[0] + h * n[0], L * d[1] + h * n[1])
-    inner_top, inner_right = (0, -s), (s, 0)
-    pts = []
-    for k in range(4):
-        pts.append((rot(inner_top, k), rot(a1, k), rot(a2, k)))
-    d_ = f"M{f(c+pts[0][0][0])} {f(c+pts[0][0][1])}"
-    for (it, p1, p2) in pts:
-        d_ += f" L{f(c+p1[0])} {f(c+p1[1])} A{f(h)} {f(h)} 0 0 1 {f(c+p2[0])} {f(c+p2[1])}"
-        d_ += f" L{f(c+rot(inner_right, pts.index((it,p1,p2)))[0])} {f(c+rot(inner_right, pts.index((it,p1,p2)))[1])}"
-    return d_ + " Z"
-
-
-def rrect(x, y, w, h, r):
-    return (f"M{f(x+r)} {f(y)} H{f(x+w-r)} A{f(r)} {f(r)} 0 0 1 {f(x+w)} {f(y+r)} V{f(y+h-r)} "
-            f"A{f(r)} {f(r)} 0 0 1 {f(x+w-r)} {f(y+h)} H{f(x+r)} A{f(r)} {f(r)} 0 0 1 {f(x)} {f(y+h-r)} "
-            f"V{f(y+r)} A{f(r)} {f(r)} 0 0 1 {f(x+r)} {f(y)} Z")
-
-
-def blob(cx, cy, r, seed, amp=0.07, n=72):
-    pts = []
-    for i in range(n):
-        t = 2 * math.pi * i / n
-        rr = r * (1 + amp * math.sin(3 * t + seed) + amp * .6 * math.sin(5 * t + seed * 1.7) + amp * .3 * math.sin(8 * t + seed * .3))
-        pts.append((cx + rr * math.cos(t), cy + rr * math.sin(t)))
-    return "M" + " L".join(f"{f(x)} {f(y)}" for x, y in pts) + " Z"
-
-
 def x_sharp(h=12.5, L=33.0, c=50.0):
     """Industrial X: two crossed bars with square-cut ends (no rounding)."""
     r2 = math.sqrt(0.5); s_ = h * math.sqrt(2)
@@ -164,7 +123,6 @@ def _matrix(n=21, seed=7):
     return "".join(f'<rect x="{x}" y="{y}" width="1" height="1"/>' for x, y in cells)
 
 
-XP = x_path(12.5, 32)   # rounded X: origins poster only
 XS = x_sharp(9.5, 34)   # sharp X: the interface (slim arms)
 
 # ---------------------------------------------------------------- glyphs
@@ -187,14 +145,10 @@ for i in range(40):
 G["spectrum"] = ("0 0 240 80", "".join(_spec))
 G["plus"] = ("0 0 100 100", '<path d="M50 6V94M6 50H94" stroke="currentColor" stroke-width="7"/>')
 G["arrow"] = ("0 0 100 100", '<path d="M18 82 L62 38" stroke="currentColor" stroke-width="14"/><path d="M36 18H82V64Z" fill="currentColor"/>')
-G["globe"] = ("0 0 100 64", '<g fill="none" stroke="currentColor" stroke-width="3.2"><ellipse cx="50" cy="32" rx="46" ry="28"/><ellipse cx="50" cy="32" rx="24" ry="28"/><ellipse cx="50" cy="32" rx="8" ry="28"/><path d="M4 32H96M9 18H91M9 46H91"/></g>')
-G["rings"] = ("0 0 240 120", '<g fill="none" stroke="currentColor" stroke-width="1.3">' + "".join(f'<circle cx="{60+i*8}" cy="60" r="56"/>' for i in range(16)) + "</g>")
-G["disc"] = ("0 0 100 100", '<g fill="none" stroke="currentColor" stroke-width=".9">' + "".join(f'<circle cx="50" cy="50" r="{r}"/>' for r in range(14, 49, 3)) + '</g><circle cx="50" cy="50" r="3" fill="currentColor"/>')
-G["bars"] = ("0 0 100 100", '<g fill="currentColor"><rect x="12" y="20" width="76" height="8" rx="4"/><rect x="12" y="46" width="52" height="8" rx="4"/><rect x="12" y="72" width="64" height="8" rx="4"/></g>')
-G["play"] = ("0 0 100 100", '<path d="M30 18 L84 50 L30 82Z" fill="currentColor" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>')
+G["bars"] = ("0 0 100 100", '<g fill="currentColor"><rect x="12" y="20" width="76" height="8"/><rect x="12" y="46" width="52" height="8"/><rect x="12" y="72" width="64" height="8"/></g>')
+G["play"] = ("0 0 100 100", '<path d="M28 16 L86 50 L28 84Z" fill="currentColor"/>')
 G["skip"] = ("0 0 100 100", '<path d="M18 22 L58 50 L18 78Z M50 22 L90 50 L50 78Z" fill="currentColor"/>')
 G["chev"] = ("0 0 100 100", '<path d="M36 18 L68 50 L36 82" fill="none" stroke="currentColor" stroke-width="11"/>')
-G["user"] = ("0 0 100 100", '<circle cx="50" cy="32" r="18" fill="currentColor"/><path d="M14 90 A36 30 0 0 1 86 90 Z" fill="currentColor"/>')
 # --- motifs from the trilingual print reference ---
 _chev = []
 for _ay, _d1 in zip([18, 82, 146, 210], [70, 150, 40, 112]):
@@ -225,22 +179,8 @@ _I = {
 }
 for _k, _v in _I.items():
     G[_k] = ("0 0 24 24", f'<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">{_v}</g>')
-G["slash"] = ("0 0 100 100", '<path d="M20 80 L80 20" stroke="currentColor" stroke-width="3"/>')
 
-topo = [f'<circle cx="50" cy="50" r="47" fill="none" stroke="{C["ink"]}" stroke-width="1.4"/>',
-        f'<circle cx="50" cy="50" r="43" fill="none" stroke="{C["ink"]}" stroke-width=".7"/>']
-for i, r in enumerate([36, 31, 26, 21, 16]):
-    topo.append(f'<path d="{blob(52 + i*.6, 51 + i*.4, r, i*1.3)}" fill="none" stroke="{C["ink"]}" stroke-width=".8" opacity=".75"/>')
-topo.append(f'<path d="{blob(53, 52, 10.5, 2.2, .14)}" fill="{C["coral"]}"/>')
-topo.append(f'<path d="{rrect(49,47,5,5,1.6)}" fill="{C["ink"]}" transform="rotate(45 51.5 49.5)"/>')
-G["topo"] = ("0 0 100 100", "".join(topo))
 
-fan = [f'<path d="M50 50 L{f(50+40*math.cos(math.radians(-8)))} {f(50+40*math.sin(math.radians(-8)))} A40 40 0 1 1 {f(50+40*math.cos(math.radians(-62)))} {f(50+40*math.sin(math.radians(-62)))} Z" fill="{C["hi"]}"/>']
-for a in range(150, 262, 5):
-    t = math.radians(a)
-    fan.append(f'<path d="M50 50 L{f(50+40*math.cos(t))} {f(50+40*math.sin(t))}" stroke="{C["line"]}" stroke-width=".9"/>')
-fan.append(f'<path d="M50 44 L58 92 L53 92 L50 62 L47 92 L42 92Z" fill="{C["ink"]}"/>')
-G["radar-fan"] = ("0 0 100 100", "".join(fan))
 
 
 # ---------------------------------------------------------------- backdrops
@@ -721,111 +661,6 @@ def export_glyphs():
 
 
 # ---------------------------------------------------------------- poster
-def use(gid, x, y, w, h=None, color=None, extra=""):
-    h = w if h is None else h
-    st = f' style="color:{color}"' if color else ""
-    return f'<use href="#g-{gid}" x="{f(x)}" y="{f(y)}" width="{f(w)}" height="{f(h)}"{st} {extra}/>'
-
-
-def poster(sfx="d"):
-    W, H = 1333, 2000
-    o = [f'<svg class="poster" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" role="img" aria-label="Poster study rebuilt from Shingō primitives">']
-    o.append(f'''<defs>
-<linearGradient id="pgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--ground)"/><stop offset=".5" stop-color="var(--ground-2)"/><stop offset="1" stop-color="var(--ground)"/></linearGradient>
-{''.join(f'<pattern id="pst{i}" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate({a})"><rect width="14" height="14" fill="url(#pgr)"/></pattern>' for i, a in enumerate([-36, -18, -58, -47]))}
-<clipPath id="pc-l"><rect x="32" y="0" width="1400" height="2000"/></clipPath>
-<clipPath id="pc-r"><rect x="0" y="0" width="1300" height="2000"/></clipPath>
-<clipPath id="pc-rdark"><rect x="960" y="372" width="340" height="150"/></clipPath>
-<clipPath id="pc-rcoral"><polygon points="915,522 1300,135 1300,522"/></clipPath>
-<clipPath id="pc-rsage"><rect x="960" y="522" width="340" height="96"/></clipPath>
-<clipPath id="pc-xsolid"><path transform="translate(900 1119) scale(1.9)" d="{XP}"/></clipPath>
-<clipPath id="pc-x2"><rect x="1060" y="270" width="240" height="200"/></clipPath>
-</defs>''')
-    o.append(f'<style>svg.poster .pw{{font-family:var(--f-display);font-stretch:125%;font-weight:900}} svg.poster .ps{{font-family:var(--f-sans);font-weight:500;letter-spacing:-.04em}} svg.poster .pm{{font-family:var(--f-mono);font-size:19.5px}} svg.poster .pn{{font-family:var(--f-display);font-weight:700;font-stretch:105%}}</style>')
-    # ground + facets
-    o.append(f'<rect width="{W}" height="{H}" fill="url(#pst0)"/>')
-    o.append('<polygon points="0,0 1333,0 1333,40 0,560" fill="url(#pst1)"/>')
-    o.append('<polygon points="0,880 230,690 600,860 32,1420 0,1440" fill="url(#pst2)"/>')
-    o.append('<polygon points="760,0 1333,0 1333,120 930,520 820,330" fill="url(#pst3)"/>')
-    # coral band + sage ground
-    o.append(f'<polygon points="32,1400 582,850 750,850 32,1495" fill="{C["coral"]}"/>')
-    o.append(f'<polygon points="725,860 1300,860 1300,1965 32,1965 32,1495" fill="{C["sage"]}"/>')
-    # coral wedge top right, solid X behind rings
-    o.append(f'<polygon points="915,522 1300,135 1300,522" fill="{C["coral"]}"/>')
-    o.append(f'<g clip-path="url(#pc-x2)"><path transform="translate(1072 272) scale(2)" d="{XP}" fill="{C["hi"]}"/></g>')
-    # rings coil across three zones
-    def coil(stroke, clip):
-        return f'<g clip-path="url(#{clip})" fill="none" stroke="{stroke}" stroke-width="2.2">' + "".join(f'<circle cx="{1110+i*11}" cy="497" r="118"/>' for i in range(22)) + "</g>"
-    o.append(coil(C["coral"], "pc-rdark"))
-    o.append(coil(C["line"], "pc-rcoral"))
-    # pill 1 (bleeds left)
-    o.append(f'''<g clip-path="url(#pc-l)">
-<rect x="-200" y="125" width="922" height="350" rx="175" fill="{C["sage"]}"/>
-<rect x="-200" y="187" width="860" height="226" rx="113" fill="{C["hi"]}"/>
-<rect x="-200" y="275" width="775" height="50" rx="25" fill="{C["sage"]}"/>
-<rect x="-200" y="295.5" width="753" height="9" rx="4.5" fill="{C["ink"]}"/></g>''')
-    o.append(f'<circle cx="107" cy="233" r="3" fill="{C["line"]}"/>')
-    # pill 2 (bleeds right)
-    o.append(f'''<g clip-path="url(#pc-r)">
-<rect x="205" y="522" width="1300" height="350" rx="175" fill="{C["sage"]}"/>
-<rect x="268" y="585" width="1200" height="224" rx="112" fill="{C["hi"]}"/>
-<rect x="355" y="652" width="650" height="90" rx="45" fill="{C["sage"]}"/>
-<rect x="375" y="692.5" width="555" height="9" rx="4.5" fill="{C["ink"]}"/>
-<rect x="740" y="692.5" width="190" height="9" rx="4.5" fill="{C["coral"]}"/></g>''')
-    o.append(coil(C["line"], "pc-rsage"))
-    o.append(f'<circle cx="627" cy="633" r="3" fill="{C["line"]}"/><circle cx="1007" cy="633" r="3" fill="{C["line"]}"/>')
-    # right column
-    o.append(f'<rect x="1165" y="698" width="135" height="1267" fill="{C["sage"]}"/><rect x="1165" y="668" width="135" height="30" fill="{C["ink"]}"/>')
-    o.append(use("topo", 1180, 722, 106))
-    o.append(f'<rect x="1165" y="846" width="135" height="5" fill="{C["ink"]}"/><rect x="1165" y="860" width="135" height="2.5" fill="{C["ink"]}"/>')
-    y, bars = 876, [2,2,2,6,2,2,2,2,5,2,2,2,2,2,2,6,2,2,2,2,2,2,2,2]
-    for i, t in enumerate(bars):
-        o.append(f'<rect x="1165" y="{y}" width="135" height="{t}" fill="{C["ink"]}"/>'); y += t + (4 if i % 5 else 9)
-    # frames
-    o.append(f'<polygon points="935,220 1130,220 1150,262 1150,697 1015,697 935,615" fill="none" stroke="{C["line"]}" stroke-width="2.6"/>')
-    o.append(f'<polygon points="788,657 937,657 975,697 742,928 625,928 572,873" fill="none" stroke="{C["line"]}" stroke-width="2.6"/>')
-    # X family
-    o.append(f'<path transform="translate(1072 58) scale(2)" d="{XP}" fill="none" stroke="{C["ghi"]}" stroke-width="13" stroke-linejoin="round"/>')
-    o.append(f'<path transform="translate(900 900) scale(1.9)" d="{XP}" fill="none" stroke="{C["hi"]}" stroke-width="11" stroke-linejoin="round"/>')
-    o.append(f'<path transform="translate(683 1119) scale(1.9)" d="{XP}" fill="none" stroke="{C["ink"]}" stroke-width="7.5" stroke-linejoin="round"/>')
-    o.append(f'<path transform="translate(900 1119) scale(1.9)" d="{XP}" fill="{C["ink"]}"/>')
-    o.append(f'<path d="M925 1283 L1062 1146" stroke="{C["line"]}" stroke-width="1.6"/>')
-    # glyphs
-    o.append(use("mark", 60, 62, 46, color=C["coral"]) + use("mark", 803, 763, 46, color=C["coral"]))
-    o.append(use("globe", 62, 586, 60, 38, color=C["oninc"]))
-    o.append(use("plus", 877, 474, 26, color=C["oninc"]) + use("plus", 975, 725, 26, color=C["line"]))
-    o.append(use("arrow", 846, 1010, 26, color=C["coral"]) + use("arrow", 1236, 533, 26, color=C["coral"]))
-    o.append(f'<g transform="rotate(90 1097 598)">{use("arrow", 1084, 585, 26, color=C["ink"])}</g>')
-    o.append(f'<g transform="rotate(-90 1141 1849)">{use("arrow", 1128, 1836, 26, color=C["line"])}</g>')
-    # badges bottom right
-    o.append(f'<circle cx="1233" cy="1681" r="47" fill="{C["hi"]}" stroke="{C["coral"]}" stroke-width="10"/>' + use("disc", 1203, 1651, 60, color=C["ink"]))
-    o.append(f'<rect x="1165" y="1741" width="135" height="224" fill="{C["coral"]}"/>' + use("radar-fan", 1172, 1745, 120))
-    o.append(f'<rect x="1183" y="1932" width="100" height="3" fill="{C["lo"]}"/><rect x="1183" y="1942" width="100" height="3" fill="{C["lo"]}"/>')
-    o.append(f'<path d="M888 1465 H1155" stroke="{C["line"]}" stroke-width="2"/><rect x="1124" y="1465" width="31" height="9" fill="{C["line"]}"/>')
-    # type
-    T = lambda x, y, s, cls, fill, anchor="start", size=None: f'<text x="{x}" y="{y}" class="{cls}" fill="{fill}" text-anchor="{anchor}"' + (f' font-size="{size}"' if size else "") + f'>{s}</text>'
-    o.append(T(128, 100, "AXIOM", "pw", C["ghi"], size=36) + T(320, 96, "signal systems", "ps", C["oninc"], size=20) + T(495, 96, "2019–2026", "ps", C["oninc"], size=20))
-    o.append(T(62, 535, "200 ppi", "ps", C["oninc"], size=20) + T(62, 562, "1890 x 2835 px", "ps", C["oninc"], size=20))
-    o.append(T(1270, 476, "09", "pn", C["ink"], "end", 31) + T(1270, 501, "#bab9ad", "ps", C["ink"], "end", 18))
-    o.append(T(1157, 805, "AXIOM", "pw", C["ink"], "end", 52))
-    mono = [(830, "signal"), (852, "integrity"), (1012, "ref:"), (1032, "opsec/AHI"), (1052, "sp c53"),
-            (1165, "Field telemetry"), (1187, "response program"), (1229, "(FTRP)"),
-            (1755, "COMSEC  monitoring,"), (1777, "network operations"), (1799, "and defense")]
-    for yy, s in mono:
-        o.append(T(1155, yy, s, "pm", C["ink"], "end"))
-    o.append(f'<g clip-path="url(#pc-xsolid)">' + "".join(T(1155, yy, s, "pm", C["line"], "end") for yy, s in mono[5:7]) + "</g>")
-    o.append(T(1155, 917, "09", "pn", C["ink"], "end", 22) + T(1155, 1455, "09", "pn", C["ink"], "end", 22))
-    o.append(T(398, 1755, "#ff715e", "ps", C["ink"], size=18))
-    for yy, s in [(1892, "2019 - 2026"), (1914, "Interface study · Shingō"), (1936, "Screen collection entry No. 09")]:
-        o.append(T(1155, yy, s, "pm", C["ghost"], "end"))
-    o.append("</svg>")
-    out = "".join(o)
-    # unique ids per instance: patterns and clips resolve colours where they are defined
-    out = re.sub(r'id="(pgr|pst\d|pc-[a-z0-9]+)"', lambda m: f'id="{m.group(1)}-{sfx}"', out)
-    out = re.sub(r'url\(#(pgr|pst\d|pc-[a-z0-9]+)\)', lambda m: f'url(#{m.group(1)}-{sfx})', out)
-    return out
-
-
 def keyart(mode):
     """Key art: the shirt's print stack + the poster's instrument column, in HTML."""
     return f'''<figure class="mode-{mode}"><div class="ka tex"><div class="ka-in">
@@ -1005,13 +840,6 @@ def explorations():
 def main():
     export_glyphs()
     defs = sprite().split("<defs>")[1].split("</defs>")[0]
-    REF1 = {"dark": {"sage": "#b8bbb0", "sage-hi": "#c3c6bd", "sage-lo": "#a9aca1", "sage-line": "#8e9089", "sage-ghost": "#cdd0c7", "ink": "#0c0c0a"},
-            "light": {"sage": "#e3e5dd", "sage-hi": "#eceee7", "sage-lo": "#d2d4cb", "sage-line": "#72746b", "sage-ghost": "#f7f8f4", "ink": "#10110e"}}
-    for mode in ("dark", "light"):
-        svg = poster(mode[0]).replace("<defs>", "<defs>" + defs, 1)
-        saved = dict(PALETTE[mode]); PALETTE[mode].update(REF1[mode])
-        (ROOT / "assets" / "svg" / f"poster-{mode}.svg").write_text(resolve(svg, mode) + "\n")
-        PALETTE[mode].clear(); PALETTE[mode].update(saved)
     src = (ROOT / "web" / "gallery.src.html").read_text()
     src = re.sub(r"<!--@SEG7\|([^|]*)\|(\d+)\|([^>]*?)-->", lambda m: seg7(m.group(1), int(m.group(2)), m.group(3)), src)
     src = src.replace("<!--@EXPLORE-->", explorations())
@@ -1023,8 +851,7 @@ def main():
         f'<div><i style="background:var(--{k})"></i><b>{k}</b><span>{v}<br>dark {PALETTE["dark"][k]} · light {PALETTE["light"][k]}</span></div>'
         for k, v in ROLES.items()))
     css = (ROOT / "web" / "shingo.css").read_text()
-    out = (src.replace("<!--@CSS-->", css).replace("<!--@SPRITE-->", sprite())
-              .replace("<!--@POSTER_DARK-->", poster("d")).replace("<!--@POSTER_LIGHT-->", poster("l")))
+    out = (src.replace("<!--@CSS-->", css).replace("<!--@SPRITE-->", sprite()))
     (ROOT / "dist").mkdir(exist_ok=True)
     (ROOT / "dist" / "index.html").write_text(out)
     print("built dist/index.html", len(out) // 1024, "KB;", len(G), "glyphs")

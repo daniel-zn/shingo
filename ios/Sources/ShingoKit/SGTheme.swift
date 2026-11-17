@@ -49,6 +49,8 @@ public enum SG {
     // signal
     public static let coral     = Color(hex: 0xFF715E)
     public static let coralDeep = Color(hex: 0xE65B48)
+    /// Coral used as text: full coral on ink, a deeper coral on sage so small type stays legible.
+    public static let signalText = Color(light: 0x8F2B1C, dark: 0xFF715E)
 
     // geometry: one angle (45°), three cut sizes
     public static let hair: CGFloat = 1.5

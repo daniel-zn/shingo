@@ -227,7 +227,7 @@ public struct SGTabBar<Tab: Hashable>: View {
                     item.icon.frame(width: 20, height: 20)
                     Text(item.title).sgCap(10)
                 }
-                .foregroundStyle(on ? SG.coral : SG.groundDim)
+                .foregroundStyle(on ? SG.signalText : SG.groundDim)
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture { selection = item.tab }

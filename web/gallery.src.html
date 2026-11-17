@@ -33,7 +33,7 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 /* sections */
 .sec { padding-top: 64px; }
 .sec-h { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 18px; align-items: end; margin-bottom: 26px; }
-.sec-h .sg-num { color: var(--coral); font-size: 22px; grid-row: span 2; align-self: start; padding-top: 6px; }
+.sec-h .sg-num { color: var(--signal-text); font-size: 22px; grid-row: span 2; align-self: start; padding-top: 6px; }
 .sec-h h2 { margin: 0; font-size: clamp(22px, 3.2vw, 38px); color: var(--ground-hi); }
 .sec-h .sg-mono { color: var(--ground-dim); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
 
@@ -74,7 +74,7 @@ figcaption.cap span { font: 400 11px var(--f-mono); color: var(--ground-dim); te
 .anatomy .sw { width: 64px; height: 56px; display: grid; place-items: center; }
 .anatomy h3 { margin: 0 0 4px; font: 600 expanded 14px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .anatomy p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--on-ground); }
-.anatomy code { font-family: var(--f-mono); font-size: 11px; color: var(--coral); }
+.anatomy code { font-family: var(--f-mono); font-size: 11px; color: var(--signal-text); }
 
 
 /* shape alphabet */
@@ -102,13 +102,13 @@ figcaption.cap span { font: 400 11px var(--f-mono); color: var(--ground-dim); te
 .rules > div { background: var(--ground); padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
 .rules b { font: 600 expanded 14px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .rules p { margin: 0; font-size: 13px; line-height: 1.45; color: var(--on-ground); }
-.rules i { font: normal 400 11px var(--f-mono); color: var(--coral); }
+.rules i { font: normal 400 11px var(--f-mono); color: var(--signal-text); }
 .screens { display: grid; grid-template-columns: repeat(auto-fill, minmax(410px, 1fr)); gap: 56px 32px; justify-items: center; }
 .screens figure { margin: 0; display: grid; gap: 16px; justify-items: center; }
 .screens figcaption { width: 410px; max-width: 100%; display: grid; gap: 4px; }
 .screens figcaption b { font: 600 expanded 14px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .screens figcaption span { font: 400 11.5px/1.45 var(--f-mono); color: var(--ground-dim); }
-em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-transform: uppercase; letter-spacing: .08em; }
+em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text-transform: uppercase; letter-spacing: .08em; }
 
 /* device frame (iPhone logical size 390 x 844 pt) */
 .phone { width: 410px; height: 864px; padding: 10px; box-sizing: border-box; border-radius: 64px; background: #030303; box-shadow: 0 0 0 1.5px var(--ground-3), 0 40px 80px rgba(0,0,0,.45); }
@@ -127,7 +127,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .tabbar a { display: grid; justify-items: center; gap: 4px; color: var(--ground-dim); text-decoration: none; font: 600 expanded 10px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; }
 .tabbar a::before { content: ""; width: 18px; height: 3px; background: transparent; }
 .tabbar a svg { width: 20px; height: 20px; }
-.tabbar a[aria-current] { color: var(--coral); }
+.tabbar a[aria-current] { color: var(--signal-text); }
 .tabbar a[aria-current]::before { background: var(--coral); }
 
 .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
@@ -179,7 +179,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .badge-bc { right: 20px; bottom: 22px; width: 110px; height: 28px; }
 .u-tag-btn { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
 .zone { outline: 1px dashed var(--coral); outline-offset: -1px; }
-.zl { position: absolute; right: 8px; bottom: 4px; padding: 1px 5px; font: 400 9px var(--f-mono); text-transform: uppercase; color: var(--coral); background: var(--ground); }
+.zl { position: absolute; right: 8px; bottom: 4px; padding: 1px 5px; font: 400 9px var(--f-mono); text-transform: uppercase; color: var(--signal-text); background: var(--ground); }
 
 /* widgets & icons */
 .widgets { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
@@ -215,7 +215,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .inst { background: var(--ground); padding: 18px; display: grid; grid-template-rows: auto auto 1fr; gap: 8px; min-width: 0; }
 .inst--wide { grid-column: span 2; }
 .inst h3 { margin: 0; display: flex; justify-content: space-between; gap: 10px; font: 600 expanded 13px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
-.inst h3 span:last-child { font: 400 10px var(--f-mono); letter-spacing: 0; text-transform: none; color: var(--coral); }
+.inst h3 span:last-child { font: 400 10px var(--f-mono); letter-spacing: 0; text-transform: none; color: var(--signal-text); }
 .inst p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--on-ground); max-width: 52ch; }
 .inst .demo { align-self: end; display: flex; align-items: center; padding: 14px 0 4px; min-width: 0; }
 @media (max-width: 700px) { .inst--wide { grid-column: auto; } }
@@ -295,18 +295,9 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .lex td.sg-jp { font-size: 15px; color: var(--ground-hi); }
 .lex-note { color: var(--ground-dim); font-size: 11.5px; margin: 14px 0 0; max-width: 80ch; }
 
-/* origins */
-.origins { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px; align-items: start; }
-.origins svg.poster { width: 100%; height: auto; display: block; }
-.origins .mode-dark { --sage: #b8bbb0; --sage-hi: #c3c6bd; --sage-lo: #a9aca1; --sage-line: #8e9089; --sage-ghost: #cdd0c7; --ink: #0c0c0a; }
-.origins .mode-light { --sage: #e3e5dd; --sage-hi: #eceee7; --sage-lo: #d2d4cb; --sage-line: #72746b; --sage-ghost: #f7f8f4; --ink: #10110e; }
-.origins figure { margin: 0; display: grid; gap: 10px; min-width: 0; overflow: hidden; }
-.origins-txt { display: grid; gap: 12px; }
-.origins-txt p { margin: 0; font-size: 14px; line-height: 1.55; }
-.origins-txt b { color: var(--ground-hi); }
 
 @media (max-width: 980px) {
-  .hd, .origins { grid-template-columns: minmax(0, 1fr); }
+  .hd { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 640px) { .ka-pair { grid-template-columns: minmax(0, 1fr); } .theme-switch { width: 200px; } .typescale > div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
 @media (max-width: 460px) {
@@ -333,7 +324,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="mode-dark mode-chip"><i class="tex"></i><b></b><span class="sg-mono">dark</span><span class="sg-fr">ink ground, bone print</span></div>
       <div class="mode-light mode-chip"><i class="tex"></i><b></b><span class="sg-mono">light</span><span class="sg-fr">sage ground, ink print</span></div>
     </div>
-    <p>Every screen ships in both modes with the same layering. Dark prints bone on ink stripes. Light prints ink on the poster's sage, with paper plates that are never white. Coral is the same in both. The page follows your system setting, and the switch in the corner flips it.</p>
+    <p>Every screen ships in both modes with the same layering. Dark prints bone on ink stripes. Light prints ink on sage. Plates are solid print with the text knocked out, in both modes. Coral is the same in both. The page follows your system setting, and the switch in the corner flips it.</p>
   </div>
 </header>
 <div class="theme-switch seg" role="group" aria-label="Color mode" id="theme-switch"><button type="button" data-t="" aria-pressed="true">system</button><button type="button" data-t="light">light</button><button type="button" data-t="dark">dark</button></div>
@@ -349,14 +340,14 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
   <div class="alpha">
     <div><figure><i class="cut" style="--c:18px;width:96px;height:62px;background:var(--ground-hi)"></i></figure><b>A · Cut plate</b><p>Chamfers at top-left and bottom-right only, at 6, 12 or 24&nbsp;pt. Buttons, keys, cards.</p></div>
     <div><figure><i class="slab-cut" style="width:104px;height:34px"></i></figure><b>B · Tag</b><p>One cut, bottom-right. The coral signal slab and every bar's free end.</p></div>
-    <div><figure><div class="bar" style="--h:58px;width:116px"><div class="bar__mid"><div class="bar__core"><i class="bar__slot" style="--p:72%"></i></div></div></div></figure><b>C · Nested bar</b><p>Print, ground, print, slot. The hero form, progress and scrubber.</p></div>
+    <div><figure><div class="bar" style="--h:58px;width:116px"><div class="bar__mid"><div class="bar__core"><i class="bar__slot" style="--p:72%"></i></div></div></div></figure><b>C · Nested bar</b><p>A solid print bar with a slot cut in, ending in a 45° tag. Progress and scrubbers.</p></div>
     <div><figure><ol class="steps" style="width:120px"><li class="done"></li><li class="on"></li><li></li></ol></figure><b>D · Slash</b><p>A "/" parallelogram. Steps, cells and stripes are all slashes in a row.</p></div>
     <div><figure><div class="hazard" style="width:116px"></div></figure><b>E · Hazard</b><p>Slashes between two rules. The divider between masthead and body.</p></div>
     <div><figure><div class="nframe" style="width:116px;height:56px;box-sizing:border-box"><b>Label</b></div></figure><b>F · Notch</b><p>A hairline frame with its label tab cut into the corner, like a drawing's title block.</p></div>
     <div><figure><svg width="58" height="58" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><svg width="58" height="58" style="color:var(--ground-hi)"><use href="#g-x-line"/></svg></figure><b>G · Hard X</b><p>Two crossed bars, square-cut ends. Solid for done, outline for rest, coral for now.</p></div>
     <div><figure><svg width="54" height="54" style="color:var(--coral)"><use href="#g-mark"/></svg></figure><b>H · Diamond</b><p>A square turned 45° with an off-centre hole. The mark, blips and bullets.</p></div>
     <div><figure><svg viewBox="0 0 300 230" width="96" height="74" style="color:var(--ground-hi)"><use href="#g-chevrons"/></svg></figure><b>I · Chevrons</b><p>Nested "^" with broken left arms. The one large artwork: hero, key art, paywall.</p></div>
-    <div><figure><i class="brackets" style="width:96px;height:58px;--bl:14px"></i></figure><b>J · Brackets</b><p>Four L corners around anything that is a viewport: scopes, spectra, faces.</p></div>
+    <div><figure><i class="brackets" style="width:96px;height:58px;--bl:14px"></i></figure><b>J · Brackets</b><p>Four L corners around anything that is a viewport: scopes, spectra, maps, scenes.</p></div>
     <div><figure><div class="cells cells--tall" style="width:110px"><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i></div></figure><b>K · Cell run</b><p>Slashes that fill up. Levels, rounds and caps.</p></div>
     <div><figure><i class="band" style="position:static;display:block;width:70px;height:70px;clip-path:polygon(100% 0,100% 100%,0 100%)"></i></figure><b>L · Wedge</b><p>A 45° triangle of coral in a corner. Poster screens only.</p></div>
   </div>
@@ -369,7 +360,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <div><i>01</i><b>Two inks</b><p>Everything is print on ground: solid shapes in the print ink with text knocked out, or outlines. No third tone. Coral is the only extra ink.</p></div>
     <div><i>02</i><b>One grammar</b><p>Masthead, one hero, a divider, the body, the imprint. Each screen sits on one backdrop composition from the shape alphabet. Poster screens compose freely.</p></div>
     <div><i>03</i><b>One angle</b><p>Every diagonal rises left to right at 45°: corner cuts (top-left and bottom-right), hazard stripes, cells, bands and the stripe field. No tilts, textures or shadows.</p></div>
-    <div><i>04</i><b>Three sizes</b><p>Wordmark type at 44 for display, 26 for titles and 15 inline. Labels are condensed caps and telemetry is mono.</p></div>
+    <div><i>04</i><b>Three sizes</b><p>Anybody at three sizes: 40 display, 28 titles, 14 inline. Labels are wide caps, telemetry is mono, serials are stencil.</p></div>
     <div><i>05</i><b>One signal</b><p>Coral marks one block or one primary action per screen, plus the latest or active state. Switches turn on in print, not coral.</p></div>
     <div><i>06</i><b>Tag and aside</b><p>Japanese lives in the masthead tag or a seal. French lives in the span rule. Each appears once at most.</p></div>
   </div>
@@ -393,7 +384,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <nav class="tabbar chamfer"><a aria-current="page"><svg><use href="#g-i-home"/></svg>home</a><a><svg><use href="#g-i-stats"/></svg>stats</a><a><svg><use href="#g-i-scan"/></svg>scan</a><a><svg><use href="#g-i-grid"/></svg>servers</a></nav>
       <i class="home"></i>
     </div></div>
-    <figcaption><b>T · Template</b><span><em class="tier">utility</em> The grammar every utility screen follows: masthead, one hero, hazard bar, body. Swap the contents, keep the zones.</span></figcaption>
+    <figcaption><b>T · Template</b><span><em class="tier">utility</em> The grammar every utility screen follows: masthead, one hero, a divider, the body, the imprint, on one backdrop. Swap the contents, keep the zones.</span></figcaption>
   </figure>
 
 
@@ -435,7 +426,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       
       <i class="home"></i>
     </div></div>
-    <figcaption><b>B · Passcode</b><span><em class="tier">utility</em> Entry indicators are hard X marks, with coral for the latest digit. Keys are cut plates. The seal 認証 means authentication.</span></figcaption>
+    <figcaption><b>B · Passcode</b><span><em class="tier">utility</em> Lock tumblers align on the shear line as digits go in, hard X marks count entries, and keys are cut plates over an X lattice. 認証 means authentication.</span></figcaption>
   </figure>
 
 
@@ -483,7 +474,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <nav class="tabbar chamfer"><a><svg><use href="#g-i-today"/></svg>today</a><a aria-current="page"><svg><use href="#g-i-log"/></svg>log</a><a><svg><use href="#g-i-routes"/></svg>routes</a><a><svg><use href="#g-i-me"/></svg>me</a></nav>
       <i class="home"></i>
     </div></div>
-    <figcaption><b>D · Fitness</b><span><em class="tier">utility</em> One giant number as the hero and hard X marks for run and rest days. Zones print as bars. French sits in the span rule.</span></figcaption>
+    <figcaption><b>D · Fitness</b><span><em class="tier">utility</em> A seven-segment distance over elevation terraces, X marks for run and rest days, and heart-rate zones as cell runs. French sits in the span rule.</span></figcaption>
   </figure>
 
 
@@ -510,7 +501,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <nav class="tabbar chamfer"><a aria-current="page"><svg><use href="#g-i-wallet"/></svg>wallet</a><a><svg><use href="#g-i-spend"/></svg>spend</a><a><svg><use href="#g-i-send"/></svg>send</a><a><svg><use href="#g-i-me"/></svg>me</a></nav>
       <i class="home"></i>
     </div></div>
-    <figcaption><b>E · Wallet</b><span><em class="tier">utility</em> The card is the one plate on the screen: a cut slab with a contact pad and a coral strip. 財布 means wallet.</span></figcaption>
+    <figcaption><b>E · Wallet</b><span><em class="tier">utility</em> The card is the one plate: solid print with security microtext, a contact pad and a coral strip, over a stack of card outlines. 財布 means wallet.</span></figcaption>
   </figure>
 
 
@@ -539,7 +530,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       
       <i class="home"></i>
     </div></div>
-    <figcaption><b>F · Music player</b><span><em class="tier">utility</em> A printed spectrum in a cut frame is the hero, with a coral playhead. The coral action is play.</span></figcaption>
+    <figcaption><b>F · Music player</b><span><em class="tier">utility</em> A printed spectrum in a cut frame with a coral playhead, left and right level meters by the controls, and play as the coral action.</span></figcaption>
   </figure>
 
 
@@ -583,7 +574,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <nav class="tabbar chamfer"><a aria-current="page"><svg><use href="#g-i-inbox"/></svg>inbox</a><a><svg><use href="#g-i-spam"/></svg>spam</a><a><svg><use href="#g-i-contacts"/></svg>contacts</a><a><svg><use href="#g-i-me"/></svg>me</a></nav>
       <i class="home"></i>
     </div></div>
-    <figcaption><b>H · Inbox</b><span><em class="tier">utility</em> No hero form, so the filter takes the hero slot and the compose action is the masthead tag. Coral only marks unread.</span></figcaption>
+    <figcaption><b>H · Inbox</b><span><em class="tier">utility</em> A postage stamp and cancel bars head the inbox, airmail stripes run down both edges, and coral only marks unread. The compose action is the tag.</span></figcaption>
   </figure>
 
 
@@ -604,7 +595,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       
       <i class="home"></i>
     </div></div>
-    <figcaption><b>I · Settings</b><span><em class="tier">utility</em> No hero, so the hazard bar follows the masthead directly. Groups are condensed-caps labels over printed rows. 設定 means settings.</span></figcaption>
+    <figcaption><b>I · Settings</b><span><em class="tier">utility</em> A DIP switch bank prints the config word as the hero, then grouped rows in wide caps. The last switch changed is coral. 設定 means settings.</span></figcaption>
   </figure>
 
 
@@ -629,7 +620,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       
       <i class="home"></i>
     </div></div>
-    <figcaption><b>J · ID credential</b><span><em class="tier">utility</em> The badge is the hero plate, with the line-art head in brackets, a coral strip and a barcode. 身分証明書 means ID certificate.</span></figcaption>
+    <figcaption><b>J · ID credential</b><span><em class="tier">utility</em> The badge is the hero plate: a cut fingerprint in brackets, a coral strip, a matrix code and a biometric match meter. 身分証明書 means ID certificate.</span></figcaption>
   </figure>
 
 
@@ -690,7 +681,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <button class="btn" type="button" style="top:752px;right:24px">Next<svg><use href="#g-arrow"/></svg></button>
       <i class="home"></i>
     </div></div>
-    <figcaption><b>M · Onboarding</b><span><em class="tier">poster</em> Three cut bars in alternating directions, then the hazard bar and a display headline with French above it.</span></figcaption>
+    <figcaption><b>M · Onboarding</b><span><em class="tier">poster</em> Three solid cut bars in alternating directions over relay routes, a hazard divider, and a display headline with French above it.</span></figcaption>
   </figure>
 
 
@@ -785,7 +776,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       
       <i class="home"></i>
     </div></div>
-    <figcaption><b>Q · Device info</b><span><em class="tier">utility</em> A riveted data plate inside crop marks is the hero. The body has a caution tag, a rocker switch and the palette calibration strip.</span></figcaption>
+    <figcaption><b>Q · Device info</b><span><em class="tier">utility</em> A riveted data plate in crop marks over circuit traces, a caution tag for the update and a rocker for maintenance mode.</span></figcaption>
   </figure>
 
 
@@ -830,7 +821,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       
       <i class="home"></i>
     </div></div>
-    <figcaption><b>S · Transfer</b><span><em class="tier">utility</em> Chevron steps are the hero. The transfer prints as a ticket stub with a worn stamp, and sending is a keycap. 確認 means confirm. French fine print.</span></figcaption>
+    <figcaption><b>S · Transfer</b><span><em class="tier">utility</em> Slash steps as the hero, packets in flight from account to person, a ticket stub with an inspection stamp, and a keycap to send. 確認 means confirm.</span></figcaption>
   </figure>
 
 
@@ -899,7 +890,7 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       
       <i class="home"></i>
     </div></div>
-    <figcaption><b>W · Conditions</b><span><em class="tier">utility</em> Temperature as a seven-segment readout over slanting rain bands. Wind fills a cell run, and the one fault lamp is ice. French in the span rule.</span></figcaption>
+    <figcaption><b>W · Conditions</b><span><em class="tier">utility</em> A seven-segment temperature over rain bands, wind and humidity as cell runs, wind barbs for the next six hours, and ice as the one fault lamp.</span></figcaption>
   </figure>
 
 
@@ -1146,19 +1137,6 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 
 <!--@LANGUAGES-->
 
-<!-- ========================================================== 06 ORIGINS -->
-<section class="sec">
-  <div class="sec-h"><span class="sg-num">08</span><h2 class="sg-display">Origins</h2><span class="sg-mono">reference 1, the sage and coral poster, rebuilt from primitives</span></div>
-  <div class="origins">
-    <figure class="mode-dark"><!--@POSTER_DARK--><figcaption class="cap"><b>Reference 1 · dark</b><span>rebuilt 1:1 in layout</span></figcaption></figure>
-    <figure class="mode-light"><!--@POSTER_LIGHT--><figcaption class="cap"><b>Reference 1 · light</b><span>same layering</span></figcaption></figure>
-    <div class="origins-txt">
-      <p><b>Reference 1</b> gave Shingō its palette: sage, ink and coral, the striped ground, the nested forms and the right-aligned telemetry.</p>
-      <p><b>Reference 2</b>, a trilingual technical print, gave it its voice: wide industrial type, hazard bars, chevrons, barcodes and the line-art head. It also brought English with Japanese and French woven in.</p>
-      <p>Shingō now leans toward the second reference. Pills became cut bars, rounded X marks became hard ones, and soft panels gave way to print. The poster stays here as the source of the color and the layering.</p>
-    </div>
-  </div>
-</section>
 
 </div>
 

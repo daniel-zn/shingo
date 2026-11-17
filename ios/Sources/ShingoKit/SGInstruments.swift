@@ -476,7 +476,7 @@ public struct SGLamps: View {
                 let (name, st) = lamps[i]
                 VStack(alignment: .leading, spacing: 6) {
                     Rectangle().fill(st == .fault ? SG.coral : (st == .on ? SG.groundHi : SG.ground3)).frame(height: 10)
-                    Text(name).sgMono(10).foregroundStyle(st == .fault ? SG.coral : (st == .on ? SG.groundHi : SG.groundDim))
+                    Text(name).sgMono(10).foregroundStyle(st == .fault ? SG.signalText : (st == .on ? SG.groundHi : SG.groundDim))
                 }
             }
         }

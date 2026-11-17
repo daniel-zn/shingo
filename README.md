@@ -1,35 +1,44 @@
 # Shingō 信号
 
-*Shingō* is Japanese for "signal". It's an industrial interface system for iOS and the web. Interfaces are **printed** on a striped ground in wide, short, hard type: 45° cuts, hazard bars, chevrons, barcodes, seven-segment readouts, stencil serials and mono telemetry, with one coral signal per screen. English leads, with Japanese and French woven in sparingly. Every screen ships in light and dark.
+*Shingō* is Japanese for "signal". It's an industrial interface system for iOS and the web. Interfaces are **printed** on a striped ground, like a two-ink screen print: wide hard type, one 45° diagonal, hazard stripes, chevrons, seven-segment readouts, stencil serials and mono telemetry, with one coral signal per screen. English leads, with Japanese and French as accents. Every screen ships in light and dark.
 
 ![key art in both modes](docs/keyart.png)
 
-Open `dist/index.html` in a browser for the full gallery: key art, 26 iPhone screens, widgets, components, 20 instruments, language rules and the origins. Use the switch in the corner to flip modes.
+Open `dist/index.html` in a browser for the full gallery: key art, the shape alphabet, content motifs, backdrops, 26 iPhone screens, widgets, components, instruments, the poster series, motion studies and language rules. Use the switch in the corner to flip modes.
 
 ## Art direction
 
-The look is sci-fi industrial, after a trilingual technical print, in the sage, ink and coral palette of a sage-and-coral poster.
+One spec. Everything in the repo follows it, and anything new must too.
 
-1. **Two inks.** Like a garment screen print, everything is print on ground. Solid shapes (keys, cards, badges, tickets, nested bars) are print ink with the text knocked out. There's no third tone. Coral is the only extra ink.
-2. **One angle, one direction.** Every diagonal rises left to right at 45°: corner cuts (top-left and bottom-right, at 6, 12 or 24 pt), hazard stripes, cell meters, bands and the stripe field. Nothing is tilted, textured, shadowed or rounded. It's flat two-ink print.
-3. **One grammar.** Utility screens go masthead, then one hero, then a hazard bar, then the body. The masthead holds a vertical micro-code, a 26 pt title, exactly one tag and a span rule (`08:14 ────── LIS-04`). Poster screens (launch, onboarding, lock screen, empty state) compose freely. Screens close with the imprint footer: a print rule, a wide-caps line, a mono reference and a barcode, like the shirt's footer.
-4. **Wide, short, hard type.** One grotesk at three widths: Anybody Extra-Expanded ExtraBold for display (40 pt), Anybody Expanded for titles (22), inline wordmarks (14), labels and numbers, and Anybody at normal width for body text. Saira Stencil One stamps serials, IBM Plex Mono carries telemetry, and BIZ UDGothic sets kanji (Hiragino Sans on iOS). Big numbers are wide seven-segment readouts. Nothing is condensed or rounded.
-5. **One signal.** Coral marks one block or one primary action per screen, plus the latest or active state. Switches turn on in print, not coral. Row labels are wide capitals, like the print.
-6. **Tag and aside.** Japanese goes in the masthead tag or a seal. French goes in the span rule. Each appears once at most. All three languages stack only once per app, on the lock screen.
+**Color**
+1. **Two inks.** Print on ground, nothing else. Solid shapes (keys, cards, badges, tickets, bars, plates) are print ink with the text knocked out. There is no third tone.
+2. **One signal.** Coral is the only extra ink: one block or one primary action per screen, plus the latest or active state. Switches turn on in print. Coral used as text takes `--signal-text`, a deeper coral on sage so small type stays legible.
 
-7. **Instruments.** Twenty parts extrapolated from the motifs, each with a job: seven-segment readout, cell meter, ruler slider, chevron steps, index tabs, caution tag, rubber stamp, ticket stub, keycap, rocker switch, data plate, print marks and colour bar, telemetry ticker, boot log, callout, blueprint grid, oscilloscope, status lamps and stencil serials.
+**Shape**
 
-8. **Shape alphabet.** Twelve primitives, all on one angle: cut plate, tag, nested bar, slash, hazard, notch frame, hard X, diamond, chevrons, brackets, cell run and wedge. Icons are one family on a 24-unit grid with a 2-unit stroke, square caps and miter joins (`i-*` glyphs, `SGIcon`).
+3. **One angle, one direction.** Every diagonal rises left to right at 45°. Corner cuts sit top-left and bottom-right at 6, 12 or 24 pt. Nothing is tilted, textured, shadowed or rounded; device chrome is the only exception.
+4. **The alphabet.** Twelve primitives make everything: cut plate, tag, nested bar (a solid bar with a slot), slash, hazard, notch frame, hard X, diamond, chevrons, brackets, cell run and wedge.
+5. **Content motifs.** Where a screen has a subject, its shape comes from that subject, drawn by the same rules: lock tumblers, postage stamp, DIP switches, wind barbs, packet flow, cut fingerprint, compass rose, level meters and security microtext.
+6. **Icons.** One family on a 24-unit grid with 2-unit strokes, square caps and miter joins.
 
-9. **Backdrops.** Each utility screen sits on one large composition built from the alphabet: tunnel, slash field, plate stack, diamond walk, X lattice, spectrum floor, notch, blueprint wedge or edge rulers. They're tonal, so content stays legible. The divider varies by screen kind: hazard stripes for system and safety screens, a tick ruler for data, a slash run for money and content. (`.sg-bg` + `bg-*` symbols, `SGBackdrop`, `SGUtilityScreen(backdrop:)`)
+**Type**
 
-10. **Explorations.** A four-poster field series (Tunnel, Lattice, Slash, Signal), each built from one primitive, plus motion studies. Motion is stepped, never eased, and turns only in 45° steps: a tunnel pulse, a cell fill, a step sweep and a hazard march. All of it stays still when reduced motion is on.
+7. **Wide, short, hard.** Anybody at three widths: display 40+ (extra-expanded 800), titles 28 (expanded 800) and inline 14 (expanded 700). Labels are wide caps. Body text is Anybody, telemetry IBM Plex Mono, serials Saira Stencil One and kanji BIZ UDGothic (Hiragino Sans on iOS). Big numbers are seven-segment readouts. Never condensed, never rounded.
 
-11. **Content motifs.** Shapes taken from each screen's subject, drawn by the alphabet's rules: lock tumblers (passcode), postage stamp and cancel (inbox), DIP switch bank (settings), wind barbs (conditions), packet flow (transfer), cut fingerprint (credential), compass rose (route), level meters (player) and security microtext (wallet). There are also two new backdrops: elevation terraces (run log) and circuit traces (device). These are web only for now (`m-*` and `bg-*` symbols).
+**Layout**
 
-12. **More backdrops.** Paywall tiers (nested chevron outlines), empty-state signal decay (rules whose dashes break apart), onboarding relays (three routes with node squares), long-read columns (an editorial column and baseline grid) and inbox airmail edges. That makes 17 in all, shown on the gallery's backdrop sheet. The line-art head has been removed from the system.
+8. **Two tiers.** Poster screens (launch, onboarding, lock screen, empty state, relay city, live activity) compose freely. Every other screen follows the grammar: masthead (micro-code, title, one tag, span rule) → one hero → divider → body → imprint footer (rule, wide-caps line, mono reference, barcode).
+9. **Dividers by kind.** Hazard for system and safety screens, a tick ruler for data, a slash run for money and content.
+10. **One backdrop per screen.** A tonal composition behind the content, chosen by subject: tunnel, slash field, terraces, plate stacks, airmail edges, diamond walk, X lattice, spectrum floor, notch, wedge, editorial columns, edge rulers, circuit traces, tiers, signal decay, relays.
 
-13. **Scenes and ops print.** Procedural monochrome city scenes (skyline, rooftop, stacks) built from flat tonal blocks with 45° roofs and one coral beacon. They're vector and follow light and dark mode. Field-operations furniture: status matrix, redaction bars, ID plate with boxed letters, banner strip, restriction line, constructed block type (`constructed()`) and the exploded X (`exploded_x()`). They're used in posters XP-05 Relay and XP-06 Ops, and in screens Y Briefing and Z Relay city.
+**Imagery and motion**
+
+11. **Real photography only.** Photos are converted to the two-ink duotone of the current mode (`tools/photos.py`) and credited in `assets/photos/credits.json`. No illustrated or generated cities.
+12. **Stepped motion.** Never eased, turning only in 45° steps. Everything stays still when reduced motion is on.
+
+**Language**
+
+13. **English runs the interface.** Japanese (a vertical tag or a seal) and French (the span rule or fine print) appear at most once each per screen. All three stack only once per app, on the lock screen.
 
 | dashboard | interval timer | transfer | device |
 |---|---|---|---|
@@ -41,8 +50,8 @@ The look is sci-fi industrial, after a trilingual technical print, in the sage, 
 
 | | ground (striped) | print | plates | signal |
 |---|---|---|---|---|
-| **Dark** | ink `#0b0b0a` | bone `#dcdfd5` | bone, text knocked out | coral `#ff715e` |
-| **Light** | sage `#bcbfb4` | ink `#0f100d` | ink, text knocked out | coral `#ff715e` |
+| **Dark** | ink `#0b0b0a` | bone `#dcdfd5` | bone, text knocked out | coral `#ff715e` (text `#ff715e`) |
+| **Light** | sage `#bcbfb4` | ink `#0f100d` | ink, text knocked out | coral `#ff715e` (text `#8f2b1c`) |
 
 Use role tokens, never raw hex. Things printed on the ground use `--ground-*`: `--ground-hi` is the print and `--ground-dim` is secondary print. Things on plates use `--sage-*` and `--ink`. Force a mode on any web subtree with `.mode-light` or `.mode-dark`. On iOS, every `SG` colour is dynamic and follows the system appearance or `.preferredColorScheme`.
 
@@ -60,16 +69,18 @@ web/shingo.css                tokens + components + screen grammar (.u-*)
 web/gallery.src.html          gallery source
 web/partials/languages.html   the language section
 tools/screens.py              regenerates the gallery screens from the grammar
-tools/build.py                glyphs, key art, posters, exports; builds dist/
+tools/build.py                glyphs, motifs, backdrops, key art, posters; builds dist/
+tools/photos.py               converts licensed photos to dark and light duotones
 tools/screenshot.js           renders every screen in both modes (preinstalled Playwright)
 dist/index.html               the built, self-contained gallery
-assets/svg/*.svg              glyphs (multi-colour ones as -dark/-light pairs), origins posters
+assets/svg/*.svg              glyphs and icons (multi-colour ones as -dark/-light pairs)
+assets/photos/                duotone photos + credits.json (sources and licenses)
 ios/                          Swift package "ShingoKit" (iOS 17+), all colours dynamic
   Sources/ShingoKit/SGTheme.swift       SG colour tokens, SGFont, font registration
   Sources/ShingoKit/SGShapes.swift      SGHardX, DiamondMark, ChamferRect, TagCut, Brackets, UnitPolygon, SignalBars
   Sources/ShingoKit/SGTextures.swift    StripeField, Barcode, Spectrum, Scope
   Sources/ShingoKit/SGComponents.swift  SGBar, SGButtonStyle, SGToggleStyle, SGSegmented, SGChip, SGSlot, SGGroupLabel, SGTabBar
-  Sources/ShingoKit/SGBackdrop.swift     SGBackdrop: the eleven backdrop compositions
+  Sources/ShingoKit/SGBackdrop.swift     SGBackdrop: eleven of the backdrop compositions
   Sources/ShingoKit/SGScreen.swift      SGUtilityScreen, SGCode: the screen grammar
   Sources/ShingoKit/SGInstruments.swift  SGSegDisplay, SGCellMeter, SGRuler, SGSteps, SGIndexTabs, SGCaution, SGStamp, SGTicket, SGKeycapStyle, SGRockerStyle, SGDataPlate, SGSpecRow, SGMatrixCode, .printMarks(), SGColorBar, SGTicker, SGBootLog, SGLamps, SGBlueprint, SGCallout, SGWave
   Sources/ShingoKit/SGLanguage.swift    VerticalText, Hanko, HazardBar, ChevronStack, YearSpan, ManifestoExample
@@ -112,7 +123,7 @@ node tools/screenshot.js docs
        Button("Disconnect") {}.buttonStyle(SGButtonStyle(.print))
    }
    ```
-4. For static art, drag `assets/svg/*.svg` into an asset catalog and tick **Preserve Vector Data**. Single-colour glyphs render as template images, so tint them in code. For multi-colour ones (`scope`, `topo`, `radar-fan`, `poster`), set Appearances to Any/Dark and drop the `-light` file into Any and the `-dark` file into Dark.
+4. For static art, drag `assets/svg/*.svg` into an asset catalog and tick **Preserve Vector Data**. Single-colour glyphs render as template images, so tint them in code. For multi-colour ones (`scope`), set Appearances to Any/Dark and drop the `-light` file into Any and the `-dark` file into Dark.
 
 > The Swift sources were written against the iOS 17 SwiftUI API but have **not been compiled yet**. The build environment had no Swift toolchain. Expect a few small fixes on the first Xcode build.
 
@@ -150,9 +161,11 @@ Every phrase, with its Japanese reading, is in `tokens/lexicon.json`. These are 
 
 ## Origins
 
-Shingō started from two references. A sage and coral poster gave it the palette, the striped ground, the nested forms and right-aligned telemetry. A trilingual technical print gave it the voice: wide industrial type, hazard bars, chevrons, barcodes, the line-art head, and English with Japanese and French. The system now leans toward the second. The poster is still rebuilt in the gallery's Origins section (`assets/svg/poster-dark.svg`, `poster-light.svg`).
+Shingō started from two references: a sage and coral poster (palette, striped ground, layered forms, right-aligned telemetry) and a trilingual technical print (wide industrial type, hazard bars, chevrons, barcodes, three languages). Later references added field-operations print (status matrices, redaction, ID plates) and a construction-guide poster (an exploded X, guides, city data over a photo). Earlier rounded forms from the first poster have been retired.
 
-It was first measured against `nexu-io/open-design`'s brutalist skill, a text-only prompt with no assets. Its accent was hazard red rather than coral, and it allowed one background per screen, while the poster layers sage on ink. Shingō was built from scratch instead.
+## SwiftUI coverage
+
+ShingoKit covers the tokens, type, alphabet shapes, components, instruments, icons, the screen grammar and eleven backdrops. The newer pieces are web-only so far: the motifs, six of the backdrops, the ops furniture, constructed type, posters, photos and motion. The Swift code hasn't been compiled yet.
 
 ## Fonts
 

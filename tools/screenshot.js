@@ -1,6 +1,6 @@
 // Render dist/index.html and save PNGs of every section and screen, in both modes.
 //   node tools/screenshot.js [outDir] [scale]
-// Writes <outDir>/dark/*.png and <outDir>/light/*.png plus keyart.png and origins.png.
+// Writes <outDir>/dark/*.png and <outDir>/light/*.png plus keyart.png.
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
@@ -19,7 +19,6 @@ const fs = require('fs');
   await p.addStyleTag({ content: '#theme-switch{display:none!important} .ticker>span,.caret,.hazard--run,.lamp.hot::before{animation:none!important}' });
   fs.mkdirSync(out, { recursive: true });
   await (await p.$('.ka-pair')).screenshot({ path: path.join(out, 'keyart.png') });
-  await (await p.$('.origins')).screenshot({ path: path.join(out, 'origins.png') });
 
   for (const mode of ['dark', 'light']) {
     const dir = path.join(out, mode);

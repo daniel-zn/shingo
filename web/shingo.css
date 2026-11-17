@@ -31,14 +31,14 @@
   --ground: #0b0b0a;  --ground-2: #1b1c18;  --ground-3: #2e2f2a;
   --on-ground: #c9ccc2;  --ground-hi: #dcdfd5;  --ground-dim: #8b8d85;
   --sage: #dcdfd5;  --sage-hi: #dcdfd5;  --sage-lo: #8b8d85;  --sage-line: #8b8d85;  --sage-ghost: #c9ccc2;
-  --ink: #0b0b0a;  --ink-dim: #55574f;  --coral: #ff715e;  --coral-deep: #e65b48;
+  --ink: #0b0b0a;  --ink-dim: #55574f;  --coral: #ff715e;  --signal-text: #ff715e;  --coral-deep: #e65b48;
   color-scheme: dark;
 }
 .mode-light {
   --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
   --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
-  --ink: #bcbfb4;  --ink-dim: #8e9187;  --coral: #ff715e;  --coral-deep: #e65b48;
+  --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --coral: #ff715e;  --coral-deep: #e65b48;
   color-scheme: light;
 }
 @media (prefers-color-scheme: light) {
@@ -46,14 +46,14 @@
     --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
     --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
     --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
-    --ink: #bcbfb4;  --ink-dim: #8e9187;  color-scheme: light;
+    --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
   --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
-  --ink: #bcbfb4;  --ink-dim: #8e9187;  color-scheme: light;
+  --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  color-scheme: light;
 }
 .mode-dark, .mode-light { color: var(--on-ground); }
 
@@ -374,13 +374,13 @@
 /* telemetry ticker */
 .ticker { overflow: hidden; white-space: nowrap; border-block: 1px solid var(--ground-3); padding: 6px 0; font: 400 11px var(--f-mono); color: var(--ground-hi); text-transform: uppercase; }
 .ticker > span { display: inline-block; animation: sg-tick 22s linear infinite; }
-.ticker b { color: var(--coral); font-weight: 400; }
+.ticker b { color: var(--signal-text); font-weight: 400; }
 @keyframes sg-tick { to { transform: translateX(-50%); } }
 
 /* boot log */
 .bootlog { display: grid; gap: 3px; font: 400 11px var(--f-mono); color: var(--on-ground); text-transform: uppercase; }
 .bootlog span::before { content: "[ OK ] "; color: var(--ground-hi); }
-.bootlog .run::before { content: "[ .. ] "; color: var(--coral); }
+.bootlog .run::before { content: "[ .. ] "; color: var(--signal-text); }
 .caret { display: inline-block; width: 7px; height: 11px; margin-left: 3px; vertical-align: -1px; background: var(--coral); animation: sg-blink 1s steps(1) infinite; }
 @keyframes sg-blink { 50% { opacity: 0; } }
 
@@ -405,7 +405,7 @@
 .lamp { display: grid; gap: 6px; font: 400 10px var(--f-mono); text-transform: uppercase; color: var(--ground-dim); }
 .lamp::before { content: ""; height: 10px; background: var(--ground-3); }
 .lamp.on { color: var(--ground-hi); } .lamp.on::before { background: var(--ground-hi); }
-.lamp.hot { color: var(--coral); } .lamp.hot::before { background: var(--coral); animation: sg-blink 1.2s steps(1) infinite; }
+.lamp.hot { color: var(--signal-text); } .lamp.hot::before { background: var(--coral); animation: sg-blink 1.2s steps(1) infinite; }
 
 @media (prefers-reduced-motion: reduce) { .ticker > span, .caret, .hazard--run, .lamp.hot::before { animation: none; } }
 
@@ -442,3 +442,8 @@
   font: 700 expanded 11px var(--f-title); letter-spacing: .02em; text-transform: uppercase; }
 .restrict { font: 700 expanded 10.5px var(--f-title); letter-spacing: .02em; text-transform: uppercase; color: var(--ground-hi); }
 .guides { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+
+/* coral as text uses --signal-text: full coral on ink, a deep coral on sage so small type stays legible */
+.tabbar a[aria-current], .lamp.hot, .bootlog .run::before, .ticker b, .hanko, .u-hd .hanko { color: var(--signal-text); }
+.hanko { border-color: var(--signal-text); }
+.stamp { --st: var(--signal-text); }
