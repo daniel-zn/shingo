@@ -1,0 +1,98 @@
+<!doctype html>
+<!--
+  Shingō starter: a complete app page built only from the kit.
+  Built by tools/build.py into dist/starter.html (sprite and readouts inlined).
+  To start a new app, copy dist/shingo.css, dist/shingo-live.js and dist/starter.html,
+  then replace the brand placeholder AXIOM and the content. Keep the grammar:
+  masthead → one hero → divider → body → imprint. One coral signal per view.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Axiom Relay</title>
+<link rel="stylesheet" href="shingo.css">
+<style>
+  /* App-level layout only: everything visual comes from shingo.css */
+  body { margin: 0; min-height: 100vh; font-family: var(--f-sans); color: var(--on-ground); }
+  .app { max-width: 1080px; margin: 0 auto; min-height: 100vh; }
+  .app .u-hd { padding-top: 40px; }
+  .app-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  .app-col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .app-hero { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 28px; padding: 22px 24px 18px; }
+  .app-hero .nframe { min-width: 180px; }
+  .app-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .app-mode { width: 216px; }
+  .app .u-body { padding-bottom: 32px; }
+  @media (max-width: 760px) { .app-mode { width: 170px; } .app-grid { grid-template-columns: minmax(0, 1fr); } .app .u-hd { padding: 28px 16px 0; } .app-hero, .app .u-body { padding-left: 16px; padding-right: 16px; } .app .u-div { margin: 0 16px; } }
+</style>
+</head>
+<body class="tex">
+<!--@SPRITE-->
+<main class="app u" data-sg-live>
+
+  <!-- masthead: code · title · one tag · span rule (French lives here) -->
+  <header class="u-hd">
+    <span class="u-code">AX·01</span>
+    <h1 class="u-title">Relay fleet</h1>
+    <div class="u-tag app-mode seg" role="group" aria-label="Color mode" id="mode"><button type="button" data-t="" aria-pressed="true">auto</button><button type="button" data-t="light">light</button><button type="button" data-t="dark">dark</button></div>
+    <div class="u-span"><span>Sector 04 · <span class="live-coord">38.71 N 9.14 W</span></span><i></i><span class="sg-fr">en service</span></div>
+  </header>
+
+  <!-- hero: ONE form. Here: readouts in notched frames -->
+  <section class="app-hero">
+    <div class="nframe"><b>Threats</b><!--@SEG7|1284|40|live-up--></div>
+    <div class="nframe"><b>Rotation</b><!--@SEG7|04:59|40|live-down--></div>
+    <div class="app-actions"><button class="btn btn--coral" type="button" data-telex-send="feed">Reroute</button><button class="btn btn--ghost" type="button">Export log</button></div>
+  </section>
+
+  <!-- divider -->
+  <div class="u-div hazard"></div>
+
+  <!-- body -->
+  <section class="u-body">
+    <div class="app-grid">
+      <div class="app-col">
+        <div class="u-label"><span>Fleet</span><span>4 relays</span></div>
+        <div class="stable-wrap"><table class="stable">
+          <thead><tr><th><small>C-01</small>Nº</th><th><small>C-02</small>Relay</th><th class="n"><small>C-03</small>Latency</th><th><small>C-04</small>State</th></tr></thead>
+          <tbody>
+            <tr aria-selected="false"><td class="idx">01</td><td><b>Lisbon</b></td><td class="n">23 ms</td><td><span class="state state--ok">Nominal</span></td></tr>
+            <tr aria-selected="true"><td class="idx">02</td><td><b>Lyon</b></td><td class="n">212 ms</td><td><span class="state state--warn">Caution</span></td></tr>
+            <tr aria-selected="false"><td class="idx">03</td><td><b>Osaka</b></td><td class="n">—</td><td><span class="state state--fault">Fault</span></td></tr>
+            <tr aria-selected="false"><td class="idx">04</td><td><b>Seoul</b></td><td class="n">—</td><td><span class="state state--busy">Syncing</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="u-label"><span>Telex</span><span>live</span></div>
+        <div class="telex-stack" id="feed" data-telex-feed></div>
+      </div>
+
+      <aside class="app-col">
+        <div class="u-label"><span>Route</span><span class="sg-jp">経路</span></div>
+        <label class="search"><svg><use href="#g-i-scan"/></svg><input placeholder="Search relays" aria-label="Search relays"><kbd>⌘K</kbd></label>
+        <label class="selectf"><select aria-label="Protocol"><option>WireGuard</option><option>IKEv2</option><option>Sealed relay</option></select></label>
+        <div class="spec spec--ground"><span>Protocol</span><i></i><span>WireGuard</span><span>Hops</span><i></i><span>3</span><span>Cipher</span><i></i><span>AES-256</span></div>
+        <label class="optrow"><input class="xcheck" type="checkbox" checked>Kill switch</label>
+        <div style="display:flex;gap:18px"><label class="optrow"><input class="dradio" type="radio" name="region" checked>EU</label><label class="optrow"><input class="dradio" type="radio" name="region">Asia</label></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span class="optrow" style="cursor:default">Hops</span><div class="stepper" data-min="1" data-max="5"><button type="button" aria-label="Fewer hops">−</button><output>3</output><button type="button" aria-label="More hops">+</button></div></div>
+        <i class="skel skel--run" aria-label="Loading"></i>
+      </aside>
+    </div>
+
+    <!-- imprint footer -->
+    <footer class="u-foot"><div><b>Axiom signal systems</b><span>Relay · build 2611 · <em class="sg-fr">tous droits réservés</em></span></div><i class="barcode--v"></i></footer>
+  </section>
+</main>
+<script src="shingo-live.js"></script>
+<script>
+  (function () {
+    var root = document.documentElement, sw = document.getElementById('mode');
+    sw.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.t) root.setAttribute('data-theme', b.dataset.t); else root.removeAttribute('data-theme');
+      sw.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    });
+  })();
+</script>
+</body>
+</html>

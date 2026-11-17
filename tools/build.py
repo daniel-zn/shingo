@@ -10,7 +10,8 @@
 4. Inlines web/shingo.css + sprite + posters into web/gallery.src.html
    -> dist/index.html (one self-contained file)
 """
-import math, pathlib, re
+import json, math, pathlib, re
+import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Colours are CSS variables so the same SVG renders in light and dark mode
@@ -21,16 +22,16 @@ C = dict(ink="var(--ink)", sage="var(--sage)", hi="var(--sage-hi)", lo="var(--sa
 PALETTE = {
     "dark":  {"ground": "#0b0b0a", "ground-2": "#1b1c18", "ground-3": "#2e2f2a", "on-ground": "#c9ccc2", "ground-hi": "#dcdfd5", "ground-dim": "#8b8d85",
               "sage": "#dcdfd5", "sage-hi": "#dcdfd5", "sage-lo": "#8b8d85", "sage-line": "#8b8d85", "sage-ghost": "#c9ccc2",
-              "ink": "#0b0b0a", "ink-dim": "#55574f", "coral": "#ff715e", "coral-deep": "#e65b48"},
+              "ink": "#0b0b0a", "ink-dim": "#55574f", "coral": "#ff715e", "coral-deep": "#e65b48", "signal-text": "#ff715e"},
     "light": {"ground": "#bcbfb4", "ground-2": "#b0b3a8", "ground-3": "#9fa297", "on-ground": "#1c1d19", "ground-hi": "#0f100d", "ground-dim": "#4d4f47",
               "sage": "#0f100d", "sage-hi": "#0f100d", "sage-lo": "#4d4f47", "sage-line": "#4d4f47", "sage-ghost": "#2e2f2a",
-              "ink": "#bcbfb4", "ink-dim": "#8e9187", "coral": "#ff715e", "coral-deep": "#e65b48"},
+              "ink": "#bcbfb4", "ink-dim": "#8e9187", "coral": "#ff715e", "coral-deep": "#e65b48", "signal-text": "#8f2b1c"},
 }
 ROLES = {"ground": "striped background", "ground-2": "stripe highlight", "ground-3": "rules, frames, tracks",
          "on-ground": "body text on the ground", "ground-hi": "the print: titles, line art, plates of text", "ground-dim": "secondary print",
          "sage": "solid print plates", "sage-hi": "plates you press or carry (= print)", "sage-lo": "perforations, pressed plates", "sage-line": "hairlines on plates",
          "sage-ghost": "faint marks on plates", "ink": "text knocked out of plates (= ground)", "ink-dim": "secondary text on plates",
-         "coral": "the signal", "coral-deep": "pressed signal"}
+         "coral": "the signal", "coral-deep": "pressed signal", "signal-text": "coral as text (deep coral on sage)"}
 
 
 def resolve(svg, mode):
@@ -768,12 +769,141 @@ def explorations():
 </section>'''
 
 
+
+# ---------------------------------------------------------------- patterns + console
+_FLEET = [("04", "Lisbon", "23", 4, "ok"), ("07", "Porto", "31", 6, "ok"), ("03", "Lyon", "212", 9, "warn"),
+          ("12", "Osaka", "—", 0, "off"), ("09", "Seoul", "188", 7, "busy"), ("02", "Reykjavík", "—", 0, "fault")]
+_STATE = {"ok": "nominal", "warn": "caution", "fault": "fault", "off": "offline", "busy": "syncing"}
+
+
+def _cells(n, on, hot=-1):
+    return '<div class="cells" style="padding-left:9px">' + "".join(f'<i class="{"hot" if i == hot else ("on" if i < on else "")}" style="height:10px"></i>' for i in range(n)) + "</div>"
+
+
+def spec_table(rows, selected=1):
+    body = "".join(
+        f'<tr aria-selected="{"true" if i == selected else "false"}"><td class="idx">{i+1:02d}</td><td><b class="sg-wordmark" style="font-size:12px">{c}</b><br><span class="sg-mono" style="color:var(--ground-dim)">RELAY {r}</span></td>'
+        f'<td class="n">{l}{" ms" if l != "—" else ""}</td><td style="width:34%">{_cells(10, ld, hot=9 if ld >= 9 else -1)}</td><td><span class="state state--{s}">{_STATE[s]}</span></td></tr>'
+        for i, (r, c, l, ld, s) in enumerate(rows))
+    return ('<div class="stable-wrap"><table class="stable"><thead><tr><th><small>C-01</small>Nº</th><th><small>C-02</small>Relay</th><th class="n"><small>C-03</small>Latency</th>'
+            f'<th><small>C-04</small>Load</th><th><small>C-05</small>State</th></tr></thead><tbody>{body}</tbody></table></div>')
+
+
+def patterns():
+    return f'''  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Patterns for any app</span><span class="sg-mono">state language · spec tables · form set · telex · skeletons · every one is live</span></div>
+  <div class="insts">
+    <div class="inst inst--wide"><h3><span>State language</span><span>.state · SGState</span></h3><p>Every system state has one fixed shape, so any app reads the same: nominal is a solid square, caution is hatched, fault is a coral X, offline is a dim X, and busy marches.</p>
+      <div class="demo" style="display:block"><div class="spec spec--ground" style="grid-template-columns:120px minmax(0,1fr) minmax(12px,.6fr) auto;row-gap:14px"><span class="state state--ok">Nominal</span><span style="color:var(--ground-dim)">solid square · print</span><i></i><span>running as specified</span><span class="state state--warn">Caution</span><span style="color:var(--ground-dim)">hatched square · print</span><i></i><span>degraded, still working</span><span class="state state--fault">Fault</span><span style="color:var(--ground-dim)">hard X · coral</span><i></i><span>stopped, needs action</span><span class="state state--off">Offline</span><span style="color:var(--ground-dim)">hard X · dim</span><i></i><span>not reporting</span><span class="state state--busy">Syncing</span><span style="color:var(--ground-dim)">marching hatch</span><i></i><span>work in progress</span></div></div></div>
+    <div class="inst inst--wide"><h3><span>Spec table</span><span>.stable · SGSpecTable</span></h3><p>Lists as an engineering spec sheet: coded columns, row index, tabular figures, cell-run loads and the state language. The selected row carries the coral bar. Click a row.</p>
+      <div class="demo" style="display:block">{spec_table(_FLEET[:4])}</div></div>
+    <div class="inst"><h3><span>Form set</span><span>.xcheck .dradio .stepper</span></h3><p>Checkboxes are hard X boxes, radios are diamonds and steppers are cut keys. All of them come from the alphabet.</p>
+      <div class="demo" style="display:grid;gap:12px;justify-items:start">
+        <label class="optrow"><input class="xcheck" type="checkbox" id="pf-x1" checked>Kill switch</label>
+        <label class="optrow"><input class="xcheck" type="checkbox" id="pf-x2">Allow local network</label>
+        <div style="display:flex;gap:18px"><label class="optrow"><input class="dradio" type="radio" name="pf-r" id="pf-r1" checked>EU</label><label class="optrow"><input class="dradio" type="radio" name="pf-r" id="pf-r2">Asia</label><label class="optrow"><input class="dradio" type="radio" name="pf-r" id="pf-r3">Any</label></div>
+        <div class="stepper" data-min="1" data-max="5"><button type="button" aria-label="Fewer hops">−</button><output id="pf-hops">3</output><button type="button" aria-label="More hops">+</button></div>
+      </div></div>
+    <div class="inst"><h3><span>Search and select</span><span>.search .selectf</span></h3><p>The search field leads with the scan reticle and a key hint. The select is a cut field with a solid caret. Both take the coral edge on focus.</p>
+      <div class="demo" style="display:grid;gap:12px"><label class="search"><svg><use href="#g-i-scan"/></svg><input id="pf-s" placeholder="Search relays, units, logs"><kbd>⌘K</kbd></label>
+        <label class="selectf"><select id="pf-sel"><option>WireGuard</option><option>IKEv2</option><option>Sealed relay</option></select></label></div></div>
+    <div class="inst"><h3><span>Telex</span><span>.telex · SGTelex</span></h3><p>Notifications type themselves in like a teleprinter, with a state, the message and a timestamp. Faults take the coral edge.</p>
+      <div class="demo" style="display:grid;gap:10px"><div class="telex-stack" id="pf-telex" data-telex-feed></div><button class="btn btn--sm" type="button" data-telex-send="pf-telex">Send telex</button></div></div>
+    <div class="inst"><h3><span>Skeleton</span><span>.skel · SGSkeleton</span></h3><p>While data loads, blocks print as drafting hatch, marching in steps rather than shimmering.</p>
+      <div class="demo" style="display:grid;gap:10px"><i class="skel skel--t skel--run"></i><i class="skel skel--run"></i><i class="skel skel--run" style="width:80%"></i><i class="skel skel--b skel--run"></i></div></div>
+  </div>
+'''
+
+
+def console():
+    cur = ' aria-current="page"'
+    rail = "".join(f'<a{cur if i == 1 else ""}><svg><use href="#g-i-{g}"/></svg><span>{n:02d}</span></a>' for i, (g, n) in enumerate([("home", 1), ("grid", 2), ("stats", 3), ("scan", 4), ("log", 5), ("me", 6)]))
+    return f'''<section class="sec">
+  <div class="sec-h"><span class="sg-num">07</span><h2 class="sg-display">Console</h2><span class="sg-mono">the same system beyond the phone · 1240 × 780 desktop layout · every part comes from the kit · point at data, click rows</span></div>
+  <div class="con-wrap"><div class="con scr-like tex">
+    <svg class="sg-bg" aria-hidden="true" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"><use href="#g-bg-pcb"/></svg>
+    <nav class="con-rail"><svg class="con-mark" style="color:var(--coral)"><use href="#g-mark"/></svg>{rail}</nav>
+    <header class="con-top">
+      <span class="u-code" style="position:static">AX·CON</span>
+      <h3 class="sg-display" style="margin:0;font-size:30px;color:var(--ground-hi)">Relay fleet</h3>
+      <div class="u-span" style="margin:0;flex:1"><span>Sector 04 · <span class="live-coord">38.71 N 9.14 W</span></span><i></i><span>17 Nov 2026</span></div>
+      <label class="search" style="width:260px"><svg><use href="#g-i-scan"/></svg><input id="con-s" placeholder="Search relays"><kbd>⌘K</kbd></label>
+    </header>
+    <section class="con-kpi">
+      <div class="nframe"><b>Uptime</b>{seg7("99.82", 34)}</div>
+      <div class="nframe"><b>Threats</b>{seg7("1284", 34, cls="live-up")}</div>
+      <div class="nframe"><b>Relays</b><div class="sg-num" style="font-size:28px;color:var(--ground-hi)">4 / 6</div></div>
+      <div class="nframe"><b>Rotation</b>{seg7("04:59", 34, "2", cls="live-down")}</div>
+      <div class="smx"><div><b>System verified</b><span>Status – active</span></div><div><b>Protocol synced</b><span>Status – stable</span></div><div><b>Keys sealed</b><span>Status – online</span></div><div><b>Relay 02</b><span>Status – fault</span></div></div>
+    </section>
+    <section class="con-main"><div class="u-label" style="margin-bottom:10px"><span>Fleet</span><span>6 relays</span></div>{spec_table(_FLEET, selected=2)}
+      <div class="u-label" style="margin:18px 0 10px"><span>Telex</span><span>live</span></div><div class="telex-stack" data-telex-feed></div></section>
+    <aside class="con-side">
+      <div class="u-label"><span>Selected · relay 03</span><span>LYON</span></div>
+      <div class="chamfer brackets" style="padding:6px;--c:14px"><svg viewBox="0 0 300 280" style="width:100%;height:auto;overflow:visible">{relay_net(NET_CITIES, NET_ROUTES, hot=1)}</svg></div>
+      <div class="spec spec--ground"><span>Protocol</span><i></i><span>WireGuard</span><span>Latency</span><i></i><span>212 ms</span><span>Hops</span><i></i><span>3</span></div>
+      <label class="selectf"><select id="con-sel"><option>Reroute via Porto</option><option>Reroute via Seoul</option><option>Hold</option></select></label>
+      <div style="display:flex;justify-content:space-between;align-items:center"><span class="optrow" style="cursor:default">Hops</span><div class="stepper" data-min="1" data-max="5"><button type="button" aria-label="Fewer hops">−</button><output id="con-hops">3</output><button type="button" aria-label="More hops">+</button></div></div>
+      <label class="optrow"><input class="xcheck" type="checkbox" id="con-x1" checked>Kill switch on reroute</label>
+      <button class="keycap" type="button" style="margin-top:auto"><span>Reroute</span><small>HOLD 1 S</small><i class="led"></i></button>
+    </aside>
+    <footer class="con-foot"><div class="u-foot" style="margin:0;border:0;padding:0"><div><b>Axiom signal systems</b><span>Console · build 2611 · eyes only</span></div><i class="barcode--v"></i></div>
+      <div class="ticker" style="flex:1"><span>{" ◆ RELAY 04 · 23 MS · <b>AES-256</b> · 1,284 BLOCKED · RELAY 02 LOST · REROUTING VIA PORTO · " * 2}</span></div></footer>
+  </div></div>
+</section>
+'''
+
+
+FONTS_URL = ("https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900"
+             "&family=Saira+Stencil+One&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@700&display=swap")
+
+
+def seg7_tags(src):
+    """<!--@SEG7|text|height|hot[|class]--> → inline seven-segment SVG."""
+    return re.sub(r"<!--@SEG7\|([^|]*)\|(\d+)\|([^|>]*?)(?:\|([^>]*?))?-->",
+                  lambda m: seg7(m.group(1), int(m.group(2)), m.group(3), cls=m.group(4) or ""), src)
+
+
+def dtcg():
+    """tokens/shingo.tokens.json in the W3C Design Tokens (DTCG) format, generated from tokens.json."""
+    t = json.loads((ROOT / "tokens" / "tokens.json").read_text())
+    col = t["color"]
+    out = {"$description": "Shingō 信号 design tokens (W3C DTCG format). Generated by tools/build.py from tokens/tokens.json; do not edit.",
+           "color": {mode: {k: {"$type": "color", "$value": v, "$description": col["roles"].get(k, "")}
+                            for k, v in col[mode].items() if not k.startswith("$")} for mode in ("dark", "light")}}
+    geo = t.get("geometry", {})
+    dims = {k: v for k, v in geo.items() if isinstance(v, (int, float))}
+    dims.update({f"cut-{k}": v for k, v in geo.get("cuts", {}).items() if isinstance(v, (int, float))})
+    if dims:
+        out["dimension"] = {k: {"$type": "dimension", "$value": f"{v}px"} for k, v in dims.items()}
+    fam = {}
+    for k, v in t.get("font", {}).items():
+        if isinstance(v, dict) and "family" in v:
+            fam[k] = {"$type": "fontFamily", "$value": v["family"], "$extensions": {"shingo": {x: v[x] for x in ("width", "weight", "ios", "case", "use") if x in v}}}
+    if fam:
+        out["fontFamily"] = fam
+    (ROOT / "tokens" / "shingo.tokens.json").write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
+
+
+def kit():
+    """Standalone kit for other apps: dist/shingo.css, shingo-live.js, shingo-sprite.svg, starter.html."""
+    d = ROOT / "dist"
+    css = (ROOT / "web" / "shingo.css").read_text()
+    (d / "shingo.css").write_text(f"/* Shingō kit · generated from web/shingo.css */\n@import url(\"{FONTS_URL}\");\n\n" + css)
+    (d / "shingo-live.js").write_text((ROOT / "web" / "shingo-live.js").read_text())
+    (d / "shingo-sprite.svg").write_text(sprite().replace(' width="0" height="0" style="position:absolute" aria-hidden="true"', "") + "\n")
+    st = seg7_tags((ROOT / "templates" / "starter.src.html").read_text()).replace("<!--@SPRITE-->", sprite())
+    (d / "starter.html").write_text(st)
+    dtcg()
+    print("kit: dist/shingo.css, shingo-live.js, shingo-sprite.svg, starter.html; tokens/shingo.tokens.json")
+
+
 def main():
     export_glyphs()
     defs = sprite().split("<defs>")[1].split("</defs>")[0]
     src = (ROOT / "web" / "gallery.src.html").read_text()
-    src = re.sub(r"<!--@SEG7\|([^|]*)\|(\d+)\|([^>]*?)-->", lambda m: seg7(m.group(1), int(m.group(2)), m.group(3)), src)
-    src = src.replace("<!--@EXPLORE-->", explorations())
+    src = seg7_tags(src)
+    src = src.replace("<!--@EXPLORE-->", explorations() + "\n" + console())
+    src = src.replace("<!--@PATTERNS-->", patterns())
     src = src.replace("<!--@LIVEJS-->", (ROOT / "web" / "shingo-live.js").read_text())
     src = src.replace("<!--@CONSTRUCT-->", constructed("AXIOM", unit=10, x=2, y=2)[0] + constructed("AX-09", unit=4.2, x=2, y=72)[0])
     src = src.replace("<!--@XEXPL-->", exploded_x(100, 65, 52))
@@ -787,6 +917,10 @@ def main():
     (ROOT / "dist").mkdir(exist_ok=True)
     (ROOT / "dist" / "index.html").write_text(out)
     print("built dist/index.html", len(out) // 1024, "KB;", len(G), "glyphs")
+    kit()
+    sys.path.insert(0, str(ROOT / "tools"))
+    import check_tokens
+    check_tokens.main()
 
 
 if __name__ == "__main__":

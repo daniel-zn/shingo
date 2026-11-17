@@ -273,7 +273,29 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
 
 .xp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
-@media (max-width: 700px) { 
+@media (max-width: 700px) { .xp-grid { grid-template-columns: minmax(0, 1fr) !important; } }
+
+/* console (desktop) */
+.con-wrap { overflow-x: auto; padding-bottom: 6px; }
+.con { position: relative; isolation: isolate; width: 1240px; height: 780px; box-shadow: 0 0 0 1.5px var(--ground-3); display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 320px; grid-template-rows: 76px auto minmax(0, 1fr) 58px; color: var(--on-ground); }
+.con > * { position: relative; z-index: 1; }
+.con > .sg-bg { position: absolute; inset: 0; z-index: 0; opacity: .7; }
+.con-rail { grid-row: 1 / -1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding-top: 18px; border-right: var(--hair) solid var(--ground-3); background: var(--ground); }
+.con-mark { width: 28px; height: 28px; margin-bottom: 16px; }
+.con-rail a { width: 52px; display: grid; justify-items: center; gap: 3px; padding: 9px 0; color: var(--ground-dim); font: 500 9px var(--f-mono); position: relative; cursor: pointer; }
+.con-rail a svg { width: 20px; height: 20px; }
+.con-rail a[aria-current] { color: var(--signal-text); }
+.con-rail a[aria-current]::before { content: ""; position: absolute; left: -10px; top: 8px; bottom: 8px; width: 4px; background: var(--coral); }
+.con-top { grid-column: 2 / -1; display: flex; align-items: center; gap: 18px; padding: 0 24px; border-bottom: var(--hair) solid var(--ground-hi); background: var(--ground); }
+.con-kpi { grid-column: 2; grid-row: 2; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; padding: 18px 24px 4px; align-items: end; }
+.con-kpi .seg7 { color: var(--ground-hi); }
+.con-kpi .smx { grid-column: 1 / -1 !important; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.con-main { grid-column: 2; grid-row: 3; padding: 14px 24px; overflow: hidden; }
+.con-side { grid-column: 3; grid-row: 2 / 4; display: flex; flex-direction: column; gap: 12px; padding: 14px 22px 16px; border-left: var(--hair) solid var(--ground-3); background: var(--ground); }
+.con-foot { grid-column: 2 / -1; display: flex; align-items: center; gap: 24px; padding: 0 24px; border-top: var(--hair) solid var(--ground-hi); background: var(--ground); }
+.con-foot .u-foot { grid-template-columns: auto 112px; }
+
 /* languages */
 .langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .lang { background: var(--ground); padding: 20px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; }
@@ -1121,6 +1143,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
     <div class="inst"><h3><span>Stencil serial</span><span>.sg-stencil</span></h3><p>A wide stencil for unit numbers, serials and stamped labels. Use it like spray paint on equipment, once per screen.</p>
       <div class="demo" style="gap:18px;align-items:baseline;color:var(--ground-hi)"><span class="sg-stencil" style="font-size:46px">09</span><span class="sg-stencil" style="font-size:22px">Unit AX-04</span></div></div>
   </div>
+<!--@PATTERNS-->
 </section>
 
 <!--@EXPLORE-->

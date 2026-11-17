@@ -1,0 +1,22 @@
+{
+  "name": "shingo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shingō 信号: an industrial print design system for iOS and the web.",
+  "license": "UNLICENSED",
+  "style": "dist/shingo.css",
+  "main": "dist/shingo-live.js",
+  "files": [
+    "dist/shingo.css",
+    "dist/shingo-live.js",
+    "dist/shingo-sprite.svg",
+    "dist/starter.html",
+    "tokens/",
+    "assets/svg/"
+  ],
+  "scripts": {
+    "build": "python3 tools/screens.py && python3 tools/build.py",
+    "check": "python3 tools/check_tokens.py",
+    "shots": "node tools/screenshot.js docs 1"
+  }
+}

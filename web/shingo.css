@@ -466,3 +466,80 @@
 .sg-hud:not(.flip) .sg-hud-l { left: auto; right: 0; margin: 0 0 -1px; }
 .sg-hud.flip .sg-hud-l { left: auto; right: 0; }
 @media (prefers-reduced-motion: reduce) { .sg-wipe { display: none; } }
+
+/* ================================================== patterns for any app
+   State language, spec tables, the form set, telex notifications,
+   hatched skeletons. Built from the alphabet; same rules everywhere. */
+
+/* state language: every state has one fixed shape */
+.state { display: inline-flex; align-items: center; gap: 8px; font: 500 10.5px var(--f-mono); text-transform: uppercase; letter-spacing: .02em; color: var(--ground-hi); white-space: nowrap; }
+.state::before { content: ""; flex: none; width: 11px; height: 11px; background: var(--ground-hi); }
+.state--warn::before { background: repeating-linear-gradient(-45deg, var(--ground-hi) 0 2px, transparent 2px 4px); box-shadow: inset 0 0 0 1.5px var(--ground-hi); }
+.state--fault { color: var(--signal-text); }
+.state--fault::before, .state--off::before { clip-path: polygon(20% 0, 50% 30%, 80% 0, 100% 20%, 70% 50%, 100% 80%, 80% 100%, 50% 70%, 20% 100%, 0 80%, 30% 50%, 0 20%); }
+.state--fault::before { background: var(--coral); }
+.state--off { color: var(--ground-dim); } .state--off::before { background: var(--ground-dim); }
+.state--busy::before { width: 22px; background: repeating-linear-gradient(-45deg, var(--ground-hi) 0 2px, transparent 2px 5px); background-size: 7.07px 100%; animation: sg-march-s .9s steps(4) infinite; }
+@keyframes sg-march-s { to { background-position: 7.07px 0; } }
+
+/* spec table: a list as an engineering spec sheet */
+.stable { width: 100%; border-collapse: collapse; font: 500 13px var(--f-sans); color: var(--on-ground); }
+.stable th { text-align: left; padding: 0 10px 7px; border-bottom: var(--hair) solid var(--ground-hi); font: 600 expanded 10px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); white-space: nowrap; }
+.stable th small { display: block; font: 500 8.5px var(--f-mono); color: var(--ground-dim); letter-spacing: 0; margin-bottom: 2px; }
+.stable td { padding: 9px 10px; border-bottom: 1px solid var(--ground-3); vertical-align: middle; }
+.stable td:first-child, .stable th:first-child { padding-left: 14px; }
+.stable .n { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.stable .idx { width: 1%; font: 500 10px var(--f-mono); color: var(--ground-dim); }
+.stable tbody tr { cursor: default; }
+.stable tbody tr:hover td { background: var(--ground-2); }
+.stable tbody tr[aria-selected="true"] td { background: var(--ground-2); }
+.stable tbody tr[aria-selected="true"] td:first-child { box-shadow: inset 4px 0 0 var(--coral); }
+.stable-wrap { overflow-x: auto; }
+
+/* form set */
+.xcheck { appearance: none; -webkit-appearance: none; margin: 0; flex: none; width: 20px; height: 20px; box-shadow: inset 0 0 0 1.5px var(--ground-hi); cursor: pointer; position: relative; }
+.xcheck::after { content: ""; position: absolute; inset: 4px; background: var(--ground-hi); clip-path: polygon(20% 0, 50% 30%, 80% 0, 100% 20%, 70% 50%, 100% 80%, 80% 100%, 50% 70%, 20% 100%, 0 80%, 30% 50%, 0 20%); transform: scale(0); }
+.xcheck:checked::after { transform: none; }
+.dradio { appearance: none; -webkit-appearance: none; margin: 0; flex: none; width: 20px; height: 20px; cursor: pointer; position: relative; background: var(--ground-hi); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.dradio::before { content: ""; position: absolute; inset: 2.2px; background: var(--ground); clip-path: inherit; }
+.dradio::after { content: ""; position: absolute; inset: 6px; background: var(--ground-hi); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); transform: scale(0); }
+.dradio:checked::after { transform: none; }
+.xcheck:focus-visible, .dradio:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+.optrow { display: flex; align-items: center; gap: 10px; font: 600 expanded 11.5px var(--f-cap); letter-spacing: .04em; text-transform: uppercase; color: var(--ground-hi); cursor: pointer; }
+.stepper { display: inline-grid; grid-template-columns: 40px auto 40px; align-items: center; gap: 4px; }
+.stepper button { all: unset; box-sizing: border-box; height: 40px; display: grid; place-items: center; cursor: pointer; background: var(--ground-hi); color: var(--ground); font: 700 18px var(--f-mono);
+  --c: 7px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.stepper button:active { background: var(--ground-dim); }
+.stepper button:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+.stepper output { min-width: 64px; padding: 0 6px; text-align: center; font: 800 expanded 22px var(--f-title); color: var(--ground-hi); font-variant-numeric: tabular-nums; }
+.search { position: relative; display: flex; align-items: center; height: 44px; padding: 0 12px 0 40px; box-shadow: inset 0 0 0 1.5px var(--ground-dim);
+  --c: 10px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.search svg { position: absolute; left: 12px; width: 18px; height: 18px; color: var(--ground-hi); }
+.search input { all: unset; flex: 1; min-width: 0; font: 500 14px var(--f-sans); color: var(--ground-hi); }
+.search input::placeholder { color: var(--ground-dim); text-transform: uppercase; font: 500 11px var(--f-mono); }
+.search kbd { font: 500 9.5px var(--f-mono); padding: 3px 6px; box-shadow: inset 0 0 0 1px var(--ground-dim); color: var(--ground-dim); }
+.search:focus-within { box-shadow: inset 0 0 0 1.5px var(--coral); }
+.selectf { position: relative; display: block; }
+.selectf select { all: unset; box-sizing: border-box; display: block; width: 100%; padding: 13px 40px 13px 14px; line-height: 18px; font: 600 expanded 12px var(--f-cap); letter-spacing: .04em; text-transform: uppercase; color: var(--ground-hi); cursor: pointer;
+  box-shadow: inset 0 0 0 1.5px var(--ground-dim); --c: 10px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.selectf::after { content: ""; position: absolute; right: 14px; top: 50%; width: 12px; height: 7px; margin-top: -3px; background: var(--ground-hi); clip-path: polygon(0 0, 100% 0, 50% 100%); pointer-events: none; }
+.selectf select:focus-visible { box-shadow: inset 0 0 0 1.5px var(--coral); }
+.selectf option { background: var(--ground); color: var(--ground-hi); }
+
+/* telex: a notification that types itself in */
+.telex { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 11px 14px; background: var(--ground); color: var(--ground-hi);
+  box-shadow: inset 0 0 0 1.5px var(--ground-hi); font: 500 11px var(--f-mono); text-transform: uppercase; }
+.telex--fault { box-shadow: inset 0 0 0 1.5px var(--ground-hi), inset 5px 0 0 var(--coral); }
+.telex .telex-t { color: var(--ground-dim); }
+.telex .telex-m { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.telex-stack { display: grid; gap: 6px; }
+
+/* skeleton: drafting hatch while data loads */
+.skel { display: block; height: 14px; box-shadow: inset 0 0 0 1px var(--ground-3);
+  background: repeating-linear-gradient(-45deg, var(--ground-3) 0 1px, transparent 1px 6px); }
+.skel--run { background-size: 8.49px 100%; animation: sg-march-s 1.2s steps(6) infinite; }
+.skel--t { height: 22px; width: 60%; } .skel--b { height: 64px; }
+@media (prefers-reduced-motion: reduce) { .state--busy::before, .skel--run { animation: none; } }
+
+/* any element can host the live layer (scramble, readouts, wipe, HUD): give it data-sg-live */
+[data-sg-live] { position: relative; overflow: clip; }

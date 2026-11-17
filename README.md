@@ -4,7 +4,7 @@
 
 ![key art in both modes](docs/keyart.png)
 
-Open `dist/index.html` in a browser for the full gallery: key art, the shape alphabet, content motifs, backdrops, 26 iPhone screens, widgets, components, instruments, the poster series, motion studies and language rules. Use the switch in the corner to flip modes.
+Open `dist/index.html` in a browser for the full gallery: key art, the shape alphabet, content motifs, backdrops, 26 iPhone screens, widgets, components, instruments, the poster series, motion studies, patterns for any app, a desktop console and language rules. Use the switch in the corner to flip modes.
 
 ## Art direction
 
@@ -48,11 +48,22 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 14. **English runs the interface.** Japanese (a vertical tag or a seal) and French (the span rule or fine print) appear at most once each per screen. All three stack only once per app, on the lock screen.
 
+**Patterns**
+
+15. **States have shapes.** Every system state has one fixed mark, in every app: nominal is a solid square, caution is hatched, fault is a coral X, offline is a dim X and syncing is a marching hatch. Never signal state by colour alone.
+16. **Data is a spec sheet.** Lists are spec tables: coded columns (C-01…), a row index, tabular figures and the coral bar on the selected row. Form controls come from the alphabet: checkboxes are hard X boxes, radios are diamonds and steppers are cut keys.
+17. **The machine reports.** Notifications type in like a telex (state, message, timestamp; faults take a coral edge). Loading prints as drafting hatch that marches in steps, never a shimmer or a spinner.
+18. **Beyond the phone.** Larger screens keep the grammar and add a rail: masthead across the top, readouts as the hero, the spec table as the body, a side panel for the selection, and the imprint plus ticker as the footer (see the Console section of the gallery).
+
 | dashboard | interval timer | transfer | device |
 |---|---|---|---|
 | ![](docs/dark/screen-c.png) | ![](docs/dark/screen-r.png) | ![](docs/dark/screen-s.png) | ![](docs/light/screen-q.png) |
 
 ![instruments](docs/dark/instruments.png)
+
+![patterns](docs/light/patterns.png)
+
+![console](docs/dark/console.png)
 
 ## Light and dark
 
@@ -74,13 +85,22 @@ Use role tokens, never raw hex. Things printed on the ground use `--ground-*`: `
 tokens/tokens.json            colours (both modes), type, geometry, screen grammar, rules
 tokens/lexicon.json           EN / 日本語 / FR phrase list with readings
 web/shingo.css                tokens + components + screen grammar (.u-*)
-web/shingo-live.js            live layer: scramble, live readouts, hazard wipe, HUD reticle
+web/shingo-live.js            live layer: scramble, live readouts, hazard wipe, HUD reticle, telex, steppers, table rows
+templates/starter.src.html    a complete app page built only from the kit (source of dist/starter.html)
 web/gallery.src.html          gallery source
 web/partials/languages.html   the language section
 tools/screens.py              regenerates the gallery screens from the grammar
 tools/build.py                glyphs, motifs, backdrops, key art, posters; builds dist/
+tools/check_tokens.py         fails the build if tokens.json, shingo.css and SGTheme.swift disagree
 tools/screenshot.js           renders every screen in both modes (preinstalled Playwright)
 dist/index.html               the built, self-contained gallery
+dist/shingo.css               the kit stylesheet for other apps (fonts imported)
+dist/shingo-live.js           the live layer, standalone
+dist/shingo-sprite.svg        every glyph, icon, motif and backdrop as <symbol id="g-…">
+dist/starter.html             the starter page, built (open it next to shingo.css)
+tokens/shingo.tokens.json     the colour, dimension and font tokens in W3C DTCG format (generated)
+skills/shingo/SKILL.md        instructions for an AI agent applying Shingō to a new app
+CLAUDE.md                     repo conventions for agents working in this repo
 assets/svg/*.svg              glyphs and icons (multi-colour ones as -dark/-light pairs)
 ios/                          Swift package "ShingoKit" (iOS 17+), all colours dynamic
   Sources/ShingoKit/SGTheme.swift       SG colour tokens, SGFont, font registration
@@ -91,6 +111,7 @@ ios/                          Swift package "ShingoKit" (iOS 17+), all colours d
   Sources/ShingoKit/SGLive.swift        SGHaptics, SGScrambleText, SGLiveCountdown, sgHazardWipe transition, sgHUD readout
   Sources/ShingoKit/SGScreen.swift      SGUtilityScreen, SGCode: the screen grammar
   Sources/ShingoKit/SGInstruments.swift  SGSegDisplay, SGCellMeter, SGRuler, SGSteps, SGIndexTabs, SGCaution, SGStamp, SGTicket, SGKeycapStyle, SGRockerStyle, SGDataPlate, SGSpecRow, SGMatrixCode, .printMarks(), SGColorBar, SGTicker, SGBootLog, SGLamps, SGBlueprint, SGCallout, SGWave
+  Sources/ShingoKit/SGPatterns.swift    SGState, SGSpecTable, SGXCheckboxStyle, SGDiamondRadio, SGStepper, SGSearchField, SGTelex, SGSkeleton
   Sources/ShingoKit/SGLanguage.swift    VerticalText, Hanko, HazardBar, ChevronStack, YearSpan, ManifestoExample
   Sources/ShingoKit/Examples/           LaunchExample, DashboardExample, IntervalExample with light/dark #Previews
   Sources/ShingoKit/Resources/Fonts/    Anybody (3 widths + italic), Saira Stencil One, IBM Plex Mono (SIL OFL)
@@ -110,6 +131,48 @@ python3 tools/build.py
 ```bash
 node tools/screenshot.js docs
 ```
+
+`build.py` also writes the standalone kit in `dist/`, regenerates `tokens/shingo.tokens.json` and runs the token check. `npm run build` does all of it in one go.
+
+## Apply Shingō to another app
+
+The repo is built to be lifted into anything. Pick the route that fits.
+
+**A web app**
+
+1. Copy `dist/shingo.css`, `dist/shingo-live.js` and `dist/shingo-sprite.svg` into the app. The stylesheet imports the fonts from Google Fonts; self-host them if you need to.
+2. Inline the sprite once at the top of `<body>` (or fetch it and inject it), then use any glyph with `<svg><use href="#g-i-scan"/></svg>`.
+3. Put `class="tex"` on the page or app root for the striped ground, and `data-sg-live` on any region that should get the live layer (title scramble, readouts, HUD, wipe). Phone screens use `.scr`, desktop consoles `.con`.
+4. Start from `dist/starter.html`: a masthead, readout hero, hazard divider, spec table, telex feed, form set and imprint, in both modes, responsive down to 390 px.
+5. Script hooks: `window.shingo.telex(stack, state, message, time)`, `window.shingo.wipe(el, fn)` and `window.shingo.scramble(el)`. States are `ok`, `warn`, `fault`, `off` and `busy`.
+
+**Another design tool or platform**
+
+Import `tokens/shingo.tokens.json` (W3C DTCG) into Figma Tokens/Tokens Studio, Style Dictionary or similar. `tokens/tokens.json` has the full spec beyond colour: type scale, geometry, grammar, motion and rules.
+
+**An iOS app**
+
+Add `ios/` as a local Swift package (see below). Every web pattern has a SwiftUI counterpart in the map.
+
+**An AI agent**
+
+Point the agent at `skills/shingo/SKILL.md`. It holds the rules in checklist form, the component vocabulary and the review steps.
+
+**Make it yours**
+
+- **Brand.** The examples use the placeholder brand AXIOM (marks `AX·09`, "Axiom signal systems"). Replace the name, the masthead codes and the imprint line. Keep the format: a short code, a wide-caps line and a mono reference.
+- **Signal colour.** Coral is the one extra ink. To rebrand it, change `--coral`, `--coral-deep` and `--signal-text` in `tokens/tokens.json`, `web/shingo.css` and `SGTheme.swift`, then run the build; the token check fails until all three agree. Keep it a single warm, saturated ink that reads on both grounds.
+- **Content.** Pick a backdrop, a divider and (if the subject has one) a motif for each screen from the lists in the rules. Write English first, then add at most one Japanese and one French accent per screen from `tokens/lexicon.json`.
+
+**Checklist for any new screen**
+
+- [ ] Works in light and dark (`data-theme`, `.mode-light` / `.mode-dark`, or SwiftUI appearance).
+- [ ] One coral block or primary action; coral text uses `--signal-text`.
+- [ ] Every diagonal is "/"; cuts top-left and bottom-right; no radius, shadow, tilt or texture.
+- [ ] Wide type only; big numbers are seven-segment readouts.
+- [ ] Utility screens follow the grammar: masthead → hero → divider → body → imprint.
+- [ ] States use the state shapes; lists are spec tables; loading is hatch.
+- [ ] Motion is stepped (tickers excepted) and stops under reduced motion.
 
 ## Use in an iOS app
 
@@ -158,6 +221,13 @@ node tools/screenshot.js docs
 | `.ticket`, `.keycap`, `.rocker`, `.dataplate` | `SGTicket`, `SGKeycapStyle`, `SGRockerStyle`, `SGDataPlate` | |
 | `.marks`, `.colorbar`, `.ticker`, `.bootlog`, `.lamps` | `.printMarks()`, `SGColorBar`, `SGTicker`, `SGBootLog`, `SGLamps` | |
 | `.callout`, `.blueprint`, `#g-wave`, `#g-matrix` | `SGCallout`, `SGBlueprint`, `SGWave`, `SGMatrixCode` | |
+| `.state--ok/warn/fault/off/busy` | `SGState(.nominal/.caution/.fault/.offline/.syncing)` | one shape per state |
+| `.stable` | `SGSpecTable` | coded columns, coral bar on selection |
+| `.xcheck`, `.dradio`, `.stepper` | `SGXCheckboxStyle`, `SGDiamondRadio`, `SGStepper` | the form set |
+| `.search`, `.selectf` | `SGSearchField`, `Picker` in a `ChamferRect` frame | |
+| `.telex`, `window.shingo.telex()` | `SGTelex` | types in; faults buzz |
+| `.skel` | `SGSkeleton` | drafting hatch |
+| scramble, `.live-*`, `.sg-wipe`, `.sg-hud` | `SGScrambleText`, `SGLiveCountdown`, `.sgHazardWipe`, `.sgHUD` | the live layer |
 
 ## Three languages
 
@@ -173,7 +243,7 @@ Shingō started from two references: a sage and coral poster (palette, striped g
 
 ## SwiftUI coverage
 
-ShingoKit covers the tokens, type, alphabet shapes, components, instruments, icons, the screen grammar and eleven backdrops. The newer pieces are web-only so far: the motifs, six of the backdrops, the ops furniture, constructed type, the relay network diagram, posters and motion. The Swift code hasn't been compiled yet.
+ShingoKit covers the tokens, type, alphabet shapes, components, instruments, icons, the screen grammar, eleven backdrops, the live layer (scramble, countdowns, wipe, HUD, haptics) and the patterns (states, spec table, form set, search, telex, skeleton). Web-only so far: the motifs, six of the backdrops, the ops furniture, constructed type, the relay network diagram, the posters and the console layout. The Swift code hasn't been compiled yet.
 
 ## Fonts
 
