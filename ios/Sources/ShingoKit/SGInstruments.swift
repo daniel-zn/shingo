@@ -165,7 +165,7 @@ public struct SGIndexTabs: View {
                         .padding(.leading, 18).padding(.trailing, 12).padding(.vertical, 7)
                         .foregroundStyle(on ? SG.ground : SG.groundDim)
                         .background(TabShape().fill(on ? SG.groundHi : SG.ground3))
-                        .onTapGesture { selection = i }
+                        .onTapGesture { selection = i; SGHaptics.tick() }
                         .accessibilityAddTraits(on ? [.isButton, .isSelected] : .isButton)
                 }
                 Spacer(minLength: 0)
@@ -308,6 +308,7 @@ public struct SGKeycapStyle: ButtonStyle {
         }
         .foregroundStyle(print ? SG.ground : SG.inkFixed)
         .frame(height: 60)
+        .onChange(of: pressed) { _, isDown in if isDown { SGHaptics.key() } }
     }
 }
 
@@ -326,7 +327,7 @@ public struct SGRockerStyle: ToggleStyle {
             .font(SGFont.mono(14))
             .padding(4)
             .background(ChamferRect(cut: 7).fill(SG.ground3))
-            .onTapGesture { configuration.isOn.toggle() }
+            .onTapGesture { configuration.isOn.toggle(); SGHaptics.throwSwitch() }
             .accessibilityAddTraits(.isButton)
         }
     }
@@ -438,7 +439,8 @@ public struct SGTicker: View {
             GeometryReader { g in
                 let line = Text(text + "   ◆   ").sgMono(11).foregroundStyle(SG.groundHi).fixedSize()
                 let speed = 30.0, width = CGFloat(text.count + 7) * 6.6
-                let x = reduceMotion ? 0 : -CGFloat(tl.date.timeIntervalSinceReferenceDate * speed).truncatingRemainder(dividingBy: width)
+                let raw = CGFloat(tl.date.timeIntervalSinceReferenceDate * speed).truncatingRemainder(dividingBy: width)
+                let x = reduceMotion ? 0 : -(raw / 6.6).rounded(.down) * 6.6   // steps one character at a time
                 HStack(spacing: 0) { line; line; line }.offset(x: x).frame(width: g.size.width, alignment: .leading).clipped()
             }
         }

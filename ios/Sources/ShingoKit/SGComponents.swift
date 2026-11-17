@@ -113,7 +113,7 @@ public struct SGToggleStyle: ToggleStyle {
                     .frame(width: 22, height: 20).padding(4)
             }
             .frame(width: 58, height: 28)
-            .onTapGesture { withAnimation(.snappy(duration: 0.16)) { configuration.isOn.toggle() } }
+            .onTapGesture { configuration.isOn.toggle(); SGHaptics.tick() }   // instant: motion is stepped, never eased
             .accessibilityAddTraits(.isButton)
         }
     }
@@ -142,7 +142,7 @@ public struct SGSegmented<T: Hashable>: View {
                         if on { Rectangle().fill(SG.groundHi).matchedGeometryEffect(id: "seg", in: ns) }
                     }
                     .contentShape(Rectangle())
-                    .onTapGesture { withAnimation(.snappy(duration: 0.2)) { selection = value } }
+                    .onTapGesture { selection = value; SGHaptics.tick() }
                     .accessibilityAddTraits(on ? [.isButton, .isSelected] : .isButton)
             }
         }
@@ -230,7 +230,7 @@ public struct SGTabBar<Tab: Hashable>: View {
                 .foregroundStyle(on ? SG.signalText : SG.groundDim)
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
-                .onTapGesture { selection = item.tab }
+                .onTapGesture { if selection != item.tab { SGHaptics.tick() }; selection = item.tab }
                 .accessibilityAddTraits(on ? [.isButton, .isSelected] : .isButton)
             }
         }

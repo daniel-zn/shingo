@@ -35,10 +35,18 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 11. **No pictorial scenes.** There is no photography and no illustrated or generated cities. Imagery comes from the shape system itself: backdrops, motifs and diagrams such as the relay network.
 12. **Stepped motion.** Never eased, turning only in 45° steps. Everything stays still when reduced motion is on.
+13. **Live behaviour.** The interface behaves like a machine:
+    - Titles resolve from glyph noise when they appear.
+    - Seven-segment readouts re-render in place: timers count, counters climb, coordinates drift.
+    - Views change behind a hazard band that crosses on the diagonal in eight steps.
+    - A HUD reticle snaps coral brackets and a callout to data under the pointer (on iOS, press and hold).
+    - Tickers advance a character at a time.
+
+    On iOS each shape has a feel: a hard tick for switches and tabs, a double tick for keycaps, a heavy throw for the rocker, rising steps for cell meters, an error pattern for alerts and a success pattern for sealed. Web: `web/shingo-live.js`. iOS: `SGLive.swift` (`SGHaptics`, `SGScrambleText`, `SGLiveCountdown`, `.sgHazardWipe`, `.sgHUD`).
 
 **Language**
 
-13. **English runs the interface.** Japanese (a vertical tag or a seal) and French (the span rule or fine print) appear at most once each per screen. All three stack only once per app, on the lock screen.
+14. **English runs the interface.** Japanese (a vertical tag or a seal) and French (the span rule or fine print) appear at most once each per screen. All three stack only once per app, on the lock screen.
 
 | dashboard | interval timer | transfer | device |
 |---|---|---|---|
@@ -66,6 +74,7 @@ Use role tokens, never raw hex. Things printed on the ground use `--ground-*`: `
 tokens/tokens.json            colours (both modes), type, geometry, screen grammar, rules
 tokens/lexicon.json           EN / 日本語 / FR phrase list with readings
 web/shingo.css                tokens + components + screen grammar (.u-*)
+web/shingo-live.js            live layer: scramble, live readouts, hazard wipe, HUD reticle
 web/gallery.src.html          gallery source
 web/partials/languages.html   the language section
 tools/screens.py              regenerates the gallery screens from the grammar
@@ -79,6 +88,7 @@ ios/                          Swift package "ShingoKit" (iOS 17+), all colours d
   Sources/ShingoKit/SGTextures.swift    StripeField, Barcode, Spectrum, Scope
   Sources/ShingoKit/SGComponents.swift  SGBar, SGButtonStyle, SGToggleStyle, SGSegmented, SGChip, SGSlot, SGGroupLabel, SGTabBar
   Sources/ShingoKit/SGBackdrop.swift     SGBackdrop: eleven of the backdrop compositions
+  Sources/ShingoKit/SGLive.swift        SGHaptics, SGScrambleText, SGLiveCountdown, sgHazardWipe transition, sgHUD readout
   Sources/ShingoKit/SGScreen.swift      SGUtilityScreen, SGCode: the screen grammar
   Sources/ShingoKit/SGInstruments.swift  SGSegDisplay, SGCellMeter, SGRuler, SGSteps, SGIndexTabs, SGCaution, SGStamp, SGTicket, SGKeycapStyle, SGRockerStyle, SGDataPlate, SGSpecRow, SGMatrixCode, .printMarks(), SGColorBar, SGTicker, SGBootLog, SGLamps, SGBlueprint, SGCallout, SGWave
   Sources/ShingoKit/SGLanguage.swift    VerticalText, Hanko, HazardBar, ChevronStack, YearSpan, ManifestoExample

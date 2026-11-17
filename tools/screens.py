@@ -103,7 +103,7 @@ S['C'] = fig('C', 'Dashboard', 'Status as the title. The hero is the tunnel back
       {DIV}
       <section class="u-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="nframe"><b>Threats</b><div style="margin:2px 0 2px">{seg7("1284", 30)}</div></div>
+          <div class="nframe"><b>Threats</b><div style="margin:2px 0 2px">{seg7("1284", 30, cls="live-up")}</div></div>
           <div class="nframe"><b>Data</b><div class="sg-num" style="font-size:24px;margin:0 0 12px;color:var(--ground-hi)">4.2<span class="sg-mono"> / 10 GB</span></div>{cells(10, 4)}</div>
         </div>
         <div>
@@ -363,7 +363,7 @@ S['Q'] = fig('Q', 'Device info', 'A riveted data plate in crop marks over circui
 # ---------------------------------------------------------------- R interval timer
 S['R'] = fig('R', 'Interval timer', 'A seven-segment clock with a coral colon is the hero. Rounds print as a cell meter and intensity as a ruler. The one action is a keycap. 計時 means timekeeping.', utility(f"""
       {mast('Interval', 'round 3', 'of 8', jp('計時'))}
-      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px">{seg7("02:47", 92, "2")}<div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
+      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px">{seg7("02:47", 92, "2", cls="live-down")}<div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
       {DIV}
       <section class="u-body u-body--end" style="gap:16px">
         <div><div class="u-label" style="margin-bottom:10px"><span>Rounds</span><span>3 / 8</span></div>{cells(8, 2, hot=2, tall=True)}</div>
@@ -432,7 +432,7 @@ S['W'] = fig('W', 'Conditions', 'A seven-segment temperature over rain bands, wi
         </div>
         <div><div class="u-label" style="margin-bottom:10px"><span>Wind · next 6 h</span><span>KT</span></div><svg class="motif" viewBox="0 0 342 112" style="" aria-hidden="true"><use href="#g-m-barbs"/></svg></div>
         <div class="lamps"><span class="lamp on">Rain</span><span class="lamp hot">Ice</span><span class="lamp on">Wind</span><span class="lamp">UV</span><span class="lamp">Fog</span></div>
-        <div class="u-foot"><div><b>Axiom signal systems</b><span>Station LIS-04 · 38.71 N</span></div><i class="barcode--v"></i></div>
+        <div class="u-foot"><div><b>Axiom signal systems</b><span>Station LIS-04 · <span class="live-coord" style="display:inline;margin:0">38.71 N</span></span></div><i class="barcode--v"></i></div>
       </section>"""))
 
 # ---------------------------------------------------------------- X live activity
@@ -442,7 +442,7 @@ S['X'] = fig('X', 'Live activity', 'The system surfaces in the same print: an ex
       <div style="top:150px;left:0;right:0;text-align:center;color:var(--ground-hi)"><div class="sg-fr" style="font-size:16px">mardi 17 novembre</div><div class="sg-display" style="font-size:92px;margin-top:8px">09:41</div></div>
       <div class="la">
         <div style="display:flex;justify-content:space-between;align-items:center"><span class="sg-wordmark" style="font-size:14px">Axiom · transfer</span><span class="sg-mono">Nº 0917</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div class="sg-cap" style="font-size:10px">Arrives in</div>{seg7("00:12", 44, "2")}</div><div class="t-right"><div class="sg-cap" style="font-size:10px">To Lena Sato</div><div class="sg-num" style="font-size:26px">€240.00</div></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div class="sg-cap" style="font-size:10px">Arrives in</div>{seg7("00:12", 44, "2", cls="live-down")}</div><div class="t-right"><div class="sg-cap" style="font-size:10px">To Lena Sato</div><div class="sg-num" style="font-size:26px">€240.00</div></div></div>
         <ol class="steps"><li class="done">Amount</li><li class="done">Confirm</li><li class="on">Sending</li></ol>
       </div>
       <span class="cut" style="bottom:40px;left:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--ground-hi)"><use href="#g-plus"/></svg></span>
@@ -467,7 +467,7 @@ S['Y'] = fig('Y', 'Briefing', 'Field-operations print: the unit code in block le
       <div class="u-hero u-hero--pad"><div class="chamfer brackets" style="position:relative;height:200px;padding:0;--c:18px;overflow:hidden">
         <svg viewBox="0 0 342 200" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true"><use href="#g-bg-pcb" x="-30" y="-120" width="390" height="844" style="opacity:.9"/><g transform="translate(24 96)">{constructed("AX-09", unit=7.4)[0]}</g></svg>
         <svg class="guides" viewBox="0 0 342 200" preserveAspectRatio="none"><path d="M0 64H342 M238 0V200" stroke="var(--ground-hi)" stroke-width=".8" opacity=".6"/><path d="M232 64h12 M238 58v12" stroke="var(--ground-hi)" stroke-width="1.5"/></svg>
-        <div class="sg-mono" style="position:absolute;left:12px;top:12px;color:var(--ground-hi)">SECTOR 04 · LIS<br>38.71 N 9.14 W</div>
+        <div class="sg-mono" style="position:absolute;left:12px;top:12px;color:var(--ground-hi)">SECTOR 04 · LIS<br><span class="live-coord">38.71 N 9.14 W</span></div>
         <div class="sg-mono" style="position:absolute;right:12px;bottom:10px;color:var(--ground-hi)">2835 × 1890</div>
       </div></div>
       <div class="u-div hazard"></div>

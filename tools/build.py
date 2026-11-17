@@ -100,7 +100,7 @@ def seg7(text, height=48, hot="", ghost=False, cls=""):
                 parts.append(f'<polygon class="{c}" points="{" ".join(f"{f(px + x)},{f(py)}" for px, py in pts)}"/>')
         x += w + gap
     W = x - gap + 4
-    return (f'<svg class="seg7 {cls}" viewBox="0 0 {W} {h}" height="{height}" width="{f(height * W / h)}" role="img" aria-label="{text}">'
+    return (f'<svg class="seg7 {cls}" data-hot="{hot}" viewBox="0 0 {W} {h}" height="{height}" width="{f(height * W / h)}" role="img" aria-label="{text}">'
             f'<g transform="translate(2 0)">{"".join(parts)}</g></svg>')
 
 
@@ -756,12 +756,14 @@ def explorations():
     return f'''<section class="sec">
   <div class="sec-h"><span class="sg-num">06</span><h2 class="sg-display">Explorations</h2><span class="sg-mono">a poster series and motion studies · each piece built from one primitive of the alphabet</span></div>
   <div class="xp-grid">{"".join(f'<figure>{p}</figure>' for p in posters)}</div>
-  <div class="alpha-h" style="margin-top:36px"><span class="sg-cap">Motion</span><span class="sg-mono">stepped, never eased · 45° turns only · still when reduced motion is on</span></div>
+  <div class="alpha-h" style="margin-top:36px"><span class="sg-cap">Motion and live behaviour</span><span class="sg-mono">stepped, never eased · 45° turns only · still when reduced motion is on · on the screens above: tap a tab, point at data</span></div>
   <div class="mo-grid">
     <figure><div class="mo">{_mo_tunnel()}</div><figcaption><b>Tunnel pulse</b><span>Connecting. A print frame travels outward ring by ring.</span></figcaption></figure>
     <figure><div class="mo"><div class="cells cells--tall mo-cells">{cells}</div><div class="sg-mono mo-lbl">SYNCING RELAYS</div></div><figcaption><b>Cell fill</b><span>Indeterminate progress. Cells fill in order, then reset.</span></figcaption></figure>
     <figure><div class="mo"><svg class="mo-scope" viewBox="0 0 200 200"><use href="#g-scope"/><g class="mo-sweep"><polygon points="100,100 196,100 190,72" fill="var(--coral)"/></g></svg></div><figcaption><b>Step sweep</b><span>Scanning. The sweep turns in eight 45° steps.</span></figcaption></figure>
     <figure><div class="mo"><div class="hazard hazard--run" style="width:76%"></div><div class="sg-mono mo-lbl">WRITING FIRMWARE<i class="caret"></i></div></div><figcaption><b>March</b><span>Busy. Hazard stripes march along the one diagonal.</span></figcaption></figure>
+    <figure><div class="mo mo-wipe" style="position:relative"><div class="mo-view"><div class="sg-display" style="font-size:30px;color:var(--ground-hi)">Protected</div><div class="sg-mono mo-lbl" style="margin-top:8px;color:var(--ground-dim)">SINCE 08:14 · LIS-04</div></div><div class="mo-view" hidden><div class="sg-display" style="font-size:30px;color:var(--ground-hi)">Run log</div><div class="sg-mono mo-lbl" style="margin-top:8px;color:var(--ground-dim)">W46 · 42.6 KM</div></div><div class="mo-view" hidden><div class="sg-display" style="font-size:30px;color:var(--ground-hi)">Wallet</div><div class="sg-mono mo-lbl" style="margin-top:8px;color:var(--ground-dim)">€8,214.60</div></div></div><figcaption><b>Print wipe</b><span>Between views a hazard band crosses on the diagonal in eight steps, and the new title resolves from glyph noise.</span></figcaption></figure>
+    <figure><div class="mo"><div style="display:grid;gap:6px;justify-items:center">{seg7("02:47", 54, "2", cls="live-down")}<span class="sg-mono mo-lbl" style="color:var(--ground-dim)">ROUND 3 · WORK</span></div></div><figcaption><b>Live readout</b><span>Readouts re-render segment by segment: timers count, counters climb, coordinates drift.</span></figcaption></figure>
   </div>
 </section>'''
 
@@ -772,6 +774,7 @@ def main():
     src = (ROOT / "web" / "gallery.src.html").read_text()
     src = re.sub(r"<!--@SEG7\|([^|]*)\|(\d+)\|([^>]*?)-->", lambda m: seg7(m.group(1), int(m.group(2)), m.group(3)), src)
     src = src.replace("<!--@EXPLORE-->", explorations())
+    src = src.replace("<!--@LIVEJS-->", (ROOT / "web" / "shingo-live.js").read_text())
     src = src.replace("<!--@CONSTRUCT-->", constructed("AXIOM", unit=10, x=2, y=2)[0] + constructed("AX-09", unit=4.2, x=2, y=72)[0])
     src = src.replace("<!--@XEXPL-->", exploded_x(100, 65, 52))
     src = src.replace("<!--@LANGUAGES-->", (ROOT / "web" / "partials" / "languages.html").read_text())
