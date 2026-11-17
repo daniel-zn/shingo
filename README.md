@@ -25,6 +25,8 @@ The look is sci-fi industrial, after a trilingual technical print, in the sage, 
 
 10. **Explorations.** A four-poster field series (Tunnel, Lattice, Slash, Signal), each built from one primitive, plus motion studies. Motion is stepped, never eased, and turns only in 45° steps: a tunnel pulse, a cell fill, a step sweep and a hazard march. All of it stays still when reduced motion is on.
 
+11. **Content motifs.** Shapes taken from each screen's subject, drawn by the alphabet's rules: lock tumblers (passcode), postage stamp and cancel (inbox), DIP switch bank (settings), wind barbs (conditions), packet flow (transfer), cut fingerprint (credential), compass rose (route), level meters (player) and security microtext (wallet). There are also two new backdrops: elevation terraces (run log) and circuit traces (device). These are web only for now (`m-*` and `bg-*` symbols).
+
 | dashboard | interval timer | transfer | device |
 |---|---|---|---|
 | ![](docs/dark/screen-c.png) | ![](docs/dark/screen-r.png) | ![](docs/dark/screen-s.png) | ![](docs/light/screen-q.png) |

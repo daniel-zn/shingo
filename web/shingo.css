@@ -122,7 +122,7 @@
    .bar--bleed-r flips it to run off the right edge. */
 .bar { --h: 120px; --k: calc(var(--h) * .42); height: var(--h); box-sizing: border-box; display: flex; padding: calc(var(--h) * .12) calc(var(--h) * .12) calc(var(--h) * .12) 0; background: var(--ground-hi);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%); }
-.bar__mid { flex: 1; display: flex; align-items: center; padding-right: calc(var(--h) * .3); background: var(--ground);
+.bar__mid { flex: 1; display: flex; align-items: center; padding-right: calc(var(--h) * .3); background: transparent;
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k) * .62), calc(100% - var(--k) * .62) 100%, 0 100%); }
 .bar__core { flex: 1; height: calc(var(--h) * .2); display: flex; align-items: center; padding-right: calc(var(--h) * .06); background: var(--ground-hi); }
 .bar__slot { flex: 1; height: max(3px, calc(var(--h) * .05)); --p: 100%; background: linear-gradient(90deg, var(--slot-a, var(--ground)) var(--p), var(--slot-b, var(--coral)) 0); }
@@ -414,6 +414,7 @@
    (tunnel, slashes, plate stack, diamonds, lattice, bars, notch, wedge, ticks),
    tonal so content stays legible. Dividers vary by screen kind:
    hazard = system and safety, ticks = data, slash run = money and content. */
+.motif { display: block; width: 100%; height: auto; color: var(--ground-hi); overflow: visible; }
 .sg-bg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
 .div-ticks { height: 14px; border-top: var(--hair) solid var(--ground-hi);
   background: linear-gradient(90deg, var(--ground-hi) 0 1.5px, transparent 1.5px) 0 0 / 10% 12px repeat-x,

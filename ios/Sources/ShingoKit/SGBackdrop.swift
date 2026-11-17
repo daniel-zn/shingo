@@ -70,7 +70,7 @@ public struct SGBackdrop: View {
                 for r in 0..<12 {
                     for c in 0..<6 {
                         let x = CGFloat(c * 78 + (r % 2 == 1 ? 39 : 0) - 20), y = CGFloat(r * 78 - 10)
-                        let col = (r, c) == (3, 4) ? SG.coral : SG.ground2
+                        let col = (r, c) == (9, 0) ? SG.coral : SG.ground2
                         ctx.stroke(SGHardX().path(in: CGRect(x: x, y: y, width: 56, height: 56)), with: .color(col), style: StrokeStyle(lineWidth: 1.7, lineJoin: .miter))
                     }
                 }

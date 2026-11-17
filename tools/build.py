@@ -300,7 +300,7 @@ def _bg_lattice():
     for r in range(12):
         for c in range(6):
             x, y = c * 78 + (39 if r % 2 else 0) - 20, r * 78 - 10
-            col = "var(--coral)" if (r, c) == (3, 4) else "var(--ground-2)"
+            col = "var(--coral)" if (r, c) == (9, 0) else "var(--ground-2)"
             o.append(f'<path transform="translate({x} {y}) scale(.56)" d="{XS}" fill="none" stroke="{col}" stroke-width="3"/>')
     return "".join(o)
 
@@ -348,6 +348,170 @@ for _k, _v in BACKDROPS.items():
     G["bg-" + _k] = ("0 0 390 844", _v)
 
 
+# ---------------------------------------------------------------- content motifs
+# Shapes taken from each screen's subject, drawn with the alphabet's rules:
+# level, upright or "/" only, square ends, print + ground + one coral.
+def _m_tumblers():
+    o = ['<path d="M0 48H342" stroke="var(--ground-dim)" stroke-width="1" stroke-dasharray="3 4"/>']
+    offs = [0, 0, 0, 12, -10, 18]
+    for i, d in enumerate(offs):
+        x = 7 + i * 56
+        o.append(f'<rect x="{x}" y="6" width="44" height="84" fill="none" stroke="var(--ground-3)" stroke-width="1.5"/>')
+        col = "var(--coral)" if i == 2 else "currentColor"
+        top = 46 + d
+        o.append(f'<rect x="{x+14}" y="12" width="16" height="{top-12}" fill="{col}"/>')
+        bot = 50 + d
+        o.append(f'<polygon points="{x+14},{bot} {x+30},{bot} {x+30},{84-8} {x+22},84 {x+14},84" fill="none" stroke="{col}" stroke-width="2"/>')
+        o.append(f'<text x="{x+22}" y="104" text-anchor="middle" class="xp-m" font-size="8" fill="var(--ground-dim)">P{i+1}</text>')
+    return o
+
+
+def _m_stamp():
+    o = ['<rect x="4" y="4" width="92" height="112" fill="currentColor"/>']
+    for k in range(12):
+        o.append(f'<rect x="{8 + k*7.6:.1f}" y="1" width="4" height="6" fill="var(--ground)"/><rect x="{8 + k*7.6:.1f}" y="113" width="4" height="6" fill="var(--ground)"/>')
+    for k in range(14):
+        o.append(f'<rect x="1" y="{8 + k*7.6:.1f}" width="6" height="4" fill="var(--ground)"/><rect x="93" y="{8 + k*7.6:.1f}" width="6" height="4" fill="var(--ground)"/>')
+    o.append('<rect x="14" y="14" width="72" height="92" fill="none" stroke="var(--ground)" stroke-width="1.5"/>')
+    o.append('<g transform="rotate(45 50 50)"><path fill-rule="evenodd" fill="var(--coral)" d="M36 36H64V64H36Z M44 46H54V56H44Z"/></g>')
+    o.append('<text x="50" y="98" text-anchor="middle" class="xp-d" font-size="15" fill="var(--ground)">0.09</text>')
+    for k in range(5):
+        o.append(f'<rect x="70" y="{28 + k*14}" width="130" height="3" fill="currentColor"/>')
+    o.append('<rect x="118" y="36" width="70" height="46" fill="var(--ground)" stroke="currentColor" stroke-width="2"/>')
+    o.append('<text x="153" y="55" text-anchor="middle" class="xp-m" font-size="9" fill="currentColor">LIS · 04</text>')
+    o.append('<text x="153" y="70" text-anchor="middle" class="xp-m" font-size="9" fill="currentColor">17·11·26</text>')
+    return o
+
+
+def _m_dip():
+    o = ['<rect x="2" y="2" width="338" height="96" fill="none" stroke="currentColor" stroke-width="1.5"/>',
+         '<text x="14" y="18" class="xp-m" font-size="8.5" fill="currentColor">ON ▲</text>',
+         '<text x="328" y="18" text-anchor="end" class="xp-m" font-size="8.5" fill="var(--ground-dim)">CFG · 1011 0110</text>']
+    states = [1, 0, 1, 1, 0, 1, 1, 0]
+    for i, on in enumerate(states):
+        x = 26 + i * 38
+        o.append(f'<rect x="{x}" y="26" width="24" height="52" fill="var(--ground-3)"/>')
+        col = "var(--coral)" if i == 5 else "currentColor"
+        o.append(f'<rect x="{x+3}" y="{29 if on else 52}" width="18" height="23" fill="{col}"/>')
+        o.append(f'<text x="{x+12}" y="92" text-anchor="middle" class="xp-m" font-size="8" fill="var(--ground-dim)">{i+1}</text>')
+    return o
+
+
+def _m_barbs():
+    o = []
+    speeds = [10, 15, 25, 35, 50, 30]
+    hours = ["14", "15", "16", "17", "18", "19"]
+    for i, (v, h) in enumerate(zip(speeds, hours)):
+        x = 26 + i * 58
+        col = "var(--coral)" if v >= 50 else "currentColor"
+        o.append(f'<path d="M{x} 84V20" stroke="{col}" stroke-width="2.5"/>')
+        o.append(f'<rect x="{x-4}" y="82" width="8" height="8" fill="{col}"/>')
+        y, rem = 20, v
+        while rem >= 50:
+            o.append(f'<polygon points="{x},{y+14} {x+14},{y} {x},{y}" fill="{col}"/>'); y += 18; rem -= 50
+        while rem >= 10:
+            o.append(f'<path d="M{x} {y+16}L{x+16} {y}" stroke="{col}" stroke-width="2.5"/>'); y += 8; rem -= 10
+        if rem >= 5:
+            o.append(f'<path d="M{x} {y+16}L{x+8} {y+8}" stroke="{col}" stroke-width="2.5"/>')
+        o.append(f'<text x="{x}" y="106" text-anchor="middle" class="xp-m" font-size="8.5" fill="var(--ground-dim)">{h}:00</text>')
+        o.append(f'<text x="{x+12}" y="84" class="xp-m" font-size="8.5" fill="currentColor">{v}</text>')
+    return o
+
+
+def _m_compass():
+    o = []
+    for ang, L, col in [(0, 34, "var(--coral)"), (90, 30, "currentColor"), (180, 30, "currentColor"), (270, 30, "currentColor"),
+                        (45, 18, "var(--ground-dim)"), (135, 18, "var(--ground-dim)"), (225, 18, "var(--ground-dim)"), (315, 18, "var(--ground-dim)")]:
+        o.append(f'<g transform="rotate({ang} 40 40)"><polygon points="40,{40-L} 45,40 40,{40+5} 35,40" fill="{col}"/></g>')
+    o.append('<text x="40" y="78" text-anchor="middle" class="xp-m" font-size="8" fill="currentColor">N 038°</text>')
+    return o
+
+
+def _m_print():
+    o = []
+    for i, r in enumerate(range(4, 30, 4)):
+        dash = ["40 6", "28 5", "52 7", "34 6", "60 8", "22 5", "70 9"][i % 7]
+        o.append(f'<polygon points="{_chamf(30, 32, r * .78, r, r * .35)}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="{dash}"/>')
+    return o
+
+
+def _m_flow():
+    o = [f'<polygon points="{_chamf(30, 27, 28, 20, 8)}" fill="none" stroke="currentColor" stroke-width="1.5"/>',
+         '<text x="30" y="31" text-anchor="middle" class="xp-m" font-size="9" fill="currentColor">4417</text>',
+         f'<polygon points="{_chamf(312, 27, 28, 20, 8)}" fill="currentColor"/>',
+         '<text x="312" y="32" text-anchor="middle" class="xp-t" font-size="12" fill="var(--ground)">LS</text>']
+    for k in range(10):
+        x = 76 + k * 19
+        col = "var(--coral)" if k == 6 else ("currentColor" if k < 6 else "var(--ground-3)")
+        o.append(f'<polygon points="{x+8},18 {x+16},18 {x+8},36 {x},36" fill="{col}"/>')
+    o.append('<polygon points="266,20 280,27 266,34" fill="currentColor"/>')
+    o.append('<text x="171" y="52" text-anchor="middle" class="xp-m" font-size="8.5" fill="var(--ground-dim)">7 / 10 PACKETS · AES-256</text>')
+    return o
+
+
+def _m_micro():
+    o = []
+    line = "AXIOM·SIGNAL·0917·" * 8
+    for k in range(20):
+        o.append(f'<text x="{-(k % 3) * 18}" y="{6 + k*7}" class="xp-m" font-size="4.6" fill="currentColor">{line}</text>')
+    return o
+
+
+def _m_meters():
+    o = []
+    for c, (lv, lab) in enumerate([(13, "L"), (11, "R")]):
+        x = 4 + c * 20
+        for k in range(16):
+            y = 150 - k * 9
+            col = "var(--coral)" if k == lv - 1 and k >= 12 else ("currentColor" if k < lv else "var(--ground-3)")
+            o.append(f'<rect x="{x}" y="{y}" width="14" height="6" fill="{col}"/>')
+        o.append(f'<text x="{x+7}" y="168" text-anchor="middle" class="xp-m" font-size="8" fill="var(--ground-dim)">{lab}</text>')
+    return o
+
+
+for _k, _vb, _fn in [("m-tumblers", "0 0 342 108", _m_tumblers), ("m-stamp", "0 0 200 120", _m_stamp), ("m-dip", "0 0 342 100", _m_dip),
+                     ("m-barbs", "0 0 342 112", _m_barbs), ("m-compass", "0 0 80 82", _m_compass), ("m-print", "0 0 60 64", _m_print),
+                     ("m-flow", "0 0 342 56", _m_flow), ("m-micro", "0 0 342 140", _m_micro), ("m-meters", "0 0 38 172", _m_meters)]:
+    G[_k] = (_vb, "".join(_fn()))
+
+
+def _bg_pcb():
+    traces = [[(0, 160), (90, 160), (150, 100), (390, 100)], [(0, 300), (40, 300), (120, 220), (260, 220), (300, 180), (390, 180)],
+              [(60, 844), (60, 640), (170, 530), (170, 420)], [(390, 520), (300, 520), (240, 580), (240, 844)],
+              [(0, 700), (110, 700), (200, 610), (390, 610)], [(330, 0), (330, 60), (280, 110)], [(20, 0), (20, 90), (70, 140), (70, 200)],
+              [(390, 760), (330, 760), (290, 800), (290, 844)], [(130, 844), (130, 760), (210, 680), (390, 680)]]
+    o = []
+    for i, t in enumerate(traces):
+        pts = " ".join(f"{x},{y}" for x, y in t)
+        o.append(f'<polyline points="{pts}" fill="none" stroke="{"var(--ground-2)" if i % 3 else "var(--ground-3)"}" stroke-width="{5 if i % 3 == 0 else 2}" stroke-linejoin="miter"/>')
+        for x, y in (t[0], t[-1]):
+            if 0 < x < 390 and 0 < y < 844:
+                o.append(f'<rect x="{x-6}" y="{y-6}" width="12" height="12" fill="var(--ground-3)"/><rect x="{x-2}" y="{y-2}" width="4" height="4" fill="var(--ground)"/>')
+    for x, y in [(90, 160), (260, 220), (170, 530), (200, 610), (300, 520)]:
+        o.append(f'<rect x="{x-4}" y="{y-4}" width="8" height="8" fill="var(--ground-3)"/>')
+    return "".join(o)
+
+
+def _bg_terrace():
+    o = []
+    for k in range(16):
+        base = 900 - k * 46
+        pts, x, y = [], -40, base
+        pts.append((x, y))
+        while x < 430:
+            run = 50 + (k * 37 + x) % 70
+            x += run; pts.append((x, y))
+            rise = 18 + (k * 13 + x) % 30
+            x += rise; y -= rise; pts.append((x, y))
+        col = "var(--ground-3)" if k % 4 == 0 else "var(--ground-2)"
+        o.append(f'<polyline points="{" ".join(f"{a},{b}" for a, b in pts)}" fill="none" stroke="{col}" stroke-width="1.5"/>')
+    return "".join(o)
+
+
+G["bg-pcb"] = ("0 0 390 844", _bg_pcb())
+G["bg-terrace"] = ("0 0 390 844", _bg_terrace())
+
+
 def sprite():
     out = ['<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>']
     for k, (vb, inner) in G.items():
@@ -360,7 +524,7 @@ def export_glyphs():
     d = ROOT / "assets" / "svg"
     d.mkdir(parents=True, exist_ok=True)
     for k, (vb, inner) in G.items():
-        if k.startswith("bg-"):
+        if k.startswith(("bg-", "m-")):
             continue
         w, h = vb.split()[2:]
         body = inner.replace("currentColor", "var(--ink)")

@@ -26,7 +26,7 @@ public struct SGBar: View {
 
         TagCut(cut: k, corner: corner).fill(SG.groundHi)
             .overlay {
-                TagCut(cut: k * 0.62, corner: corner).fill(SG.ground)
+                TagCut(cut: k * 0.62, corner: corner).fill(SG.groundHi)
                     .overlay {
                         Rectangle().fill(SG.groundHi)
                             .overlay {

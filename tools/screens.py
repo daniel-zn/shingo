@@ -89,7 +89,7 @@ keys += ('<div class="key key--flat"><svg width="26" height="26"><use href="#g-r
 dots = ''.join(X('solid', 28, '--ground-hi') for _ in range(2)) + X('solid', 28, '--coral') + ''.join(X('line', 28, '--ground-dim') for _ in range(3))
 S['B'] = fig('B', 'Passcode', 'Entry indicators are hard X marks, with coral for the latest digit. Keys are cut plates. The seal 認証 means authentication.', utility(f'''
       {mast('Enter<br>passcode', 'attempt 1', '5 max', seal('認証'))}
-      <div class="u-hero u-hero--pad" style="display:flex;gap:14px">{dots}</div>
+      <div class="u-hero u-hero--pad" style="display:grid;gap:14px"><svg class="motif" viewBox="0 0 342 108" style="" aria-hidden="true"><use href="#g-m-tumblers"/></svg><div style="display:flex;gap:14px">{dots}</div></div>
       {DIV}
       <section class="u-body u-body--end">
         <div class="keypad">{keys}</div>
@@ -133,7 +133,7 @@ S['D'] = fig('D', 'Fitness', 'One giant number as the hero and hard X marks for 
 # ---------------------------------------------------------------- E wallet
 S['E'] = fig('E', 'Wallet', 'The card is the one plate on the screen: a cut slab with a contact pad and a coral strip. 財布 means wallet.', utility(f'''
       {mast('Wallet', 'main', 'eur', jp('財布'))}
-      <div class="u-hero u-hero--pad"><div class="pcard plate cut" style="--c:24px">
+      <div class="u-hero u-hero--pad"><div class="pcard plate cut" style="--c:24px;position:relative"><svg class="motif" viewBox="0 0 342 140" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;color:var(--ink-dim);opacity:.22" aria-hidden="true"><use href="#g-m-micro"/></svg>
         <div class="pcard-top"><span class="sg-wordmark" style="font-size:15px">AXIOM</span><span class="sg-mono">DEBIT · 09</span></div>
         <i class="pcard-pad"></i>
         <div><div class="slab-cut" style="height:8px;margin-bottom:12px"></div><div class="pcard-foot"><span class="sg-mono" style="font-size:12px">•••• 4417</span><span class="sg-mono">EXP 09/29</span></div></div>
@@ -159,7 +159,7 @@ S['F'] = fig('F', 'Music player', 'A printed spectrum in a cut frame is the hero
       <section class="u-body u-body--end">
         <div><h3 class="sg-wordmark" style="margin:0;font-size:22px;color:var(--ground-hi)">Night transit</h3><div class="sg-mono u-dim" style="margin-top:6px">LOW ORBIT CHOIR — SIGNAL FADE</div></div>
         <div class="slot" style="--p:38%"></div>
-        <div style="display:flex;justify-content:center;align-items:center;gap:22px;margin-top:6px">
+        <div style="display:flex;justify-content:center;align-items:center;gap:22px;margin-top:6px;position:relative"><svg class="motif" viewBox="0 0 38 172" style="position:absolute;right:0;bottom:-6px;width:30px;height:auto" aria-hidden="true"><use href="#g-m-meters"/></svg>
           <button class="btn btn--ghost btn--icon" type="button" aria-label="Previous"><svg style="transform:scaleX(-1)"><use href="#g-skip"/></svg></button>
           <button class="btn btn--coral" type="button" aria-label="Play" style="width:72px;height:72px;padding:0;--c:16px"><svg style="width:26px;height:26px"><use href="#g-play"/></svg></button>
           <button class="btn btn--ghost btn--icon" type="button" aria-label="Next"><svg><use href="#g-skip"/></svg></button>
@@ -194,7 +194,7 @@ rowhtml = ''.join(f'<div class="row"><span class="av{c}">{i}</span><span><span c
                   f'<span style="display:grid;justify-items:end;gap:6px"><span class="sg-mono">{t}</span>{"<i class=unread></i>" if u else ""}</span></div>' for i, n, m, t, u, c in rows)
 S['H'] = fig('H', 'Inbox', 'No hero form, so the filter takes the hero slot and the compose action is the masthead tag. Coral only marks unread.', utility(f'''
       {mast('Inbox', '12 unread', 'end-to-end', '<button class="u-tag-btn btn btn--plate btn--icon" type="button" aria-label="New message"><svg><use href="#g-plus"/></svg></button>')}
-      <div class="u-hero u-hero--pad"><div class="itabs"><button type="button" aria-pressed="true">All</button><button type="button">Flagged</button><button type="button">Sealed</button></div></div>
+      <div class="u-hero u-hero--pad" style="display:grid;gap:14px"><svg class="motif" viewBox="0 0 200 120" style="width:200px" aria-hidden="true"><use href="#g-m-stamp"/></svg><div class="itabs"><button type="button" aria-pressed="true">All</button><button type="button">Flagged</button><button type="button">Sealed</button></div></div>
       {DIV}
       <section class="u-body"><div>{rowhtml}</div></section>''', tab=tabbar([('i-inbox', 'inbox'), ('i-spam', 'spam'), ('i-contacts', 'contacts'), ('i-me', 'me')], 0)))
 
@@ -208,7 +208,8 @@ tg = lambda id_, label, small, on: f'<div class="set"><span><span class="sg-labe
 nav = lambda label, val: f'<div class="set"><span class="sg-label">{label}</span><span class="sg-mono u-dim" style="display:flex;gap:6px;align-items:center">{val} <svg width="10" height="10"><use href="#g-chev"/></svg></span></div>'
 S['I'] = fig('I', 'Settings', 'No hero, so the hazard bar follows the masthead directly. Groups are condensed-caps labels over printed rows. 設定 means settings.', utility(f'''
       {mast('Settings', 'v 4.2', 'build 2611', jp('設定'))}
-      <div class="u-div hazard" style="margin-top:20px"></div>
+      <div class="u-hero u-hero--pad"><svg class="motif" viewBox="0 0 342 100" style="" aria-hidden="true"><use href="#g-m-dip"/></svg></div>
+      <div class="u-div hazard"></div>
       <section class="u-body u-body--end" style="gap:18px">
         {group('Privacy', '01', tg('s-ks', 'Kill switch', 'PAUSE TRAFFIC IF THE TUNNEL DROPS', True) + tg('s-bt', 'Block trackers', '1,284 BLOCKED THIS WEEK', True) + tg('s-ln', 'Allow local network', 'PRINTERS · CASTING · SMART HOME', False))}
         {group('Network', '02', nav('Protocol', 'WIREGUARD') + nav('Server', 'LISBON-04'))}
@@ -228,7 +229,7 @@ S['J'] = fig('J', 'ID credential', 'The badge is the hero plate, with the line-a
         <svg class="badge-bc" viewBox="0 0 21 21" style="width:62px;height:62px;color:var(--ink)"><use href="#g-matrix"/></svg>
       </div></div>
       {DIV}
-      <section class="u-body u-body--end"><div style="display:grid;grid-template-columns:1fr auto;gap:12px"><button class="btn" type="button">Add to wallet</button><button class="btn btn--ghost" type="button">Show QR</button></div></section>'''))
+      <section class="u-body u-body--end"><div style="display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;align-items:center"><svg class="motif" viewBox="0 0 60 64" style="width:52px" aria-hidden="true"><use href="#g-m-print"/></svg><div><div class="sg-cap" style="font-size:11px;color:var(--ground-hi);display:flex;justify-content:space-between"><span>Biometric</span><span>Match 98%</span></div><div style="margin-top:8px">{cells(12, 11, hot=11)}</div></div></div><div style="display:grid;grid-template-columns:1fr auto;gap:12px"><button class="btn" type="button">Add to wallet</button><button class="btn btn--ghost" type="button">Show QR</button></div></section>'''))
 
 # ---------------------------------------------------------------- K alert
 S['K'] = fig('K', 'Alert sheet', 'Interruptions get the only large coral surface: a sheet with a 45° cut corner and a hazard strip. Nothing else competes.', f'''<div class="phone"><div class="scr u tex">
@@ -376,6 +377,7 @@ S['S'] = fig('S', 'Transfer', 'Chevron steps are the hero. The transfer prints a
       <div class="u-hero u-hero--pad"><ol class="steps"><li class="done">Amount</li><li class="on">Confirm</li><li>Sent</li></ol></div>
       {DIV}
       <section class="u-body u-body--end" style="gap:16px">
+        <svg class="motif" viewBox="0 0 342 56" style="" aria-hidden="true"><use href="#g-m-flow"/></svg>
         <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div>
           <span class="stamp" style="position:absolute;right:104px;bottom:10px;font-size:13px;--gap:var(--sage-hi)">Verified</span></div>
         <div class="spec spec--ground"><span>From</span><i></i><span>Main ·· 4417</span><span>Arrives</span><i></i><span>Instantly</span><span>Fee</span><i></i><span>€0.00</span></div>
@@ -394,7 +396,7 @@ for k, ref in FOOT.items():
 # ---------------------------------------------------------------- U route
 S['U'] = fig('U', 'Route', 'A street map drawn on the system grid: streets run level, upright or "/" only, the route is the one coral line, and stops are diamonds.', utility(f"""
       {mast('Route', 'alfama', 'north gate', jp('経路'))}
-      <div class="u-hero u-hero--pad"><div class="chamfer brackets map"><svg viewBox="0 0 342 236" preserveAspectRatio="none" aria-hidden="true"><g stroke="var(--ground-3)" stroke-width="1.2"><path d="M0 40H342"/><path d="M0 96H342"/><path d="M0 160H342"/><path d="M0 210H342"/><path d="M52 0V236"/><path d="M128 0V236"/><path d="M206 0V236"/><path d="M286 0V236"/><path d="M-20 236L236 -20"/><path d="M110 256L366 0"/></g><polygon points="214,104 280,104 280,150 228,150 214,136" fill="var(--ground-2)"/><polygon points="60,170 112,170 112,204 74,204 60,190" fill="var(--ground-2)"/><polyline points="24,212 92,212 148,156 210,156 270,96 318,96" fill="none" stroke="var(--coral)" stroke-width="3.5" stroke-linejoin="miter"/><rect x="18" y="206" width="12" height="12" fill="var(--ground-hi)" transform="rotate(45 24 212)"/><rect x="311" y="89" width="14" height="14" fill="var(--coral)" transform="rotate(45 318 96)"/><text x="30" y="232" class="xp-m" font-size="8.5" fill="var(--ground-dim)">ALFAMA</text><text x="232" y="128" class="xp-m" font-size="8.5" fill="var(--ground-dim)">PARK</text><text x="270" y="82" class="xp-m" font-size="8.5" fill="var(--ground-hi)">NORTH GATE</text></svg></div></div>
+      <div class="u-hero u-hero--pad"><div class="chamfer brackets map"><svg class="cmp" viewBox="0 0 80 82" aria-hidden="true" style="position:absolute;left:12px;top:12px;width:58px;height:60px;inset:auto;z-index:1;color:var(--ground-hi)"><use href="#g-m-compass"/></svg><svg viewBox="0 0 342 236" preserveAspectRatio="none" aria-hidden="true"><g stroke="var(--ground-3)" stroke-width="1.2"><path d="M0 40H342"/><path d="M0 96H342"/><path d="M0 160H342"/><path d="M0 210H342"/><path d="M52 0V236"/><path d="M128 0V236"/><path d="M206 0V236"/><path d="M286 0V236"/><path d="M-20 236L236 -20"/><path d="M110 256L366 0"/></g><polygon points="214,104 280,104 280,150 228,150 214,136" fill="var(--ground-2)"/><polygon points="60,170 112,170 112,204 74,204 60,190" fill="var(--ground-2)"/><polyline points="24,212 92,212 148,156 210,156 270,96 318,96" fill="none" stroke="var(--coral)" stroke-width="3.5" stroke-linejoin="miter"/><rect x="18" y="206" width="12" height="12" fill="var(--ground-hi)" transform="rotate(45 24 212)"/><rect x="311" y="89" width="14" height="14" fill="var(--coral)" transform="rotate(45 318 96)"/><text x="30" y="232" class="xp-m" font-size="8.5" fill="var(--ground-dim)">ALFAMA</text><text x="232" y="128" class="xp-m" font-size="8.5" fill="var(--ground-dim)">PARK</text><text x="270" y="82" class="xp-m" font-size="8.5" fill="var(--ground-hi)">NORTH GATE</text></svg></div></div>
       <div class="u-div div-ticks"></div>
       <section class="u-body">
         <div class="stats3"><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Distance</span><b class="sg-num">4.8 km</b></div><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Arrive</span><b class="sg-num">10:22</b></div><div><span class="sg-cap" style="font-size:10px;color:var(--ground-dim)">Climb</span><b class="sg-num">+96 m</b></div></div>
@@ -428,6 +430,7 @@ S['W'] = fig('W', 'Conditions', 'Temperature as a seven-segment readout over sla
           <div class="nframe"><b>Wind</b><div class="sg-num" style="font-size:22px;color:var(--ground-hi);margin-bottom:10px">38 km/h</div>{cells(10, 6)}</div>
           <div class="nframe"><b>Humidity</b><div class="sg-num" style="font-size:22px;color:var(--ground-hi);margin-bottom:10px">82%</div>{cells(10, 8)}</div>
         </div>
+        <div><div class="u-label" style="margin-bottom:10px"><span>Wind · next 6 h</span><span>KT</span></div><svg class="motif" viewBox="0 0 342 112" style="" aria-hidden="true"><use href="#g-m-barbs"/></svg></div>
         <div class="lamps"><span class="lamp on">Rain</span><span class="lamp hot">Ice</span><span class="lamp on">Wind</span><span class="lamp">UV</span><span class="lamp">Fog</span></div>
         <div class="u-foot"><div><b>Axiom signal systems</b><span>Station LIS-04 · 38.71 N</span></div><i class="barcode--v"></i></div>
       </section>"""))
@@ -447,8 +450,8 @@ S['X'] = fig('X', 'Live activity', 'The system surfaces in the same print: an ex
       <i class="home"></i>
     </div></div>""", tier='poster')
 
-BACKDROP = {'B': 'lattice', 'C': 'tunnel', 'D': 'slashes', 'E': 'stack-card', 'F': 'bars', 'G': 'diamonds', 'H': 'plates',
-            'I': 'notch', 'J': 'stack-badge', 'K': 'tunnel', 'O': 'wedge', 'Q': 'wedge', 'R': 'ticks', 'S': 'slashes', 'U': 'wedge', 'V': 'plates', 'W': 'slashes'}
+BACKDROP = {'B': 'lattice', 'C': 'tunnel', 'D': 'terrace', 'E': 'stack-card', 'F': 'bars', 'G': 'diamonds', 'H': 'plates',
+            'I': 'notch', 'J': 'stack-badge', 'K': 'tunnel', 'O': 'wedge', 'Q': 'pcb', 'R': 'ticks', 'S': 'slashes', 'U': 'wedge', 'V': 'plates', 'W': 'slashes'}
 DIVIDER = {'C': 'div-ticks', 'D': 'div-ticks', 'F': 'div-ticks', 'G': 'div-ticks', 'R': 'div-ticks',
            'E': 'div-slash', 'H': 'div-slash', 'J': 'div-slash', 'O': 'div-slash', 'P': 'div-slash', 'S': 'div-slash', 'U': 'div-ticks', 'W': 'div-ticks'}
 for k, name in BACKDROP.items():
