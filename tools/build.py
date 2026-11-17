@@ -561,6 +561,141 @@ G["bg-columns"] = ("0 0 390 844", _bg_columns())
 G["bg-airmail"] = ("0 0 390 844", _bg_airmail())
 
 
+# ---------------------------------------------------------------- scenes: monochrome dystopian cities
+# Procedural, flat, tonal. Rectilinear blocks with 45° roof cuts only.
+# Far layer ground-2, mid ground-3 with window grids, near layer ground-dim.
+# At most one coral beacon. 390 x 520.
+def _scene(kind, seed, W=390, H=520):
+    import random
+    r = random.Random(seed)
+    o = [f'<rect width="{W}" height="{H}" fill="var(--ground)"/>']
+    for i in range(7):
+        o.append(f'<rect x="0" y="{30 + i * 30}" width="{W}" height="1" fill="var(--ground-2)"/>')
+    # far
+    x = -10
+    while x < W:
+        w = r.randint(16, 42)
+        h = r.randint(int(H * .38), int(H * .82))
+        o.append(f'<rect x="{x}" y="{H-h}" width="{w}" height="{h}" fill="var(--ground-2)"/>')
+        if r.random() < .3:
+            o.append(f'<rect x="{x + w//2}" y="{H-h-r.randint(16, 46)}" width="1.5" height="50" fill="var(--ground-2)"/>')
+        x += w + r.randint(1, 6)
+    # mid
+    x = -24
+    mid_top = .5 if kind == 'skyline' else .36
+    while x < W:
+        w = r.randint(42, 96)
+        h = r.randint(int(H * .22), int(H * mid_top))
+        y = H - h
+        c = min(16, w // 3) if r.random() < .45 else 0
+        o.append(f'<polygon points="{x+c},{y} {x+w},{y} {x+w},{H} {x},{H} {x},{y+c}" fill="var(--ground-3)"/>')
+        for wy in range(y + 10, H - 4, 11):
+            for wx in range(x + 6, x + w - 8, 9):
+                if wy < y + c + 4 and wx < x + c:
+                    continue
+                p = r.random()
+                if p < .7:
+                    col = "var(--ground-dim)" if p < .05 else "var(--ground-2)"
+                    o.append(f'<rect x="{wx}" y="{wy}" width="4" height="6" fill="{col}"/>')
+        x += w + r.randint(3, 12)
+    beacon = None
+    if kind == 'skyline':
+        o.append(f'<rect x="0" y="{H-34}" width="{W}" height="34" fill="var(--ground-dim)"/>')
+        for xx in range(0, W, 14):
+            o.append(f'<rect x="{xx}" y="{H-52}" width="2" height="18" fill="var(--ground-dim)"/>')
+        o.append(f'<rect x="0" y="{H-52}" width="{W}" height="2" fill="var(--ground-dim)"/>')
+        beacon = (W * .7, H * .2)
+        o.append(f'<rect x="{W*.7-1}" y="{H*.2}" width="2" height="{H*.25}" fill="var(--ground-3)"/>')
+    elif kind == 'rooftop':
+        top = int(H * .64)
+        # rooftop machinery stands on the slab
+        for bx, bw, bh in [(14, 70, 46), (98, 54, 34), (250, 84, 52)]:
+            o.append(f'<rect x="{bx}" y="{top-bh}" width="{bw}" height="{bh}" fill="var(--ground-dim)"/>')
+            for gx in range(bx + 6, bx + bw - 4, 6):
+                o.append(f'<rect x="{gx}" y="{top-bh+8}" width="2" height="{bh-16}" fill="var(--ground-3)"/>')
+        # water tank on legs
+        o.append(f'<polygon points="178,{top-128} 228,{top-128} 228,{top-70} 172,{top-70} 172,{top-122}" fill="var(--ground-dim)"/>')
+        for ly in range(top - 118, top - 70, 12):
+            o.append(f'<rect x="172" y="{ly}" width="56" height="2" fill="var(--ground-3)"/>')
+        for lx in (176, 220):
+            o.append(f'<rect x="{lx}" y="{top-70}" width="4" height="70" fill="var(--ground-dim)"/>')
+        o.append(f'<path d="M180 {top-4} L220 {top-66} M180 {top-66} L220 {top-4}" stroke="var(--ground-dim)" stroke-width="2"/>')
+        # antenna masts
+        for ax, ah in [(352, 210), (322, 150)]:
+            o.append(f'<rect x="{ax}" y="{top-ah}" width="3" height="{ah}" fill="var(--ground-dim)"/>')
+            for k in range(4):
+                o.append(f'<rect x="{ax-8+k}" y="{top-ah+14+k*22}" width="{19-2*k}" height="2" fill="var(--ground-dim)"/>')
+        beacon = (353, top - 214)
+        # slab + pipes
+        o.append(f'<rect x="0" y="{top}" width="{W}" height="{H-top}" fill="var(--ground-dim)"/>')
+        for py, pw in [(top + 22, 7), (top + 40, 4), (top + 70, 10)]:
+            o.append(f'<rect x="0" y="{py}" width="{W}" height="{pw}" fill="var(--ground-3)"/>')
+            for fx in range(30, W, 70):
+                o.append(f'<rect x="{fx}" y="{py-3}" width="6" height="{pw+6}" fill="var(--ground-3)"/>')
+        o.append(f'<polyline points="60,{top} 60,{top-60} 120,{top-120} 160,{top-120}" fill="none" stroke="var(--ground-dim)" stroke-width="6"/>')
+    elif kind == 'stacks':
+        base = int(H * .7)
+        for cx, cw, ch in [(40, 26, 300), (92, 20, 250), (300, 30, 330), (346, 18, 220)]:
+            o.append(f'<rect x="{cx}" y="{base-ch}" width="{cw}" height="{ch}" fill="var(--ground-dim)"/>')
+            for k in range(3):
+                o.append(f'<rect x="{cx}" y="{base-ch+14+k*16}" width="{cw}" height="4" fill="var(--ground-3)"/>')
+        for tx, tw, th in [(140, 70, 90), (216, 60, 120)]:
+            o.append(f'<polygon points="{tx+14},{base-th} {tx+tw},{base-th} {tx+tw},{base} {tx},{base} {tx},{base-th+14}" fill="var(--ground-dim)"/>')
+            for k in range(base - th + 18, base, 14):
+                o.append(f'<rect x="{tx}" y="{k}" width="{tw}" height="2" fill="var(--ground-3)"/>')
+        o.append(f'<rect x="0" y="{base-40}" width="{W}" height="5" fill="var(--ground-dim)"/>')
+        o.append(f'<path d="M120 {base-40} L200 {base-160} H290" stroke="var(--ground-dim)" stroke-width="3" fill="none"/>')
+        o.append(f'<rect x="0" y="{base}" width="{W}" height="{H-base}" fill="var(--ground-3)"/>')
+        beacon = (313, base - 336)
+    if beacon:
+        o.append(f'<rect x="{beacon[0]-3}" y="{beacon[1]-3}" width="6" height="6" fill="var(--coral)"/>')
+    return "".join(o)
+
+
+for _k, _seed in [("skyline", 11), ("rooftop", 23), ("stacks", 7)]:
+    G["sc-" + _k] = ("0 0 390 520", _scene(_k, _seed))
+
+
+# ---------------------------------------------------------------- constructed type
+# Block letters on a 6-unit grid, 1.4-unit strokes, TL/BR cuts only.
+_LET = {
+    "A": (6, "M1.4 0H6V6H4.6V3.8H1.4V6H0V1.4Z M1.4 1.4H4.6V2.4H1.4Z"),
+    "X": (6, "M0 0H2V2.2H0Z M4 0H6V2.2H4Z M1.2 1.9H4.8V4.1H1.2Z M0 3.8H2V6H0Z M4 3.8H6V6H4Z"),
+    "I": (4.4, "M0 0H4.4V1.4H2.9V4.6H4.4V6H0V4.6H1.5V1.4H0Z"),
+    "O": (6, "M1.4 0H6V4.6L4.6 6H0V1.4Z M1.4 1.4H4.6V4.6H1.4Z"),
+    "0": (6, "M1.4 0H6V4.6L4.6 6H0V1.4Z M1.4 1.4H4.6V4.6H1.4Z"),
+    "M": (6, "M0 0H6V6H4.6V1.4H3.7V4.2H2.3V1.4H1.4V6H0Z"),
+    "S": (6, "M1.4 0H6V1.4H1.4V2.3H6V4.6L4.6 6H0V4.6H4.6V3.7H0V1.4Z"),
+    "P": (6, "M1.4 0H6V3.8H1.4V6H0V1.4Z M1.4 1.4H4.6V2.4H1.4Z"),
+    "9": (6, "M1.4 0H6V4.6L4.6 6H0V4.6H4.6V3.8H0V1.4Z M1.4 1.4H4.6V2.4H1.4Z"),
+    "-": (3, "M0 2.4H3V3.6H0Z"),
+}
+
+
+def constructed(text, unit=10, x=0, y=0, fill="var(--ground-hi)"):
+    o, cx = [], 0.0
+    for ch in text:
+        w, d = _LET[ch]
+        o.append(f'<path transform="translate({f(x + cx * unit)} {y}) scale({unit})" d="{d}" fill="{fill}" fill-rule="evenodd"/>')
+        cx += w + .8
+    return "".join(o), (cx - .8) * unit
+
+
+def exploded_x(cx, cy, s, h=None, fill="var(--coral)"):
+    """The hard X broken into slabs: three on the '/' stroke, two on the other."""
+    h = h or s * .34
+    def seg(x0, y0, x1, y1):
+        return f'<polygon points="{f(x0)},{f(y0)} {f(x0+h)},{f(y0)} {f(x1+h)},{f(y1)} {f(x1)},{f(y1)}" fill="{fill}"/>'
+    o, g = [], s * .14
+    a = (cx - s - h / 2, cy + s)
+    for t0, t1 in [(0, .62), (.62 + g / s, 1.38 - g / s), (1.38, 2)]:
+        o.append(seg(a[0] + t0 * s, a[1] - t0 * s, a[0] + t1 * s, a[1] - t1 * s))
+    b = (cx - s - h / 2, cy - s)
+    for t0, t1 in [(0, .62), (1.38, 2)]:
+        o.append(seg(b[0] + t0 * s, b[1] + t0 * s, b[0] + t1 * s, b[1] + t1 * s))
+    return "".join(o)
+
+
 def sprite():
     out = ['<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>']
     for k, (vb, inner) in G.items():
@@ -573,7 +708,7 @@ def export_glyphs():
     d = ROOT / "assets" / "svg"
     d.mkdir(parents=True, exist_ok=True)
     for k, (vb, inner) in G.items():
-        if k.startswith(("bg-", "m-")):
+        if k.startswith(("bg-", "m-", "sc-")):
             continue
         w, h = vb.split()[2:]
         body = inner.replace("currentColor", "var(--ink)")
@@ -718,7 +853,7 @@ def _xp_frame(n, word, jp, line, body):
             f'<text x="22" y="554" class="xp-d" font-size="46" fill="var(--ground-hi)">{word}</text>'
             f'<text x="376" y="482" class="xp-j" font-size="18" fill="var(--ground-hi)" text-anchor="end">{jp}</text>'
             f'<text x="24" y="578" class="xp-m" font-size="9" fill="var(--ground-dim)">{line}</text>'
-            f'<text x="376" y="578" class="xp-m" font-size="9" fill="var(--ground-dim)" text-anchor="end">{n} / 04</text></svg>')
+            f'<text x="376" y="578" class="xp-m" font-size="9" fill="var(--ground-dim)" text-anchor="end">{n} / 06</text></svg>')
 
 
 def _xp_tunnel():
@@ -774,12 +909,89 @@ def _mo_tunnel():
             f'<polygon points="{_chamf(150, 90, 9, 6, 2)}" fill="var(--coral)" stroke="none"/></svg>')
 
 
+
+def _xp_relay():
+    o = ['<clipPath id="xpc5"><polygon points="94,170 330,170 330,452 316,466 80,466 80,184"/></clipPath>',
+         '<g clip-path="url(#xpc5)"><use href="#g-sc-rooftop" x="40" y="166" width="300" height="400"/></g>',
+         '<g stroke="var(--coral)" stroke-width=".8">'
+         '<path d="M0 158H400 M0 470H400 M68 44V474 M340 44V474"/></g>',
+         '<g fill="var(--coral)"><rect x="64" y="154" width="8" height="8"/><rect x="336" y="466" width="8" height="8"/><rect x="200" y="62" width="5" height="5"/></g>',
+         '<path d="M330 120h20 M340 110v20 M60 470h16 M68 462v16" stroke="var(--coral)" stroke-width="1"/>',
+         exploded_x(282, 270, 92),
+         '<text x="96" y="232" class="xp-t" font-size="13" fill="var(--ground-hi)">LISBON</text><text x="96" y="243" class="xp-m" font-size="6.5" fill="var(--ground-hi)">RELAY 04 · 23 MS · 38.7 N</text>',
+         '<text x="96" y="372" class="xp-t" font-size="13" fill="var(--ground-hi)">PORTO</text><text x="96" y="383" class="xp-m" font-size="6.5" fill="var(--ground-hi)">RELAY 07 · 31 MS · 41.1 N</text>',
+         '<text x="182" y="432" class="xp-t" font-size="13" fill="var(--ground-hi)">OSAKA</text><text x="182" y="443" class="xp-m" font-size="6.5" fill="var(--ground-hi)">RELAY 12 · 212 MS · 34.6 N</text>',
+         '<polygon points="38,300 92,300 92,470 24,470 24,314" fill="var(--ground-hi)"/>',
+         ''.join(f'<text x="58" y="{344 + i*30}" text-anchor="middle" class="xp-j" font-size="24" fill="var(--ground)">{c}</text>' for i, c in enumerate("中継塔"))
+         + '<text x="58" y="458" text-anchor="middle" class="xp-m" font-size="7" fill="var(--ground)">Nº 05</text>',
+         '<text x="350" y="60" class="xp-m" font-size="7" fill="var(--coral)" transform="rotate(90 350 60)">2835 × 1890 PX · 200 PPI</text>',
+         '<text x="24" y="70" class="xp-m" font-size="7" fill="var(--ground-dim)">ABOVE THE NOISE,</text><text x="24" y="80" class="xp-m" font-size="7" fill="var(--ground-dim)">MACHINES HUM IN SILENCE</text>',
+         '<text x="24" y="120" class="xp-d" font-size="11" fill="var(--coral)">2026</text><text x="24" y="134" class="xp-m" font-size="7" fill="var(--coral)">NOV 17</text>']
+    return _xp_frame("05", "RELAY", "中継", "SILENT RELAY · THREE CITIES · ONE ROUTE", "".join(o))
+
+
+def _xp_ops():
+    o = ['<clipPath id="xpc6"><rect x="24" y="50" width="352" height="46"/></clipPath><g clip-path="url(#xpc6)">']
+    for k in range(-4, 30):
+        x = 24 + k * 18
+        o.append(f'<polygon points="{x},96 {x+10},96 {x+56},50 {x+46},50" fill="var(--ground-hi)"/>')
+    o.append('</g>')
+    stat = [(24, 122, "System verified", "Status – active"), (190, 122, "Protocol synced", "Status – stable"),
+            (24, 152, "Field unit calibrated", "Status – online"), (190, 152, "Relay certified", "Status – operational")]
+    for x, y, a, b in stat:
+        o.append(f'<text x="{x}" y="{y}" class="xp-t" font-size="10.5" fill="var(--ground-hi)">{a.upper()}</text>'
+                 f'<text x="{x}" y="{y+12}" class="xp-m" font-size="7.5" fill="var(--ground-dim)">{b.upper()}</text>')
+    o.append('<text x="376" y="134" text-anchor="end" class="xp-d" font-size="22" fill="var(--ground-hi)">LIS</text>')
+    o.append('<rect x="356" y="146" width="20" height="20" fill="none" stroke="var(--ground-hi)" stroke-width="2"/><text x="366" y="160" text-anchor="middle" class="xp-t" font-size="11" fill="var(--ground-hi)">R</text>')
+    word, w = constructed("AX-09", unit=11.6, x=24, y=188)
+    o.append(word)
+    lines = ["AX-09 IS A ████ RELAY DIVISION FOCUSED", "ON SEALED ROUTING AND ███████ ████", "INFRASTRUCTURE. OUR KEYS INTEGRATE", "DIRECTLY INTO ██████ NETWORKS, ENABLING", "QUIET TRANSIT AND ████ EXECUTION."]
+    for i, ln in enumerate(lines):
+        x = 24
+        for j, part in enumerate(ln.split("█")):
+            pass
+        o.append(f'<text x="24" y="{290 + i*10}" class="xp-m" font-size="6.6" fill="var(--ground-dim)">{ln.replace("█", " ")}</text>')
+    # redaction bars over the gaps (positioned by monospace advance ~ .6em)
+    adv = 6.6 * (.6 + .04)  # mono advance + .xp-m letter-spacing
+    for i, ln in enumerate(lines):
+        j = 0
+        while j < len(ln):
+            if ln[j] == "█":
+                k = j
+                while k < len(ln) and ln[k] == "█":
+                    k += 1
+                o.append(f'<rect x="{f(24 + j*adv)}" y="{283 + i*10}" width="{f((k-j)*adv)}" height="8" fill="var(--ground-hi)"/>')
+                j = k
+            else:
+                j += 1
+    # id plate
+    o.append('<rect x="214" y="276" width="162" height="62" fill="none" stroke="var(--ground-hi)" stroke-width="2"/>'
+             '<path d="M260 276V338 M260 306H376 M314 276V306" stroke="var(--ground-hi)" stroke-width="2"/>')
+    o.append(f'<path transform="translate(222 290) scale(.36)" d="{XS}" fill="var(--ground-hi)"/>')
+    o.append('<text x="287" y="295" text-anchor="middle" class="xp-t" font-size="8.5" fill="var(--ground-hi)">AX-OPS</text>')
+    for i, ch in enumerate("LIS"):
+        bx = 320 + i * 18
+        fill = "var(--coral)" if i == 0 else "none"
+        tc = "#0c0c0a" if i == 0 else "var(--ground-hi)"
+        o.append(f'<rect x="{bx}" y="281" width="15" height="20" fill="{fill}" stroke="var(--ground-hi)" stroke-width="1.5"/><text x="{bx+7.5}" y="295" text-anchor="middle" class="xp-t" font-size="10" fill="{tc}">{ch}</text>')
+    o.append('<text x="268" y="326" class="xp-t" font-size="8.6" fill="var(--ground-hi)">LOG ID: 2611-A-09</text>')
+    o.append('<rect x="24" y="360" width="352" height="26" fill="var(--ground-hi)"/>'
+             '<text x="34" y="377" class="xp-t" font-size="10.5" fill="var(--ground)">SIGNAL INTEGRATION</text>'
+             '<text x="200" y="377" text-anchor="middle" class="xp-m" font-size="10" fill="var(--ground)">----</text>'
+             '<text x="366" y="377" text-anchor="end" class="xp-t" font-size="10.5" fill="var(--ground)">RELAY OPERATIONS</text>')
+    o.append('<text x="24" y="420" class="xp-t" font-size="9" fill="var(--ground-hi)">INTERNAL USE ONLY / AUTHORIZED PERSONNEL / LIS – 2026</text>')
+    o.append('<rect x="24" y="440" width="352" height="1" fill="var(--ground-3)"/>')
+    return _xp_frame("06", "OPS", "運用", "STATUS ACTIVE · PROTOCOL SYNCED · EYES ONLY", "".join(o))
+
+
 def explorations():
-    posters = [_xp_tunnel(), _xp_lattice(), _xp_slash(), _xp_signal()]
+    posters = [_xp_tunnel(), _xp_lattice(), _xp_slash(), _xp_signal(), _xp_relay(), _xp_ops()]
     cells = "".join(f'<i style="--i:{i}"></i>' for i in range(12))
     return f'''<section class="sec">
   <div class="sec-h"><span class="sg-num">06</span><h2 class="sg-display">Explorations</h2><span class="sg-mono">a poster series and motion studies · each piece built from one primitive of the alphabet</span></div>
   <div class="xp-grid">{"".join(f'<figure>{p}</figure>' for p in posters)}</div>
+  <div class="alpha-h" style="margin-top:36px"><span class="sg-cap">Scenes</span><span class="sg-mono">procedural monochrome cities · flat tonal blocks · 45° roofs · one coral beacon</span></div>
+  <div class="sc-grid">{"".join(f'<figure><svg viewBox="0 0 390 520" aria-label="{n} scene"><use href="#g-sc-{n}"/></svg><figcaption><b>{n}</b><span>{d}</span></figcaption></figure>' for n, d in [("skyline", "Towers, window grids, a railing in front"), ("rooftop", "AC units, a water tank, masts and pipe runs"), ("stacks", "Chimneys, tanks and a gantry over the yard")])}</div>
   <div class="alpha-h" style="margin-top:36px"><span class="sg-cap">Motion</span><span class="sg-mono">stepped, never eased · 45° turns only · still when reduced motion is on</span></div>
   <div class="mo-grid">
     <figure><div class="mo">{_mo_tunnel()}</div><figcaption><b>Tunnel pulse</b><span>Connecting. A print frame travels outward ring by ring.</span></figcaption></figure>
@@ -803,6 +1015,8 @@ def main():
     src = (ROOT / "web" / "gallery.src.html").read_text()
     src = re.sub(r"<!--@SEG7\|([^|]*)\|(\d+)\|([^>]*?)-->", lambda m: seg7(m.group(1), int(m.group(2)), m.group(3)), src)
     src = src.replace("<!--@EXPLORE-->", explorations())
+    src = src.replace("<!--@CONSTRUCT-->", constructed("AXIOM", unit=10, x=2, y=2)[0] + constructed("AX-09", unit=4.2, x=2, y=72)[0])
+    src = src.replace("<!--@XEXPL-->", exploded_x(100, 65, 52))
     src = src.replace("<!--@LANGUAGES-->", (ROOT / "web" / "partials" / "languages.html").read_text())
     src = src.replace("<!--@KEYART_DARK-->", keyart("dark")).replace("<!--@KEYART_LIGHT-->", keyart("light"))
     src = src.replace("<!--@SWATCHES-->", "".join(

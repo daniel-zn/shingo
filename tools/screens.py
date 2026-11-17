@@ -10,7 +10,7 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from build import seg7  # noqa: E402
+from build import seg7, exploded_x  # noqa: E402
 
 SRC = pathlib.Path(__file__).resolve().parent.parent / 'web' / 'gallery.src.html'
 
@@ -460,11 +460,48 @@ for k, name in BACKDROP.items():
 for k, cls in DIVIDER.items():
     S[k] = S[k].replace('<div class="u-div hazard"', f'<div class="u-div {cls}"')
 
+
+# ---------------------------------------------------------------- Y briefing
+S['Y'] = fig('Y', 'Briefing', 'Field-operations print: a city scene in brackets with construction guides, a status matrix, redacted copy and a banner. 機密 means classified.', utility(f"""
+      {mast('Briefing', 'clearance 09', 'eyes only', seal('機密'))}
+      <div class="u-hero u-hero--pad"><div class="chamfer brackets" style="position:relative;height:200px;padding:0;--c:18px;overflow:hidden">
+        <svg viewBox="0 0 390 520" preserveAspectRatio="xMidYMax slice" style="position:absolute;inset:0;width:100%;height:100%"><use href="#g-sc-skyline"/></svg>
+        <svg class="guides" viewBox="0 0 342 200" preserveAspectRatio="none"><path d="M0 64H342 M238 0V200" stroke="var(--ground-hi)" stroke-width=".8" opacity=".6"/><path d="M232 64h12 M238 58v12" stroke="var(--ground-hi)" stroke-width="1.5"/></svg>
+        <div class="sg-mono" style="position:absolute;left:12px;top:12px;color:var(--ground-hi)">SECTOR 04 · LIS<br>38.71 N 9.14 W</div>
+        <div class="sg-mono" style="position:absolute;right:12px;bottom:10px;color:var(--ground-hi)">2835 × 1890</div>
+      </div></div>
+      <div class="u-div hazard"></div>
+      <section class="u-body u-body--end" style="gap:14px">
+        <div class="smx"><div><b>System verified</b><span>Status – active</span></div><div><b>Protocol synced</b><span>Status – stable</span></div><div><b>Unit calibrated</b><span>Status – online</span></div><div><b>Relay certified</b><span>Status – operational</span></div></div>
+        <p class="sg-mono" style="margin:0;line-height:1.75;color:var(--on-ground)">TEAM <span class="redact" style="width:46px"></span> MOVES AT 10:05 VIA THE ALFAMA ROUTE. KEYS ROTATE AT <span class="redact" style="width:34px"></span>. RELAY 3 STAYS <span class="redact" style="width:62px"></span> UNTIL CLEARED.</p>
+        <div class="banner"><span>Signal integration</span><span>----</span><span>Relay ops</span></div>
+        <div class="restrict" style="margin-top:auto">Internal use only / authorized personnel / LIS – 2026</div>
+      </section>"""))
+
+# ---------------------------------------------------------------- Z relay city
+S['Z'] = fig('Z', 'Relay city', 'A full-bleed monochrome rooftop scene with construction guides, city relays labelled over it, a stacked kanji plate and the exploded X as the one coral element. 中継都市 means relay city.', f"""<div class="phone"><div class="scr tex">
+      <svg viewBox="0 0 390 520" preserveAspectRatio="xMidYMax slice" style="left:0;right:0;bottom:0;width:100%;height:600px" aria-hidden="true"><use href="#g-sc-rooftop"/></svg>
+      <svg class="guides" viewBox="0 0 390 844" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 214H390 M0 650H390 M58 120V844 M332 120V844" stroke="var(--ground-hi)" stroke-width=".8" opacity=".55"/>
+        <path d="M326 214h12 M332 208v12 M52 650h12 M58 644v12" stroke="var(--ground-hi)" stroke-width="1.5"/>
+        {exploded_x(300, 340, 74)}
+      </svg>
+      {SB}
+      <div style="top:66px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:flex-start;color:var(--ground-hi)"><div><div class="sg-mono" style="color:var(--ground-dim)">NETWORK · 5 RELAYS</div><div class="sg-display" style="font-size:40px;margin-top:8px">Relay<br>city</div></div><div class="sg-mono t-right" style="color:var(--ground-dim)">17 NOV<br>2026</div></div>
+      <div style="top:300px;left:76px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Lisbon</div><div class="sg-mono" style="font-size:9.5px">RELAY 04 · 23 MS</div></div>
+      <div style="top:430px;left:150px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Porto</div><div class="sg-mono" style="font-size:9.5px">RELAY 07 · 31 MS</div></div>
+      <div style="top:520px;left:76px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Osaka</div><div class="sg-mono" style="font-size:9.5px">RELAY 12 · 212 MS</div></div>
+      <div style="top:600px;left:200px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Lyon</div><div class="sg-mono" style="font-size:9.5px">RELAY 02 · 48 MS</div></div>
+      <div style="left:0;bottom:90px;width:70px;height:240px;background:var(--ground-hi);color:var(--ground);clip-path:polygon(16px 0,100% 0,100% 100%,0 100%,0 16px);display:grid;align-content:center;justify-items:center;gap:6px"><span class="sg-jp" style="font-size:24px;line-height:1.05;writing-mode:vertical-rl">中継都市</span><span class="sg-mono" style="font-size:8px">Nº 05</span></div>
+      <div style="left:90px;right:24px;bottom:44px;display:flex;justify-content:space-between" class="sg-mono"><span style="color:var(--ground-hi)">2835 × 1890 PX</span><span style="color:var(--ground-hi)">200 PPI</span></div>
+      <i class="home"></i>
+    </div></div>""", tier='poster')
+
 POSTER_BG = {'L': 'decay', 'M': 'relays'}
 for k, name in POSTER_BG.items():
     S[k] = S[k].replace('<div class="phone"><div class="scr tex">', f'<div class="phone"><div class="scr tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-{name}"/></svg>', 1)
 
-ORDER = 'T A B C D E F G H I J K L M N O P Q R S U V W X'.split()
+ORDER = 'T A B C D E F G H I J K L M N O P Q R S U V W X Y Z'.split()
 grid = '\n'.join(S[k] for k in ORDER)
 src = SRC.read_text()
 a = src.index('<div class="screens">') + len('<div class="screens">')

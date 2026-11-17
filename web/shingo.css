@@ -422,3 +422,23 @@
 .div-slash { height: 10px; background: repeating-linear-gradient(-45deg, var(--ground-hi) 0 2px, transparent 2px 6px);
   -webkit-mask: linear-gradient(90deg, #000 0 26px, transparent 26px 38px) 0 0 / 38px 100% repeat-x;
           mask: linear-gradient(90deg, #000 0 26px, transparent 26px 38px) 0 0 / 38px 100% repeat-x; }
+
+/* ================================================== ops furniture
+   After field-operations print: status matrix, redaction, ID plate,
+   banner strip, restriction line, constructed type, scenes. */
+.smx { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px 18px; }
+.smx b { display: block; font: 700 expanded 11.5px var(--f-title); letter-spacing: .02em; text-transform: uppercase; color: var(--ground-hi); }
+.smx span { display: block; margin-top: 3px; font: 500 9.5px var(--f-mono); text-transform: uppercase; color: var(--ground-dim); }
+.smx span::before { content: "■ "; color: var(--ground-hi); }
+.redact { display: inline-block; height: .95em; vertical-align: -.12em; background: currentColor; color: var(--ground-hi); }
+.idplate { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; grid-template-rows: auto auto; border: 2px solid var(--ground-hi); color: var(--ground-hi); }
+.idplate > * { padding: 6px 8px; border-left: 2px solid var(--ground-hi); display: flex; align-items: center; font: 700 expanded 11px var(--f-title); letter-spacing: .02em; text-transform: uppercase; }
+.idplate > :first-child { grid-row: span 2; border-left: 0; justify-content: center; }
+.idplate > :nth-child(4) { grid-column: 2 / -1; border-top: 2px solid var(--ground-hi); }
+.boxl { display: inline-flex; gap: 3px; }
+.boxl i { font-style: normal; width: 16px; height: 20px; display: grid; place-items: center; border: 1.5px solid currentColor; font: 700 10px var(--f-title); }
+.boxl i.on { background: var(--coral); border-color: var(--coral); color: #0c0c0a; }
+.banner { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 12px; background: var(--ground-hi); color: var(--ground);
+  font: 700 expanded 11px var(--f-title); letter-spacing: .02em; text-transform: uppercase; }
+.restrict { font: 700 expanded 10.5px var(--f-title); letter-spacing: .02em; text-transform: uppercase; color: var(--ground-hi); }
+.guides { position: absolute; inset: 0; pointer-events: none; z-index: 1; }

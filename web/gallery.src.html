@@ -271,6 +271,15 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
 .la .steps .done { background: var(--ground); color: var(--ground-hi); }
 .la .seg7 { color: var(--ground); --off: var(--ground-dim); }
 
+
+.xp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+.sc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.sc-grid figure { margin: 0; display: grid; gap: 8px; }
+.sc-grid svg { display: block; width: 100%; height: auto; box-shadow: 0 0 0 1px var(--ground-3); }
+.sc-grid b { font: 600 expanded 11px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
+.sc-grid span { display: block; font-size: 12.5px; margin-top: 3px; }
+@media (max-width: 700px) { .sc-grid, .xp-grid { grid-template-columns: minmax(0, 1fr) !important; } }
+
 /* languages */
 .langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
 .lang { background: var(--ground); padding: 20px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; }
@@ -912,6 +921,55 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
     <figcaption><b>X · Live activity</b><span><em class="tier">poster</em> The system surfaces in the same print: an expanded Dynamic Island and a Live Activity plate tracking a transfer, with slash steps and a seven-segment countdown.</span></figcaption>
   </figure>
 
+
+  <!-- Y · briefing -->
+  <figure data-tier="utility">
+    <div class="phone"><div class="scr u tex">
+      <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
+      
+      <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Briefing</h3><div class="u-tag hanko">機密</div><div class="u-span"><span>clearance 09</span><i></i><span>eyes only</span></div></header>
+      <div class="u-hero u-hero--pad"><div class="chamfer brackets" style="position:relative;height:200px;padding:0;--c:18px;overflow:hidden">
+        <svg viewBox="0 0 390 520" preserveAspectRatio="xMidYMax slice" style="position:absolute;inset:0;width:100%;height:100%"><use href="#g-sc-skyline"/></svg>
+        <svg class="guides" viewBox="0 0 342 200" preserveAspectRatio="none"><path d="M0 64H342 M238 0V200" stroke="var(--ground-hi)" stroke-width=".8" opacity=".6"/><path d="M232 64h12 M238 58v12" stroke="var(--ground-hi)" stroke-width="1.5"/></svg>
+        <div class="sg-mono" style="position:absolute;left:12px;top:12px;color:var(--ground-hi)">SECTOR 04 · LIS<br>38.71 N 9.14 W</div>
+        <div class="sg-mono" style="position:absolute;right:12px;bottom:10px;color:var(--ground-hi)">2835 × 1890</div>
+      </div></div>
+      <div class="u-div hazard"></div>
+      <section class="u-body u-body--end" style="gap:14px">
+        <div class="smx"><div><b>System verified</b><span>Status – active</span></div><div><b>Protocol synced</b><span>Status – stable</span></div><div><b>Unit calibrated</b><span>Status – online</span></div><div><b>Relay certified</b><span>Status – operational</span></div></div>
+        <p class="sg-mono" style="margin:0;line-height:1.75;color:var(--on-ground)">TEAM <span class="redact" style="width:46px"></span> MOVES AT 10:05 VIA THE ALFAMA ROUTE. KEYS ROTATE AT <span class="redact" style="width:34px"></span>. RELAY 3 STAYS <span class="redact" style="width:62px"></span> UNTIL CLEARED.</p>
+        <div class="banner"><span>Signal integration</span><span>----</span><span>Relay ops</span></div>
+        <div class="restrict" style="margin-top:auto">Internal use only / authorized personnel / LIS – 2026</div>
+      </section>
+      
+      <i class="home"></i>
+    </div></div>
+    <figcaption><b>Y · Briefing</b><span><em class="tier">utility</em> Field-operations print: a city scene in brackets with construction guides, a status matrix, redacted copy and a banner. 機密 means classified.</span></figcaption>
+  </figure>
+
+
+  <!-- Z · relay city -->
+  <figure data-tier="poster">
+    <div class="phone"><div class="scr tex">
+      <svg viewBox="0 0 390 520" preserveAspectRatio="xMidYMax slice" style="left:0;right:0;bottom:0;width:100%;height:600px" aria-hidden="true"><use href="#g-sc-rooftop"/></svg>
+      <svg class="guides" viewBox="0 0 390 844" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 214H390 M0 650H390 M58 120V844 M332 120V844" stroke="var(--ground-hi)" stroke-width=".8" opacity=".55"/>
+        <path d="M326 214h12 M332 208v12 M52 650h12 M58 644v12" stroke="var(--ground-hi)" stroke-width="1.5"/>
+        <polygon points="213.42,414 238.58,414 284.46,368.12 259.3,368.12" fill="var(--coral)"/><polygon points="269.66,357.76 294.82,357.76 330.34,322.24 305.18,322.24" fill="var(--coral)"/><polygon points="315.54,311.88 340.7,311.88 386.58,266 361.42,266" fill="var(--coral)"/><polygon points="213.42,266 238.58,266 284.46,311.88 259.3,311.88" fill="var(--coral)"/><polygon points="315.54,368.12 340.7,368.12 386.58,414 361.42,414" fill="var(--coral)"/>
+      </svg>
+      <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
+      <div style="top:66px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:flex-start;color:var(--ground-hi)"><div><div class="sg-mono" style="color:var(--ground-dim)">NETWORK · 5 RELAYS</div><div class="sg-display" style="font-size:40px;margin-top:8px">Relay<br>city</div></div><div class="sg-mono t-right" style="color:var(--ground-dim)">17 NOV<br>2026</div></div>
+      <div style="top:300px;left:76px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Lisbon</div><div class="sg-mono" style="font-size:9.5px">RELAY 04 · 23 MS</div></div>
+      <div style="top:430px;left:150px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Porto</div><div class="sg-mono" style="font-size:9.5px">RELAY 07 · 31 MS</div></div>
+      <div style="top:520px;left:76px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Osaka</div><div class="sg-mono" style="font-size:9.5px">RELAY 12 · 212 MS</div></div>
+      <div style="top:600px;left:200px;color:var(--ground-hi)"><div class="sg-wordmark" style="font-size:14px">Lyon</div><div class="sg-mono" style="font-size:9.5px">RELAY 02 · 48 MS</div></div>
+      <div style="left:0;bottom:90px;width:70px;height:240px;background:var(--ground-hi);color:var(--ground);clip-path:polygon(16px 0,100% 0,100% 100%,0 100%,0 16px);display:grid;align-content:center;justify-items:center;gap:6px"><span class="sg-jp" style="font-size:24px;line-height:1.05;writing-mode:vertical-rl">中継都市</span><span class="sg-mono" style="font-size:8px">Nº 05</span></div>
+      <div style="left:90px;right:24px;bottom:44px;display:flex;justify-content:space-between" class="sg-mono"><span style="color:var(--ground-hi)">2835 × 1890 PX</span><span style="color:var(--ground-hi)">200 PPI</span></div>
+      <i class="home"></i>
+    </div></div>
+    <figcaption><b>Z · Relay city</b><span><em class="tier">poster</em> A full-bleed monochrome rooftop scene with construction guides, city relays labelled over it, a stacked kanji plate and the exploded X as the one coral element. 中継都市 means relay city.</span></figcaption>
+  </figure>
+
   </div>
 </section>
 
@@ -1067,6 +1125,18 @@ em.tier { font-style: normal; color: var(--coral); margin-right: 6px; text-trans
       <div class="demo" style="display:block"><div class="chamfer brackets" style="--c:10px;padding:10px 12px"><svg viewBox="0 0 240 60" style="width:100%;height:52px;color:var(--ground-hi)"><use href="#g-wave"/></svg></div></div></div>
     <div class="inst"><h3><span>Status lamps</span><span>.lamps · SGLamps</span></h3><p>A row of square indicators for system state at a glance: power, link, encryption, fault. A fault lamp blinks coral.</p>
       <div class="demo" style="display:block"><div class="lamps"><span class="lamp on">PWR</span><span class="lamp on">Link</span><span class="lamp on">Enc</span><span class="lamp">Sync</span><span class="lamp hot">Fault</span></div></div></div>
+    <div class="inst"><h3><span>Status matrix</span><span>.smx</span></h3><p>A two-by-two of system states, each a wide-caps line over a mono status. For dashboards, device pages and briefs.</p>
+      <div class="demo" style="display:block"><div class="smx"><div><b>System verified</b><span>Status – active</span></div><div><b>Protocol synced</b><span>Status – stable</span></div><div><b>Unit calibrated</b><span>Status – online</span></div><div><b>Relay certified</b><span>Status – operational</span></div></div></div></div>
+    <div class="inst"><h3><span>Redaction</span><span>.redact</span></h3><p>Solid print bars over withheld words. Use for masked account numbers, private names and sealed fields.</p>
+      <div class="demo" style="display:block"><p class="sg-mono" style="margin:0;line-height:1.7;color:var(--on-ground)">AX-09 IS A <span class="redact" style="width:52px"></span> RELAY DIVISION FOCUSED ON SEALED ROUTING AND <span class="redact" style="width:80px"></span> INFRASTRUCTURE.</p></div></div>
+    <div class="inst"><h3><span>ID plate</span><span>.idplate .boxl</span></h3><p>A ruled plate with the mark, a unit name, boxed letters for the region and a log ID.</p>
+      <div class="demo" style="display:block"><div class="idplate"><span><svg width="26" height="26"><use href="#g-x-solid"/></svg></span><span>AX-OPS</span><span><span class="boxl"><i class="on">L</i><i>I</i><i>S</i></span></span><span>Log ID: 2611-A-09</span></div></div></div>
+    <div class="inst"><h3><span>Banner and restriction</span><span>.banner .restrict</span></h3><p>An inverted print band with a dashed centre, and the restriction line that closes a classified screen.</p>
+      <div class="demo" style="display:grid;gap:12px"><div class="banner"><span>Signal integration</span><span>----</span><span>Relay ops</span></div><div class="restrict">Internal use only / authorized personnel / LIS – 2026</div></div></div>
+    <div class="inst inst--wide"><h3><span>Constructed type</span><span>constructed()</span></h3><p>Block letters drawn on a 6-unit grid with 1.4-unit strokes and only top-left and bottom-right cuts. For one wordmark or unit code per poster, never for running text.</p>
+      <div class="demo"><svg viewBox="0 0 330 64" style="width:100%;max-width:520px;height:auto"><!--@CONSTRUCT--></svg></div></div>
+    <div class="inst"><h3><span>Exploded X</span><span>exploded_x()</span></h3><p>The hard X broken into five slabs, set over a scene as the one coral element.</p>
+      <div class="demo" style="display:block"><svg viewBox="0 0 200 130" style="width:100%;height:auto"><!--@XEXPL--></svg></div></div>
     <div class="inst"><h3><span>Stencil serial</span><span>.sg-stencil</span></h3><p>A wide stencil for unit numbers, serials and stamped labels. Use it like spray paint on equipment, once per screen.</p>
       <div class="demo" style="gap:18px;align-items:baseline;color:var(--ground-hi)"><span class="sg-stencil" style="font-size:46px">09</span><span class="sg-stencil" style="font-size:22px">Unit AX-04</span></div></div>
   </div>

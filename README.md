@@ -4,7 +4,7 @@
 
 ![key art in both modes](docs/keyart.png)
 
-Open `dist/index.html` in a browser for the full gallery: key art, 24 iPhone screens, widgets, components, 20 instruments, language rules and the origins. Use the switch in the corner to flip modes.
+Open `dist/index.html` in a browser for the full gallery: key art, 26 iPhone screens, widgets, components, 20 instruments, language rules and the origins. Use the switch in the corner to flip modes.
 
 ## Art direction
 
@@ -28,6 +28,8 @@ The look is sci-fi industrial, after a trilingual technical print, in the sage, 
 11. **Content motifs.** Shapes taken from each screen's subject, drawn by the alphabet's rules: lock tumblers (passcode), postage stamp and cancel (inbox), DIP switch bank (settings), wind barbs (conditions), packet flow (transfer), cut fingerprint (credential), compass rose (route), level meters (player) and security microtext (wallet). There are also two new backdrops: elevation terraces (run log) and circuit traces (device). These are web only for now (`m-*` and `bg-*` symbols).
 
 12. **More backdrops.** Paywall tiers (nested chevron outlines), empty-state signal decay (rules whose dashes break apart), onboarding relays (three routes with node squares), long-read columns (an editorial column and baseline grid) and inbox airmail edges. That makes 17 in all, shown on the gallery's backdrop sheet. The line-art head has been removed from the system.
+
+13. **Scenes and ops print.** Procedural monochrome city scenes (skyline, rooftop, stacks) built from flat tonal blocks with 45° roofs and one coral beacon. They're vector and follow light and dark mode. Field-operations furniture: status matrix, redaction bars, ID plate with boxed letters, banner strip, restriction line, constructed block type (`constructed()`) and the exploded X (`exploded_x()`). They're used in posters XP-05 Relay and XP-06 Ops, and in screens Y Briefing and Z Relay city.
 
 | dashboard | interval timer | transfer | device |
 |---|---|---|---|
