@@ -922,7 +922,7 @@ def backdrops_gallery(src):
                 f'<b>{title}</b><span>{sub}</span><span>{u}</span></div>')
     mono = "".join(tile(n, t, s) for n, (t, s, _) in monoliths.MONOLITHS.items())
     old = "".join(tile(n, n.replace("-", " "), "") for n in OLD_BG if "g-bg-" + n in src or n in use)
-    return (f'<div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Monoliths</span><span class="sg-mono">{len(monoliths.MONOLITHS)} grand backdrops · one hard mass per screen · printed in the stripe's own tone · felt before seen</span></div>\n'
+    return (f'<div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Monoliths</span><span class="sg-mono">{len(monoliths.MONOLITHS)} grand backdrops · one hard mass per screen · printed in the stripe tone · felt before seen</span></div>\n'
             f'  <div class="bgs bgs--mono">{mono}</div>\n'
             f'  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Line backdrops</span><span class="sg-mono">{len(OLD_BG)} fine compositions · for subjects that need them: audio, mail, circuits, editorial</span></div>\n'
             f'  <div class="bgs">{old}</div>')
