@@ -455,7 +455,7 @@ BACKDROP = {'B': 'lattice', 'C': 'tunnel', 'D': 'terrace', 'E': 'stack-card', 'F
 BACKDROP.update({'P': 'tiers', 'O': 'columns', 'H': 'airmail'})
 # monoliths: one grand hard mass per screen, chosen by subject (tools/monoliths.py)
 BACKDROP.update({'B': 'bulkhead', 'D': 'ziggurat', 'E': 'massing', 'G': 'diamond', 'I': 'pylon', 'J': 'aperture',
-                 'K': 'giant-x', 'P': 'chevrons', 'S': 'ramp', 'U': 'girder', 'V': 'monolith', 'T': 'monolith', 'R': 'massing'})
+                 'K': 'giant-x', 'P': 'chevrons', 'S': 'ramp', 'U': 'girder', 'V': 'monolith', 'T': 'notch-plate', 'R': 'cells', 'Q': 'tag', 'J': 'brackets', 'W': 'dam'})
 DIVIDER = {'C': 'div-ticks', 'D': 'div-ticks', 'F': 'div-ticks', 'G': 'div-ticks', 'R': 'div-ticks',
            'E': 'div-slash', 'H': 'div-slash', 'J': 'div-slash', 'O': 'div-slash', 'P': 'div-slash', 'S': 'div-slash', 'U': 'div-ticks', 'W': 'div-ticks'}
 for k, name in BACKDROP.items():
@@ -496,7 +496,7 @@ S['Z'] = fig('Z', 'Relay city', 'The relay network as a diagram: cut-square node
       <i class="home"></i>
     </div></div>""", tier='poster')
 
-POSTER_BG = {'L': 'decay', 'M': 'relays', 'N': 'segment'}
+POSTER_BG = {'L': 'decay', 'M': 'switchback', 'N': 'segment'}
 for k, name in POSTER_BG.items():
     S[k] = S[k].replace('<div class="phone"><div class="scr tex">', f'<div class="phone"><div class="scr tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-{name}"/></svg>', 1)
 

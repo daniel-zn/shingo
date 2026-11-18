@@ -1,8 +1,8 @@
 """Monoliths: the grand backdrops.
 
 Single, oversized hard masses that bleed off the screen: slabs, blast doors,
-girders, pylons, a giant X, a giant readout. Flat ink only (ground-2 / ground-3
-fills, ground knock-outs), level, upright or "/" edges (the X and chevrons are
+girders, pylons, a giant X, a giant readout. Quiet flat ink only (ground-2 solid
+and half-tone, ground knock-outs), level, upright or "/" edges (the X and chevrons are
 the alphabet's own exceptions), no outlines, no layering beyond one mass and
 its cuts. Drawn on the 390 x 844 phone reference and bled past it.
 
@@ -83,7 +83,7 @@ def ziggurat():
 
 
 def diamond_mark():
-    return [("g2", diamond(390, 560, 330)), ("g", diamond(390, 560, 196)), ("g3", diamond(390, 560, 92))]
+    return [("g3", [diamond(390, 560, 330), diamond(390, 560, 196)]), ("g2", diamond(390, 560, 92))]
 
 
 def girder():
@@ -97,7 +97,7 @@ def girder():
 def aperture():
     # a bunker wall with one cut window over the hero
     outer = [(-20, -20), (410, -20), (410, 864), (-20, 864)]
-    return [("g2", outer), ("g", chamf(36, 128, 354, 560, 64)), ("g3", [(36, 560), (290, 560), (354, 560), (354, 590), (36, 590)])]
+    return [("g3", [outer, chamf(36, 128, 354, 560, 64)]), ("g2", [(36, 560), (354, 560), (354, 590), (36, 590)])]
 
 
 def segment():
@@ -121,6 +121,70 @@ def pylon():
     return o
 
 
+def dam():
+    # a gravity dam: "/" face, a crest, a row of sluice gates
+    o = [("g3", [(180, 360), (420, 360), (420, 900), (-20, 900), (-20, 560)])]
+    o += [("g", [(x, 402), (x + 22, 402), (x + 22, 446), (x, 446)]) for x in range(212, 400, 44)]
+    return o
+
+
+def hangar():
+    # a wall with a tall door opening, the door in three half-tone leaves
+    o = [("g3", [[(-20, 300), (410, 300), (410, 900), (-20, 900)], [(110, 420), (320, 420), (320, 900), (70, 900), (70, 460)]])]
+    o += [("g2", [(x, 480), (x + 64, 480), (x + 64, 900), (x, 900)]) for x in (88, 166, 244)]
+    return o
+
+
+def switchback():
+    # stair flights that all rise "/", joined by level landings
+    return [("g3", band(-80, 860, 300, 46)), ("g3", [(220, 560), (420, 560), (420, 604), (220, 604)]),
+            ("g2", band(-40, 470, 280, 46)), ("g2", [(-20, 470), (60, 470), (60, 514), (-20, 514)])]
+
+
+def tag():
+    # the print's slab tag at building scale: one cut, one punched hole
+    return [("g3", [(-20, 430), (330, 430), (330, 690), (240, 780), (-20, 780)]),
+            ("g", [(282, 462), (304, 462), (304, 484), (282, 484)]),
+            ("g2", [(-20, 800), (210, 800), (210, 818), (-20, 818)])]
+
+
+def nested_bar():
+    # the hero form, enlarged past the frame: plate, slot, core
+    return [("g3", chamf(-40, 540, 440, 740, 80)), ("g", [(40, 628), (360, 628), (360, 652), (40, 652)]),
+            ("g2", [(40, 628), (190, 628), (190, 652), (40, 652)])]
+
+
+def cells():
+    # a cell meter at building scale: four filled, three in half-tone
+    return [("g3" if k < 4 else "g2", band(-210 + k * 96, 880, 300, 58)) for k in range(7)]
+
+
+def brackets():
+    # the HUD corners, as walls
+    return [("g3", [(-20, 96), (220, 96), (220, 146), (30, 146), (30, 420), (-20, 420)]),
+            ("g3", [(410, 860), (170, 860), (170, 810), (360, 810), (360, 536), (410, 536)])]
+
+
+def silo():
+    # three columns with "/" cut heads
+    def col(x, w, top, role):
+        return (role, [(x, top + w), (x + w, top), (x + w, 900), (x, 900)])
+    return [col(14, 92, 440, "g2"), col(124, 92, 320, "g3"), col(234, 176, 190, "g3")]
+
+
+def shutter():
+    # a roller shutter, half down
+    o = [("g3", [(-20, 440), (410, 440), (410, 480), (60, 480), (20, 440)])]
+    o += [("g2", [(-20, y), (410, y), (410, y + 26), (-20, y + 26)]) for y in range(500, 880, 38)]
+    return o
+
+
+def notch_plate():
+    # a notch frame as a mass: half-tone plate, solid label tab with a "/" end
+    return [("g2", [(-20, 330), (420, 330), (420, 900), (-20, 900)]),
+            ("g3", [(-20, 282), (222, 282), (174, 330), (-20, 330)])]
+
+
 MONOLITHS = {
     "monolith": ("Monolith", "a split slab", monolith),
     "bulkhead": ("Bulkhead", "blast doors on a / seam", bulkhead),
@@ -134,19 +198,40 @@ MONOLITHS = {
     "massing": ("Massing", "three cut blocks", massing),
     "ramp": ("Ramp", "a / incline", ramp),
     "pylon": ("Pylon", "a vented tower", pylon),
+    "dam": ("Dam", "a / face and sluice gates", dam),
+    "hangar": ("Hangar", "a wall and a tall door", hangar),
+    "switchback": ("Switchback", "flights that all rise /", switchback),
+    "tag": ("Tag", "the slab tag, punched", tag),
+    "nested-bar": ("Nested bar", "the hero form, enlarged", nested_bar),
+    "cells": ("Cells", "a meter at building scale", cells),
+    "brackets": ("Brackets", "HUD corners as walls", brackets),
+    "silo": ("Silo", "three cut columns", silo),
+    "shutter": ("Shutter", "a roller door, half down", shutter),
+    "notch-plate": ("Notch plate", "a notch frame as a mass", notch_plate),
 }
 
-ROLE_CSS = {"g2": "var(--ground-2)", "g3": "var(--ground-3)", "g": "var(--ground)"}
-ROLE_SWIFT = {"g2": "SG.ground2", "g3": "SG.ground3", "g": "SG.ground"}
+# Quiet inks. A monolith is the stripe filled in solid: the main mass ("g3" in the data)
+# prints in ground-2, the stripe's own highlight; secondary parts ("g2") in a half-tone of it;
+# knock-outs ("g") in the ground. No ground-3, so the mass sits under the content, not on it.
+ROLE_CSS = {"g3": 'fill="var(--ground-2)"', "g2": 'fill="var(--ground-2)" fill-opacity=".5"', "g": 'fill="var(--ground)"'}
+ROLE_SWIFT = {"g3": "SG.ground2", "g2": "SG.ground2.opacity(0.5)", "g": "SG.ground"}
 
 
 def _f(v):
     return f"{v:.1f}".rstrip("0").rstrip(".")
 
 
+def rings(pts):
+    """A shape is one ring of points, or a list of rings (the later rings are holes)."""
+    return pts if isinstance(pts[0], list) else [pts]
+
+
 def svg(name):
-    return "".join(f'<polygon points="{" ".join(f"{_f(x)},{_f(y)}" for x, y in pts)}" fill="{ROLE_CSS[r]}"/>'
-                   for r, pts in MONOLITHS[name][2]())
+    out = []
+    for r, pts in MONOLITHS[name][2]():
+        d = " ".join("M" + " L".join(f"{_f(x)} {_f(y)}" for x, y in ring) + " Z" for ring in rings(pts))
+        out.append(f'<path d="{d}" fill-rule="evenodd" {ROLE_CSS[r]}/>')
+    return "".join(out)
 
 
 def swift():
@@ -157,7 +242,7 @@ def swift():
            "// MARK: - Monoliths",
            "//",
            "// The grand backdrops: one oversized hard mass per screen, bleeding off the edges.",
-           "// Flat tonal ink (ground-2 / ground-3) with ground knock-outs; same geometry as the",
+           "// Quiet flat ink (ground-2, solid and half-tone) with ground knock-outs; same geometry as the",
            "// gallery's bg-* monolith symbols, on the 390 x 844 reference, scaled to the width.",
            "//",
            "//     SGUtilityScreen(...) { ... } content: { ... }",
@@ -168,20 +253,21 @@ def swift():
            "    var kind: SGMonolithKind",
            "    public init(_ kind: SGMonolithKind) { self.kind = kind }",
            "",
-           "    static let shapes: [SGMonolithKind: [(Color, [CGPoint])]] = ["]
+           "    static let shapes: [SGMonolithKind: [(Color, [[CGPoint]])]] = ["]
     for n, c in zip(MONOLITHS, camel):
         polys = []
         for r, pts in MONOLITHS[n][2]():
-            p = ", ".join(f"CGPoint(x: {_f(x)}, y: {_f(y)})" for x, y in pts)
-            polys.append(f"            ({ROLE_SWIFT[r]}, [{p}])")
+            rs = ", ".join("[" + ", ".join(f"CGPoint(x: {_f(x)}, y: {_f(y)})" for x, y in ring) + "]" for ring in rings(pts))
+            polys.append(f"            ({ROLE_SWIFT[r]}, [{rs}])")
         out.append(f"        .{c}: [\n" + ",\n".join(polys) + "\n        ],")
     out += ["    ]", "",
             "    public var body: some View {",
             "        Canvas { ctx, size in",
             "            let k = size.width / 390",
             "            ctx.scaleBy(x: k, y: k)",
-            "            for (color, pts) in Self.shapes[kind] ?? [] {",
-            "                ctx.fill(Path { p in p.addLines(pts); p.closeSubpath() }, with: .color(color))",
+            "            for (color, rings) in Self.shapes[kind] ?? [] {",
+            "                let path = Path { p in for r in rings { p.addLines(r); p.closeSubpath() } }",
+            "                ctx.fill(path, with: .color(color), style: FillStyle(eoFill: true))   // later rings are holes",
             "            }",
             "        }",
             "        .allowsHitTesting(false)",

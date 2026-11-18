@@ -4,98 +4,161 @@ import SwiftUI
 // MARK: - Monoliths
 //
 // The grand backdrops: one oversized hard mass per screen, bleeding off the edges.
-// Flat tonal ink (ground-2 / ground-3) with ground knock-outs; same geometry as the
+// Quiet flat ink (ground-2, solid and half-tone) with ground knock-outs; same geometry as the
 // gallery's bg-* monolith symbols, on the 390 x 844 reference, scaled to the width.
 //
 //     SGUtilityScreen(...) { ... } content: { ... }
 //         .background(SGMonolith(.bulkhead).ignoresSafeArea())
 
 public enum SGMonolithKind: String, CaseIterable {
-    case monolith, bulkhead, giantX, chevrons, ziggurat, diamond, girder, aperture, segment, massing, ramp, pylon
+    case monolith, bulkhead, giantX, chevrons, ziggurat, diamond, girder, aperture, segment, massing, ramp, pylon, dam, hangar, switchback, tag, nestedBar, cells, brackets, silo, shutter, notchPlate
 }
 
 public struct SGMonolith: View {
     var kind: SGMonolithKind
     public init(_ kind: SGMonolithKind) { self.kind = kind }
 
-    static let shapes: [SGMonolithKind: [(Color, [CGPoint])]] = [
+    static let shapes: [SGMonolithKind: [(Color, [[CGPoint]])]] = [
         .monolith: [
-            (SG.ground3, [CGPoint(x: 150, y: 250), CGPoint(x: 330, y: 250), CGPoint(x: 330, y: 900), CGPoint(x: -30, y: 900), CGPoint(x: -30, y: 430)]),
-            (SG.ground, [CGPoint(x: -30, y: 760), CGPoint(x: 4, y: 760), CGPoint(x: 330, y: 434), CGPoint(x: 296, y: 434)]),
-            (SG.ground2, [CGPoint(x: 346, y: 120), CGPoint(x: 420, y: 120), CGPoint(x: 420, y: 900), CGPoint(x: 346, y: 900)])
+            (SG.ground2, [[CGPoint(x: 150, y: 250), CGPoint(x: 330, y: 250), CGPoint(x: 330, y: 900), CGPoint(x: -30, y: 900), CGPoint(x: -30, y: 430)]]),
+            (SG.ground, [[CGPoint(x: -30, y: 760), CGPoint(x: 4, y: 760), CGPoint(x: 330, y: 434), CGPoint(x: 296, y: 434)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 346, y: 120), CGPoint(x: 420, y: 120), CGPoint(x: 420, y: 900), CGPoint(x: 346, y: 900)]])
         ],
         .bulkhead: [
-            (SG.ground2, [CGPoint(x: -20, y: -20), CGPoint(x: 410, y: -20), CGPoint(x: 410, y: 460), CGPoint(x: 6, y: 864), CGPoint(x: -20, y: 864)]),
-            (SG.ground3, [CGPoint(x: 410, y: 520), CGPoint(x: 410, y: 864), CGPoint(x: 66, y: 864)]),
-            (SG.ground3, [CGPoint(x: -20, y: 560), CGPoint(x: 310, y: 560), CGPoint(x: 270, y: 600), CGPoint(x: -20, y: 600)]),
-            (SG.ground3, [CGPoint(x: 370, y: 560), CGPoint(x: 410, y: 560), CGPoint(x: 410, y: 600), CGPoint(x: 330, y: 600)])
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: -20), CGPoint(x: 410, y: -20), CGPoint(x: 410, y: 460), CGPoint(x: 6, y: 864), CGPoint(x: -20, y: 864)]]),
+            (SG.ground2, [[CGPoint(x: 410, y: 520), CGPoint(x: 410, y: 864), CGPoint(x: 66, y: 864)]]),
+            (SG.ground2, [[CGPoint(x: -20, y: 560), CGPoint(x: 310, y: 560), CGPoint(x: 270, y: 600), CGPoint(x: -20, y: 600)]]),
+            (SG.ground2, [[CGPoint(x: 370, y: 560), CGPoint(x: 410, y: 560), CGPoint(x: 410, y: 600), CGPoint(x: 330, y: 600)]])
         ],
         .giantX: [
-            (SG.ground3, [CGPoint(x: -71.9, y: 902.7), CGPoint(x: 592.7, y: 238.1), CGPoint(x: 671.9, y: 317.3), CGPoint(x: 7.3, y: 981.9)]),
-            (SG.ground3, [CGPoint(x: 7.3, y: 238.1), CGPoint(x: 671.9, y: 902.7), CGPoint(x: 592.7, y: 981.9), CGPoint(x: -71.9, y: 317.3)])
+            (SG.ground2, [[CGPoint(x: -71.9, y: 902.7), CGPoint(x: 592.7, y: 238.1), CGPoint(x: 671.9, y: 317.3), CGPoint(x: 7.3, y: 981.9)]]),
+            (SG.ground2, [[CGPoint(x: 7.3, y: 238.1), CGPoint(x: 671.9, y: 902.7), CGPoint(x: 592.7, y: 981.9), CGPoint(x: -71.9, y: 317.3)]])
         ],
         .chevrons: [
-            (SG.ground2, [CGPoint(x: -150, y: 330), CGPoint(x: -88, y: 330), CGPoint(x: 182, y: 600), CGPoint(x: -88, y: 870), CGPoint(x: -150, y: 870), CGPoint(x: 120, y: 600)]),
-            (SG.ground2, [CGPoint(x: -38, y: 330), CGPoint(x: 24, y: 330), CGPoint(x: 294, y: 600), CGPoint(x: 24, y: 870), CGPoint(x: -38, y: 870), CGPoint(x: 232, y: 600)]),
-            (SG.ground3, [CGPoint(x: 74, y: 330), CGPoint(x: 136, y: 330), CGPoint(x: 406, y: 600), CGPoint(x: 136, y: 870), CGPoint(x: 74, y: 870), CGPoint(x: 344, y: 600)])
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -150, y: 330), CGPoint(x: -88, y: 330), CGPoint(x: 182, y: 600), CGPoint(x: -88, y: 870), CGPoint(x: -150, y: 870), CGPoint(x: 120, y: 600)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -38, y: 330), CGPoint(x: 24, y: 330), CGPoint(x: 294, y: 600), CGPoint(x: 24, y: 870), CGPoint(x: -38, y: 870), CGPoint(x: 232, y: 600)]]),
+            (SG.ground2, [[CGPoint(x: 74, y: 330), CGPoint(x: 136, y: 330), CGPoint(x: 406, y: 600), CGPoint(x: 136, y: 870), CGPoint(x: 74, y: 870), CGPoint(x: 344, y: 600)]])
         ],
         .ziggurat: [
-            (SG.ground2, [CGPoint(x: -20, y: 900), CGPoint(x: -20, y: 760), CGPoint(x: 52, y: 760), CGPoint(x: 52, y: 688), CGPoint(x: 124, y: 688), CGPoint(x: 124, y: 616), CGPoint(x: 196, y: 616), CGPoint(x: 196, y: 544), CGPoint(x: 268, y: 544), CGPoint(x: 268, y: 472), CGPoint(x: 340, y: 472), CGPoint(x: 340, y: 400), CGPoint(x: 412, y: 400), CGPoint(x: 412, y: 328), CGPoint(x: 484, y: 328), CGPoint(x: 484, y: 256), CGPoint(x: 430, y: 256), CGPoint(x: 430, y: 900)]),
-            (SG.ground3, [CGPoint(x: -20, y: 900), CGPoint(x: -20, y: 880), CGPoint(x: 52, y: 880), CGPoint(x: 52, y: 808), CGPoint(x: 124, y: 808), CGPoint(x: 124, y: 736), CGPoint(x: 196, y: 736), CGPoint(x: 196, y: 664), CGPoint(x: 268, y: 664), CGPoint(x: 268, y: 592), CGPoint(x: 340, y: 592), CGPoint(x: 340, y: 520), CGPoint(x: 430, y: 520), CGPoint(x: 430, y: 900)])
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 900), CGPoint(x: -20, y: 760), CGPoint(x: 52, y: 760), CGPoint(x: 52, y: 688), CGPoint(x: 124, y: 688), CGPoint(x: 124, y: 616), CGPoint(x: 196, y: 616), CGPoint(x: 196, y: 544), CGPoint(x: 268, y: 544), CGPoint(x: 268, y: 472), CGPoint(x: 340, y: 472), CGPoint(x: 340, y: 400), CGPoint(x: 412, y: 400), CGPoint(x: 412, y: 328), CGPoint(x: 484, y: 328), CGPoint(x: 484, y: 256), CGPoint(x: 430, y: 256), CGPoint(x: 430, y: 900)]]),
+            (SG.ground2, [[CGPoint(x: -20, y: 900), CGPoint(x: -20, y: 880), CGPoint(x: 52, y: 880), CGPoint(x: 52, y: 808), CGPoint(x: 124, y: 808), CGPoint(x: 124, y: 736), CGPoint(x: 196, y: 736), CGPoint(x: 196, y: 664), CGPoint(x: 268, y: 664), CGPoint(x: 268, y: 592), CGPoint(x: 340, y: 592), CGPoint(x: 340, y: 520), CGPoint(x: 430, y: 520), CGPoint(x: 430, y: 900)]])
         ],
         .diamond: [
-            (SG.ground2, [CGPoint(x: 390, y: 230), CGPoint(x: 720, y: 560), CGPoint(x: 390, y: 890), CGPoint(x: 60, y: 560)]),
-            (SG.ground, [CGPoint(x: 390, y: 364), CGPoint(x: 586, y: 560), CGPoint(x: 390, y: 756), CGPoint(x: 194, y: 560)]),
-            (SG.ground3, [CGPoint(x: 390, y: 468), CGPoint(x: 482, y: 560), CGPoint(x: 390, y: 652), CGPoint(x: 298, y: 560)])
+            (SG.ground2, [[CGPoint(x: 390, y: 230), CGPoint(x: 720, y: 560), CGPoint(x: 390, y: 890), CGPoint(x: 60, y: 560)], [CGPoint(x: 390, y: 364), CGPoint(x: 586, y: 560), CGPoint(x: 390, y: 756), CGPoint(x: 194, y: 560)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 390, y: 468), CGPoint(x: 482, y: 560), CGPoint(x: 390, y: 652), CGPoint(x: 298, y: 560)]])
         ],
         .girder: [
-            (SG.ground2, [CGPoint(x: -150, y: 680), CGPoint(x: -118, y: 680), CGPoint(x: 62, y: 500), CGPoint(x: 30, y: 500)]),
-            (SG.ground2, [CGPoint(x: -40, y: 680), CGPoint(x: -8, y: 680), CGPoint(x: 172, y: 500), CGPoint(x: 140, y: 500)]),
-            (SG.ground2, [CGPoint(x: 70, y: 680), CGPoint(x: 102, y: 680), CGPoint(x: 282, y: 500), CGPoint(x: 250, y: 500)]),
-            (SG.ground2, [CGPoint(x: 180, y: 680), CGPoint(x: 212, y: 680), CGPoint(x: 392, y: 500), CGPoint(x: 360, y: 500)]),
-            (SG.ground2, [CGPoint(x: 290, y: 680), CGPoint(x: 322, y: 680), CGPoint(x: 502, y: 500), CGPoint(x: 470, y: 500)]),
-            (SG.ground2, [CGPoint(x: 400, y: 680), CGPoint(x: 432, y: 680), CGPoint(x: 612, y: 500), CGPoint(x: 580, y: 500)]),
-            (SG.ground2, [CGPoint(x: 510, y: 680), CGPoint(x: 542, y: 680), CGPoint(x: 722, y: 500), CGPoint(x: 690, y: 500)]),
-            (SG.ground3, [CGPoint(x: -20, y: 466), CGPoint(x: 410, y: 466), CGPoint(x: 410, y: 500), CGPoint(x: -20, y: 500)]),
-            (SG.ground3, [CGPoint(x: -20, y: 680), CGPoint(x: 410, y: 680), CGPoint(x: 410, y: 714), CGPoint(x: -20, y: 714)]),
-            (SG.ground, [CGPoint(x: 12, y: 479), CGPoint(x: 20, y: 479), CGPoint(x: 20, y: 487), CGPoint(x: 12, y: 487)]),
-            (SG.ground, [CGPoint(x: 52, y: 479), CGPoint(x: 60, y: 479), CGPoint(x: 60, y: 487), CGPoint(x: 52, y: 487)]),
-            (SG.ground, [CGPoint(x: 92, y: 479), CGPoint(x: 100, y: 479), CGPoint(x: 100, y: 487), CGPoint(x: 92, y: 487)]),
-            (SG.ground, [CGPoint(x: 132, y: 479), CGPoint(x: 140, y: 479), CGPoint(x: 140, y: 487), CGPoint(x: 132, y: 487)]),
-            (SG.ground, [CGPoint(x: 172, y: 479), CGPoint(x: 180, y: 479), CGPoint(x: 180, y: 487), CGPoint(x: 172, y: 487)]),
-            (SG.ground, [CGPoint(x: 212, y: 479), CGPoint(x: 220, y: 479), CGPoint(x: 220, y: 487), CGPoint(x: 212, y: 487)]),
-            (SG.ground, [CGPoint(x: 252, y: 479), CGPoint(x: 260, y: 479), CGPoint(x: 260, y: 487), CGPoint(x: 252, y: 487)]),
-            (SG.ground, [CGPoint(x: 292, y: 479), CGPoint(x: 300, y: 479), CGPoint(x: 300, y: 487), CGPoint(x: 292, y: 487)]),
-            (SG.ground, [CGPoint(x: 332, y: 479), CGPoint(x: 340, y: 479), CGPoint(x: 340, y: 487), CGPoint(x: 332, y: 487)]),
-            (SG.ground, [CGPoint(x: 372, y: 479), CGPoint(x: 380, y: 479), CGPoint(x: 380, y: 487), CGPoint(x: 372, y: 487)])
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -150, y: 680), CGPoint(x: -118, y: 680), CGPoint(x: 62, y: 500), CGPoint(x: 30, y: 500)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -40, y: 680), CGPoint(x: -8, y: 680), CGPoint(x: 172, y: 500), CGPoint(x: 140, y: 500)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 70, y: 680), CGPoint(x: 102, y: 680), CGPoint(x: 282, y: 500), CGPoint(x: 250, y: 500)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 180, y: 680), CGPoint(x: 212, y: 680), CGPoint(x: 392, y: 500), CGPoint(x: 360, y: 500)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 290, y: 680), CGPoint(x: 322, y: 680), CGPoint(x: 502, y: 500), CGPoint(x: 470, y: 500)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 400, y: 680), CGPoint(x: 432, y: 680), CGPoint(x: 612, y: 500), CGPoint(x: 580, y: 500)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 510, y: 680), CGPoint(x: 542, y: 680), CGPoint(x: 722, y: 500), CGPoint(x: 690, y: 500)]]),
+            (SG.ground2, [[CGPoint(x: -20, y: 466), CGPoint(x: 410, y: 466), CGPoint(x: 410, y: 500), CGPoint(x: -20, y: 500)]]),
+            (SG.ground2, [[CGPoint(x: -20, y: 680), CGPoint(x: 410, y: 680), CGPoint(x: 410, y: 714), CGPoint(x: -20, y: 714)]]),
+            (SG.ground, [[CGPoint(x: 12, y: 479), CGPoint(x: 20, y: 479), CGPoint(x: 20, y: 487), CGPoint(x: 12, y: 487)]]),
+            (SG.ground, [[CGPoint(x: 52, y: 479), CGPoint(x: 60, y: 479), CGPoint(x: 60, y: 487), CGPoint(x: 52, y: 487)]]),
+            (SG.ground, [[CGPoint(x: 92, y: 479), CGPoint(x: 100, y: 479), CGPoint(x: 100, y: 487), CGPoint(x: 92, y: 487)]]),
+            (SG.ground, [[CGPoint(x: 132, y: 479), CGPoint(x: 140, y: 479), CGPoint(x: 140, y: 487), CGPoint(x: 132, y: 487)]]),
+            (SG.ground, [[CGPoint(x: 172, y: 479), CGPoint(x: 180, y: 479), CGPoint(x: 180, y: 487), CGPoint(x: 172, y: 487)]]),
+            (SG.ground, [[CGPoint(x: 212, y: 479), CGPoint(x: 220, y: 479), CGPoint(x: 220, y: 487), CGPoint(x: 212, y: 487)]]),
+            (SG.ground, [[CGPoint(x: 252, y: 479), CGPoint(x: 260, y: 479), CGPoint(x: 260, y: 487), CGPoint(x: 252, y: 487)]]),
+            (SG.ground, [[CGPoint(x: 292, y: 479), CGPoint(x: 300, y: 479), CGPoint(x: 300, y: 487), CGPoint(x: 292, y: 487)]]),
+            (SG.ground, [[CGPoint(x: 332, y: 479), CGPoint(x: 340, y: 479), CGPoint(x: 340, y: 487), CGPoint(x: 332, y: 487)]]),
+            (SG.ground, [[CGPoint(x: 372, y: 479), CGPoint(x: 380, y: 479), CGPoint(x: 380, y: 487), CGPoint(x: 372, y: 487)]])
         ],
         .aperture: [
-            (SG.ground2, [CGPoint(x: -20, y: -20), CGPoint(x: 410, y: -20), CGPoint(x: 410, y: 864), CGPoint(x: -20, y: 864)]),
-            (SG.ground, [CGPoint(x: 100, y: 128), CGPoint(x: 354, y: 128), CGPoint(x: 354, y: 496), CGPoint(x: 290, y: 560), CGPoint(x: 36, y: 560), CGPoint(x: 36, y: 192)]),
-            (SG.ground3, [CGPoint(x: 36, y: 560), CGPoint(x: 290, y: 560), CGPoint(x: 354, y: 560), CGPoint(x: 354, y: 590), CGPoint(x: 36, y: 590)])
+            (SG.ground2, [[CGPoint(x: -20, y: -20), CGPoint(x: 410, y: -20), CGPoint(x: 410, y: 864), CGPoint(x: -20, y: 864)], [CGPoint(x: 100, y: 128), CGPoint(x: 354, y: 128), CGPoint(x: 354, y: 496), CGPoint(x: 290, y: 560), CGPoint(x: 36, y: 560), CGPoint(x: 36, y: 192)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 36, y: 560), CGPoint(x: 354, y: 560), CGPoint(x: 354, y: 590), CGPoint(x: 36, y: 590)]])
         ],
         .segment: [
-            (SG.ground2, [CGPoint(x: 45.5, y: 270.4), CGPoint(x: 69, y: 294), CGPoint(x: 69, y: 453.6), CGPoint(x: 45.5, y: 477.1), CGPoint(x: 22, y: 453.6), CGPoint(x: 22, y: 294)]),
-            (SG.ground3, [CGPoint(x: 56.4, y: 488), CGPoint(x: 80, y: 464.5), CGPoint(x: 333.6, y: 464.5), CGPoint(x: 357.2, y: 488), CGPoint(x: 333.6, y: 511.5), CGPoint(x: 80, y: 511.5)]),
-            (SG.ground2, [CGPoint(x: 368.1, y: 270.4), CGPoint(x: 391.6, y: 294), CGPoint(x: 391.6, y: 453.6), CGPoint(x: 368.1, y: 477.1), CGPoint(x: 344.6, y: 453.6), CGPoint(x: 344.6, y: 294)]),
-            (SG.ground2, [CGPoint(x: 368.1, y: 498.9), CGPoint(x: 391.6, y: 522.4), CGPoint(x: 391.6, y: 682), CGPoint(x: 368.1, y: 705.6), CGPoint(x: 344.6, y: 682), CGPoint(x: 344.6, y: 522.4)])
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 45.5, y: 270.4), CGPoint(x: 69, y: 294), CGPoint(x: 69, y: 453.6), CGPoint(x: 45.5, y: 477.1), CGPoint(x: 22, y: 453.6), CGPoint(x: 22, y: 294)]]),
+            (SG.ground2, [[CGPoint(x: 56.4, y: 488), CGPoint(x: 80, y: 464.5), CGPoint(x: 333.6, y: 464.5), CGPoint(x: 357.2, y: 488), CGPoint(x: 333.6, y: 511.5), CGPoint(x: 80, y: 511.5)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 368.1, y: 270.4), CGPoint(x: 391.6, y: 294), CGPoint(x: 391.6, y: 453.6), CGPoint(x: 368.1, y: 477.1), CGPoint(x: 344.6, y: 453.6), CGPoint(x: 344.6, y: 294)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 368.1, y: 498.9), CGPoint(x: 391.6, y: 522.4), CGPoint(x: 391.6, y: 682), CGPoint(x: 368.1, y: 705.6), CGPoint(x: 344.6, y: 682), CGPoint(x: 344.6, y: 522.4)]])
         ],
         .massing: [
-            (SG.ground2, [CGPoint(x: 30, y: 520), CGPoint(x: 260, y: 520), CGPoint(x: 260, y: 840), CGPoint(x: 200, y: 900), CGPoint(x: -30, y: 900), CGPoint(x: -30, y: 580)]),
-            (SG.ground3, [CGPoint(x: 190, y: 300), CGPoint(x: 430, y: 300), CGPoint(x: 430, y: 590), CGPoint(x: 380, y: 640), CGPoint(x: 140, y: 640), CGPoint(x: 140, y: 350)]),
-            (SG.ground2, [CGPoint(x: 300, y: 70), CGPoint(x: 430, y: 70), CGPoint(x: 430, y: 250), CGPoint(x: 390, y: 290), CGPoint(x: 260, y: 290), CGPoint(x: 260, y: 110)])
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 30, y: 520), CGPoint(x: 260, y: 520), CGPoint(x: 260, y: 840), CGPoint(x: 200, y: 900), CGPoint(x: -30, y: 900), CGPoint(x: -30, y: 580)]]),
+            (SG.ground2, [[CGPoint(x: 190, y: 300), CGPoint(x: 430, y: 300), CGPoint(x: 430, y: 590), CGPoint(x: 380, y: 640), CGPoint(x: 140, y: 640), CGPoint(x: 140, y: 350)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 300, y: 70), CGPoint(x: 430, y: 70), CGPoint(x: 430, y: 250), CGPoint(x: 390, y: 290), CGPoint(x: 260, y: 290), CGPoint(x: 260, y: 110)]])
         ],
         .ramp: [
-            (SG.ground2, [CGPoint(x: -20, y: 900), CGPoint(x: 420, y: 460), CGPoint(x: 420, y: 900)]),
-            (SG.ground3, [CGPoint(x: -60, y: 830), CGPoint(x: -34, y: 830), CGPoint(x: 446, y: 350), CGPoint(x: 420, y: 350)])
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 900), CGPoint(x: 420, y: 460), CGPoint(x: 420, y: 900)]]),
+            (SG.ground2, [[CGPoint(x: -60, y: 830), CGPoint(x: -34, y: 830), CGPoint(x: 446, y: 350), CGPoint(x: 420, y: 350)]])
         ],
         .pylon: [
-            (SG.ground3, [CGPoint(x: 262, y: 200), CGPoint(x: 412, y: 50), CGPoint(x: 412, y: 900), CGPoint(x: 262, y: 900)]),
-            (SG.ground2, [CGPoint(x: 210, y: 358), CGPoint(x: 238, y: 330), CGPoint(x: 238, y: 900), CGPoint(x: 210, y: 900)]),
-            (SG.ground, [CGPoint(x: 282, y: 640), CGPoint(x: 412, y: 640), CGPoint(x: 412, y: 650), CGPoint(x: 282, y: 650)]),
-            (SG.ground, [CGPoint(x: 282, y: 666), CGPoint(x: 412, y: 666), CGPoint(x: 412, y: 676), CGPoint(x: 282, y: 676)]),
-            (SG.ground, [CGPoint(x: 282, y: 692), CGPoint(x: 412, y: 692), CGPoint(x: 412, y: 702), CGPoint(x: 282, y: 702)]),
-            (SG.ground, [CGPoint(x: 282, y: 718), CGPoint(x: 412, y: 718), CGPoint(x: 412, y: 728), CGPoint(x: 282, y: 728)])
+            (SG.ground2, [[CGPoint(x: 262, y: 200), CGPoint(x: 412, y: 50), CGPoint(x: 412, y: 900), CGPoint(x: 262, y: 900)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 210, y: 358), CGPoint(x: 238, y: 330), CGPoint(x: 238, y: 900), CGPoint(x: 210, y: 900)]]),
+            (SG.ground, [[CGPoint(x: 282, y: 640), CGPoint(x: 412, y: 640), CGPoint(x: 412, y: 650), CGPoint(x: 282, y: 650)]]),
+            (SG.ground, [[CGPoint(x: 282, y: 666), CGPoint(x: 412, y: 666), CGPoint(x: 412, y: 676), CGPoint(x: 282, y: 676)]]),
+            (SG.ground, [[CGPoint(x: 282, y: 692), CGPoint(x: 412, y: 692), CGPoint(x: 412, y: 702), CGPoint(x: 282, y: 702)]]),
+            (SG.ground, [[CGPoint(x: 282, y: 718), CGPoint(x: 412, y: 718), CGPoint(x: 412, y: 728), CGPoint(x: 282, y: 728)]])
+        ],
+        .dam: [
+            (SG.ground2, [[CGPoint(x: 180, y: 360), CGPoint(x: 420, y: 360), CGPoint(x: 420, y: 900), CGPoint(x: -20, y: 900), CGPoint(x: -20, y: 560)]]),
+            (SG.ground, [[CGPoint(x: 212, y: 402), CGPoint(x: 234, y: 402), CGPoint(x: 234, y: 446), CGPoint(x: 212, y: 446)]]),
+            (SG.ground, [[CGPoint(x: 256, y: 402), CGPoint(x: 278, y: 402), CGPoint(x: 278, y: 446), CGPoint(x: 256, y: 446)]]),
+            (SG.ground, [[CGPoint(x: 300, y: 402), CGPoint(x: 322, y: 402), CGPoint(x: 322, y: 446), CGPoint(x: 300, y: 446)]]),
+            (SG.ground, [[CGPoint(x: 344, y: 402), CGPoint(x: 366, y: 402), CGPoint(x: 366, y: 446), CGPoint(x: 344, y: 446)]]),
+            (SG.ground, [[CGPoint(x: 388, y: 402), CGPoint(x: 410, y: 402), CGPoint(x: 410, y: 446), CGPoint(x: 388, y: 446)]])
+        ],
+        .hangar: [
+            (SG.ground2, [[CGPoint(x: -20, y: 300), CGPoint(x: 410, y: 300), CGPoint(x: 410, y: 900), CGPoint(x: -20, y: 900)], [CGPoint(x: 110, y: 420), CGPoint(x: 320, y: 420), CGPoint(x: 320, y: 900), CGPoint(x: 70, y: 900), CGPoint(x: 70, y: 460)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 88, y: 480), CGPoint(x: 152, y: 480), CGPoint(x: 152, y: 900), CGPoint(x: 88, y: 900)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 166, y: 480), CGPoint(x: 230, y: 480), CGPoint(x: 230, y: 900), CGPoint(x: 166, y: 900)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 244, y: 480), CGPoint(x: 308, y: 480), CGPoint(x: 308, y: 900), CGPoint(x: 244, y: 900)]])
+        ],
+        .switchback: [
+            (SG.ground2, [[CGPoint(x: -80, y: 860), CGPoint(x: -34, y: 860), CGPoint(x: 266, y: 560), CGPoint(x: 220, y: 560)]]),
+            (SG.ground2, [[CGPoint(x: 220, y: 560), CGPoint(x: 420, y: 560), CGPoint(x: 420, y: 604), CGPoint(x: 220, y: 604)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -40, y: 470), CGPoint(x: 6, y: 470), CGPoint(x: 286, y: 190), CGPoint(x: 240, y: 190)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 470), CGPoint(x: 60, y: 470), CGPoint(x: 60, y: 514), CGPoint(x: -20, y: 514)]])
+        ],
+        .tag: [
+            (SG.ground2, [[CGPoint(x: -20, y: 430), CGPoint(x: 330, y: 430), CGPoint(x: 330, y: 690), CGPoint(x: 240, y: 780), CGPoint(x: -20, y: 780)]]),
+            (SG.ground, [[CGPoint(x: 282, y: 462), CGPoint(x: 304, y: 462), CGPoint(x: 304, y: 484), CGPoint(x: 282, y: 484)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 800), CGPoint(x: 210, y: 800), CGPoint(x: 210, y: 818), CGPoint(x: -20, y: 818)]])
+        ],
+        .nestedBar: [
+            (SG.ground2, [[CGPoint(x: 40, y: 540), CGPoint(x: 440, y: 540), CGPoint(x: 440, y: 660), CGPoint(x: 360, y: 740), CGPoint(x: -40, y: 740), CGPoint(x: -40, y: 620)]]),
+            (SG.ground, [[CGPoint(x: 40, y: 628), CGPoint(x: 360, y: 628), CGPoint(x: 360, y: 652), CGPoint(x: 40, y: 652)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 40, y: 628), CGPoint(x: 190, y: 628), CGPoint(x: 190, y: 652), CGPoint(x: 40, y: 652)]])
+        ],
+        .cells: [
+            (SG.ground2, [[CGPoint(x: -210, y: 880), CGPoint(x: -152, y: 880), CGPoint(x: 148, y: 580), CGPoint(x: 90, y: 580)]]),
+            (SG.ground2, [[CGPoint(x: -114, y: 880), CGPoint(x: -56, y: 880), CGPoint(x: 244, y: 580), CGPoint(x: 186, y: 580)]]),
+            (SG.ground2, [[CGPoint(x: -18, y: 880), CGPoint(x: 40, y: 880), CGPoint(x: 340, y: 580), CGPoint(x: 282, y: 580)]]),
+            (SG.ground2, [[CGPoint(x: 78, y: 880), CGPoint(x: 136, y: 880), CGPoint(x: 436, y: 580), CGPoint(x: 378, y: 580)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 174, y: 880), CGPoint(x: 232, y: 880), CGPoint(x: 532, y: 580), CGPoint(x: 474, y: 580)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 270, y: 880), CGPoint(x: 328, y: 880), CGPoint(x: 628, y: 580), CGPoint(x: 570, y: 580)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 366, y: 880), CGPoint(x: 424, y: 880), CGPoint(x: 724, y: 580), CGPoint(x: 666, y: 580)]])
+        ],
+        .brackets: [
+            (SG.ground2, [[CGPoint(x: -20, y: 96), CGPoint(x: 220, y: 96), CGPoint(x: 220, y: 146), CGPoint(x: 30, y: 146), CGPoint(x: 30, y: 420), CGPoint(x: -20, y: 420)]]),
+            (SG.ground2, [[CGPoint(x: 410, y: 860), CGPoint(x: 170, y: 860), CGPoint(x: 170, y: 810), CGPoint(x: 360, y: 810), CGPoint(x: 360, y: 536), CGPoint(x: 410, y: 536)]])
+        ],
+        .silo: [
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 14, y: 532), CGPoint(x: 106, y: 440), CGPoint(x: 106, y: 900), CGPoint(x: 14, y: 900)]]),
+            (SG.ground2, [[CGPoint(x: 124, y: 412), CGPoint(x: 216, y: 320), CGPoint(x: 216, y: 900), CGPoint(x: 124, y: 900)]]),
+            (SG.ground2, [[CGPoint(x: 234, y: 366), CGPoint(x: 410, y: 190), CGPoint(x: 410, y: 900), CGPoint(x: 234, y: 900)]])
+        ],
+        .shutter: [
+            (SG.ground2, [[CGPoint(x: -20, y: 440), CGPoint(x: 410, y: 440), CGPoint(x: 410, y: 480), CGPoint(x: 60, y: 480), CGPoint(x: 20, y: 440)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 500), CGPoint(x: 410, y: 500), CGPoint(x: 410, y: 526), CGPoint(x: -20, y: 526)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 538), CGPoint(x: 410, y: 538), CGPoint(x: 410, y: 564), CGPoint(x: -20, y: 564)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 576), CGPoint(x: 410, y: 576), CGPoint(x: 410, y: 602), CGPoint(x: -20, y: 602)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 614), CGPoint(x: 410, y: 614), CGPoint(x: 410, y: 640), CGPoint(x: -20, y: 640)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 652), CGPoint(x: 410, y: 652), CGPoint(x: 410, y: 678), CGPoint(x: -20, y: 678)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 690), CGPoint(x: 410, y: 690), CGPoint(x: 410, y: 716), CGPoint(x: -20, y: 716)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 728), CGPoint(x: 410, y: 728), CGPoint(x: 410, y: 754), CGPoint(x: -20, y: 754)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 766), CGPoint(x: 410, y: 766), CGPoint(x: 410, y: 792), CGPoint(x: -20, y: 792)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 804), CGPoint(x: 410, y: 804), CGPoint(x: 410, y: 830), CGPoint(x: -20, y: 830)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 842), CGPoint(x: 410, y: 842), CGPoint(x: 410, y: 868), CGPoint(x: -20, y: 868)]])
+        ],
+        .notchPlate: [
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 330), CGPoint(x: 420, y: 330), CGPoint(x: 420, y: 900), CGPoint(x: -20, y: 900)]]),
+            (SG.ground2, [[CGPoint(x: -20, y: 282), CGPoint(x: 222, y: 282), CGPoint(x: 174, y: 330), CGPoint(x: -20, y: 330)]])
         ],
     ]
 
@@ -103,8 +166,9 @@ public struct SGMonolith: View {
         Canvas { ctx, size in
             let k = size.width / 390
             ctx.scaleBy(x: k, y: k)
-            for (color, pts) in Self.shapes[kind] ?? [] {
-                ctx.fill(Path { p in p.addLines(pts); p.closeSubpath() }, with: .color(color))
+            for (color, rings) in Self.shapes[kind] ?? [] {
+                let path = Path { p in for r in rings { p.addLines(r); p.closeSubpath() } }
+                ctx.fill(path, with: .color(color), style: FillStyle(eoFill: true))   // later rings are holes
             }
         }
         .allowsHitTesting(false)

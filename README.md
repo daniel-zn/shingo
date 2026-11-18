@@ -29,7 +29,7 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 8. **Two tiers.** Poster screens (launch, onboarding, lock screen, empty state, relay city, live activity) compose freely. Every other screen follows the grammar: masthead (micro-code, title, one tag, span rule) → one hero → divider → body → imprint footer (rule, wide-caps line, mono reference, barcode).
 9. **Dividers by kind.** Hazard for system and safety screens, a tick ruler for data, a slash run for money and content.
-10. **One backdrop per screen, and make it monumental.** Behind the content sits one oversized hard mass that bleeds off the edges: a **monolith**. Flat tonal ink (ground-2 / ground-3) with ground knock-outs, no outlines, no layering beyond the mass and its cuts, chosen by subject: monolith (split slab), bulkhead (blast doors), giant X (faults), chevrons (upgrade), ziggurat (climbing), diamond (targeting), girder (routes), aperture (identity), segment (the clock), massing (money), ramp (sending), pylon (settings). The fine line backdrops (tunnel, terraces, circuit traces, spectrum floor, airmail edges, editorial columns, signal decay, relays…) stay for subjects that need their detail: audio, mail, circuits, reading.
+10. **One backdrop per screen: a quiet monument.** Behind the content sits one oversized hard mass that bleeds off the edges: a **monolith**. It prints only in the stripe's own tone: the mass is the stripe filled in solid (ground-2), secondary parts in its half-tone, openings are real holes that show the stripes, and small cuts knock out to the ground. It should be felt before it is seen. No outlines, no ground-3, no layering beyond the mass and its cuts. Chosen by subject from 22: monolith, bulkhead, giant X, chevrons, ziggurat, diamond, girder, aperture, segment, massing, ramp, pylon, dam, hangar, switchback, tag, nested bar, cells, brackets, silo, shutter and notch plate. The fine line backdrops (tunnel, terraces, circuit traces, spectrum floor, airmail edges, editorial columns, signal decay, relays…) stay for subjects that need their detail.
 
 **Imagery and motion**
 
@@ -111,7 +111,7 @@ ios/                          Swift package "ShingoKit" (iOS 17+), all colours d
   Sources/ShingoKit/SGTextures.swift    StripeField, Barcode, Spectrum, Scope
   Sources/ShingoKit/SGComponents.swift  SGBar, SGButtonStyle, SGToggleStyle, SGSegmented, SGChip, SGSlot, SGGroupLabel, SGTabBar
   Sources/ShingoKit/SGBackdrop.swift     SGBackdrop: eleven of the line backdrops
-  Sources/ShingoKit/SGMonolith.swift     SGMonolith: all twelve monoliths (generated, do not edit)
+  Sources/ShingoKit/SGMonolith.swift     SGMonolith: all 22 monoliths (generated, do not edit)
   Sources/ShingoKit/SGLive.swift        SGHaptics, SGScrambleText, SGLiveCountdown, sgHazardWipe transition, sgHUD readout
   Sources/ShingoKit/SGScreen.swift      SGUtilityScreen, SGCode: the screen grammar
   Sources/ShingoKit/SGInstruments.swift  SGSegDisplay, SGCellMeter, SGRuler, SGSteps, SGIndexTabs, SGCaution, SGStamp, SGTicket, SGKeycapStyle, SGRockerStyle, SGDataPlate, SGSpecRow, SGMatrixCode, .printMarks(), SGColorBar, SGTicker, SGBootLog, SGLamps, SGBlueprint, SGCallout, SGWave
@@ -248,7 +248,7 @@ Shingō started from two references: a sage and coral poster (palette, striped g
 
 ## SwiftUI coverage
 
-ShingoKit covers the tokens, type, alphabet shapes, components, instruments, icons, the screen grammar, all twelve monoliths, eleven line backdrops, the live layer (scramble, countdowns, wipe, HUD, haptics) and the patterns (states, spec table, form set, search, telex, skeleton). Web-only so far: the motifs, six of the backdrops, the ops furniture, constructed type, the relay network diagram, the posters and the console layout. The Swift code hasn't been compiled yet.
+ShingoKit covers the tokens, type, alphabet shapes, components, instruments, icons, the screen grammar, all 22 monoliths, eleven line backdrops, the live layer (scramble, countdowns, wipe, HUD, haptics) and the patterns (states, spec table, form set, search, telex, skeleton). Web-only so far: the motifs, six of the backdrops, the ops furniture, constructed type, the relay network diagram, the posters and the console layout. The Swift code hasn't been compiled yet.
 
 ## Fonts
 
