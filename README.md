@@ -29,7 +29,7 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 8. **Two tiers.** Poster screens (launch, onboarding, lock screen, empty state, relay city, live activity) compose freely. Every other screen follows the grammar: masthead (micro-code, title, one tag, span rule) → one hero → divider → body → imprint footer (rule, wide-caps line, mono reference, barcode).
 9. **Dividers by kind.** Hazard for system and safety screens, a tick ruler for data, a slash run for money and content.
-10. **One backdrop per screen.** A tonal composition behind the content, chosen by subject: tunnel, slash field, terraces, plate stacks, airmail edges, diamond walk, X lattice, spectrum floor, notch, wedge, editorial columns, edge rulers, circuit traces, tiers, signal decay, relays.
+10. **One backdrop per screen, and make it monumental.** Behind the content sits one oversized hard mass that bleeds off the edges: a **monolith**. Flat tonal ink (ground-2 / ground-3) with ground knock-outs, no outlines, no layering beyond the mass and its cuts, chosen by subject: monolith (split slab), bulkhead (blast doors), giant X (faults), chevrons (upgrade), ziggurat (climbing), diamond (targeting), girder (routes), aperture (identity), segment (the clock), massing (money), ramp (sending), pylon (settings). The fine line backdrops (tunnel, terraces, circuit traces, spectrum floor, airmail edges, editorial columns, signal decay, relays…) stay for subjects that need their detail: audio, mail, circuits, reading.
 
 **Imagery and motion**
 
@@ -92,6 +92,7 @@ templates/starter.src.html    a complete app page built only from the kit (sourc
 web/gallery.src.html          gallery source
 web/partials/languages.html   the language section
 tools/screens.py              regenerates the gallery screens from the grammar
+tools/monoliths.py            the monolith backdrops as polygon data (web symbols and SwiftUI are generated from it)
 tools/build.py                glyphs, motifs, backdrops, key art, posters; builds dist/
 tools/check_tokens.py         fails the build if tokens.json, shingo.css and SGTheme.swift disagree
 tools/screenshot.js           renders every screen in both modes (preinstalled Playwright)
@@ -109,7 +110,8 @@ ios/                          Swift package "ShingoKit" (iOS 17+), all colours d
   Sources/ShingoKit/SGShapes.swift      SGHardX, DiamondMark, ChamferRect, TagCut, Brackets, UnitPolygon, SignalBars
   Sources/ShingoKit/SGTextures.swift    StripeField, Barcode, Spectrum, Scope
   Sources/ShingoKit/SGComponents.swift  SGBar, SGButtonStyle, SGToggleStyle, SGSegmented, SGChip, SGSlot, SGGroupLabel, SGTabBar
-  Sources/ShingoKit/SGBackdrop.swift     SGBackdrop: eleven of the backdrop compositions
+  Sources/ShingoKit/SGBackdrop.swift     SGBackdrop: eleven of the line backdrops
+  Sources/ShingoKit/SGMonolith.swift     SGMonolith: all twelve monoliths (generated, do not edit)
   Sources/ShingoKit/SGLive.swift        SGHaptics, SGScrambleText, SGLiveCountdown, sgHazardWipe transition, sgHUD readout
   Sources/ShingoKit/SGScreen.swift      SGUtilityScreen, SGCode: the screen grammar
   Sources/ShingoKit/SGInstruments.swift  SGSegDisplay, SGCellMeter, SGRuler, SGSteps, SGIndexTabs, SGCaution, SGStamp, SGTicket, SGKeycapStyle, SGRockerStyle, SGDataPlate, SGSpecRow, SGMatrixCode, .printMarks(), SGColorBar, SGTicker, SGBootLog, SGLamps, SGBlueprint, SGCallout, SGWave
@@ -205,6 +207,7 @@ Point the agent at `skills/shingo/SKILL.md`. It holds the rules in checklist for
 | Web | SwiftUI | Notes |
 |---|---|---|
 | `.tex`, `.facet` | `StripeField(facets:)` | 45° stripes, 6 pt period |
+| `.sg-bg` + `#g-bg-{monolith}` | `SGMonolith(.bulkhead)` | generated from `tools/monoliths.py` |
 | `.u`, `.u-hd`, `.u-hero`, `.hazard`, `.u-body` | `SGUtilityScreen` | the screen grammar |
 | `.bar` (+ `--bleed-r`) | `SGBar(height:bleed:progress:)` | band 16%, cut 42% of height |
 | `#g-x-line` / `#g-x-solid` | `SGHardX()` stroke / fill | square-cut ends |
@@ -245,7 +248,7 @@ Shingō started from two references: a sage and coral poster (palette, striped g
 
 ## SwiftUI coverage
 
-ShingoKit covers the tokens, type, alphabet shapes, components, instruments, icons, the screen grammar, eleven backdrops, the live layer (scramble, countdowns, wipe, HUD, haptics) and the patterns (states, spec table, form set, search, telex, skeleton). Web-only so far: the motifs, six of the backdrops, the ops furniture, constructed type, the relay network diagram, the posters and the console layout. The Swift code hasn't been compiled yet.
+ShingoKit covers the tokens, type, alphabet shapes, components, instruments, icons, the screen grammar, all twelve monoliths, eleven line backdrops, the live layer (scramble, countdowns, wipe, HUD, haptics) and the patterns (states, spec table, form set, search, telex, skeleton). Web-only so far: the motifs, six of the backdrops, the ops furniture, constructed type, the relay network diagram, the posters and the console layout. The Swift code hasn't been compiled yet.
 
 ## Fonts
 

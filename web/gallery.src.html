@@ -96,6 +96,8 @@ figcaption.cap span { font: 400 11px var(--f-mono); color: var(--ground-dim); te
 .bgs svg { display: block; width: 100%; height: 100%; }
 .bgs b { font: 600 expanded 10.5px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .bgs span { font: 500 9.5px var(--f-mono); text-transform: uppercase; color: var(--ground-dim); }
+.bgs--mono { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.bgs span + span { color: var(--ground-hi); }
 
 /* screens */
 .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); margin-bottom: 40px; }
@@ -384,7 +386,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- T · template -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex">
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-monolith"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header  class="u-hd zone" style="padding-bottom:12px"><span class="u-code">AX·09</span><h3 class="u-title">Title</h3><div class="u-tag sg-jp-v">見出</div><div class="u-span"><span>value · <span class="sg-fr">aparté</span></span><i></i><span>value</span></div></header>
@@ -429,7 +431,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- B · passcode -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-lattice"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-bulkhead"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Enter<br>passcode</h3><div class="u-tag hanko">認証</div><div class="u-span"><span>attempt 1</span><i></i><span>5 max</span></div></header>
@@ -475,7 +477,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- D · fitness -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-terrace"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-ziggurat"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Run log</h3><div class="u-tag u-meta">10–16<br>NOV</div><div class="u-span"><span><span class="sg-fr">journal de course</span></span><i></i><span>W46</span></div></header>
@@ -496,7 +498,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- E · wallet -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-stack-card"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-massing"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Wallet</h3><div class="u-tag sg-jp-v">財布</div><div class="u-span"><span>main</span><i></i><span>eur</span></div></header>
@@ -552,7 +554,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- G · radar scan -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-diamonds"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-diamond"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Nearby</h3><div class="u-tag u-meta">2.4 / 5<br>GHZ</div><div class="u-span"><span><span class="sg-fr">balayage en cours</span></span><i></i><span>6 found</span></div></header>
@@ -596,7 +598,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- I · settings -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-notch"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-pylon"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Settings</h3><div class="u-tag sg-jp-v">設定</div><div class="u-span"><span>v 4.2</span><i></i><span>build 2611</span></div></header>
@@ -617,7 +619,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- J · id credential -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-stack-badge"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-aperture"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Credential</h3><div class="u-tag u-meta">VALID<br>2028</div><div class="u-span"><span><span class="sg-fr">carte de membre</span></span><i></i><span>axiom</span></div></header>
@@ -642,7 +644,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- K · alert sheet -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-tunnel"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-giant-x"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Protected</h3><div class="u-tag sg-jp-v">保護中</div><div class="u-span"><span>since 08:14</span><i></i><span>lis-04</span></div></header>
       <div class="u-hero u-hero--pad" style="height:212px;box-sizing:border-box;display:flex;align-items:flex-end;justify-content:flex-end"><div class="t-right"><div class="sg-cap" style="font-size:11px;color:var(--ground-dim)">Tunnel uptime</div><div class="sg-display" style="font-size:52px;color:var(--ground-hi);margin-top:6px">82%</div></div></div>
@@ -703,7 +705,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- N · lock screen -->
   <figure data-tier="poster">
-    <div class="phone"><div class="scr tex">
+    <div class="phone"><div class="scr tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-segment"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--ground-hi)">
         <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:46px">AXIOM</span></div>
@@ -751,7 +753,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- P · paywall -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-tiers"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-chevrons"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Axiom pro</h3><div class="u-tag hanko">認定</div><div class="u-span"><span>every relay</span><i></i><span>every device</span></div></header>
@@ -798,7 +800,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- R · interval timer -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-ticks"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-massing"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Interval</h3><div class="u-tag sg-jp-v">計時</div><div class="u-span"><span>round 3</span><i></i><span>of 8</span></div></header>
@@ -819,7 +821,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- S · transfer -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-slashes"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-ramp"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Transfer</h3><div class="u-tag hanko">確認</div><div class="u-span"><span>step 2</span><i></i><span>of 3</span></div></header>
@@ -843,7 +845,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- U · route -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-wedge"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-girder"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Route</h3><div class="u-tag sg-jp-v">経路</div><div class="u-span"><span>alfama</span><i></i><span>north gate</span></div></header>
@@ -863,7 +865,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- V · thread -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-plates"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-monolith"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Lena Sato</h3><div class="u-tag sg-jp-v">会話</div><div class="u-span"><span>sealed</span><i></i><span>online</span></div></header>
@@ -1082,8 +1084,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
   </div>
   <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Content motifs</span><span class="sg-mono">shapes taken from each screen's subject · same rules as the alphabet</span></div>
   <div class="alpha"><div><figure><svg class="motif" viewBox="0 0 342 108" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-tumblers"/></svg></figure><b>Lock tumblers</b><p>Passcode. Six pin stacks; entered digits align on the shear line, the latest pin in coral.</p></div><div><figure><svg class="motif" viewBox="0 0 200 120" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-stamp"/></svg></figure><b>Postage and cancel</b><p>Inbox. A perforated stamp with a square postmark and cancel bars.</p></div><div><figure><svg class="motif" viewBox="0 0 342 100" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-dip"/></svg></figure><b>DIP switch bank</b><p>Settings. Eight switches print the config word; the last one changed is coral.</p></div><div><figure><svg class="motif" viewBox="0 0 342 112" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-barbs"/></svg></figure><b>Wind barbs</b><p>Conditions. Meteorological barbs for the next six hours: lines are 10 kt, a pennant is 50.</p></div><div><figure><svg class="motif" viewBox="0 0 342 56" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-flow"/></svg></figure><b>Packet flow</b><p>Transfer. Account to person as slash packets; the one in flight is coral.</p></div><div><figure><svg class="motif" viewBox="0 0 60 64" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-print"/></svg></figure><b>Cut fingerprint</b><p>Credential. Ridges drawn as broken cut-corner loops.</p></div><div><figure><svg class="motif" viewBox="0 0 80 82" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-compass"/></svg></figure><b>Compass rose</b><p>Route. Eight points from diamonds; north in coral.</p></div><div><figure><svg class="motif" viewBox="0 0 38 172" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-meters"/></svg></figure><b>Level meters</b><p>Player. Left and right cell columns; the peak cell runs hot.</p></div><div><figure><svg class="motif" viewBox="0 0 342 140" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-micro"/></svg></figure><b>Security microtext</b><p>Wallet. Repeating micro type printed under the card, like a banknote.</p></div></div>
-  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Backdrops</span><span class="sg-mono">17 compositions · tonal, behind content · one per screen, chosen by subject</span></div>
-  <div class="bgs"><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-tunnel"/></svg></figure><b>tunnel</b><span>Dashboard, alert</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-slashes"/></svg></figure><b>slashes</b><span>Transfer, conditions</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-terrace"/></svg></figure><b>terrace</b><span>Run log</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-stack-card"/></svg></figure><b>stack-card</b><span>Wallet</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-plates"/></svg></figure><b>plates</b><span>Thread</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-airmail"/></svg></figure><b>airmail</b><span>Inbox</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-diamonds"/></svg></figure><b>diamonds</b><span>Radar</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-lattice"/></svg></figure><b>lattice</b><span>Passcode</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-bars"/></svg></figure><b>bars</b><span>Player</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-notch"/></svg></figure><b>notch</b><span>Settings</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-wedge"/></svg></figure><b>wedge</b><span>Route</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-columns"/></svg></figure><b>columns</b><span>Long read</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-ticks"/></svg></figure><b>ticks</b><span>Timer</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-pcb"/></svg></figure><b>pcb</b><span>Device</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-tiers"/></svg></figure><b>tiers</b><span>Paywall</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-decay"/></svg></figure><b>decay</b><span>Empty state</span></div><div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-relays"/></svg></figure><b>relays</b><span>Onboarding</span></div></div>
+  <!--@BACKDROPS-->
 </section>
 
 <!-- ========================================================== 05 INSTRUMENTS -->

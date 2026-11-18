@@ -501,6 +501,13 @@ G["bg-relays"] = ("0 0 390 844", _bg_relays())
 G["bg-columns"] = ("0 0 390 844", _bg_columns())
 G["bg-airmail"] = ("0 0 390 844", _bg_airmail())
 
+# ---------------------------------------------------------------- monoliths (grand backdrops)
+sys.path.insert(0, str(ROOT / "tools"))
+import monoliths  # noqa: E402
+monoliths.SEGS = _segs
+for _k in monoliths.MONOLITHS:
+    G["bg-" + _k] = ("0 0 390 844", monoliths.svg(_k))
+
 
 # ---------------------------------------------------------------- constructed type
 # Block letters on a 6-unit grid, 1.4-unit strokes, TL/BR cuts only.
@@ -897,6 +904,30 @@ def kit():
     print("kit: dist/shingo.css, shingo-live.js, shingo-sprite.svg, starter.html; tokens/shingo.tokens.json")
 
 
+OLD_BG = ["tunnel", "slashes", "terrace", "stack-card", "stack-badge", "plates", "diamonds", "lattice", "bars", "notch", "wedge",
+          "ticks", "pcb", "tiers", "decay", "relays", "columns", "airmail"]
+
+
+def backdrops_gallery(src):
+    """Backdrop index, with the screens that use each one (read from the built screens)."""
+    use = {}
+    for fig in re.findall(r"<figure data-tier=.*?</figure>", src, re.S):
+        t = re.search(r"<figcaption><b>[A-Z] · ([^<]+)</b>", fig)
+        for name in set(re.findall(r'class="sg-bg"[^>]*><use href="#g-bg-([a-z-]+)"', fig)):
+            if t:
+                use.setdefault(name, []).append(t.group(1))
+    def tile(name, title, sub):
+        u = ", ".join(use.get(name, [])) or "free"
+        return (f'<div><figure class="tex"><svg viewBox="0 0 390 844" aria-hidden="true"><use href="#g-bg-{name}"/></svg></figure>'
+                f'<b>{title}</b><span>{sub}</span><span>{u}</span></div>')
+    mono = "".join(tile(n, t, s) for n, (t, s, _) in monoliths.MONOLITHS.items())
+    old = "".join(tile(n, n.replace("-", " "), "") for n in OLD_BG if "g-bg-" + n in src or n in use)
+    return (f'<div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Monoliths</span><span class="sg-mono">{len(monoliths.MONOLITHS)} grand backdrops · one hard mass per screen · flat tonal ink · bleeds off every edge</span></div>\n'
+            f'  <div class="bgs bgs--mono">{mono}</div>\n'
+            f'  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Line backdrops</span><span class="sg-mono">{len(OLD_BG)} fine compositions · for subjects that need them: audio, mail, circuits, editorial</span></div>\n'
+            f'  <div class="bgs">{old}</div>')
+
+
 def main():
     export_glyphs()
     defs = sprite().split("<defs>")[1].split("</defs>")[0]
@@ -904,6 +935,8 @@ def main():
     src = seg7_tags(src)
     src = src.replace("<!--@EXPLORE-->", explorations() + "\n" + console())
     src = src.replace("<!--@PATTERNS-->", patterns())
+    src = src.replace("<!--@BACKDROPS-->", backdrops_gallery(src))
+    (ROOT / "ios" / "Sources" / "ShingoKit" / "SGMonolith.swift").write_text(monoliths.swift())
     src = src.replace("<!--@LIVEJS-->", (ROOT / "web" / "shingo-live.js").read_text())
     src = src.replace("<!--@CONSTRUCT-->", constructed("AXIOM", unit=10, x=2, y=2)[0] + constructed("AX-09", unit=4.2, x=2, y=72)[0])
     src = src.replace("<!--@XEXPL-->", exploded_x(100, 65, 52))
