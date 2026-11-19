@@ -454,7 +454,7 @@ BACKDROP = {'B': 'lattice', 'C': 'tunnel', 'D': 'terrace', 'E': 'stack-card', 'F
             'I': 'notch', 'J': 'stack-badge', 'K': 'tunnel', 'O': 'wedge', 'Q': 'pcb', 'R': 'ticks', 'S': 'slashes', 'U': 'wedge', 'V': 'plates', 'W': 'slashes'}
 BACKDROP.update({'P': 'tiers', 'O': 'columns', 'H': 'airmail'})
 # monoliths: one grand hard mass per screen, chosen by subject (tools/monoliths.py)
-BACKDROP.update({'B': 'bulkhead', 'D': 'ziggurat', 'E': 'massing', 'G': 'diamond', 'I': 'pylon', 'J': 'aperture',
+BACKDROP.update({'B': 'bulkhead', 'D': 'zones', 'E': 'massing', 'G': 'diamond', 'I': 'pylon', 'J': 'aperture',
                  'K': 'giant-x', 'P': 'chevrons', 'S': 'ramp', 'U': 'girder', 'V': 'monolith', 'T': 'notch-plate', 'R': 'cells', 'Q': 'tag', 'J': 'brackets', 'W': 'dam'})
 DIVIDER = {'C': 'div-ticks', 'D': 'div-ticks', 'F': 'div-ticks', 'G': 'div-ticks', 'R': 'div-ticks',
            'E': 'div-slash', 'H': 'div-slash', 'J': 'div-slash', 'O': 'div-slash', 'P': 'div-slash', 'S': 'div-slash', 'U': 'div-ticks', 'W': 'div-ticks'}

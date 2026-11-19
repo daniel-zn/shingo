@@ -184,8 +184,13 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 .badge-jp { top: 128px; right: 26px; font-size: 12px; }
 .badge-bc { right: 20px; bottom: 22px; width: 110px; height: 28px; }
 .u-tag-btn { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
-.zone { outline: 1px dashed var(--coral); outline-offset: -1px; }
-.zl { position: absolute; right: 8px; bottom: 4px; padding: 1px 5px; font: 400 9px var(--f-mono); text-transform: uppercase; color: var(--signal-text); background: var(--ground); }
+/* template zones: printer's construction marks at the system's two cut corners, labels in the dim print */
+.zone { position: relative; }
+.zone::before, .zone::after { content: ""; position: absolute; width: 12px; height: 12px; border: 0 solid var(--ground-dim); pointer-events: none; }
+.zone::before { left: 8px; top: 8px; border-width: 1.5px 0 0 1.5px; }
+.zone::after { right: 8px; bottom: 8px; border-width: 0 1.5px 1.5px 0; }
+.u-hd.zone::before { top: 46px; }   /* clear the status bar */
+.zl { position: absolute; right: 26px; bottom: 6px; font: 400 9px var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ground-dim); }
 
 /* widgets & icons */
 .widgets { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
@@ -494,7 +499,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
   <!-- D · fitness -->
   <figure data-tier="utility">
-    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-ziggurat"/></svg>
+    <div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-zones"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Run log</h3><div class="u-tag u-meta">10–16<br>NOV</div><div class="u-span"><span><span class="sg-fr">journal de course</span></span><i></i><span>W46</span></div></header>

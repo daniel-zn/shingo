@@ -71,15 +71,15 @@ def chevrons():
     return o
 
 
-def ziggurat():
-    def steps(x, y, run, top):
-        pts = [(x, 900)]
-        while y > top:
-            pts += [(x, y), (x + run, y)]
-            x += run; y -= run
-        pts += [(x, y), (430, y), (430, 900)]
-        return pts
-    return [("g2", steps(-20, 760, 72, 300)), ("g3", steps(-20, 880, 72, 560))]
+def zones():
+    # heart-rate zones at building scale: five plates run in from the right edge, each a different
+    # length, each led by a "/" cut; the longest (the zone you lived in) prints solid
+    o = []
+    for k, (L, role) in enumerate([(150, "g2"), (250, "g3"), (330, "g3"), (230, "g2"), (120, "g2")]):
+        y, h = 560 + k * 52, 36
+        x0 = 410 - L
+        o.append((role, [(x0 + h, y), (420, y), (420, y + h), (x0, y + h)]))
+    return o
 
 
 def diamond_mark():
@@ -190,7 +190,7 @@ MONOLITHS = {
     "bulkhead": ("Bulkhead", "blast doors on a / seam", bulkhead),
     "giant-x": ("Giant X", "the mark at building scale", giant_x),
     "chevrons": ("Chevrons", "three advancing masses", chevrons),
-    "ziggurat": ("Ziggurat", "stepped mass rising /", ziggurat),
+    "zones": ("Zones", "five plates, one per heart-rate zone", zones),
     "diamond": ("Diamond", "the mark, cropped", diamond_mark),
     "girder": ("Girder", "a truss of / members", girder),
     "aperture": ("Aperture", "a wall with one window", aperture),

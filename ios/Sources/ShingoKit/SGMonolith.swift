@@ -11,7 +11,7 @@ import SwiftUI
 //         .background(SGMonolith(.bulkhead).ignoresSafeArea())
 
 public enum SGMonolithKind: String, CaseIterable {
-    case monolith, bulkhead, giantX, chevrons, ziggurat, diamond, girder, aperture, segment, massing, ramp, pylon, dam, hangar, switchback, tag, nestedBar, cells, brackets, silo, shutter, notchPlate
+    case monolith, bulkhead, giantX, chevrons, zones, diamond, girder, aperture, segment, massing, ramp, pylon, dam, hangar, switchback, tag, nestedBar, cells, brackets, silo, shutter, notchPlate
 }
 
 public struct SGMonolith: View {
@@ -39,9 +39,12 @@ public struct SGMonolith: View {
             (SG.ground2.opacity(0.5), [[CGPoint(x: -38, y: 330), CGPoint(x: 24, y: 330), CGPoint(x: 294, y: 600), CGPoint(x: 24, y: 870), CGPoint(x: -38, y: 870), CGPoint(x: 232, y: 600)]]),
             (SG.ground2, [[CGPoint(x: 74, y: 330), CGPoint(x: 136, y: 330), CGPoint(x: 406, y: 600), CGPoint(x: 136, y: 870), CGPoint(x: 74, y: 870), CGPoint(x: 344, y: 600)]])
         ],
-        .ziggurat: [
-            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 900), CGPoint(x: -20, y: 760), CGPoint(x: 52, y: 760), CGPoint(x: 52, y: 688), CGPoint(x: 124, y: 688), CGPoint(x: 124, y: 616), CGPoint(x: 196, y: 616), CGPoint(x: 196, y: 544), CGPoint(x: 268, y: 544), CGPoint(x: 268, y: 472), CGPoint(x: 340, y: 472), CGPoint(x: 340, y: 400), CGPoint(x: 412, y: 400), CGPoint(x: 412, y: 328), CGPoint(x: 484, y: 328), CGPoint(x: 484, y: 256), CGPoint(x: 430, y: 256), CGPoint(x: 430, y: 900)]]),
-            (SG.ground2, [[CGPoint(x: -20, y: 900), CGPoint(x: -20, y: 880), CGPoint(x: 52, y: 880), CGPoint(x: 52, y: 808), CGPoint(x: 124, y: 808), CGPoint(x: 124, y: 736), CGPoint(x: 196, y: 736), CGPoint(x: 196, y: 664), CGPoint(x: 268, y: 664), CGPoint(x: 268, y: 592), CGPoint(x: 340, y: 592), CGPoint(x: 340, y: 520), CGPoint(x: 430, y: 520), CGPoint(x: 430, y: 900)]])
+        .zones: [
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 296, y: 560), CGPoint(x: 420, y: 560), CGPoint(x: 420, y: 596), CGPoint(x: 260, y: 596)]]),
+            (SG.ground2, [[CGPoint(x: 196, y: 612), CGPoint(x: 420, y: 612), CGPoint(x: 420, y: 648), CGPoint(x: 160, y: 648)]]),
+            (SG.ground2, [[CGPoint(x: 116, y: 664), CGPoint(x: 420, y: 664), CGPoint(x: 420, y: 700), CGPoint(x: 80, y: 700)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 216, y: 716), CGPoint(x: 420, y: 716), CGPoint(x: 420, y: 752), CGPoint(x: 180, y: 752)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 326, y: 768), CGPoint(x: 420, y: 768), CGPoint(x: 420, y: 804), CGPoint(x: 290, y: 804)]])
         ],
         .diamond: [
             (SG.ground2, [[CGPoint(x: 390, y: 230), CGPoint(x: 720, y: 560), CGPoint(x: 390, y: 890), CGPoint(x: 60, y: 560)], [CGPoint(x: 390, y: 364), CGPoint(x: 586, y: 560), CGPoint(x: 390, y: 756), CGPoint(x: 194, y: 560)]]),
