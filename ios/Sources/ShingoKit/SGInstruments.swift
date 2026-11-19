@@ -218,8 +218,11 @@ public struct SGCaution: View {
         }
         .padding(.horizontal, 14).padding(.vertical, 12)
         .background(SG.ground)
-        .padding(5)
-        .background(HazardFill())
+        // hazard spine in print down the leading edge, inside a print hairline frame
+        .overlay(alignment: .leading) { Rectangle().fill(SG.groundHi).frame(width: SG.hair) }
+        .padding(.leading, 14)
+        .background(alignment: .leading) { HazardFill(a: SG.groundHi, b: .clear, period: 7).frame(width: 14) }
+        .overlay(Rectangle().strokeBorder(SG.groundHi, lineWidth: SG.hair))
     }
 }
 
@@ -241,7 +244,8 @@ public struct WarnShape: Shape {
 
 public struct SGStamp: View {
     var text: String; var color: Color; var gap: Color; var angle: Double
-    public init(_ text: String, color: Color = SG.coral, gap: Color = SG.ground, angle: Double = 0) {
+    /// Coral as text: `SG.signalText` on the ground, `SG.signalPlate` inside a print plate.
+    public init(_ text: String, color: Color = SG.signalText, gap: Color = SG.ground, angle: Double = 0) {
         self.text = text; self.color = color; self.gap = gap; self.angle = angle
     }
     public var body: some View {

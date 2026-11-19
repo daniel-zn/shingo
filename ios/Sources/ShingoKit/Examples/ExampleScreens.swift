@@ -133,7 +133,7 @@ public struct IntervalExample: View {
     @State private var intensity = 0.7
     public init() {}
     public var body: some View {
-        SGUtilityScreen("Interval", span: (Text("round 3"), Text("of 8")), tag: .japanese("計時"), backdrop: .ticks) {
+        SGUtilityScreen("Interval", span: (Text("round 3"), Text("of 8")), tag: .japanese("計時"), monolith: .cells) {
             VStack(spacing: 10) {
                 SGSegDisplay("02:47", height: 92, hot: [2])
                 Text("Work 45 s · rest 15 s · next: rest").sgMono(11).foregroundStyle(SG.groundDim)

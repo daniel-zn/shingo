@@ -310,8 +310,9 @@
   font: 600 expanded 10px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
 
 /* caution tag: hazard-striped frame around a notice */
-.caution { padding: 5px; background: repeating-linear-gradient(-45deg, var(--coral) 0 8px, #0c0c0a 8px 16px); }
-.caution > div { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 12px; align-items: start; padding: 12px 14px; background: var(--ground); }
+/* a hairline frame in print with a hazard spine down the leading edge; coral stays on the warn mark */
+.caution { padding: 0 0 0 14px; border: var(--hair) solid var(--ground-hi); background: repeating-linear-gradient(-45deg, var(--ground-hi) 0 3px, transparent 3px 7px) left / 14px 100% no-repeat; }
+.caution > div { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 12px; align-items: start; padding: 12px 14px; background: var(--ground); border-left: var(--hair) solid var(--ground-hi); }
 .caution svg { width: 30px; height: 30px; color: var(--coral); grid-row: span 2; }
 .caution b { font: 600 expanded 12px var(--f-cap); letter-spacing: .08em; text-transform: uppercase; color: var(--ground-hi); }
 .caution p { margin: 0; font: 400 11px/1.45 var(--f-mono); color: var(--on-ground); }

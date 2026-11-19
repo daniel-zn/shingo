@@ -15,7 +15,8 @@
 <style>
   /* App-level layout only: everything visual comes from shingo.css */
   body { margin: 0; min-height: 100vh; font-family: var(--f-sans); color: var(--on-ground); }
-  .app { max-width: 1080px; margin: 0 auto; min-height: 100vh; }
+  .app { max-width: 1080px; margin: 0 auto; min-height: 100vh; position: relative; z-index: 1; }
+  .app-bg { position: fixed; }
   .app .u-hd { padding-top: 40px; }
   .app-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 28px; align-items: start; }
   .app-col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
@@ -29,6 +30,8 @@
 </head>
 <body class="tex">
 <!--@SPRITE-->
+<!-- one monolith behind the page: the pylon, anchored to the bottom-right corner at its own proportions -->
+<svg class="sg-bg app-bg" aria-hidden="true" viewBox="0 0 390 844" preserveAspectRatio="xMaxYMax meet"><use href="#g-bg-pylon"/></svg>
 <main class="app u" data-sg-live>
 
   <!-- masthead: code · title · one tag · span rule (French lives here) -->

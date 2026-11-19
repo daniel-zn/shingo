@@ -430,24 +430,7 @@ def _bg_pcb():
     return "".join(o)
 
 
-def _bg_terrace():
-    o = []
-    for k in range(16):
-        base = 900 - k * 46
-        pts, x, y = [], -40, base
-        pts.append((x, y))
-        while x < 430:
-            run = 50 + (k * 37 + x) % 70
-            x += run; pts.append((x, y))
-            rise = 18 + (k * 13 + x) % 30
-            x += rise; y -= rise; pts.append((x, y))
-        col = "var(--ground-3)" if k % 4 == 0 else "var(--ground-2)"
-        o.append(f'<polyline points="{" ".join(f"{a},{b}" for a, b in pts)}" fill="none" stroke="{col}" stroke-width="1.5"/>')
-    return "".join(o)
-
-
 G["bg-pcb"] = ("0 0 390 844", _bg_pcb())
-G["bg-terrace"] = ("0 0 390 844", _bg_terrace())
 
 
 
@@ -690,17 +673,17 @@ def _mo_tunnel():
 def _xp_relay():
     o = ['<polygon points="94,170 330,170 330,452 316,466 80,466 80,184" fill="none" stroke="var(--ground-3)" stroke-width="1.5"/>',
          f'<g transform="translate(92 176) scale(.9)">{relay_net(NET_CITIES, NET_ROUTES, hot=3)}</g>',
-         '<g stroke="var(--coral)" stroke-width=".8">'
+         '<g stroke="var(--ground-dim)" stroke-width=".8" opacity=".7">'
          '<path d="M0 158H400 M0 470H400 M68 44V474 M340 44V474"/></g>',
-         '<g fill="var(--coral)"><rect x="64" y="154" width="8" height="8"/><rect x="336" y="466" width="8" height="8"/><rect x="200" y="62" width="5" height="5"/></g>',
-         '<path d="M330 120h20 M340 110v20 M60 470h16 M68 462v16" stroke="var(--coral)" stroke-width="1"/>',
+         '<g fill="var(--ground-hi)"><rect x="64" y="154" width="8" height="8"/><rect x="336" y="466" width="8" height="8"/></g>',
+         '<path d="M330 120h20 M340 110v20 M60 470h16 M68 462v16" stroke="var(--ground-hi)" stroke-width="1.5"/>',
          exploded_x(278, 108, 40),
          '<polygon points="38,300 92,300 92,470 24,470 24,314" fill="var(--ground-hi)"/>',
          ''.join(f'<text x="58" y="{344 + i*30}" text-anchor="middle" class="xp-j" font-size="24" fill="var(--ground)">{c}</text>' for i, c in enumerate("中継塔"))
          + '<text x="58" y="458" text-anchor="middle" class="xp-m" font-size="7" fill="var(--ground)">Nº 05</text>',
-         '<text x="350" y="60" class="xp-m" font-size="7" fill="var(--signal-text)" transform="rotate(90 350 60)">2835 × 1890 PX · 200 PPI</text>',
+         '<text x="350" y="60" class="xp-m" font-size="7" fill="var(--ground-dim)" transform="rotate(90 350 60)">2835 × 1890 PX · 200 PPI</text>',
          '<text x="24" y="70" class="xp-m" font-size="7" fill="var(--ground-dim)">ABOVE THE NOISE,</text><text x="24" y="80" class="xp-m" font-size="7" fill="var(--ground-dim)">MACHINES HUM IN SILENCE</text>',
-         '<text x="24" y="120" class="xp-d" font-size="11" fill="var(--signal-text)">2026</text><text x="24" y="134" class="xp-m" font-size="7" fill="var(--signal-text)">NOV 17</text>']
+         '<text x="24" y="120" class="xp-d" font-size="11" fill="var(--ground-hi)">2026</text><text x="24" y="134" class="xp-m" font-size="7" fill="var(--ground-dim)">NOV 17</text>']
     return _xp_frame("05", "RELAY", "中継", "SILENT RELAY · FIVE NODES · ONE SIGNAL ROUTE", "".join(o))
 
 
@@ -827,7 +810,7 @@ def console():
     return f'''<section class="sec">
   <div class="sec-h"><span class="sg-num">07</span><h2 class="sg-display">Console</h2><span class="sg-mono">the same system beyond the phone · 1240 × 780 desktop layout · every part comes from the kit · point at data, click rows</span></div>
   <div class="con-wrap"><div class="con scr-like tex">
-    <svg class="sg-bg" aria-hidden="true" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"><use href="#g-bg-pcb"/></svg>
+    <svg class="sg-bg" aria-hidden="true" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"><use href="#g-bg-massing"/></svg>
     <nav class="con-rail"><svg class="con-mark" style="color:var(--coral)"><use href="#g-mark"/></svg>{rail}</nav>
     <header class="con-top">
       <span class="u-code" style="position:static">AX·CON</span>
@@ -904,7 +887,7 @@ def kit():
     print("kit: dist/shingo.css, shingo-live.js, shingo-sprite.svg, starter.html; tokens/shingo.tokens.json")
 
 
-OLD_BG = ["tunnel", "slashes", "terrace", "stack-card", "stack-badge", "plates", "diamonds", "lattice", "bars", "notch", "wedge",
+OLD_BG = ["tunnel", "slashes", "stack-card", "stack-badge", "plates", "diamonds", "lattice", "bars", "notch", "wedge",
           "ticks", "pcb", "tiers", "decay", "relays", "columns", "airmail"]
 
 
@@ -924,7 +907,7 @@ def backdrops_gallery(src):
     old = "".join(tile(n, n.replace("-", " "), "") for n in OLD_BG if "g-bg-" + n in src or n in use)
     return (f'<div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Monoliths</span><span class="sg-mono">{len(monoliths.MONOLITHS)} grand backdrops · one hard mass per screen · printed in the stripe tone · felt before seen</span></div>\n'
             f'  <div class="bgs bgs--mono">{mono}</div>\n'
-            f'  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Line backdrops</span><span class="sg-mono">{len(OLD_BG)} fine compositions · for subjects that need them: audio, mail, circuits, editorial</span></div>\n'
+            f'  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Line compositions</span><span class="sg-mono">{len(OLD_BG)} fine compositions · the earlier, finer compositions · kept for heroes and insets, such as the dashboard tunnel and the briefing traces</span></div>\n'
             f'  <div class="bgs">{old}</div>')
 
 

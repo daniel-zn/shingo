@@ -119,7 +119,7 @@ days = [('solid', '--ground-hi'), ('line', '--ground-dim'), ('solid', '--ground-
 dayrow = ''.join(f'<span>{X(k, 30, c)}<i>{d}</i></span>' for (k, c), d in zip(days, 'mtwtfss'))
 zones = ''.join(f'<span class="sg-mono">{z.upper()}</span>{cells(12, n, hot=(n - 1 if z == "z3" else -1))}<span class="sg-mono t-right">{t}</span>'
                 for z, n, t in [('z1', 2, '0:40'), ('z2', 8, '2:21'), ('z3', 3, '0:31'), ('z4', 1, '0:09')])
-S['D'] = fig('D', 'Fitness', 'A seven-segment distance over elevation terraces, X marks for run and rest days, and heart-rate zones as cell runs. French sits in the span rule.', utility(f'''
+S['D'] = fig('D', 'Fitness', 'A seven-segment distance over five zone plates, X marks for run and rest days, and heart-rate zones as cell runs. French sits in the span rule.', utility(f'''
       {mast('Run log', '<span class="sg-fr">journal de course</span>', 'W46', meta('10–16<br>NOV'))}
       <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px">{seg7("42.6", 76)}<span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
         <div class="dayrow">{dayrow}</div></div>
@@ -192,7 +192,7 @@ rows = [('LS', 'Lena Sato', 'ROUTE MAP FOR FRIDAY IS ATTACHED', '09:12', True, '
         ('AM', 'Ada Mensah', 'PHOTOS FROM THE FIELD TRIP', 'SAT', False, '')]
 rowhtml = ''.join(f'<div class="row"><span class="av{c}">{i}</span><span><span class="sg-label" style="display:block">{n}</span><span class="sg-mono">{m}</span></span>'
                   f'<span style="display:grid;justify-items:end;gap:6px"><span class="sg-mono">{t}</span>{"<i class=unread></i>" if u else ""}</span></div>' for i, n, m, t, u, c in rows)
-S['H'] = fig('H', 'Inbox', 'A postage stamp and cancel bars head the inbox, airmail stripes run down both edges, and coral only marks unread. The compose action is the tag.', utility(f'''
+S['H'] = fig('H', 'Inbox', 'A postage stamp and cancel bars head the inbox, the list sits in a wall with one cut window, and coral only marks unread. The compose action is the tag.', utility(f'''
       {mast('Inbox', '12 unread', 'end-to-end', '<button class="u-tag-btn btn btn--plate btn--icon" type="button" aria-label="New message"><svg><use href="#g-plus"/></svg></button>')}
       <div class="u-hero u-hero--pad" style="display:grid;gap:14px"><svg class="motif" viewBox="0 0 200 120" style="width:200px" aria-hidden="true"><use href="#g-m-stamp"/></svg><div class="itabs"><button type="button" aria-pressed="true">All</button><button type="button">Flagged</button><button type="button">Sealed</button></div></div>
       {DIV}
@@ -437,7 +437,7 @@ S['W'] = fig('W', 'Conditions', 'A seven-segment temperature over rain bands, wi
 
 # ---------------------------------------------------------------- X live activity
 S['X'] = fig('X', 'Live activity', 'The system surfaces in the same print: an expanded Dynamic Island and a Live Activity plate tracking a transfer, with slash steps and a seven-segment countdown.', f"""<div class="phone"><div class="scr tex">
-      <svg class="sg-bg" aria-hidden="true"><use href="#g-bg-slashes"/></svg>
+      <svg class="sg-bg" aria-hidden="true"><use href="#g-bg-ramp"/></svg>
       <div class="island-x"><svg width="18" height="18" style="color:var(--coral)"><use href="#g-mark"/></svg><span class="sg-mono" style="color:#dcdfd5">SENDING €240 · LENA SATO</span><span class="sg-num" style="font-size:16px;color:#dcdfd5">0:12</span></div>
       <div style="top:150px;left:0;right:0;text-align:center;color:var(--ground-hi)"><div class="sg-fr" style="font-size:16px">mardi 17 novembre</div><div class="sg-display" style="font-size:92px;margin-top:8px">09:41</div></div>
       <div class="la">
@@ -450,12 +450,11 @@ S['X'] = fig('X', 'Live activity', 'The system surfaces in the same print: an ex
       <i class="home"></i>
     </div></div>""", tier='poster')
 
-BACKDROP = {'B': 'lattice', 'C': 'tunnel', 'D': 'terrace', 'E': 'stack-card', 'F': 'bars', 'G': 'diamonds', 'H': 'plates',
-            'I': 'notch', 'J': 'stack-badge', 'K': 'tunnel', 'O': 'wedge', 'Q': 'pcb', 'R': 'ticks', 'S': 'slashes', 'U': 'wedge', 'V': 'plates', 'W': 'slashes'}
-BACKDROP.update({'P': 'tiers', 'O': 'columns', 'H': 'airmail'})
-# monoliths: one grand hard mass per screen, chosen by subject (tools/monoliths.py)
-BACKDROP.update({'B': 'bulkhead', 'D': 'zones', 'E': 'massing', 'G': 'diamond', 'I': 'pylon', 'J': 'aperture',
-                 'K': 'giant-x', 'P': 'chevrons', 'S': 'ramp', 'U': 'girder', 'V': 'monolith', 'T': 'notch-plate', 'R': 'cells', 'Q': 'tag', 'J': 'brackets', 'W': 'dam'})
+# one backdrop per screen: a monolith chosen by subject (tools/monoliths.py); the dashboard keeps
+# its tunnel because the tunnel is the hero
+BACKDROP = {'B': 'bulkhead', 'C': 'tunnel', 'D': 'zones', 'E': 'massing', 'F': 'shutter', 'G': 'diamond', 'H': 'aperture',
+            'I': 'pylon', 'J': 'brackets', 'K': 'giant-x', 'O': 'silo', 'P': 'chevrons', 'Q': 'tag', 'R': 'cells', 'S': 'ramp',
+            'T': 'notch-plate', 'U': 'girder', 'V': 'monolith', 'W': 'dam'}
 DIVIDER = {'C': 'div-ticks', 'D': 'div-ticks', 'F': 'div-ticks', 'G': 'div-ticks', 'R': 'div-ticks',
            'E': 'div-slash', 'H': 'div-slash', 'J': 'div-slash', 'O': 'div-slash', 'P': 'div-slash', 'S': 'div-slash', 'U': 'div-ticks', 'W': 'div-ticks'}
 for k, name in BACKDROP.items():
@@ -482,8 +481,8 @@ S['Y'] = fig('Y', 'Briefing', 'Field-operations print: the unit code in block le
       </section>"""))
 
 # ---------------------------------------------------------------- Z relay city
-S['Z'] = fig('Z', 'Relay city', 'The relay network as a diagram: cut-square nodes on level and "/" routes, the active route in coral, construction guides and a stacked kanji plate. 中継都市 means relay city.', f"""<div class="phone"><div class="scr tex">
-      <svg class="sg-bg" aria-hidden="true"><use href="#g-bg-relays"/></svg>
+S['Z'] = fig('Z', 'Relay city', 'The relay network as a diagram: cut-square nodes on level and "/" routes, the active route in coral, construction guides and a stacked kanji plate, in front of a relay pylon. 中継都市 means relay city.', f"""<div class="phone"><div class="scr tex">
+      <svg class="sg-bg" aria-hidden="true"><use href="#g-bg-pylon"/></svg>
       <svg viewBox="0 0 300 280" style="top:250px;left:34px;width:300px;height:280px;overflow:visible" aria-hidden="true">{relay_net(NET_CITIES, NET_ROUTES, hot=3)}</svg>
       <svg class="guides" viewBox="0 0 390 844" preserveAspectRatio="none" aria-hidden="true">
         <path d="M0 214H390 M0 650H390 M58 120V844 M332 120V844" stroke="var(--ground-hi)" stroke-width=".8" opacity=".55"/>
@@ -496,7 +495,7 @@ S['Z'] = fig('Z', 'Relay city', 'The relay network as a diagram: cut-square node
       <i class="home"></i>
     </div></div>""", tier='poster')
 
-POSTER_BG = {'L': 'decay', 'M': 'switchback', 'N': 'segment'}
+POSTER_BG = {'L': 'hangar', 'M': 'switchback', 'N': 'segment'}
 for k, name in POSTER_BG.items():
     S[k] = S[k].replace('<div class="phone"><div class="scr tex">', f'<div class="phone"><div class="scr tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-{name}"/></svg>', 1)
 

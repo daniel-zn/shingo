@@ -51,20 +51,23 @@ public struct SGUtilityScreen<Hero: View, Content: View>: View {
     let hero: Hero
     let content: Content
     let backdrop: SGBackdropKind?
+    let monolith: SGMonolithKind?
 
     /// Span texts are `Text` so a French aside can be mixed in:
     /// `Text("journal de course").font(SGFont.fr(12))`
     public init(_ title: String, code: String = "AX·09",
-                span: (Text, Text), tag: SGHeaderTag = .none, backdrop: SGBackdropKind? = nil,
+                span: (Text, Text), tag: SGHeaderTag = .none, monolith: SGMonolithKind? = nil, backdrop: SGBackdropKind? = nil,
                 @ViewBuilder hero: () -> Hero, @ViewBuilder content: () -> Content) {
         self.title = title; self.code = code
         self.spanLeading = span.0; self.spanTrailing = span.1
-        self.tag = tag; self.backdrop = backdrop; self.hero = hero(); self.content = content()
+        self.tag = tag; self.monolith = monolith; self.backdrop = backdrop; self.hero = hero(); self.content = content()
     }
 
     public var body: some View {
         ZStack {
             StripeField().ignoresSafeArea()
+            // one backdrop: a monolith by default; line compositions only for heroes and insets
+            if let m = monolith { SGMonolith(m).ignoresSafeArea() }
             if let b = backdrop { SGBackdrop(b).ignoresSafeArea() }
             VStack(spacing: 0) {
                 masthead
