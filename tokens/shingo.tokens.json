@@ -81,6 +81,11 @@
         "$type": "color",
         "$value": "#ff715e",
         "$description": "coral used as text: full coral on ink, deep coral on sage for legibility"
+      },
+      "signal-plate": {
+        "$type": "color",
+        "$value": "#8f2b1c",
+        "$description": "coral as text inside a print plate (the plate flips the ground): deep coral on bone plates, full coral on ink plates"
       }
     },
     "light": {
@@ -163,6 +168,11 @@
         "$type": "color",
         "$value": "#8f2b1c",
         "$description": "coral used as text: full coral on ink, deep coral on sage for legibility"
+      },
+      "signal-plate": {
+        "$type": "color",
+        "$value": "#ff715e",
+        "$description": "coral as text inside a print plate (the plate flips the ground): deep coral on bone plates, full coral on ink plates"
       }
     }
   },

@@ -34,14 +34,14 @@
   --ground: #0b0b0a;  --ground-2: #1b1c18;  --ground-3: #2e2f2a;
   --on-ground: #c9ccc2;  --ground-hi: #dcdfd5;  --ground-dim: #8b8d85;
   --sage: #dcdfd5;  --sage-hi: #dcdfd5;  --sage-lo: #8b8d85;  --sage-line: #8b8d85;  --sage-ghost: #c9ccc2;
-  --ink: #0b0b0a;  --ink-dim: #55574f;  --coral: #ff715e;  --signal-text: #ff715e;  --coral-deep: #e65b48;
+  --ink: #0b0b0a;  --ink-dim: #55574f;  --coral: #ff715e;  --signal-text: #ff715e;  --signal-plate: #8f2b1c;  --coral-deep: #e65b48;
   color-scheme: dark;
 }
 .mode-light {
   --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
   --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
-  --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --coral: #ff715e;  --coral-deep: #e65b48;
+  --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;  --coral: #ff715e;  --coral-deep: #e65b48;
   color-scheme: light;
 }
 @media (prefers-color-scheme: light) {
@@ -49,14 +49,14 @@
     --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
     --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
     --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
-    --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  color-scheme: light;
+    --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;  color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
   --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
-  --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  color-scheme: light;
+  --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;  color-scheme: light;
 }
 .mode-dark, .mode-light { color: var(--on-ground); }
 
@@ -450,6 +450,8 @@
 .tabbar a[aria-current], .lamp.hot, .bootlog .run::before, .ticker b, .hanko, .u-hd .hanko { color: var(--signal-text); }
 .hanko { border-color: var(--signal-text); }
 .stamp { --st: var(--signal-text); }
+/* inside a print plate the ground flips, so coral text takes the plate's legible variant */
+.ticket, .dataplate, .ka-plate, [data-plate] { --signal-text: var(--signal-plate); }
 
 
 /* ================================================== live layer (web/shingo-live.js)
@@ -491,7 +493,10 @@
 .stable th small { display: block; font: 500 8.5px var(--f-mono); color: var(--ground-dim); letter-spacing: 0; margin-bottom: 2px; }
 .stable td { padding: 9px 10px; border-bottom: 1px solid var(--ground-3); vertical-align: middle; }
 .stable td:first-child, .stable th:first-child { padding-left: 14px; }
-.stable .n { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.stable .n { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.stable-wrap { overflow-x: auto; }
+/* optional columns (.opt) drop out on narrow screens; keep index, name, figure and state */
+@media (max-width: 560px) { .stable .opt { display: none; } }
 .stable .idx { width: 1%; font: 500 10px var(--f-mono); color: var(--ground-dim); }
 .stable tbody tr { cursor: default; }
 .stable tbody tr:hover td { background: var(--ground-2); }

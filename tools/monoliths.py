@@ -117,15 +117,15 @@ def ramp():
 def pylon():
     o = [("g3", [(262, 200), (412, 50), (412, 900), (262, 900)]),
          ("g2", [(210, 358), (238, 330), (238, 900), (210, 900)])]
-    o += [("g", [(282, y), (412, y), (412, y + 10), (282, y + 10)]) for y in range(640, 720, 26)]
+    # vents sit high on the tower, above where content usually runs
+    o += [("g", [(338, y), (412, y), (412, y + 8), (338, y + 8)]) for y in (150, 170, 190)]
     return o
 
 
 def dam():
-    # a gravity dam: "/" face, a crest, a row of sluice gates
-    o = [("g3", [(180, 360), (420, 360), (420, 900), (-20, 900), (-20, 560)])]
-    o += [("g", [(x, 402), (x + 22, 402), (x + 22, 446), (x, 446)]) for x in range(212, 400, 44)]
-    return o
+    # a gravity dam: a "/" face, a crest, and the spillway as a half-tone channel down the face
+    return [("g3", [(180, 360), (420, 360), (420, 900), (-20, 900), (-20, 560)]),
+            ("g2", band(-20, 620, 200, 36))]
 
 
 def hangar():
@@ -198,7 +198,7 @@ MONOLITHS = {
     "massing": ("Massing", "three cut blocks", massing),
     "ramp": ("Ramp", "a / incline", ramp),
     "pylon": ("Pylon", "a vented tower", pylon),
-    "dam": ("Dam", "a / face and sluice gates", dam),
+    "dam": ("Dam", "a / face and a spillway", dam),
     "hangar": ("Hangar", "a wall and a tall door", hangar),
     "switchback": ("Switchback", "flights that all rise /", switchback),
     "tag": ("Tag", "the slab tag, punched", tag),

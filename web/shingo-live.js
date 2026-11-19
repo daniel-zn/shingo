@@ -154,7 +154,7 @@
     function show(t) {
       if (t === cur) return; cur = t;
       if (!t) { box.hidden = true; return; }
-      var r = t.getBoundingClientRect(), s = scr.getBoundingClientRect(), ph = scr.closest('.phone'), z = (ph && parseFloat(getComputedStyle(ph).zoom)) || 1;
+      var r = t.getBoundingClientRect(), s = scr.getBoundingClientRect(), ph = scr.closest('.phone') || scr, z = parseFloat(getComputedStyle(ph).zoom) || 1;   // phones and the console are zoomed to fit
       var x = (r.left - s.left) / z, y = (r.top - s.top) / z, w = r.width / z, h = r.height / z;
       box.style.cssText = 'left:' + (x - 4) + 'px;top:' + (y - 4) + 'px;width:' + (w + 8) + 'px;height:' + (h + 8) + 'px';
       box.querySelector('b').textContent = label(t); scramble(box.querySelector('b'), 'touch');

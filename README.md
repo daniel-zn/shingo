@@ -12,7 +12,7 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 **Color**
 1. **Two inks.** Print on ground, nothing else. Solid shapes (keys, cards, badges, tickets, bars, plates) are print ink with the text knocked out. There is no third tone.
-2. **One signal.** Coral is the only extra ink: one block or one primary action per screen, plus the latest or active state. Switches turn on in print. Coral used as text takes `--signal-text`, a deeper coral on sage so small type stays legible.
+2. **One signal.** Coral is the only extra ink: one block or one primary action per screen, plus the latest or active state. Switches turn on in print. Coral used as text takes `--signal-text`, a deeper coral on sage so small type stays legible. Inside a print plate (tickets, data plates, `[data-plate]`) the ground flips, so it takes `--signal-plate` instead; those plates set it for you.
 
 **Shape**
 
@@ -165,7 +165,7 @@ Point the agent at `skills/shingo/SKILL.md`. It holds the rules in checklist for
 **Make it yours**
 
 - **Brand.** The examples use the placeholder brand AXIOM (marks `AX·09`, "Axiom signal systems"). Replace the name, the masthead codes and the imprint line. Keep the format: a short code, a wide-caps line and a mono reference.
-- **Signal colour.** Coral is the one extra ink. To rebrand it, change `--coral`, `--coral-deep` and `--signal-text` in `tokens/tokens.json`, `web/shingo.css` and `SGTheme.swift`, then run the build; the token check fails until all three agree. Keep it a single warm, saturated ink that reads on both grounds.
+- **Signal colour.** Coral is the one extra ink. To rebrand it, change `--coral`, `--coral-deep`, `--signal-text` and `--signal-plate` in `tokens/tokens.json`, `web/shingo.css` and `SGTheme.swift`, then run the build; the token check fails until all three agree. Keep it a single warm, saturated ink that reads on both grounds.
 - **Content.** Pick a backdrop, a divider and (if the subject has one) a motif for each screen from the lists in the rules. Write English first, then add at most one Japanese and one French accent per screen from `tokens/lexicon.json`.
 
 **Checklist for any new screen**

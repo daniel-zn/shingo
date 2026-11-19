@@ -15,7 +15,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 # CSS custom property → SG Swift name
 SWIFT = {"ground": "ground", "ground-2": "ground2", "ground-3": "ground3", "on-ground": "onGround", "ground-hi": "groundHi",
          "ground-dim": "groundDim", "sage": "sage", "sage-hi": "sageHi", "sage-lo": "sageLo", "sage-line": "sageLine",
-         "ink": "ink", "ink-dim": "inkDim", "coral": "coral", "coral-deep": "coralDeep", "signal-text": "signalText"}
+         "ink": "ink", "ink-dim": "inkDim", "coral": "coral", "coral-deep": "coralDeep", "signal-text": "signalText", "signal-plate": "signalPlate"}
 
 
 def css_block(css, selector):

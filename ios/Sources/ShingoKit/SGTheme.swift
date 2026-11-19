@@ -51,6 +51,8 @@ public enum SG {
     public static let coralDeep = Color(hex: 0xE65B48)
     /// Coral used as text: full coral on ink, a deeper coral on sage so small type stays legible.
     public static let signalText = Color(light: 0x8F2B1C, dark: 0xFF715E)
+    /// Coral as text inside a print plate, where the ground flips: full coral on ink plates, deep coral on bone plates.
+    public static let signalPlate = Color(light: 0xFF715E, dark: 0x8F2B1C)
 
     // geometry: one angle (45°), three cut sizes
     public static let hair: CGFloat = 1.5

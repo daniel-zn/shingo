@@ -14,10 +14,13 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 
 /* masthead */
 .hd { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px; align-items: end; padding-bottom: 28px; }
-.hd-mark { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.hd-mark { display: flex; align-items: flex-end; gap: 12px; }
+/* the macron as a cut print bar: Anybody has no Ō, and a fallback glyph floats off the letter */
+.mac { position: relative; }
+.mac::before { content: ""; position: absolute; left: .16em; right: .16em; top: -.13em; height: .09em; background: currentColor; clip-path: polygon(.1em 0, 100% 0, 100% 100%, 0 100%, 0 .1em); }
 .hd-mark .u-code { font-size: 8px; padding-bottom: 6px; }
 .hd h1 { margin: 0; font-size: clamp(30px, 7.2vw, 96px); color: var(--ground-hi); line-height: .82; }
-.hd-jp { font-size: clamp(22px, 3vw, 40px); color: var(--coral); align-self: flex-start; }
+.hd-jp { font-size: clamp(22px, 3vw, 40px); color: var(--signal-text); align-self: flex-start; }
 .hd .yearspan { margin-top: 18px; color: var(--ground-hi); font-size: 20px; }
 .hd .lede { font-size: 18px; line-height: 1.45; max-width: 56ch; margin: 18px 0 0; color: var(--on-ground); }
 .hd-side { display: grid; gap: 14px; }
@@ -81,8 +84,9 @@ figcaption.cap span { font: 400 11px var(--f-mono); color: var(--ground-dim); te
 .alpha-h { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 30px 0 12px; padding-bottom: 6px; border-bottom: var(--hair) solid var(--ground-hi); }
 .alpha-h .sg-cap { font-size: 12px; color: var(--ground-hi); }
 .alpha-h .sg-mono { color: var(--ground-dim); text-transform: uppercase; }
-.alpha { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
-.alpha > div { background: var(--ground); padding: 16px 16px 18px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+/* ruled grids: each cell draws its own right and bottom rule, so a short last row leaves no grey filler */
+.alpha { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); border-top: 1px solid var(--ground-3); border-left: 1px solid var(--ground-3); }
+.alpha > div { background: var(--ground); border-right: 1px solid var(--ground-3); border-bottom: 1px solid var(--ground-3); padding: 16px 16px 18px; display: grid; gap: 6px; align-content: start; min-width: 0; }
 .alpha figure { margin: 0 0 8px; height: 104px; display: flex; align-items: center; justify-content: center; gap: 12px;
   background: linear-gradient(var(--ground-3) 1px, transparent 1px) 0 0 / 12px 12px, linear-gradient(90deg, var(--ground-3) 1px, transparent 1px) 0 0 / 12px 12px; }
 .alpha figure .steps li { height: 26px; }
@@ -199,12 +203,12 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 .sheet > div { min-width: 0; }
 .typescale > div > span { min-width: 0; overflow-wrap: anywhere; }
 .sheet .stack { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.glyphs { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 1px; background: var(--ground-3); border: 1px solid var(--ground-3); }
-.glyphs div { background: var(--ground); display: grid; justify-items: center; gap: 8px; padding: 14px 4px 10px; }
+.glyphs { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); border-top: 1px solid var(--ground-3); border-left: 1px solid var(--ground-3); }
+.glyphs div { background: var(--ground); border-right: 1px solid var(--ground-3); border-bottom: 1px solid var(--ground-3); display: grid; justify-items: center; gap: 8px; padding: 14px 4px 10px; }
 .glyphs svg { width: 36px; height: 36px; color: var(--ground-hi); }
 .glyphs span { font: 400 9.5px var(--f-mono); color: var(--ground-dim); text-transform: uppercase; }
 .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px 10px; }
-.swatches div { display: grid; gap: 4px; font: 400 10px/1.35 var(--f-mono); color: var(--ground-dim); }
+.swatches div { display: grid; gap: 4px; align-content: start; font: 400 10px/1.35 var(--f-mono); color: var(--ground-dim); }
 .swatches i { height: 52px; box-shadow: inset 0 0 0 1px var(--ground-3); }
 .swatches b { font: 600 expanded 12px var(--f-cap); letter-spacing: .1em; text-transform: uppercase; color: var(--ground-hi); }
 .typescale { display: grid; gap: 14px; }
@@ -213,8 +217,8 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
 
 /* instruments */
-.insts { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1px; background: var(--ground-3); border: var(--hair) solid var(--ground-3); }
-.inst { background: var(--ground); padding: 18px; display: grid; grid-template-rows: auto auto 1fr; gap: 8px; min-width: 0; }
+.insts { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); border-top: 1px solid var(--ground-3); border-left: 1px solid var(--ground-3); }
+.inst { background: var(--ground); border-right: 1px solid var(--ground-3); border-bottom: 1px solid var(--ground-3); padding: 18px; display: grid; grid-template-rows: auto auto 1fr; gap: 8px; min-width: 0; }
 .inst--wide { grid-column: span 2; }
 .inst h3 { margin: 0; display: flex; justify-content: space-between; gap: 10px; font: 600 expanded 13px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .inst h3 span:last-child { font: 400 10px var(--f-mono); letter-spacing: 0; text-transform: none; color: var(--signal-text); }
@@ -232,15 +236,20 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 .xp-m { font-family: var(--f-mono); font-weight: 500; letter-spacing: .04em; }
 .xp-j { font-family: var(--f-jp); font-weight: 700; }
 .mo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-.mo-grid figure { margin: 0; display: grid; gap: 10px; }
+.statekey { grid-template-columns: 120px minmax(0, 1fr) minmax(12px, .6fr) auto; row-gap: 14px; }
+.statekey .sk-shape { color: var(--ground-dim); }
+@media (max-width: 600px) { .statekey { grid-template-columns: auto minmax(12px, 1fr) auto; } .statekey .sk-shape { display: none; } }
+.mo-grid figure { margin: 0; display: grid; gap: 10px; align-content: start; }
 .mo-grid figcaption b { display: block; font: 600 expanded 11px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 .mo-grid figcaption span { display: block; margin-top: 4px; font-size: 12.5px; line-height: 1.45; }
-.mo { position: relative; height: 180px; display: grid; place-items: center; align-content: center; gap: 14px; background: var(--ground); box-shadow: inset 0 0 0 1px var(--ground-3); overflow: hidden; }
+.mo { position: relative; container-type: inline-size; height: 180px; display: grid; place-items: center; align-content: center; gap: 14px; background: var(--ground); box-shadow: inset 0 0 0 1px var(--ground-3); overflow: hidden; }
 .mo-lbl { color: var(--ground-hi); }
 .mo-tunnel { width: 100%; height: 100%; }
 .mo-tunnel polygon[style] { fill: none; stroke: var(--ground-3); stroke-width: 1.5; animation: sg-pulse 2.4s steps(1) infinite; animation-delay: calc(var(--i) * .2s); }
 @keyframes sg-pulse { 0%, 8% { stroke: var(--ground-hi); } 9%, 100% { stroke: var(--ground-3); } }
-.mo-cells { width: 76%; }
+.mo-cells { width: 64%; margin-right: 22px; }   /* the skew leans the cells right by their height */
+.mo .sg-display { font-size: min(30px, 9cqw) !important; }
+.mo svg.seg7 { max-width: 84cqw; height: auto; }
 .mo-cells i { animation: sg-fill 2.4s steps(1) infinite; animation-delay: calc(var(--i) * .12s); }
 @keyframes sg-fill { 0% { background: var(--ground-3); } 4%, 70% { background: var(--ground-hi); } 71%, 100% { background: var(--ground-3); } }
 .mo-cells i:last-child { animation-name: sg-fill-hot; }
@@ -278,7 +287,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 @media (max-width: 700px) { .xp-grid { grid-template-columns: minmax(0, 1fr) !important; } }
 
 /* console (desktop) */
-.con-wrap { overflow-x: auto; padding-bottom: 6px; }
+.con-wrap { overflow: hidden; padding-bottom: 6px; }
 .con { position: relative; isolation: isolate; width: 1240px; height: 780px; box-shadow: 0 0 0 1.5px var(--ground-3); display: grid;
   grid-template-columns: 72px minmax(0, 1fr) 320px; grid-template-rows: 76px auto minmax(0, 1fr) 58px; color: var(--on-ground); }
 .con > * { position: relative; z-index: 1; }
@@ -311,13 +320,21 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 .lex td { padding: 10px 14px; border-bottom: 1px solid var(--ground-3); color: var(--on-ground); vertical-align: top; }
 .lex td:nth-child(3), .lex td:nth-child(5) { font-family: var(--f-mono); font-size: 11px; color: var(--ground-dim); }
 .lex td.sg-jp { font-size: 15px; color: var(--ground-hi); }
+/* narrow: each phrase becomes a card, English and French side by side, Japanese under them */
+@media (max-width: 700px) {
+  .lex { min-width: 0; } .lex thead { display: none; }
+  .lex tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 12px; row-gap: 4px; padding: 10px 12px; border-bottom: 1px solid var(--ground-3); }
+  .lex td { padding: 0; border: 0; }
+  .lex td:nth-child(3), .lex td:nth-child(5) { display: none; }
+  .lex td:nth-child(2) { grid-column: 1 / -1; order: 3; }
+}
 .lex-note { color: var(--ground-dim); font-size: 11.5px; margin: 14px 0 0; max-width: 80ch; }
 
 
 @media (max-width: 980px) {
   .hd { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 640px) { .ka-pair { grid-template-columns: minmax(0, 1fr); } .theme-switch { width: 200px; } .typescale > div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+@media (max-width: 640px) { .ka-pair { grid-template-columns: minmax(0, 1fr); } .theme-switch { width: 200px; } .typescale > div { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
 @media (max-width: 460px) {
   .screens { grid-template-columns: minmax(0, 1fr); }
   .phone { zoom: .82; }
@@ -332,7 +349,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
 <header class="hd">
   <div>
-    <div class="hd-mark"><span class="u-code">SK·09·LIS</span><h1 class="sg-display">Shingō</h1><span class="sg-jp hd-jp">信号</span></div>
+    <div class="hd-mark"><span class="u-code">SK·09·LIS</span><h1 class="sg-display" aria-label="Shingō">Shing<span class="mac" aria-hidden="true">o</span></h1><span class="sg-jp hd-jp">信号</span></div>
     <div class="yearspan sg-num">20<i></i>26</div>
     <p class="lede">An industrial interface system for iOS and the web. Interfaces are printed on a striped ground: hard 45° cuts, hazard bars, chevrons, barcodes and mono telemetry, with one coral signal per screen. English leads, with Japanese and <span class="sg-fr">français</span> woven in sparingly.</p>
   </div>
@@ -411,7 +428,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
     <div class="phone"><div class="scr tex">
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="top:64px;left:22px;display:flex;align-items:flex-end;gap:8px;color:var(--ground-hi)"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:40px">AXIOM</span></div>
-      <div class="sg-cap" style="top:116px;left:42px;font-size:12px;color:var(--ground-dim)">Secure workspace</div>
+      <div class="sg-cap" style="top:124px;left:42px;font-size:12px;color:var(--ground-dim)">Secure workspace</div>
       <i class="band" style="top:56px;right:0;width:120px;height:120px;clip-path:polygon(100% 0,100% 100%,0 100%)"></i>
       <svg style="top:150px;right:20px;width:84px;height:84px;color:var(--ground-hi)"><use href="#g-x-line"/></svg>
       <div class="bar " style="--h:104px;top:164px;left:0;width:260px"><div class="bar__mid"><div class="bar__core"><i class="bar__slot" style="--p:100%"></i></div></div></div>
@@ -1168,6 +1185,11 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
     var b = e.target.closest('button'); if (!b) return;
     apply(b.dataset.t); try { localStorage.setItem('shingo-theme', b.dataset.t); } catch (e) {}
   });
+})();
+// The console is a 1240 px layout: scale it to fit narrower windows instead of cropping it.
+(function () {
+  function fit() { document.querySelectorAll('.con-wrap').forEach(function (w) { var c = w.querySelector('.con'); c.style.zoom = Math.min(1, w.clientWidth / 1240); }); }
+  fit(); window.addEventListener('resize', fit);
 })();
 // Ruler and index tabs demos.
 (function () {

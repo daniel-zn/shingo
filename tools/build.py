@@ -22,16 +22,16 @@ C = dict(ink="var(--ink)", sage="var(--sage)", hi="var(--sage-hi)", lo="var(--sa
 PALETTE = {
     "dark":  {"ground": "#0b0b0a", "ground-2": "#1b1c18", "ground-3": "#2e2f2a", "on-ground": "#c9ccc2", "ground-hi": "#dcdfd5", "ground-dim": "#8b8d85",
               "sage": "#dcdfd5", "sage-hi": "#dcdfd5", "sage-lo": "#8b8d85", "sage-line": "#8b8d85", "sage-ghost": "#c9ccc2",
-              "ink": "#0b0b0a", "ink-dim": "#55574f", "coral": "#ff715e", "coral-deep": "#e65b48", "signal-text": "#ff715e"},
+              "ink": "#0b0b0a", "ink-dim": "#55574f", "coral": "#ff715e", "coral-deep": "#e65b48", "signal-text": "#ff715e", "signal-plate": "#8f2b1c"},
     "light": {"ground": "#bcbfb4", "ground-2": "#b0b3a8", "ground-3": "#9fa297", "on-ground": "#1c1d19", "ground-hi": "#0f100d", "ground-dim": "#4d4f47",
               "sage": "#0f100d", "sage-hi": "#0f100d", "sage-lo": "#4d4f47", "sage-line": "#4d4f47", "sage-ghost": "#2e2f2a",
-              "ink": "#bcbfb4", "ink-dim": "#8e9187", "coral": "#ff715e", "coral-deep": "#e65b48", "signal-text": "#8f2b1c"},
+              "ink": "#bcbfb4", "ink-dim": "#8e9187", "coral": "#ff715e", "coral-deep": "#e65b48", "signal-text": "#8f2b1c", "signal-plate": "#ff715e"},
 }
 ROLES = {"ground": "striped background", "ground-2": "stripe highlight", "ground-3": "rules, frames, tracks",
          "on-ground": "body text on the ground", "ground-hi": "the print: titles, line art, plates of text", "ground-dim": "secondary print",
          "sage": "solid print plates", "sage-hi": "plates you press or carry (= print)", "sage-lo": "perforations, pressed plates", "sage-line": "hairlines on plates",
          "sage-ghost": "faint marks on plates", "ink": "text knocked out of plates (= ground)", "ink-dim": "secondary text on plates",
-         "coral": "the signal", "coral-deep": "pressed signal", "signal-text": "coral as text (deep coral on sage)"}
+         "coral": "the signal", "coral-deep": "pressed signal", "signal-text": "coral as text (deep coral on sage)", "signal-plate": "coral as text inside a plate"}
 
 
 def resolve(svg, mode):
@@ -605,12 +605,12 @@ def export_glyphs():
 # ---------------------------------------------------------------- poster
 def keyart(mode):
     """Key art: the shirt's print stack + the poster's instrument column, in HTML."""
-    return f'''<figure class="mode-{mode}"><div class="ka tex"><div class="ka-in">
+    return f'''<figure><div class="ka tex mode-{mode}"><div class="ka-in">
       <div class="ka-mast"><span class="u-code">SK·09·LIS</span><span class="sg-display">AXIOM</span></div>
       <div class="slab-cut ka-slab"></div><div class="ka-head brackets"><svg><use href="#g-reg"/></svg></div>
       <div class="yearspan sg-num ka-year">20<i></i>26</div>
       <div class="ka-trio"><div class="sg-label">Signal engineering</div><div class="sg-jp sg-justify">信号工学</div><div class="sg-label">Ingénierie du signal</div></div>
-      <div class="ka-side"><div><div class="sg-num">09</div><div class="sg-mono">#bab9ad</div></div>
+      <div class="ka-side"><div><div class="sg-num">09</div><div class="sg-mono">UNIT · SECTOR 04</div></div>
         <svg viewBox="0 0 100 100"><use href="#g-x-line"/></svg><svg viewBox="0 0 100 100"><use href="#g-x-solid"/></svg>
         <i class="barcode"></i><div class="sg-mono">REF:<br>OPSEC/AHI<br>SP C53</div></div>
       <div class="ka-chev"><svg viewBox="0 0 300 230"><use href="#g-chevrons"/></svg></div>
@@ -698,9 +698,9 @@ def _xp_relay():
          '<polygon points="38,300 92,300 92,470 24,470 24,314" fill="var(--ground-hi)"/>',
          ''.join(f'<text x="58" y="{344 + i*30}" text-anchor="middle" class="xp-j" font-size="24" fill="var(--ground)">{c}</text>' for i, c in enumerate("中継塔"))
          + '<text x="58" y="458" text-anchor="middle" class="xp-m" font-size="7" fill="var(--ground)">Nº 05</text>',
-         '<text x="350" y="60" class="xp-m" font-size="7" fill="var(--coral)" transform="rotate(90 350 60)">2835 × 1890 PX · 200 PPI</text>',
+         '<text x="350" y="60" class="xp-m" font-size="7" fill="var(--signal-text)" transform="rotate(90 350 60)">2835 × 1890 PX · 200 PPI</text>',
          '<text x="24" y="70" class="xp-m" font-size="7" fill="var(--ground-dim)">ABOVE THE NOISE,</text><text x="24" y="80" class="xp-m" font-size="7" fill="var(--ground-dim)">MACHINES HUM IN SILENCE</text>',
-         '<text x="24" y="120" class="xp-d" font-size="11" fill="var(--coral)">2026</text><text x="24" y="134" class="xp-m" font-size="7" fill="var(--coral)">NOV 17</text>']
+         '<text x="24" y="120" class="xp-d" font-size="11" fill="var(--signal-text)">2026</text><text x="24" y="134" class="xp-m" font-size="7" fill="var(--signal-text)">NOV 17</text>']
     return _xp_frame("05", "RELAY", "中継", "SILENT RELAY · FIVE NODES · ONE SIGNAL ROUTE", "".join(o))
 
 
@@ -790,17 +790,17 @@ def _cells(n, on, hot=-1):
 def spec_table(rows, selected=1):
     body = "".join(
         f'<tr aria-selected="{"true" if i == selected else "false"}"><td class="idx">{i+1:02d}</td><td><b class="sg-wordmark" style="font-size:12px">{c}</b><br><span class="sg-mono" style="color:var(--ground-dim)">RELAY {r}</span></td>'
-        f'<td class="n">{l}{" ms" if l != "—" else ""}</td><td style="width:34%">{_cells(10, ld, hot=9 if ld >= 9 else -1)}</td><td><span class="state state--{s}">{_STATE[s]}</span></td></tr>'
+        f'<td class="n">{l}{" ms" if l != "—" else ""}</td><td class="opt" style="width:34%">{_cells(10, ld, hot=9 if ld >= 9 else -1)}</td><td><span class="state state--{s}">{_STATE[s]}</span></td></tr>'
         for i, (r, c, l, ld, s) in enumerate(rows))
     return ('<div class="stable-wrap"><table class="stable"><thead><tr><th><small>C-01</small>Nº</th><th><small>C-02</small>Relay</th><th class="n"><small>C-03</small>Latency</th>'
-            f'<th><small>C-04</small>Load</th><th><small>C-05</small>State</th></tr></thead><tbody>{body}</tbody></table></div>')
+            f'<th class="opt"><small>C-04</small>Load</th><th><small>C-05</small>State</th></tr></thead><tbody>{body}</tbody></table></div>')
 
 
 def patterns():
     return f'''  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Patterns for any app</span><span class="sg-mono">state language · spec tables · form set · telex · skeletons · every one is live</span></div>
   <div class="insts">
     <div class="inst inst--wide"><h3><span>State language</span><span>.state · SGState</span></h3><p>Every system state has one fixed shape, so any app reads the same: nominal is a solid square, caution is hatched, fault is a coral X, offline is a dim X, and busy marches.</p>
-      <div class="demo" style="display:block"><div class="spec spec--ground" style="grid-template-columns:120px minmax(0,1fr) minmax(12px,.6fr) auto;row-gap:14px"><span class="state state--ok">Nominal</span><span style="color:var(--ground-dim)">solid square · print</span><i></i><span>running as specified</span><span class="state state--warn">Caution</span><span style="color:var(--ground-dim)">hatched square · print</span><i></i><span>degraded, still working</span><span class="state state--fault">Fault</span><span style="color:var(--ground-dim)">hard X · coral</span><i></i><span>stopped, needs action</span><span class="state state--off">Offline</span><span style="color:var(--ground-dim)">hard X · dim</span><i></i><span>not reporting</span><span class="state state--busy">Syncing</span><span style="color:var(--ground-dim)">marching hatch</span><i></i><span>work in progress</span></div></div></div>
+      <div class="demo" style="display:block"><div class="spec spec--ground statekey"><span class="state state--ok">Nominal</span><span class="sk-shape">solid square · print</span><i></i><span>running as specified</span><span class="state state--warn">Caution</span><span class="sk-shape">hatched square · print</span><i></i><span>degraded, still working</span><span class="state state--fault">Fault</span><span class="sk-shape">hard X · coral</span><i></i><span>stopped, needs action</span><span class="state state--off">Offline</span><span class="sk-shape">hard X · dim</span><i></i><span>not reporting</span><span class="state state--busy">Syncing</span><span class="sk-shape">marching hatch</span><i></i><span>work in progress</span></div></div></div>
     <div class="inst inst--wide"><h3><span>Spec table</span><span>.stable · SGSpecTable</span></h3><p>Lists as an engineering spec sheet: coded columns, row index, tabular figures, cell-run loads and the state language. The selected row carries the coral bar. Click a row.</p>
       <div class="demo" style="display:block">{spec_table(_FLEET[:4])}</div></div>
     <div class="inst"><h3><span>Form set</span><span>.xcheck .dradio .stepper</span></h3><p>Checkboxes are hard X boxes, radios are diamonds and steppers are cut keys. All of them come from the alphabet.</p>
@@ -846,7 +846,7 @@ def console():
       <div class="u-label" style="margin:18px 0 10px"><span>Telex</span><span>live</span></div><div class="telex-stack" data-telex-feed></div></section>
     <aside class="con-side">
       <div class="u-label"><span>Selected · relay 03</span><span>LYON</span></div>
-      <div class="chamfer brackets" style="padding:6px;--c:14px"><svg viewBox="0 0 300 280" style="width:100%;height:auto;overflow:visible">{relay_net(NET_CITIES, NET_ROUTES, hot=1)}</svg></div>
+      <div class="chamfer brackets" style="padding:6px;--c:14px"><svg viewBox="-4 0 336 280" style="width:100%;height:auto;overflow:visible">{relay_net(NET_CITIES, NET_ROUTES, hot=1)}</svg></div>
       <div class="spec spec--ground"><span>Protocol</span><i></i><span>WireGuard</span><span>Latency</span><i></i><span>212 ms</span><span>Hops</span><i></i><span>3</span></div>
       <label class="selectf"><select id="con-sel"><option>Reroute via Porto</option><option>Reroute via Seoul</option><option>Hold</option></select></label>
       <div style="display:flex;justify-content:space-between;align-items:center"><span class="optrow" style="cursor:default">Hops</span><div class="stepper" data-min="1" data-max="5"><button type="button" aria-label="Fewer hops">−</button><output id="con-hops">3</output><button type="button" aria-label="More hops">+</button></div></div>

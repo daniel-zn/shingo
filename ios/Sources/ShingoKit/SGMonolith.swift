@@ -90,18 +90,13 @@ public struct SGMonolith: View {
         .pylon: [
             (SG.ground2, [[CGPoint(x: 262, y: 200), CGPoint(x: 412, y: 50), CGPoint(x: 412, y: 900), CGPoint(x: 262, y: 900)]]),
             (SG.ground2.opacity(0.5), [[CGPoint(x: 210, y: 358), CGPoint(x: 238, y: 330), CGPoint(x: 238, y: 900), CGPoint(x: 210, y: 900)]]),
-            (SG.ground, [[CGPoint(x: 282, y: 640), CGPoint(x: 412, y: 640), CGPoint(x: 412, y: 650), CGPoint(x: 282, y: 650)]]),
-            (SG.ground, [[CGPoint(x: 282, y: 666), CGPoint(x: 412, y: 666), CGPoint(x: 412, y: 676), CGPoint(x: 282, y: 676)]]),
-            (SG.ground, [[CGPoint(x: 282, y: 692), CGPoint(x: 412, y: 692), CGPoint(x: 412, y: 702), CGPoint(x: 282, y: 702)]]),
-            (SG.ground, [[CGPoint(x: 282, y: 718), CGPoint(x: 412, y: 718), CGPoint(x: 412, y: 728), CGPoint(x: 282, y: 728)]])
+            (SG.ground, [[CGPoint(x: 338, y: 150), CGPoint(x: 412, y: 150), CGPoint(x: 412, y: 158), CGPoint(x: 338, y: 158)]]),
+            (SG.ground, [[CGPoint(x: 338, y: 170), CGPoint(x: 412, y: 170), CGPoint(x: 412, y: 178), CGPoint(x: 338, y: 178)]]),
+            (SG.ground, [[CGPoint(x: 338, y: 190), CGPoint(x: 412, y: 190), CGPoint(x: 412, y: 198), CGPoint(x: 338, y: 198)]])
         ],
         .dam: [
             (SG.ground2, [[CGPoint(x: 180, y: 360), CGPoint(x: 420, y: 360), CGPoint(x: 420, y: 900), CGPoint(x: -20, y: 900), CGPoint(x: -20, y: 560)]]),
-            (SG.ground, [[CGPoint(x: 212, y: 402), CGPoint(x: 234, y: 402), CGPoint(x: 234, y: 446), CGPoint(x: 212, y: 446)]]),
-            (SG.ground, [[CGPoint(x: 256, y: 402), CGPoint(x: 278, y: 402), CGPoint(x: 278, y: 446), CGPoint(x: 256, y: 446)]]),
-            (SG.ground, [[CGPoint(x: 300, y: 402), CGPoint(x: 322, y: 402), CGPoint(x: 322, y: 446), CGPoint(x: 300, y: 446)]]),
-            (SG.ground, [[CGPoint(x: 344, y: 402), CGPoint(x: 366, y: 402), CGPoint(x: 366, y: 446), CGPoint(x: 344, y: 446)]]),
-            (SG.ground, [[CGPoint(x: 388, y: 402), CGPoint(x: 410, y: 402), CGPoint(x: 410, y: 446), CGPoint(x: 388, y: 446)]])
+            (SG.ground2.opacity(0.5), [[CGPoint(x: -20, y: 620), CGPoint(x: 16, y: 620), CGPoint(x: 216, y: 420), CGPoint(x: 180, y: 420)]])
         ],
         .hangar: [
             (SG.ground2, [[CGPoint(x: -20, y: 300), CGPoint(x: 410, y: 300), CGPoint(x: 410, y: 900), CGPoint(x: -20, y: 900)], [CGPoint(x: 110, y: 420), CGPoint(x: 320, y: 420), CGPoint(x: 320, y: 900), CGPoint(x: 70, y: 900), CGPoint(x: 70, y: 460)]]),

@@ -18,7 +18,7 @@ Source of truth, in this order: `README.md` (rules 1–18), `tokens/tokens.json`
 ## Rules (hard constraints)
 
 1. Two inks: ground (`--ground*`) and print (`--ground-hi`, `--sage*`). Plates are solid print with text knocked out in `--ink`. No third tone, no gradients, no white, no black.
-2. One coral (`--coral`) block or primary action per screen, plus small active/fault states. Coral as text uses `--signal-text`.
+2. One coral (`--coral`) block or primary action per screen, plus small active/fault states. Coral as text uses `--signal-text` (inside a print plate, `--signal-plate`; `.ticket`, `.dataplate` and `[data-plate]` set it).
 3. Every diagonal rises "/" at 45°. Cuts top-left + bottom-right at 6/12/24. No `border-radius`, shadows, tilts, blur, textures or photos.
 4. Type: Anybody wide (display 150%/800 40+, titles 125%/800 28, inline 125%/700 14, labels 125%/600 caps), IBM Plex Mono telemetry, Saira Stencil One serials (once per screen), BIZ UDGothic / Hiragino kanji. Big numbers are seven-segment readouts (`seg7()` / `SGSegDisplay`). Never condensed or rounded fonts.
 5. Utility screens follow the grammar: masthead `.u-hd` (code, title, ONE tag, span rule) → ONE hero → divider (`.hazard` system, ticks data, slash money/content) → `.u-body` → imprint `.u-foot`. Poster screens (launch, onboarding, lock, empty) compose freely.
