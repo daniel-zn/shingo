@@ -23,7 +23,7 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 **Type**
 
-7. **Wide, short, hard.** Two faces of our own. **Shingo Grid Heavy** sets display 40+, screen titles 28 and big figures: one heavy stroke, wide and short capitals, a 45° cut wherever a letter would curve. **Shingo Signal**, Orbitron completed with the characters it lacks, sets subheads and inline wordmarks (ExtraBold 800) and labels, buttons and chips (SemiBold 600). Body text is Anybody, telemetry IBM Plex Mono, serials Saira Stencil One and kanji BIZ UDGothic (Hiragino Sans on iOS). Big numbers are seven-segment readouts. Never condensed, never rounded.
+7. **Wide, short, hard.** Two faces of our own. **Shingo Grid Heavy** sets display 40+, screen titles 28 and big figures: one heavy stroke, wide and short capitals, a 45° cut wherever a letter would curve. Diagonals run at 45° at full weight, and every stroke ends flat: a diagonal turns upright or level before it ends, so no terminal is cut on the slant. **Shingo Signal**, Orbitron completed with the characters it lacks, sets subheads and inline wordmarks (ExtraBold 800) and labels, buttons and chips (SemiBold 600). Body text is Anybody, telemetry IBM Plex Mono, serials Saira Stencil One and kanji BIZ UDGothic (Hiragino Sans on iOS). Big numbers are seven-segment readouts. Never condensed, never rounded.
 
 **Layout**
 
