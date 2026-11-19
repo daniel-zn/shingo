@@ -15,9 +15,6 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 /* masthead */
 .hd { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px; align-items: end; padding-bottom: 28px; }
 .hd-mark { display: flex; align-items: flex-end; gap: 12px; }
-/* the macron as a cut print bar: Anybody has no Ō, and a fallback glyph floats off the letter */
-.mac { position: relative; }
-.mac::before { content: ""; position: absolute; left: .16em; right: .16em; top: -.13em; height: .09em; background: currentColor; clip-path: polygon(.1em 0, 100% 0, 100% 100%, 0 100%, 0 .1em); }
 .hd-mark .u-code { font-size: 8px; padding-bottom: 6px; }
 .hd h1 { margin: 0; font-size: clamp(30px, 7.2vw, 96px); color: var(--ground-hi); line-height: .82; }
 .hd-jp { font-size: clamp(22px, 3vw, 40px); color: var(--signal-text); align-self: flex-start; }
@@ -354,7 +351,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
 <header class="hd">
   <div>
-    <div class="hd-mark"><span class="u-code">SK·09·LIS</span><h1 class="sg-display" aria-label="Shingō">Shing<span class="mac" aria-hidden="true">o</span></h1><span class="sg-jp hd-jp">信号</span></div>
+    <div class="hd-mark"><span class="u-code">SK·09·LIS</span><h1 class="sg-display">Shingō</h1><span class="sg-jp hd-jp">信号</span></div>
     <div class="yearspan sg-num">20<i></i>26</div>
     <p class="lede">An industrial interface system for iOS and the web. Interfaces are printed on a striped ground: hard 45° cuts, hazard bars, chevrons, barcodes and mono telemetry, with one coral signal per screen. English leads, with Japanese and <span class="sg-fr">français</span> woven in sparingly.</p>
   </div>
@@ -400,7 +397,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
     <div><i>01</i><b>Two inks</b><p>Everything is print on ground: solid shapes in the print ink with text knocked out, or outlines. No third tone. Coral is the only extra ink.</p></div>
     <div><i>02</i><b>One grammar</b><p>Masthead, one hero, a divider, the body, the imprint. Each screen sits on one backdrop composition from the shape alphabet. Poster screens compose freely.</p></div>
     <div><i>03</i><b>One angle</b><p>Every diagonal rises left to right at 45°: corner cuts (top-left and bottom-right), hazard stripes, cells, bands and the stripe field. No tilts, textures or shadows.</p></div>
-    <div><i>04</i><b>Three sizes</b><p>Anybody at three sizes: 40 display, 28 titles, 14 inline. Labels are wide caps, telemetry is mono, serials are stencil.</p></div>
+    <div><i>04</i><b>Three sizes</b><p>Shingo Grid at three sizes: 40 display, 28 titles, 14 inline, in one hard stroke with 45° cuts. Labels are its regular weight, body is Anybody, telemetry is mono, serials are stencil.</p></div>
     <div><i>05</i><b>One signal</b><p>Coral marks one block or one primary action per screen, plus the latest or active state. Switches turn on in print, not coral.</p></div>
     <div><i>06</i><b>Tag and aside</b><p>Japanese lives in the masthead tag or a seal. French lives in the span rule. Each appears once at most.</p></div>
   </div>
@@ -1089,12 +1086,12 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="swatches"><!--@SWATCHES--></div>
     </div>
     <div style="grid-column:1/-1">
-      <h3><span>type scale</span><span>Anybody · Saira Stencil One · IBM Plex Mono · BIZ UDGothic (OFL)</span></h3>
+      <h3><span>type scale</span><span>Shingo Grid (ours) · Anybody · Saira Stencil One · IBM Plex Mono · BIZ UDGothic</span></h3>
       <div class="typescale">
-        <div><span class="sg-mono">display 40 · anybody 150% 800</span><span class="sg-display" style="font-size:40px">Axiom</span></div>
-        <div><span class="sg-mono">title 22 · anybody 125% 700</span><span class="sg-wordmark" style="font-size:22px">Night transit</span></div>
-        <div><span class="sg-mono">number 36 · anybody 125% 700</span><span class="sg-num" style="font-size:40px">€8,214.60</span></div>
-        <div><span class="sg-mono">label 11 · anybody 125% 600</span><span class="sg-cap" style="font-size:11px">Future engineering · time in zone</span></div>
+        <div><span class="sg-mono">display 40 · shingo grid bold</span><span class="sg-display" style="font-size:40px">Axiom</span></div>
+        <div><span class="sg-mono">title 22 · shingo grid bold</span><span class="sg-wordmark" style="font-size:22px">Night transit</span></div>
+        <div><span class="sg-mono">number 36 · shingo grid bold</span><span class="sg-num" style="font-size:40px">€8,214.60</span></div>
+        <div><span class="sg-mono">label 11 · shingo grid regular</span><span class="sg-cap" style="font-size:11px">Future engineering · time in zone</span></div>
         <div><span class="sg-mono">body 15 · anybody 500</span><span class="sg-label" style="font-size:15px">Kill switch pauses traffic if the tunnel drops.</span></div>
         <div><span class="sg-mono">mono 11 · ibm plex mono</span><span class="sg-mono" style="font-size:11px">COMSEC MONITORING · NETWORK OPERATIONS · SP C53</span></div>
         <div><span class="sg-mono">aside · anybody italic</span><span class="sg-fr" style="font-size:15px">ingénierie du signal</span></div>

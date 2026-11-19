@@ -23,7 +23,7 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 **Type**
 
-7. **Wide, short, hard.** Anybody at three widths: display 40+ (extra-expanded 800), titles 28 (expanded 800) and inline 14 (expanded 700). Labels are wide caps. Body text is Anybody, telemetry IBM Plex Mono, serials Saira Stencil One and kanji BIZ UDGothic (Hiragino Sans on iOS). Big numbers are seven-segment readouts. Never condensed, never rounded.
+7. **Wide, short, hard.** The face is **Shingo Grid**, the system's own: one heavy stroke, wide and short letters, and a 45° cut wherever a letter would normally curve. Bold sets display 40+, titles 28, inline 14 and numbers; Regular sets labels, buttons and chips. It is caps only. Body text is Anybody, telemetry IBM Plex Mono, serials Saira Stencil One and kanji BIZ UDGothic (Hiragino Sans on iOS). Big numbers are seven-segment readouts. Never condensed, never rounded.
 
 **Layout**
 
@@ -92,12 +92,15 @@ templates/starter.src.html    a complete app page built only from the kit (sourc
 web/gallery.src.html          gallery source
 web/partials/languages.html   the language section
 tools/screens.py              regenerates the gallery screens from the grammar
+tools/font.py                 draws Shingo Grid (Bold, Regular) from grid geometry: TTF for iOS, WOFF2 for the web
+web/fonts/                    ShingoGrid-Bold.woff2, ShingoGrid-Regular.woff2
 tools/monoliths.py            the monolith backdrops as polygon data (web symbols and SwiftUI are generated from it)
 tools/build.py                glyphs, motifs, backdrops, key art, posters; builds dist/
 tools/check_tokens.py         fails the build if tokens.json, shingo.css and SGTheme.swift disagree
 tools/screenshot.js           renders every screen in both modes (preinstalled Playwright)
 dist/index.html               the built, self-contained gallery
-dist/shingo.css               the kit stylesheet for other apps (fonts imported)
+dist/shingo.css               the kit stylesheet for other apps (Shingo Grid from dist/fonts/, the rest from Google Fonts)
+dist/fonts/                   Shingo Grid WOFF2 files
 dist/shingo-live.js           the live layer, standalone
 dist/shingo-sprite.svg        every glyph, icon, motif and backdrop as <symbol id="g-…">
 dist/starter.html             the starter page, built (open it next to shingo.css)
@@ -144,7 +147,7 @@ The repo is built to be lifted into anything. Pick the route that fits.
 
 **A web app**
 
-1. Copy `dist/shingo.css`, `dist/shingo-live.js` and `dist/shingo-sprite.svg` into the app. The stylesheet imports the fonts from Google Fonts; self-host them if you need to.
+1. Copy `dist/shingo.css`, `dist/fonts/`, `dist/shingo-live.js` and `dist/shingo-sprite.svg` into the app, keeping `fonts/` next to the stylesheet. The other fonts come from Google Fonts; self-host them if you need to.
 2. Inline the sprite once at the top of `<body>` (or fetch it and inject it), then use any glyph with `<svg><use href="#g-i-scan"/></svg>`.
 3. Put `class="tex"` on the page or app root for the striped ground, and `data-sg-live` on any region that should get the live layer (decode, readouts, HUD, wipe). Phone screens use `.scr`, desktop consoles `.con`. `data-decode-view` decodes any other element when it scrolls into view, `data-decode-change` decodes a value whenever its text changes, and `data-no-decode` opts a node out.
 4. Start from `dist/starter.html`: a masthead, readout hero, hazard divider, spec table, telex feed, form set and imprint, in both modes, responsive down to 390 px.
@@ -251,6 +254,8 @@ Shingō started from two references: a sage and coral poster (palette, striped g
 ShingoKit covers the tokens, type, alphabet shapes, components, instruments, icons, the screen grammar, all 22 monoliths, eleven line backdrops, the live layer (scramble, countdowns, wipe, HUD, haptics) and the patterns (states, spec table, form set, search, telex, skeleton). Web-only so far: the motifs, six of the backdrops, the ops furniture, constructed type, the relay network diagram, the posters and the console layout. The Swift code hasn't been compiled yet.
 
 ## Fonts
+
+**Shingo Grid** is drawn in this repo by `tools/font.py` (run it after changing a glyph; it needs `pip install fonttools brotli`). It is MIT licensed like the rest of the repo. It covers A–Z (lowercase prints as caps), figures, common punctuation, € $ % and the accented capitals used in English, French and Portuguese; anything else falls back to Anybody.
 
 Anybody, Saira Stencil One and IBM Plex Mono are licensed under the SIL Open Font License 1.1 (licence texts next to the fonts in `ios/Sources/ShingoKit/Resources/Fonts/OFL-*.txt`). You may bundle them in an app; keep the licence texts with them. Japanese uses Hiragino Sans, which ships with iOS, and BIZ UDGothic on the web. BIZ UDGothic isn't bundled because it's 4 MB.
 

@@ -30,6 +30,9 @@
    Mirrors tokens/tokens.json and ios/Sources/ShingoKit/SGTheme.swift
    ========================================================================== */
 
+@font-face { font-family: "Shingo Grid"; src: url("fonts/ShingoGrid-Bold.woff2") format("woff2"); font-weight: 650 900; font-display: swap; }
+@font-face { font-family: "Shingo Grid"; src: url("fonts/ShingoGrid-Regular.woff2") format("woff2"); font-weight: 100 649; font-display: swap; }
+
 :root, .mode-dark {
   --ground: #0b0b0a;  --ground-2: #1b1c18;  --ground-3: #2e2f2a;
   --on-ground: #c9ccc2;  --ground-hi: #dcdfd5;  --ground-dim: #8b8d85;
@@ -62,9 +65,11 @@
 
 :root {
   /* ---- type: wide, short, hard ---- */
-  --f-display: "Anybody", "Eurostile Extended", "Arial Black", sans-serif;   /* 150% / 800: display 40 pt+ */
-  --f-title: "Anybody", "Eurostile Extended", "Arial", sans-serif;           /* 125% / 700: titles, inline, numerals */
-  --f-cap: "Anybody", "Eurostile Extended", "Arial", sans-serif;             /* 125% / 600 caps: labels, buttons */
+  /* Shingo Grid (tools/font.py): constant stroke, 45° cuts where letters would curve. Bold 800 for display,
+     titles and numbers; Regular (weights below 650) for labels. Anybody covers anything it does not draw. */
+  --f-display: "Shingo Grid", "Anybody", "Eurostile Extended", "Arial Black", sans-serif;   /* Bold: display 40 pt+ */
+  --f-title: "Shingo Grid", "Anybody", "Eurostile Extended", "Arial", sans-serif;           /* Bold: titles, inline, numerals */
+  --f-cap: "Shingo Grid", "Anybody", "Eurostile Extended", "Arial", sans-serif;             /* Regular: labels, buttons */
   --f-sans: "Anybody", "Helvetica Neue", Arial, sans-serif;                  /* 100% / 500: body */
   --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;      /* 500: telemetry */
   --f-stencil: "Saira Stencil One", "Anybody", sans-serif;                   /* wide stencil: serials, stamps */
