@@ -1,5 +1,5 @@
 /* Shingō kit · generated from web/shingo.css */
-@import url("https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900&family=Saira+Stencil+One&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900&family=Saira+Stencil+One&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@700&display=swap");
 
 /* ==========================================================================
    SHINGŌ 信号 — industrial print system (web reference implementation)
@@ -29,9 +29,6 @@
    Force a mode on any subtree with .mode-light / .mode-dark.
    Mirrors tokens/tokens.json and ios/Sources/ShingoKit/SGTheme.swift
    ========================================================================== */
-
-@font-face { font-family: "Shingo Grid"; src: url("fonts/ShingoGrid-Bold.woff2") format("woff2"); font-weight: 650 900; font-display: swap; }
-@font-face { font-family: "Shingo Grid"; src: url("fonts/ShingoGrid-Regular.woff2") format("woff2"); font-weight: 100 649; font-display: swap; }
 
 :root, .mode-dark {
   --ground: #0b0b0a;  --ground-2: #1b1c18;  --ground-3: #2e2f2a;
@@ -65,11 +62,11 @@
 
 :root {
   /* ---- type: wide, short, hard ---- */
-  /* Shingo Grid (tools/font.py): constant stroke, 45° cuts where letters would curve. Bold 800 for display,
-     titles and numbers; Regular (weights below 650) for labels. Anybody covers anything it does not draw. */
-  --f-display: "Shingo Grid", "Anybody", "Eurostile Extended", "Arial Black", sans-serif;   /* Bold: display 40 pt+ */
-  --f-title: "Shingo Grid", "Anybody", "Eurostile Extended", "Arial", sans-serif;           /* Bold: titles, inline, numerals */
-  --f-cap: "Shingo Grid", "Anybody", "Eurostile Extended", "Arial", sans-serif;             /* Regular: labels, buttons */
+  /* Orbitron: wide, squared, geometric. Black 900 for display, ExtraBold 800 for titles and numbers,
+     SemiBold 600 for labels. Anybody covers the few characters it lacks (Ō, ·, º). */
+  --f-display: "Orbitron", "Anybody", "Eurostile Extended", "Arial Black", sans-serif;   /* 900: display 40 pt+ */
+  --f-title: "Orbitron", "Anybody", "Eurostile Extended", "Arial", sans-serif;           /* 800: titles, inline, numerals */
+  --f-cap: "Orbitron", "Anybody", "Eurostile Extended", "Arial", sans-serif;             /* 600 caps: labels, buttons */
   --f-sans: "Anybody", "Helvetica Neue", Arial, sans-serif;                  /* 100% / 500: body */
   --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;      /* 500: telemetry */
   --f-stencil: "Saira Stencil One", "Anybody", sans-serif;                   /* wide stencil: serials, stamps */
@@ -84,11 +81,11 @@
 }
 
 /* ------------------------------------------------------------------ type */
-.sg-display  { font-family: var(--f-display); font-stretch: 150%; font-weight: 800; text-transform: uppercase; letter-spacing: 0; line-height: .9; }   /* 40 pt and up */
-.sg-wordmark { font-family: var(--f-title); font-stretch: 125%; font-weight: 700; text-transform: uppercase; letter-spacing: .01em; line-height: .95; }                        /* titles 26, inline 15 */
+.sg-display  { font-family: var(--f-display); font-stretch: 150%; font-weight: 900; text-transform: uppercase; letter-spacing: 0; line-height: .9; }   /* 40 pt and up */
+.sg-wordmark { font-family: var(--f-title); font-stretch: 125%; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: .95; }                        /* titles 26, inline 15 */
 .sg-cap      { font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; line-height: 1.1; }
 .sg-label    { font-family: var(--f-sans); font-weight: 500; letter-spacing: 0; line-height: 1.25; }
-.sg-num      { font-family: var(--f-title); font-stretch: 125%; font-weight: 700; letter-spacing: .01em; font-variant-numeric: tabular-nums; line-height: 1; }
+.sg-num      { font-family: var(--f-title); font-stretch: 125%; font-weight: 800; letter-spacing: .01em; font-variant-numeric: tabular-nums; line-height: 1; }
 .sg-stencil  { font-family: var(--f-stencil); font-weight: 400; text-transform: uppercase; letter-spacing: .02em; line-height: .9; }
 .sg-mono     { font-family: var(--f-mono); font-weight: 500; font-size: 11px; line-height: 1.3; letter-spacing: 0; }
 .sg-ghost    { color: var(--sage-ghost); }

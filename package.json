@@ -8,7 +8,6 @@
   "main": "dist/shingo-live.js",
   "files": [
     "dist/shingo.css",
-    "dist/fonts/",
     "dist/shingo-live.js",
     "dist/shingo-sprite.svg",
     "dist/starter.html",

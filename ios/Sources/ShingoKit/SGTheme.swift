@@ -66,14 +66,14 @@ public enum SG {
 // MARK: - Type: wide, short, hard
 
 public enum SGFont {
-    /// Shingo Grid Bold: display wordmarks, 40 pt and up. One hard stroke, 45° cuts where letters would curve.
-    public static func display(_ size: CGFloat) -> Font { .custom("ShingoGrid-Bold", size: size) }
-    /// Shingo Grid Bold: titles (22), inline wordmarks (14).
-    public static func title(_ size: CGFloat) -> Font { .custom("ShingoGrid-Bold", size: size) }
-    /// Shingo Grid Bold: numerals in text (proportional; use SGSegDisplay where figures must align).
-    public static func number(_ size: CGFloat) -> Font { .custom("ShingoGrid-Bold", size: size) }
-    /// Shingo Grid Regular: labels in caps ("FUTURE ENGINEERING"), buttons, chips.
-    public static func cap(_ size: CGFloat) -> Font { .custom("ShingoGrid-Regular", size: size) }
+    /// Orbitron Black: display wordmarks, 40 pt and up. Wide and squared.
+    public static func display(_ size: CGFloat) -> Font { .custom("Orbitron-Black", size: size) }
+    /// Orbitron ExtraBold: titles (22), inline wordmarks (14).
+    public static func title(_ size: CGFloat) -> Font { .custom("Orbitron-ExtraBold", size: size) }
+    /// Orbitron ExtraBold: numerals in text.
+    public static func number(_ size: CGFloat) -> Font { .custom("Orbitron-ExtraBold", size: size).monospacedDigit() }
+    /// Orbitron SemiBold: labels in caps ("FUTURE ENGINEERING"), buttons, chips.
+    public static func cap(_ size: CGFloat) -> Font { .custom("Orbitron-SemiBold", size: size) }
     /// Anybody Medium: body and row labels.
     public static func body(_ size: CGFloat = 15) -> Font { .custom("Anybody-Medium", size: size) }
     /// Anybody Expanded Bold: emphasised lines (the trilingual stack).
@@ -86,7 +86,7 @@ public enum SGFont {
     /// Call once at launch (e.g. in your App init). Registers the bundled OFL fonts
     /// so you don't need UIAppFonts entries in Info.plist.
     public static func register() {
-        let names = ["ShingoGrid-Bold", "ShingoGrid-Regular", "AnybodyExtraExpanded-ExtraBold", "AnybodyExpanded-Bold", "AnybodyExpanded-SemiBold", "Anybody-Medium",
+        let names = ["Orbitron-Black", "Orbitron-ExtraBold", "Orbitron-SemiBold", "AnybodyExtraExpanded-ExtraBold", "AnybodyExpanded-Bold", "AnybodyExpanded-SemiBold", "Anybody-Medium",
                      "Anybody-MediumItalic", "SairaStencilOne-Regular", "IBMPlexMono-Medium"]
         for name in names {
             guard let url = Bundle.module.url(forResource: name, withExtension: "ttf") else { continue }
@@ -96,7 +96,7 @@ public enum SGFont {
 }
 
 public extension View {
-    /// Wordmark: Shingo Grid Bold at every size (display 40+, titles 22, inline 14).
+    /// Wordmark: Orbitron Black at 34 pt and up (display), ExtraBold below (titles 22, inline 14).
     func sgWordmark(_ size: CGFloat) -> some View {
         font(size >= 34 ? SGFont.display(size) : SGFont.title(size)).textCase(.uppercase).tracking(size * 0.01)
     }

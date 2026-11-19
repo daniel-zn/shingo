@@ -36,7 +36,7 @@ ROLES = {"ground": "striped background", "ground-2": "stripe highlight", "ground
 
 def resolve(svg, mode):
     """Replace var(--x) with the literal colour for one mode (for standalone files)."""
-    fonts = {"f-display": "'Shingo Grid', Anybody, sans-serif", "f-title": "'Shingo Grid', Anybody, sans-serif", "f-cap": "'Shingo Grid', Anybody, sans-serif", "f-sans": "Anybody, sans-serif",
+    fonts = {"f-display": "Orbitron, Anybody, sans-serif", "f-title": "Orbitron, Anybody, sans-serif", "f-cap": "Orbitron, Anybody, sans-serif", "f-sans": "Anybody, sans-serif",
              "f-mono": "'IBM Plex Mono', monospace", "f-jp": "'BIZ UDGothic', 'Hiragino Sans', sans-serif", "f-stencil": "'Saira Stencil One', sans-serif"}
     return re.sub(r"var\(--([a-z0-9-]+)\)", lambda m: PALETTE[mode].get(m.group(1)) or fonts[m.group(1)], svg)
 
@@ -843,7 +843,7 @@ def console():
 '''
 
 
-FONTS_URL = ("https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900"
+FONTS_URL = ("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900"
              "&family=Saira+Stencil+One&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@700&display=swap")
 
 
@@ -889,9 +889,6 @@ def kit():
     css = (ROOT / "web" / "shingo.css").read_text()
     (d / "shingo.css").write_text(f"/* Shingō kit · generated from web/shingo.css */\n@import url(\"{FONTS_URL}\");\n\n" + css)
     (d / "shingo-live.js").write_text((ROOT / "web" / "shingo-live.js").read_text())
-    (d / "fonts").mkdir(exist_ok=True)
-    for w in ("Bold", "Regular"):
-        (d / "fonts" / f"ShingoGrid-{w}.woff2").write_bytes((ROOT / "web" / "fonts" / f"ShingoGrid-{w}.woff2").read_bytes())
     (d / "shingo-sprite.svg").write_text(sprite().replace(' width="0" height="0" style="position:absolute" aria-hidden="true"', "") + "\n")
     st = seg7_tags((ROOT / "templates" / "starter.src.html").read_text()).replace("<!--@SPRITE-->", sprite())
     (d / "starter.html").write_text(st)
