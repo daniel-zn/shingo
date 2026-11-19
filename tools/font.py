@@ -2,17 +2,14 @@
 
     python3 tools/font.py
 
-Wide, short and hard. Every stroke has one weight, every glyph is drawn from
-level, upright and 45° edges on a grid, and wherever a letter would normally
-curve it is cut at 45°. Two weights from one set of drawings:
+Wide, short and hard, after the RADAR poster. Every stroke has one heavy weight,
+every glyph is drawn from level, upright and 45° edges on a grid, and wherever a
+letter would normally curve it is cut at 45°. One cut, Heavy, for display,
+titles and numbers (subheads and labels are Shingo Signal, see signal_font.py).
 
-    Bold     display, titles, numbers, wordmarks
-    Regular  labels, group heads, buttons, chips
-
-Writes ios/Sources/ShingoKit/Resources/Fonts/ShingoGrid-{Bold,Regular}.ttf and
-web/fonts/ShingoGrid-{Bold,Regular}.woff2. Caps only: lowercase maps to the
-capitals, so text set without a transform still prints in caps. Characters the
-face does not cover fall back to Anybody.
+Writes ios/Sources/ShingoKit/Resources/Fonts/ShingoGrid-Heavy.ttf and
+web/fonts/ShingoGrid-Heavy.woff2. Caps only: titles set it with text-transform: uppercase; lowercase (units inside
+figures, say) falls through to Shingo Signal, then Anybody.
 """
 import math
 import pathlib
@@ -26,9 +23,9 @@ H = 700          # cap height
 UPM = 1000
 
 WEIGHTS = {
-    # stroke, outer cut, body width, side bearing, space
-    "Bold":    dict(S=150, C=150, B=740, SB=56, SP=300),
-    "Regular": dict(S=92,  C=118, B=700, SB=58, SP=280),
+    # stroke, outer cut, body width, side bearing, space. One heavy cut, after the RADAR reference:
+    # strokes about a quarter of the cap height, letters wider than they are tall.
+    "Heavy": dict(S=172, C=172, B=800, SB=52, SP=300),
 }
 
 
@@ -255,10 +252,7 @@ def build(weight):
         pen_glyphs[n] = draw([shifted(s) for s in shapes], [shifted(h) for h in holes])
         metrics[n] = (round(w + 2 * SB), SB)
         cmap[ord(ch)] = n
-        low = ch.lower()
-        if low != ch and len(low) == 1:
-            cmap[ord(low)] = n          # caps only: lowercase prints as capitals
-    cmap[ord("ı")] = names["I"]
+        # caps only: no lowercase, so units inside figures ("38 km/h") fall through to Shingo Signal
 
     fb = FontBuilder(UPM, isTTF=True)
     fb.setupGlyphOrder(order)
@@ -271,12 +265,12 @@ def build(weight):
                        "fullName": f"{family} {weight}", "psName": f"ShingoGrid-{weight}", "version": "Version 1.000",
                        "copyright": "Shingo Grid. MIT licence, see LICENSE."})
     fb.setupOS2(sTypoAscender=930, sTypoDescender=-250, sTypoLineGap=0, usWinAscent=1000, usWinDescent=300,
-                sCapHeight=H, sxHeight=H, usWeightClass=800 if weight == "Bold" else 500, achVendID="SHGO",
-                fsSelection=0x20 if weight == "Bold" else 0x40)
+                sCapHeight=H, sxHeight=H, usWeightClass=900, achVendID="SHGO",
+                fsSelection=0x20)
     fb.setupPost()
     from fontTools.misc.timeTools import timestampFromString
     ts = timestampFromString("Thu Nov 19 00:00:00 2026")     # fixed, so rebuilds are byte-identical
-    fb.setupHead(unitsPerEm=UPM, macStyle=1 if weight == "Bold" else 0, created=ts, modified=ts)
+    fb.setupHead(unitsPerEm=UPM, macStyle=1, created=ts, modified=ts)
     return fb.font
 
 

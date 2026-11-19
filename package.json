@@ -8,6 +8,7 @@
   "main": "dist/shingo-live.js",
   "files": [
     "dist/shingo.css",
+    "dist/fonts/",
     "dist/shingo-live.js",
     "dist/shingo-sprite.svg",
     "dist/starter.html",
@@ -18,6 +19,6 @@
     "build": "python3 tools/screens.py && python3 tools/build.py",
     "check": "python3 tools/check_tokens.py",
     "shots": "node tools/screenshot.js docs 1",
-    "fonts": "python3 tools/font.py"
+    "fonts": "python3 tools/font.py && python3 tools/signal_font.py"
   }
 }

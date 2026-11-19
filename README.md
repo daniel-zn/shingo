@@ -23,7 +23,7 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 **Type**
 
-7. **Wide, short, hard.** Display and titles are **Orbitron**: wide and squared. Black 900 sets display 40+, ExtraBold 800 sets titles 28, inline 14 and numbers, and SemiBold 600 sets the caps labels, buttons and chips. Body text is Anybody, telemetry IBM Plex Mono, serials Saira Stencil One and kanji BIZ UDGothic (Hiragino Sans on iOS). Big numbers are seven-segment readouts. Never condensed, never rounded-soft. (An alternate face, Shingo Grid, is drawn in `tools/font.py` and ready to swap in.)
+7. **Wide, short, hard.** Two faces of our own. **Shingo Grid Heavy** sets display 40+, screen titles 28 and big figures: one heavy stroke, wide and short capitals, a 45° cut wherever a letter would curve. **Shingo Signal**, Orbitron completed with the characters it lacks, sets subheads and inline wordmarks (ExtraBold 800) and labels, buttons and chips (SemiBold 600). Body text is Anybody, telemetry IBM Plex Mono, serials Saira Stencil One and kanji BIZ UDGothic (Hiragino Sans on iOS). Big numbers are seven-segment readouts. Never condensed, never rounded.
 
 **Layout**
 
@@ -92,14 +92,16 @@ templates/starter.src.html    a complete app page built only from the kit (sourc
 web/gallery.src.html          gallery source
 web/partials/languages.html   the language section
 tools/screens.py              regenerates the gallery screens from the grammar
-tools/font.py                 draws Shingo Grid, the alternate display face (not in use): TTF for iOS, WOFF2 for the web
-web/fonts/                    ShingoGrid-Bold.woff2, ShingoGrid-Regular.woff2 (alternate)
+tools/font.py                 draws Shingo Grid Heavy, the title face, from grid geometry: TTF for iOS, WOFF2 for the web
+tools/signal_font.py          builds Shingo Signal from tools/vendor/Orbitron[wght].ttf: two weights plus the missing glyphs
+web/fonts/                    ShingoGrid-Heavy, ShingoSignal-SemiBold, ShingoSignal-ExtraBold (WOFF2)
 tools/monoliths.py            the monolith backdrops as polygon data (web symbols and SwiftUI are generated from it)
 tools/build.py                glyphs, motifs, backdrops, key art, posters; builds dist/
 tools/check_tokens.py         fails the build if tokens.json, shingo.css and SGTheme.swift disagree
 tools/screenshot.js           renders every screen in both modes (preinstalled Playwright)
 dist/index.html               the built, self-contained gallery
-dist/shingo.css               the kit stylesheet for other apps (fonts imported from Google Fonts)
+dist/shingo.css               the kit stylesheet for other apps (our faces from dist/fonts/, the rest from Google Fonts)
+dist/fonts/                   Shingo Grid and Shingo Signal WOFF2 files
 dist/shingo-live.js           the live layer, standalone
 dist/shingo-sprite.svg        every glyph, icon, motif and backdrop as <symbol id="g-…">
 dist/starter.html             the starter page, built (open it next to shingo.css)
@@ -146,7 +148,7 @@ The repo is built to be lifted into anything. Pick the route that fits.
 
 **A web app**
 
-1. Copy `dist/shingo.css`, `dist/shingo-live.js` and `dist/shingo-sprite.svg` into the app. The stylesheet imports the fonts from Google Fonts; self-host them if you need to.
+1. Copy `dist/shingo.css`, `dist/fonts/`, `dist/shingo-live.js` and `dist/shingo-sprite.svg` into the app, keeping `fonts/` next to the stylesheet. Anybody, Plex Mono and the stencil come from Google Fonts; self-host them if you need to.
 2. Inline the sprite once at the top of `<body>` (or fetch it and inject it), then use any glyph with `<svg><use href="#g-i-scan"/></svg>`.
 3. Put `class="tex"` on the page or app root for the striped ground, and `data-sg-live` on any region that should get the live layer (decode, readouts, HUD, wipe). Phone screens use `.scr`, desktop consoles `.con`. `data-decode-view` decodes any other element when it scrolls into view, `data-decode-change` decodes a value whenever its text changes, and `data-no-decode` opts a node out.
 4. Start from `dist/starter.html`: a masthead, readout hero, hazard divider, spec table, telex feed, form set and imprint, in both modes, responsive down to 390 px.
@@ -254,11 +256,12 @@ ShingoKit covers the tokens, type, alphabet shapes, components, instruments, ico
 
 ## Fonts
 
-Orbitron, Anybody, Saira Stencil One and IBM Plex Mono are licensed under the SIL Open Font License 1.1. Orbitron ships to iOS as three static weights cut from the variable font (Black, ExtraBold, SemiBold). It has no Ō, · or º, so those fall back to Anybody (the gallery header draws the macron as a cut bar).
+- **Shingo Grid Heavy** is drawn in this repo by `tools/font.py` and is MIT licensed with the rest of the repo. It covers A–Z, figures, common punctuation, € $ % and the accented capitals for English, French and Portuguese; anything else, lowercase included, falls through to Shingo Signal, then Anybody.
+- **Shingo Signal** is a modified Orbitron, built by `tools/signal_font.py` from the variable font kept in `tools/vendor/`. It adds the characters Orbitron lacks (macron vowels Ā Ē Ī Ō Ū, the middle dot ·, º ª №, « », arrows ← ↑ → ↓, ◆, ′ ″, ² ³, ™), drawn from Orbitron's own strokes. Orbitron reserves its name, so the modified font carries a new one; it stays under the SIL Open Font License 1.1 (`OFL-ShingoSignal.txt`).
+- Anybody, Saira Stencil One and IBM Plex Mono are licensed under the SIL Open Font License 1.1 (licence texts next to the fonts in `ios/Sources/ShingoKit/Resources/Fonts/OFL-*.txt`). You may bundle them all in an app; keep the licence texts with them.
+- Japanese uses Hiragino Sans, which ships with iOS, and BIZ UDGothic on the web. BIZ UDGothic isn't bundled because it's 4 MB.
+- Rebuilding the fonts needs `pip install fonttools brotli`.
 
-**Shingo Grid**, the alternate, is drawn in this repo by `tools/font.py` (needs `pip install fonttools brotli`): one heavy stroke, 45° cuts where letters would curve, caps only. To switch to it, point `--f-display`, `--f-title` and `--f-cap` (and `SGFont`) at it and add its `@font-face`.
-
-Anybody, Saira Stencil One and IBM Plex Mono are licensed under the SIL Open Font License 1.1 (licence texts next to the fonts in `ios/Sources/ShingoKit/Resources/Fonts/OFL-*.txt`). You may bundle them in an app; keep the licence texts with them. Japanese uses Hiragino Sans, which ships with iOS, and BIZ UDGothic on the web. BIZ UDGothic isn't bundled because it's 4 MB.
 
 ## Licence
 

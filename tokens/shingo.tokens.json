@@ -213,49 +213,49 @@
   "fontFamily": {
     "display": {
       "$type": "fontFamily",
-      "$value": "Orbitron",
+      "$value": "Shingo Grid",
       "$extensions": {
         "shingo": {
           "width": "single (wide)",
           "weight": 900,
-          "ios": "Orbitron-Black",
+          "ios": "ShingoGrid-Heavy",
           "case": "upper",
-          "use": "display wordmarks, 40 pt and up"
+          "use": "display wordmarks 40 pt+, screen titles 28"
         }
       }
     },
     "title": {
       "$type": "fontFamily",
-      "$value": "Orbitron",
+      "$value": "Shingo Signal",
       "$extensions": {
         "shingo": {
           "width": "single (wide)",
           "weight": 800,
-          "ios": "Orbitron-ExtraBold",
+          "ios": "ShingoSignal-ExtraBold",
           "case": "upper",
-          "use": "titles (28), inline wordmarks (14), keycap labels"
+          "use": "subheads, inline wordmarks (below 18 pt)"
         }
       }
     },
     "number": {
       "$type": "fontFamily",
-      "$value": "Orbitron",
+      "$value": "Shingo Grid",
       "$extensions": {
         "shingo": {
           "width": "single (wide)",
-          "weight": 800,
-          "ios": "Orbitron-ExtraBold"
+          "weight": 900,
+          "ios": "ShingoGrid-Heavy"
         }
       }
     },
     "cap": {
       "$type": "fontFamily",
-      "$value": "Orbitron",
+      "$value": "Shingo Signal",
       "$extensions": {
         "shingo": {
           "width": "single (wide)",
           "weight": 600,
-          "ios": "Orbitron-SemiBold",
+          "ios": "ShingoSignal-SemiBold",
           "case": "upper",
           "use": "labels, group headers, buttons, chips"
         }

@@ -27,6 +27,10 @@
    Mirrors tokens/tokens.json and ios/Sources/ShingoKit/SGTheme.swift
    ========================================================================== */
 
+@font-face { font-family: "Shingo Grid"; src: url("fonts/ShingoGrid-Heavy.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Shingo Signal"; src: url("fonts/ShingoSignal-SemiBold.woff2") format("woff2"); font-weight: 100 699; font-display: swap; }
+@font-face { font-family: "Shingo Signal"; src: url("fonts/ShingoSignal-ExtraBold.woff2") format("woff2"); font-weight: 700 900; font-display: swap; }
+
 :root, .mode-dark {
   --ground: #0b0b0a;  --ground-2: #1b1c18;  --ground-3: #2e2f2a;
   --on-ground: #c9ccc2;  --ground-hi: #dcdfd5;  --ground-dim: #8b8d85;
@@ -59,11 +63,13 @@
 
 :root {
   /* ---- type: wide, short, hard ---- */
-  /* Orbitron: wide, squared, geometric. Black 900 for display, ExtraBold 800 for titles and numbers,
-     SemiBold 600 for labels. Anybody covers the few characters it lacks (Ō, ·, º). */
-  --f-display: "Orbitron", "Anybody", "Eurostile Extended", "Arial Black", sans-serif;   /* 900: display 40 pt+ */
-  --f-title: "Orbitron", "Anybody", "Eurostile Extended", "Arial", sans-serif;           /* 800: titles, inline, numerals */
-  --f-cap: "Orbitron", "Anybody", "Eurostile Extended", "Arial", sans-serif;             /* 600 caps: labels, buttons */
+  /* Two faces of our own (web/fonts, tools/font.py, tools/signal_font.py):
+     Shingo Grid Heavy: display, screen titles and big figures. One heavy stroke, 45° cuts, caps only.
+     Shingo Signal: Orbitron completed with the characters it lacks. ExtraBold 800 for subheads and
+     inline wordmarks, SemiBold 600 for labels, buttons and chips. */
+  --f-display: "Shingo Grid", "Shingo Signal", "Anybody", "Arial Black", sans-serif;   /* display, titles 28, figures */
+  --f-title: "Shingo Signal", "Anybody", "Arial", sans-serif;                          /* 800: subheads, inline wordmarks */
+  --f-cap: "Shingo Signal", "Anybody", "Arial", sans-serif;                            /* 600 caps: labels, buttons */
   --f-sans: "Anybody", "Helvetica Neue", Arial, sans-serif;                  /* 100% / 500: body */
   --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;      /* 500: telemetry */
   --f-stencil: "Saira Stencil One", "Anybody", sans-serif;                   /* wide stencil: serials, stamps */
@@ -78,11 +84,11 @@
 }
 
 /* ------------------------------------------------------------------ type */
-.sg-display  { font-family: var(--f-display); font-stretch: 150%; font-weight: 900; text-transform: uppercase; letter-spacing: 0; line-height: .9; }   /* 40 pt and up */
+.sg-display  { font-family: var(--f-display); font-synthesis: none; font-stretch: 150%; font-weight: 900; text-transform: uppercase; letter-spacing: 0; line-height: .9; }   /* 40 pt and up */
 .sg-wordmark { font-family: var(--f-title); font-stretch: 125%; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: .95; }                        /* titles 26, inline 15 */
 .sg-cap      { font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; line-height: 1.1; }
 .sg-label    { font-family: var(--f-sans); font-weight: 500; letter-spacing: 0; line-height: 1.25; }
-.sg-num      { font-family: var(--f-title); font-stretch: 125%; font-weight: 800; letter-spacing: .01em; font-variant-numeric: tabular-nums; line-height: 1; }
+.sg-num      { font-family: var(--f-display); font-synthesis: none; font-stretch: 125%; font-weight: 800; letter-spacing: .01em; font-variant-numeric: tabular-nums; line-height: 1; }
 .sg-stencil  { font-family: var(--f-stencil); font-weight: 400; text-transform: uppercase; letter-spacing: .02em; line-height: .9; }
 .sg-mono     { font-family: var(--f-mono); font-weight: 500; font-size: 11px; line-height: 1.3; letter-spacing: 0; }
 .sg-ghost    { color: var(--sage-ghost); }
@@ -234,7 +240,7 @@
 .u > .u-hd, .u > .u-hero, .u > .u-div, .u > .u-body { position: relative; }
 .u-hd { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; align-items: end; padding: 60px 24px 0; }
 .u-code { grid-column: 1; grid-row: 1; writing-mode: vertical-rl; transform: rotate(180deg); font: 400 7px/1 var(--f-mono); letter-spacing: .24em; color: var(--ground-dim); padding-bottom: 2px; }
-.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-title); font-stretch: 125%; font-weight: 800; font-size: 28px; letter-spacing: .01em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
+.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-display); font-synthesis: none; font-stretch: 125%; font-weight: 800; font-size: 28px; letter-spacing: .01em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
 .u-tag { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
 .u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ground-dim); }
 .u-hd .sg-jp-v { color: var(--ground-dim); font-size: 12px; }
@@ -329,7 +335,7 @@
 
 /* keycap: a physical push button, top plate over a shadow plate */
 .keycap { all: unset; box-sizing: border-box; position: relative; isolation: isolate; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  width: 100%; height: 60px; padding: 0 20px; color: #0c0c0a; font: 700 expanded 22px var(--f-title); letter-spacing: .06em; text-transform: uppercase; }
+  width: 100%; height: 60px; padding: 0 20px; color: #0c0c0a; font: 700 expanded 22px var(--f-display); letter-spacing: .06em; text-transform: uppercase; }
 .keycap::before, .keycap::after { content: ""; position: absolute; z-index: -1; --c: 14px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .keycap::before { display: none; }
 .keycap::after { inset: 0; background: var(--kc, var(--coral)); }
@@ -519,7 +525,7 @@
   --c: 7px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .stepper button:active { background: var(--ground-dim); }
 .stepper button:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
-.stepper output { min-width: 64px; padding: 0 6px; text-align: center; font: 800 expanded 22px var(--f-title); color: var(--ground-hi); font-variant-numeric: tabular-nums; }
+.stepper output { min-width: 64px; padding: 0 6px; text-align: center; font: 800 expanded 22px var(--f-display); color: var(--ground-hi); font-variant-numeric: tabular-nums; }
 .search { position: relative; display: flex; align-items: center; height: 44px; padding: 0 12px 0 40px; box-shadow: inset 0 0 0 1.5px var(--ground-dim);
   --c: 10px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .search svg { position: absolute; left: 12px; width: 18px; height: 18px; color: var(--ground-hi); }
