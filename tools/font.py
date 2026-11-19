@@ -4,8 +4,8 @@
 
 Wide, short and hard, after the RADAR poster. Every stroke has one heavy weight,
 every glyph is drawn from level, upright and 45° edges on a grid, and wherever a
-letter would normally curve it is cut at 45°. Diagonals run at 45° at full
-weight and never end on the slant: every terminal is level or upright. One cut, Heavy, for display,
+letter would normally curve it is cut at 45°. Diagonals are long 45° strokes
+at full weight; a free end is cut level and its point trimmed by an upright facet. One cut, Heavy, for display,
 titles and numbers (subheads and labels are Shingo Signal, see signal_font.py).
 
 Writes ios/Sources/ShingoKit/Resources/Fonts/ShingoGrid-Heavy.ttf and
@@ -24,9 +24,9 @@ H = 700          # cap height
 UPM = 1000
 
 WEIGHTS = {
-    # stroke, outer cut, body width, side bearing, space. One heavy cut, after the RADAR reference:
-    # strokes about a quarter of the cap height, letters wider than they are tall.
-    "Heavy": dict(S=172, C=172, B=800, SB=52, SP=300),
+    # stroke, outer cut, body width, side bearing, space. One cut, after the RADAR reference:
+    # strokes about a fifth of the cap height, cuts a little larger than the stroke, letters wider than tall.
+    "Heavy": dict(S=136, C=176, B=800, SB=58, SP=300),
 }
 
 
@@ -46,6 +46,37 @@ def crect(x0, y0, x1, y1, tl=0, tr=0, br=0, bl=0):
 
 def rect(x0, y0, x1, y1):
     return crect(x0, y0, x1, y1)
+
+
+def clip(poly, a, b, c):
+    """Keep the part of a convex polygon where a*x + b*y + c >= 0."""
+    out = []
+    for i, p in enumerate(poly):
+        q = poly[(i + 1) % len(poly)]
+        fp, fq = a * p[0] + b * p[1] + c, a * q[0] + b * q[1] + c
+        if fp >= 0:
+            out.append(p)
+        if (fp >= 0) != (fq >= 0):
+            t = fp / (fp - fq)
+            out.append((p[0] + t * (q[0] - p[0]), p[1] + t * (q[1] - p[1])))
+    return out
+
+
+def clipbox(poly, x0, x1, y0, y1):
+    for a, b, c in ((1, 0, -x0), (-1, 0, x1), (0, 1, -y0), (0, -1, y1)):
+        poly = clip(poly, a, b, c)
+    return poly
+
+
+def band(x0, y0, y1, T, rising=True):
+    """A 45° stroke between heights y0 and y1, T wide measured level.
+    Rising runs "/" from bottom-left x0; falling runs "\\" from top-left x0.
+    Long and continuous: where it meets a level line its point is trimmed by an
+    upright facet (clipbox), the same 45° cut the corners use."""
+    d = y1 - y0
+    if rising:
+        return [(x0, y0), (x0 + T, y0), (x0 + T + d, y1), (x0 + d, y1)]
+    return [(x0 + d, y0), (x0 + d + T, y0), (x0 + T, y1), (x0, y1)]
 
 
 def stroke(pts, w):
@@ -219,82 +250,85 @@ def glyphs(S, C, B, **_):
     g[">"] = (B * .7, [[(0, H * .85), (0, H * .85 - T * .9), (H * .35, M), (0, H * .15 + T * .9), (0, H * .15), (B * .7, M)]], [])
     g["*"] = (B * .6, [rect(B * .3 - S / 2.5, H - B * .6, B * .3 + S / 2.5, H), rect(0, H - B * .3 - S / 2.5, B * .6, H - B * .3 + S / 2.5)], [])
     g["@"] = (B, [crect(0, 0, B, H, C, C, 0, C), rect(B * .4, 0, B, S)], [crect(S, S, B - S, H - S, c, c, 0, c)])
-    # ---- diagonals: 45°, full weight, square terminals (see stroke) ----
-    h = S / 2
-    # X: each bar drops upright, crosses at 45°, and lands upright
-    xw = B * .82
-    run = xw - S
-    st = (H - run) / 2
-    g["X"] = (xw, [stroke([(h, H), (h, H - st), (xw - h, st), (xw - h, 0)], S),
-                   stroke([(xw - h, H), (xw - h, H - st), (h, st), (h, 0)], S)], [])
-    # K: stem, a short level spur, then arms that rise and fall to upright ends
-    arm = H - M - S * .55
-    kx = B - h - arm
-    g["K"] = (B, [rect(0, 0, S, H), stroke([(S * .5, M), (kx, M), (B - h, M + arm), (B - h, H)], S),
-                  stroke([(kx, M), (B - h, M - arm), (B - h, 0)], S)], [])
-    # V and Y: upright sides, 45° arms, an upright stub to the baseline
-    vr = B / 2 - h
-    vy = S * .45                                   # a short upright stub at the foot
-    g["V"] = (B, [stroke([(h, H), (h, vy + vr), (B / 2, vy), (B / 2, 0)], S),
-                  stroke([(B - h, H), (B - h, vy + vr), (B / 2, vy), (B / 2, 0)], S)], [])
-    yy = M - S * .15
-    g["Y"] = (B, [stroke([(h, H), (h, yy + vr), (B / 2, yy), (B / 2, 0)], S),
-                  stroke([(B - h, H), (B - h, yy + vr), (B / 2, yy), (B / 2, 0)], S)], [])
-    # N: two stems and a 45° diagonal whose ends sit inside the stems
-    nw = B * .82
-    g["N"] = (nw, [rect(0, 0, S, H), rect(nw - S, 0, nw, H), stroke([(h, H - h), (nw - h, H - h - (nw - S))], S)], [])
-    # M and W: stems, and a V that ends in an upright stub
-    mw2 = B * 1.18
-    mr = mw2 / 2 - h
-    mtip = H - h - mr
-    m_poly = [rect(0, 0, S, H), rect(mw2 - S, 0, mw2, H),
-              stroke([(h, H - h), (mw2 / 2, mtip), (mw2 / 2, mtip - S * .5)], S),
-              stroke([(mw2 - h, H - h), (mw2 / 2, mtip), (mw2 / 2, mtip - S * .5)], S)]
-    g["M"] = (mw2, m_poly, [])
-    g["W"] = (mw2, [[(x, H - y) for x, y in poly] for poly in m_poly], [])
-    # Z: bars top and bottom, the "/" between them ends inside both
-    zd = H - S
-    zx = (B - zd) / 2
-    g["Z"] = (B, [rect(0, H - S, B, H), rect(0, 0, B, S), stroke([(zx, h), (zx + zd, H - h)], S)], [])
-    # R: the leg leaves the bowl at 45° and lands upright
-    leg = M - S * .9
-    rx = B - h - leg
+    # ---- diagonals: long 45° strokes at full weight. A free end is cut level and its
+    # point trimmed by a short upright facet f; a joined end runs into its stem or bar.
+    f = S * .42
+    mx = lambda poly, w: [(w - x, y) for x, y in poly]
+    my = lambda poly: [(x, H - y) for x, y in poly]
+    # X: two strokes the full height, each landing on a facet
+    xw = H + T * .9
+    g["X"] = (xw, [clipbox(band(0, 0, H, T), f, xw - f, 0, H), clipbox(band(0, 0, H, T, rising=False), f, xw - f, 0, H)], [])
+    # K: arms grow out of the stem and land on facets
+    kw = B * .84
+    ya, yb = M - S * .5, M + S * .5
+    g["K"] = (kw, [rect(0, 0, S, H),
+                   clipbox(band(kw - T - (H - ya), ya, H, T), 0, kw - f, ya, H),
+                   clipbox(band(kw - T - yb, 0, yb, T, rising=False), 0, kw - f, 0, yb)], [])
+    # R: the leg runs out of the bowl and lands on a facet
     pr = [(0, 0), (0, H), (B - C, H), (B, H - C), (B, b + C), (B - C, b), (S, b), (S, 0)]
-    g["R"] = (B, [pr, stroke([(rx, M - h * .2), (B - h, M - h * .2 - leg), (B - h, 0)], S)], [crect(S, t, B - S, H - S, tr=c, br=c)])
-    # 7: the stem leaves the bar at 45° and lands upright
-    sr = H - S - S * .7
-    g["7"] = (B, [rect(0, H - S, B, H), stroke([(B - h, H - h), (B - h - sr, H - h - sr), (B - h - sr, 0)], S)], [])
-    # 1 and 4: square terminals, no cut flag
-    ow = S * 2.2
+    g["R"] = (B, [pr, clipbox(band(B - T - M, 0, M, T, rising=False), 0, B - f, 0, M)],
+              [crect(S, t, B - S, H - S, tr=c, br=c)])
+    # 7: the stem runs from the bar down to a facet
+    y7 = H - S * .5
+    g["7"] = (B, [rect(0, H - S, B, H), clipbox(band(B - T - y7, 0, y7, T), B - T - y7 + f, B, 0, y7)], [])
+    # Z: the diagonal runs bar to bar
+    zd = H - S
+    g["Z"] = (B, [rect(0, H - S, B, H), rect(0, 0, B, S), band((B - T - zd) / 2, S / 2, H - S / 2, T)], [])
+    # N: the diagonal leaves the top of the left stem and runs into the right one
+    nw = B * .88
+    yn = H - (nw - T)
+    g["N"] = (nw, [rect(0, 0, S, H), rect(nw - S, 0, nw, H), clipbox(band(0, yn, H, T, rising=False), 0, nw, yn, H)], [])
+    # M and W: the stems carry a V whose arms meet in a point
+    mw = B * 1.2
+    arm = clipbox(band(0, 0, H, T, rising=False), 0, mw / 2, 0, H)
+    m_parts = [rect(0, 0, S, H), rect(mw - S, 0, mw, H), arm, mx(arm, mw)]
+    g["M"] = (mw, m_parts, [])
+    g["W"] = (mw, [my(q) for q in m_parts], [])
+    # Y: arms land on facets at the top and meet over the stem
+    yarm = clipbox(band(0, 0, H, T, rising=False), f, B / 2, 0, H)
+    ytip = H - B / 2
+    g["Y"] = (B, [yarm, mx(yarm, B), rect(B / 2 - S / 2, 0, B / 2 + S / 2, ytip + S)], [])
+    # V: the U with deep cuts, the sides running down into a short foot
+    cv = B / 2 - S * .75
+    cvi = cv - S * (2 - R2)
+    g["V"] = (B, [[(0, H), (0, cv), (cv, 0), (B - cv, 0), (B, cv), (B, H), (B - S, H), (B - S, S + cvi), (B - S - cvi, S),
+                   (S + cvi, S), (S, S + cvi), (S, H)]], [])
+    # 0: the O with the slash from the picture, its ends inside the frame
+    zw = B * .86
+    zo = crect(0, 0, zw, H, C, C, C, C)
+    zs = band((zw - T - (H - 2 * S)) / 2, S, H - S, T)
+    g["0"] = (zw, [zo, clipbox(zs, S * .5, zw - S * .5, S * .5, H - S * .5)], [crect(S, S, zw - S, H - S, c, c, c, c)])
+    # 1 and 4: square flag and bar ends
+    ow = S * 2.3
     g["1"] = (ow, [rect(0, H - S, ow, H), rect(ow - S, 0, ow, H)], [])
     g["4"] = (B, [[(0, H), (S, H), (S, t), (B - S, t), (B - S, H), (B, H), (B, 0), (B - S, 0), (B - S, b), (0, b)]], [])
-    # slash, percent, times, angle brackets: the same diagonal, the same stubs
-    sl = H * .62
-    sst = (H - (sl - S)) / 2
-    g["/"] = (sl, [stroke([(h, 0), (h, sst), (sl - h, H - sst), (sl - h, H)], S)], [])
-    pw = B * .9
-    sq = S * 1.4
-    pst = (H - (pw - S)) / 2
-    g["%"] = (pw, [rect(0, H - sq, sq, H), rect(pw - sq, 0, pw, sq),
-                   stroke([(h, 0), (h, max(S * .3, pst)), (pw - h, H - max(S * .3, pst)), (pw - h, H)], S)], [])
-    tw = B * .7
-    tr_ = tw - S
-    ty = M - tr_ / 2
-    g["×"] = (tw, [stroke([(h, ty + tr_ + S * .3), (h, ty + tr_), (tw - h, ty), (tw - h, ty - S * .3)], S),
-                   stroke([(tw - h, ty + tr_ + S * .3), (tw - h, ty + tr_), (h, ty), (h, ty - S * .3)], S)], [])
-    aw = B * .62
-    ar = aw - S
-    g["<"] = (aw, [stroke([(aw, M + ar), (aw - h, M + ar), (h, M + h), (h, M - h), (aw - h, M - ar), (aw, M - ar)], S)], [])
-    g[">"] = (aw, [stroke([(0, M + ar), (h, M + ar), (aw - h, M + h), (aw - h, M - h), (h, M - ar), (0, M - ar)], S)], [])
-    # comma, semicolon, quotes: an upright tail, not a slanted one
+    # slash and percent: steeper than 45° so they stay narrow, same facets
+    sw, T2 = H * .6, S * 1.2
+    sl = [(0, 0), (T2, 0), (sw, H), (sw - T2, H)]
+    g["/"] = (sw, [clipbox(sl, f * .8, sw - f * .8, 0, H)], [])
+    pw = B * .92
+    sq = S * 1.5
+    g["%"] = (pw, [rect(0, H - sq, sq, H), rect(pw - sq, 0, pw, sq), clipbox([(0, 0), (T2, 0), (pw, H), (pw - T2, H)], f, pw - f, 0, H)], [])
+    # times: a small X
+    th = H * .56
+    tw = th + T * .8
+    ty = M - th / 2
+    tx = [[(x, y + ty) for x, y in clipbox(band(0, 0, th, T * .8), f * .7, tw - f * .7, 0, th)],
+          [(x, y + ty) for x, y in clipbox(band(0, 0, th, T * .8, rising=False), f * .7, tw - f * .7, 0, th)]]
+    g["×"] = (tw, tx, [])
+    # angle brackets: two 45° strokes meeting in a point, free ends on facets
+    aa = H * .36
+    aw = T + aa - f
+    up = clipbox(band(0, M, M + aa, T), 0, aw, M, M + aa)
+    dn = clipbox(band(0, M - aa, M, T, rising=False), 0, aw, M - aa, M)
+    g["<"] = (aw, [up, dn], [])
+    g[">"] = (aw, [mx(up, aw), mx(dn, aw)], [])
+    # comma, semicolon, quotes: upright tails
     tail = [rect(0, 0, S, S), rect(0, -S * .85, S * .55, 0)]
     g[","] = (S, tail, [])
     g[";"] = (S, tail + [rect(0, M - S / 2 + 60, S, M + S / 2 + 60)], [])
     g["’"] = (S, [rect(0, H - S, S, H), rect(S * .45, H - S * 1.85, S, H - S)], [])
     g["‘"] = (S, [rect(0, H - S, S, H), rect(0, H - S * 1.85, S * .55, H - S)], [])
-    # 0: the O drawn narrower, so figures and letters stay apart without a slash
-    zw = B * .84
-    g["0"] = (zw, [crect(0, 0, zw, H, C, C, C, C)], [crect(S, S, zw - S, H - S, c, c, c, c)])
     return g
 
 
