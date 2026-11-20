@@ -20,13 +20,13 @@ from fontTools.pens.ttGlyphPen import TTGlyphPen
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 R2 = math.sqrt(2)
-H = 700          # cap height
+H = 650          # cap height (short: the face is stubby, wider than tall)
 UPM = 1000
 
 WEIGHTS = {
     # stroke, outer cut, body width, side bearing, space. One cut, after the RADAR reference:
     # strokes about a fifth of the cap height, cuts a little larger than the stroke, letters wider than tall.
-    "Heavy": dict(S=136, C=176, B=800, SB=58, SP=300),
+    "Heavy": dict(S=132, C=170, B=860, SB=84, SP=330),
 }
 
 
@@ -159,7 +159,7 @@ def glyphs(S, C, B, **_):
     g["R"] = (B, [[(0, 0), (0, H), (B - C, H), (B, H - C), (B, b + C), (B - C, b), (S, b), (S, 0)],
                   [(xl, b + 1), (xl + T, b + 1), (B, 0), (B - T, 0)]],
               [crect(S, t, B - S, H - S, tr=c, br=c)])
-    g["S"] = (B, [[(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, t), (B - C, t), (B, t - C), (B, C), (B - C, 0), (0, 0),
+    g["S"] = (B, [[(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, t + c), (S + c, t), (B - C, t), (B, t - C), (B, C), (B - C, 0), (0, 0),
                    (0, S), (B - S - c, S), (B - S, S + c), (B - S, b - c), (B - S - c, b), (C, b), (0, b + C), (0, H - C)]], [])
     g["T"] = (B, [[(0, H), (B, H), (B, H - S), (B / 2 + S / 2, H - S), (B / 2 + S / 2, 0), (B / 2 - S / 2, 0), (B / 2 - S / 2, H - S), (0, H - S)]], [])
     g["U"] = (B, [[(0, H), (S, H), (S, S + c), (S + c, S), (B - S - c, S), (B - S, S + c), (B - S, H), (B, H), (B, C), (B - C, 0), (C, 0), (0, C)]], [])
@@ -180,7 +180,7 @@ def glyphs(S, C, B, **_):
               [crect(S, S, B - S, H - S, c, c, c, c)])
     ow = S * 2.2                       # the 1 is narrow: digits are proportional (readouts that must align use seg7)
     g["1"] = (ow, [crect(0, H - S, ow, H, tl=min(C, S)), rect(ow - S, 0, ow, H)], [])
-    g["2"] = (B, [[(0, H), (B - C, H), (B, H - C), (B, b + C), (B - C, b), (S, b), (S, S), (B, S), (B, 0), (0, 0), (0, t - C), (C, t),
+    g["2"] = (B, [[(0, H), (B - C, H), (B, H - C), (B, b + C), (B - C, b), (S + c, b), (S, b - c), (S, S), (B, S), (B, 0), (0, 0), (0, t - C), (C, t),
                    (B - S - c, t), (B - S, t + c), (B - S, H - S - c), (B - S - c, H - S), (0, H - S)]], [])
     g["3"] = (B, [[(0, H), (B - C, H), (B, H - C), (B, C), (B - C, 0), (0, 0), (0, S), (B - S - c, S), (B - S, S + c), (B - S, b),
                    (B * .3, b), (B * .3, t), (B - S, t), (B - S, H - S - c), (B - S - c, H - S), (0, H - S)]], [])
@@ -249,7 +249,9 @@ def glyphs(S, C, B, **_):
     g["<"] = (B * .7, [[(B * .7, H * .85), (B * .7, H * .85 - T * .9), (B * .7 - (H * .35 - 0), M), (B * .7, H * .15 + T * .9), (B * .7, H * .15), (0, M)]], [])
     g[">"] = (B * .7, [[(0, H * .85), (0, H * .85 - T * .9), (H * .35, M), (0, H * .15 + T * .9), (0, H * .15), (B * .7, M)]], [])
     g["*"] = (B * .6, [rect(B * .3 - S / 2.5, H - B * .6, B * .3 + S / 2.5, H), rect(0, H - B * .3 - S / 2.5, B * .6, H - B * .3 + S / 2.5)], [])
-    g["@"] = (B, [crect(0, 0, B, H, C, C, 0, C), rect(B * .4, 0, B, S)], [crect(S, S, B - S, H - S, c, c, 0, c)])
+    # @: a cut frame open at the lower right, a solid core, and the tail running out along the baseline
+    g["@"] = (B, [crect(0, 0, B, H, C, C, 0, C), rect(B / 2 - S * .85, M - S * .85, B / 2 + S * .85, M + S * .85), rect(B * .45, 0, B, S)],
+              [crect(S, S, B - S, H - S, c, c, 0, c)])
     # ---- diagonals: long 45° strokes at full weight. A free end is cut level and its
     # point trimmed by a short upright facet f; a joined end runs into its stem or bar.
     f = S * .42
@@ -259,8 +261,8 @@ def glyphs(S, C, B, **_):
     xw = H + T * .9
     g["X"] = (xw, [clipbox(band(0, 0, H, T), f, xw - f, 0, H), clipbox(band(0, 0, H, T, rising=False), f, xw - f, 0, H)], [])
     # K: arms grow out of the stem and land on facets
-    kw = B * .84
     ya, yb = M - S * .5, M + S * .5
+    kw = S * .4 + T + (H - ya)                     # the arms grow out of the stem, never float beside it
     g["K"] = (kw, [rect(0, 0, S, H),
                    clipbox(band(kw - T - (H - ya), ya, H, T), 0, kw - f, ya, H),
                    clipbox(band(kw - T - yb, 0, yb, T, rising=False), 0, kw - f, 0, yb)], [])
@@ -269,8 +271,8 @@ def glyphs(S, C, B, **_):
     g["R"] = (B, [pr, clipbox(band(B - T - M, 0, M, T, rising=False), 0, B - f, 0, M)],
               [crect(S, t, B - S, H - S, tr=c, br=c)])
     # 7: the stem runs from the bar down to a facet
-    y7 = H - S * .5
-    g["7"] = (B, [rect(0, H - S, B, H), clipbox(band(B - T - y7, 0, y7, T), B - T - y7 + f, B, 0, y7)], [])
+    y7 = H - S
+    g["7"] = (B, [crect(0, H - S, B, H, tr=C * .75), clipbox(band(B - T - y7, 0, y7, T), B - T - y7 + f, B, 0, y7)], [])
     # Z: the diagonal runs bar to bar
     zd = H - S
     g["Z"] = (B, [rect(0, H - S, B, H), rect(0, 0, B, S), band((B - T - zd) / 2, S / 2, H - S / 2, T)], [])
@@ -407,7 +409,7 @@ def side_space(ch, shapes, SB):
             e = ink_left(side, y)
             gaps.append(min(260, (e - x_edge) if e is not None else 260))
         avg = sum(gaps) / len(gaps)
-        out.append(max(SB * .3, SB - .42 * avg))
+        out.append(max(SB * .4, SB - .36 * avg))
     return out[0], out[1], x0, x1
 
 
