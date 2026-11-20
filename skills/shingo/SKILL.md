@@ -1,11 +1,11 @@
 ---
 name: shingo
-description: Apply the Shingō 信号 industrial print design system (sci-fi industrial brutalism, two inks plus one coral signal, wide hard type, one 45° diagonal, seven-segment readouts, EN with JP/FR accents) to a web or iOS interface. Use when building or reviewing any screen, component or page that should look like Shingō.
+description: Apply the Shingō 信号 industrial print design system (sci-fi industrial brutalism, two inks plus one coral signal, wide hard type, one 45° diagonal, big hard figures, EN with JP/FR accents) to a web or iOS interface. Use when building or reviewing any screen, component or page that should look like Shingō.
 ---
 
 # Shingō 信号
 
-Interfaces are **printed** on a striped ground like a two-ink screen print: wide hard type, one 45° diagonal, hazard bars, chevrons, seven-segment readouts, stencil serials, mono telemetry and one coral signal per screen. Every screen exists in light and dark.
+Interfaces are **printed** on a striped ground like a two-ink screen print: wide hard type, one 45° diagonal, hazard bars, chevrons, big hard figures, stencil serials, mono telemetry and one coral signal per screen. Every screen exists in light and dark.
 
 Source of truth, in this order: `README.md` (rules 1–18), `tokens/tokens.json`, `web/shingo.css`, `ios/Sources/ShingoKit/`. The gallery `dist/index.html` shows every piece; `dist/starter.html` is a complete page to copy.
 
@@ -20,7 +20,7 @@ Source of truth, in this order: `README.md` (rules 1–18), `tokens/tokens.json`
 1. Two inks: ground (`--ground*`) and print (`--ground-hi`, `--sage*`). Plates are solid print with text knocked out in `--ink`. No third tone, no gradients, no white, no black.
 2. One coral (`--coral`) block or primary action per screen, plus small active/fault states. Coral as text uses `--signal-text` (inside a print plate, `--signal-plate`; `.ticket`, `.dataplate` and `[data-plate]` set it).
 3. Every diagonal rises "/" at 45°. Cuts top-left + bottom-right at 6/12/24. No `border-radius`, shadows, tilts, blur, textures or photos.
-4. Type: Shingo Grid Heavy for display 40+, screen titles 28 and big figures; Shingo Signal (Orbitron, completed) 800 for subheads and inline wordmarks, 600 for caps labels and buttons; Anybody for body, IBM Plex Mono telemetry, Saira Stencil One serials (once per screen), BIZ UDGothic / Hiragino kanji. Big numbers are seven-segment readouts (`seg7()` / `SGSegDisplay`). Never condensed or rounded fonts.
+4. Type: Shingo Grid Heavy for display 40+, screen titles 28 and big figures; Shingo Signal (Orbitron, completed) 800 for subheads and inline wordmarks, 600 for caps labels and buttons; Anybody for body, IBM Plex Mono telemetry, Saira Stencil One serials (once per screen), BIZ UDGothic / Hiragino kanji. Big numbers are big hard figures (`seg7()` / `SGReadout`). Never condensed or rounded fonts.
 5. Utility screens follow the grammar: masthead `.u-hd` (code, title, ONE tag, span rule) → ONE hero → divider (`.hazard` system, ticks data, slash money/content) → `.u-body` → imprint `.u-foot`. Poster screens (launch, onboarding, lock, empty) compose freely.
 6. One backdrop per screen (`<svg class="sg-bg"><use href="#g-bg-…"/></svg>` / `SGMonolith`). Default to a monolith: one oversized mass that bleeds off the edges, printed quietly in the stripe's own tone (ground-2 solid / half-tone, holes show the stripes), chosen by subject from the 22 in `tools/monoliths.py`. It should be felt before it is seen. Line compositions only as heroes or insets, never as a screen backdrop. Coral never draws guides, dashed outlines, frames or annotations; those print in `--ground-dim`. A content motif (`#g-m-*`) only if the subject has one.
 7. States: `.state--ok` solid square, `--warn` hatch, `--fault` coral X, `--off` dim X, `--busy` marching hatch (`SGState`). Never colour alone.
@@ -44,7 +44,7 @@ Source of truth, in this order: `README.md` (rules 1–18), `tokens/tokens.json`
 - [ ] Light and dark both checked (`data-theme="light"|"dark"`, `.mode-light`, SwiftUI previews).
 - [ ] Exactly one coral block/primary action; coral text legible on light (`--signal-text`).
 - [ ] No radius, shadow, gradient, image, tilt or texture; all diagonals "/".
-- [ ] Only kit fonts; numbers in seven-segment where they are the hero.
+- [ ] Only kit fonts; hero numbers as Shingo Grid figure readouts.
 - [ ] Grammar order intact; one tag; one hero; one backdrop.
 - [ ] State shapes, spec tables, telex and hatch used where relevant.
 - [ ] Slides linear and continuous, state changes stepped, all off under reduced motion; no horizontal scroll at 390 px.

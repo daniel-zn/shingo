@@ -1,6 +1,6 @@
 # Shingō 信号
 
-*Shingō* is Japanese for "signal". It's an industrial interface system for iOS and the web. Interfaces are **printed** on a striped ground, like a two-ink screen print: wide hard type, one 45° diagonal, hazard stripes, chevrons, seven-segment readouts, stencil serials and mono telemetry, with one coral signal per screen. English leads, with Japanese and French as accents. Every screen ships in light and dark.
+*Shingō* is Japanese for "signal". It's an industrial interface system for iOS and the web. Interfaces are **printed** on a striped ground, like a two-ink screen print: wide hard type, one 45° diagonal, hazard stripes, chevrons, big hard figures, stencil serials and mono telemetry, with one coral signal per screen. English leads, with Japanese and French as accents. Every screen ships in light and dark.
 
 ![key art in both modes](docs/keyart.png)
 
@@ -23,7 +23,7 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 **Type**
 
-7. **Wide, short, hard.** Two faces of our own. **Shingo Grid Heavy** sets display 40+, screen titles 28 and big figures: one heavy stroke, stubby capitals (cap height 0.65 em, wider than tall), a big 45° cut wherever a letter would curve. Strokes are about a fifth of the cap height. Diagonals are long, continuous 45° strokes at full weight: they grow out of a stem or bowl, and where one meets the baseline or cap line it is cut level with its point trimmed by a short upright facet, the same cut the corners use. Nothing ends in a sharp point, and no stroke breaks into a stub. **Shingo Signal**, Orbitron completed with the characters it lacks, sets subheads and inline wordmarks (ExtraBold 800) and labels, buttons and chips (SemiBold 600). Body text is Anybody, telemetry IBM Plex Mono, serials Saira Stencil One and kanji BIZ UDGothic (Hiragino Sans on iOS). Big numbers are seven-segment readouts. Never condensed, never rounded.
+7. **Wide, short, hard.** Two faces of our own. **Shingo Grid Heavy** sets display 40+, screen titles 28 and big figures: one heavy stroke, stubby capitals (cap height 0.65 em, wider than tall), a big 45° cut wherever a letter would curve. Strokes are about a fifth of the cap height. Diagonals are long, continuous 45° strokes at full weight: they grow out of a stem or bowl, and where one meets the baseline or cap line it is cut level with its point trimmed by a short upright facet, the same cut the corners use. Nothing ends in a sharp point, and no stroke breaks into a stub. **Shingo Signal**, Orbitron completed with the characters it lacks, sets subheads and inline wordmarks (ExtraBold 800) and labels, buttons and chips (SemiBold 600). Body text is Anybody, telemetry IBM Plex Mono, serials Saira Stencil One and kanji BIZ UDGothic (Hiragino Sans on iOS). Big numbers are Shingo Grid figures (readouts give each digit a fixed cell). Never condensed, never rounded.
 
 **Layout**
 
@@ -38,8 +38,8 @@ One spec. Everything in the repo follows it, and anything new must too.
 13. **Live behaviour.** The interface behaves like a machine:
     - Information decodes from glyph noise. Each character locks in at its own random moment, the flicker is irregular, and no two decodes take the same time. Noise keeps each character's class (digits flicker through digits, capitals through hard capitals, kanji through kanji); punctuation and spaces never scramble, so the structure of a line holds while it resolves.
     - Decoding has three triggers. **Arrival:** a screen or section decodes top to bottom in three weights: titles (0.32–0.72 s), then labels, codes, column heads and buttons (0.16–0.38 s), then data such as span rules, spec values, table figures, states and imprint lines (0.2–0.52 s), staggered 18 ms apart. **Change:** a new value decodes (stepper, selected row, telex timestamp, HUD callout). **Touch:** buttons, keys, tabs and chips re-decode their label under the pointer (0.12–0.26 s).
-    - Paragraphs, inputs, tickers, telex messages (they type instead) and seven-segment readouts never decode.
-    - Seven-segment readouts re-render in place: timers count, counters climb, coordinates drift.
+    - Paragraphs, inputs, tickers, telex messages (they type instead) and figure readouts never decode.
+    - Figure readouts re-render in place: timers count, counters climb, coordinates drift. Each digit holds a fixed cell, so nothing jumps.
     - Views change behind a hazard band that slides across on the diagonal at an even speed.
     - A HUD reticle snaps coral brackets and a callout to data under the pointer (on iOS, press and hold).
     - Tickers, marching hazard bars, busy states and loading hatch slide smoothly and loop without a seam.
@@ -177,7 +177,7 @@ Point the agent at `skills/shingo/SKILL.md`. It holds the rules in checklist for
 - [ ] Works in light and dark (`data-theme`, `.mode-light` / `.mode-dark`, or SwiftUI appearance).
 - [ ] One coral block or primary action; coral text uses `--signal-text`.
 - [ ] Every diagonal is "/"; cuts top-left and bottom-right; no radius, shadow, tilt or texture.
-- [ ] Wide type only; big numbers are seven-segment readouts.
+- [ ] Wide type only; big numbers are Shingo Grid figure readouts.
 - [ ] Utility screens follow the grammar: masthead → hero → divider → body → imprint.
 - [ ] States use the state shapes; lists are spec tables; loading is hatch.
 - [ ] Slides are continuous and linear, state changes step, nothing eases, and everything stops under reduced motion.
@@ -225,7 +225,7 @@ Point the agent at `skills/shingo/SKILL.md`. It holds the rules in checklist for
 | `.seg` | `SGSegmented` | |
 | `.slot`, `.yearspan`, `.barcode` | `SGSlot`, `YearSpan`, `Barcode` | |
 | `#g-spectrum`, `#g-scope` | `Spectrum`, `Scope` | |
-| `seg7()`, `.cells`, `.ruler` | `SGSegDisplay`, `SGCellMeter`, `SGRuler` | readouts and levels |
+| `seg7()` → `.sg-fig`, `.cells`, `.ruler` | `SGReadout`, `SGCellMeter`, `SGRuler` | readouts and levels |
 | `.steps`, `.itabs`, `.caution`, `.stamp` | `SGSteps`, `SGIndexTabs`, `SGCaution`, `SGStamp` | |
 | `.ticket`, `.keycap`, `.rocker`, `.dataplate` | `SGTicket`, `SGKeycapStyle`, `SGRockerStyle`, `SGDataPlate` | |
 | `.marks`, `.colorbar`, `.ticker`, `.bootlog`, `.lamps` | `.printMarks()`, `SGColorBar`, `SGTicker`, `SGBootLog`, `SGLamps` | |

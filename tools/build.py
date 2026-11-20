@@ -83,26 +83,16 @@ def _segs(w=44, h=60, t=5.6, g=1.3):
 
 
 def seg7(text, height=48, hot="", ghost=False, cls=""):
-    """Inline SVG seven-segment readout. Characters in `hot` (indexes) light coral.
-    Unlit segments draw in --off unless ghost=False. Supports 0-9 - . : and a few letters."""
-    w, h, gap = 44, 60, 9
-    S = _segs()
-    parts, x = [], 0
-    for i, ch in enumerate(text):
-        state = "hot" if str(i) in hot.split(",") else "on"
-        if ch == ".":
-            parts.append(f'<rect class="{state}" x="{x}" y="{h-7}" width="7" height="7"/>'); x += 7 + gap; continue
-        if ch == ":":
-            parts.append(f'<rect class="{state}" x="{x}" y="{h*0.28:.1f}" width="7" height="7"/><rect class="{state}" x="{x}" y="{h*0.64:.1f}" width="7" height="7"/>'); x += 7 + gap; continue
-        lit = SEG.get(ch, "")
-        for k, pts in S.items():
-            if k in lit or ghost:
-                c = state if k in lit else "off"
-                parts.append(f'<polygon class="{c}" points="{" ".join(f"{f(px + x)},{f(py)}" for px, py in pts)}"/>')
-        x += w + gap
-    W = x - gap + 4
-    return (f'<svg class="seg7 {cls}" data-hot="{hot}" viewBox="0 0 {W} {h}" height="{height}" width="{f(height * W / h)}" role="img" aria-label="{text}">'
-            f'<g transform="translate(2 0)">{"".join(parts)}</g></svg>')
+    """A readout in Shingo Grid figures. `height` is the slot the readout fills (digits keep
+    the footprint the old segment digits had: font-size = .92 x height); characters at
+    indexes in `hot` print in coral. Each digit sits in a fixed 1em cell so live counters never
+    jump (cells of .94em). (The name stays for compatibility: the seven-segment face is retired.)"""
+    hs = set(hot.split(",")) if hot else set()
+    cells = "".join(f'<b class="{"hot" if str(i) in hs else ""}{" p" if not ch.isdigit() else ""}">{ch}</b>' for i, ch in enumerate(text))
+    return (f'<span class="sg-fig {cls}" data-hot="{hot}" role="img" aria-label="{text}" '
+            f'style="font-size:{height * .92:.0f}px">{cells}</span>')
+
+readout = seg7
 
 
 def _matrix(n=21, seed=7):
@@ -857,7 +847,7 @@ def embed_fonts(css):
 
 
 def seg7_tags(src):
-    """<!--@SEG7|text|height|hot[|class]--> → inline seven-segment SVG."""
+    """<!--@SEG7|text|height|hot[|class]--> → an inline figure readout."""
     return re.sub(r"<!--@SEG7\|([^|]*)\|(\d+)\|([^|>]*?)(?:\|([^>]*?))?-->",
                   lambda m: seg7(m.group(1), int(m.group(2)), m.group(3), cls=m.group(4) or ""), src)
 

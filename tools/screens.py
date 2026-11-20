@@ -119,7 +119,7 @@ days = [('solid', '--ground-hi'), ('line', '--ground-dim'), ('solid', '--ground-
 dayrow = ''.join(f'<span>{X(k, 30, c)}<i>{d}</i></span>' for (k, c), d in zip(days, 'mtwtfss'))
 zones = ''.join(f'<span class="sg-mono">{z.upper()}</span>{cells(12, n, hot=(n - 1 if z == "z3" else -1))}<span class="sg-mono t-right">{t}</span>'
                 for z, n, t in [('z1', 2, '0:40'), ('z2', 8, '2:21'), ('z3', 3, '0:31'), ('z4', 1, '0:09')])
-S['D'] = fig('D', 'Fitness', 'A seven-segment distance over five zone plates, X marks for run and rest days, and heart-rate zones as cell runs. French sits in the span rule.', utility(f'''
+S['D'] = fig('D', 'Fitness', 'Shingo Grid figures over five zone plates, X marks for run and rest days, and heart-rate zones as cell runs. French sits in the span rule.', utility(f'''
       {mast('Run log', '<span class="sg-fr">journal de course</span>', 'W46', meta('10–16<br>NOV'))}
       <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px">{seg7("42.6", 76)}<span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
         <div class="dayrow">{dayrow}</div></div>
@@ -361,7 +361,7 @@ S['Q'] = fig('Q', 'Device info', 'A riveted data plate in crop marks over circui
       </section>"""))
 
 # ---------------------------------------------------------------- R interval timer
-S['R'] = fig('R', 'Interval timer', 'A seven-segment clock with a coral colon is the hero. Rounds print as a cell meter and intensity as a ruler. The one action is a keycap. 計時 means timekeeping.', utility(f"""
+S['R'] = fig('R', 'Interval timer', 'A big figure clock with a coral colon is the hero. Rounds print as a cell meter and intensity as a ruler. The one action is a keycap. 計時 means timekeeping.', utility(f"""
       {mast('Interval', 'round 3', 'of 8', jp('計時'))}
       <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px">{seg7("02:47", 92, "2", cls="live-down")}<div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
       {DIV}
@@ -420,7 +420,7 @@ S['V'] = fig('V', 'Thread', 'Messages as cut plates: incoming in outline, outgoi
       </section>"""))
 
 # ---------------------------------------------------------------- W conditions
-S['W'] = fig('W', 'Conditions', 'A seven-segment temperature over rain bands, wind and humidity as cell runs, wind barbs for the next six hours, and ice as the one fault lamp.', utility(f"""
+S['W'] = fig('W', 'Conditions', 'A big figure temperature over rain bands, wind and humidity as cell runs, wind barbs for the next six hours, and ice as the one fault lamp.', utility(f"""
       {mast('Conditions', '<span class="sg-fr">conditions extérieures</span>', 'lis', meta('17<br>NOV'))}
       <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-start;gap:10px">{seg7("-04", 96)}<span class="sg-cap" style="font-size:16px;color:var(--ground-hi);padding-top:6px">°C</span></div>
         <div class="sg-mono" style="margin-top:10px;color:var(--ground-dim)">FEELS -09 · DEW -07 · SLEET FROM 14:00</div></div>
@@ -436,13 +436,13 @@ S['W'] = fig('W', 'Conditions', 'A seven-segment temperature over rain bands, wi
       </section>"""))
 
 # ---------------------------------------------------------------- X live activity
-S['X'] = fig('X', 'Live activity', 'The system surfaces in the same print: an expanded Dynamic Island and a Live Activity plate tracking a transfer, with slash steps and a seven-segment countdown.', f"""<div class="phone"><div class="scr tex">
+S['X'] = fig('X', 'Live activity', 'The system surfaces in the same print: an expanded Dynamic Island and a Live Activity plate tracking a transfer, with slash steps and a figure countdown.', f"""<div class="phone"><div class="scr tex">
       <svg class="sg-bg" aria-hidden="true"><use href="#g-bg-ramp"/></svg>
       <div class="island-x"><svg width="18" height="18" style="color:var(--coral)"><use href="#g-mark"/></svg><span class="sg-mono" style="color:#dcdfd5">SENDING €240 · LENA SATO</span><span class="sg-num" style="font-size:16px;color:#dcdfd5">0:12</span></div>
       <div style="top:150px;left:0;right:0;text-align:center;color:var(--ground-hi)"><div class="sg-fr" style="font-size:16px">mardi 17 novembre</div><div class="sg-display" style="font-size:92px;margin-top:8px">09:41</div></div>
       <div class="la">
         <div style="display:flex;justify-content:space-between;align-items:center"><span class="sg-wordmark" style="font-size:14px">Axiom · transfer</span><span class="sg-mono">Nº 0917</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div class="sg-cap" style="font-size:10px">Arrives in</div>{seg7("00:12", 44, "2", cls="live-down")}</div><div class="t-right"><div class="sg-cap" style="font-size:10px">To Lena Sato</div><div class="sg-num" style="font-size:26px">€240.00</div></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div class="sg-cap" style="font-size:10px">Arrives in</div>{seg7("00:12", 32, "2", cls="live-down")}</div><div class="t-right"><div class="sg-cap" style="font-size:10px">To Lena Sato</div><div class="sg-num" style="font-size:26px">€240.00</div></div></div>
         <ol class="steps"><li class="done">Amount</li><li class="done">Confirm</li><li class="on">Sending</li></ol>
       </div>
       <span class="cut" style="bottom:40px;left:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--ground-hi)"><use href="#g-plus"/></svg></span>

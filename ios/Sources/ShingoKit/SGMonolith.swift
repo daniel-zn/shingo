@@ -76,10 +76,9 @@ public struct SGMonolith: View {
             (SG.ground2.opacity(0.5), [[CGPoint(x: 36, y: 560), CGPoint(x: 354, y: 560), CGPoint(x: 354, y: 590), CGPoint(x: 36, y: 590)]])
         ],
         .segment: [
-            (SG.ground2.opacity(0.5), [[CGPoint(x: 45.5, y: 270.4), CGPoint(x: 69, y: 294), CGPoint(x: 69, y: 453.6), CGPoint(x: 45.5, y: 477.1), CGPoint(x: 22, y: 453.6), CGPoint(x: 22, y: 294)]]),
-            (SG.ground2, [[CGPoint(x: 56.4, y: 488), CGPoint(x: 80, y: 464.5), CGPoint(x: 333.6, y: 464.5), CGPoint(x: 357.2, y: 488), CGPoint(x: 333.6, y: 511.5), CGPoint(x: 80, y: 511.5)]]),
-            (SG.ground2.opacity(0.5), [[CGPoint(x: 368.1, y: 270.4), CGPoint(x: 391.6, y: 294), CGPoint(x: 391.6, y: 453.6), CGPoint(x: 368.1, y: 477.1), CGPoint(x: 344.6, y: 453.6), CGPoint(x: 344.6, y: 294)]]),
-            (SG.ground2.opacity(0.5), [[CGPoint(x: 368.1, y: 498.9), CGPoint(x: 391.6, y: 522.4), CGPoint(x: 391.6, y: 682), CGPoint(x: 368.1, y: 705.6), CGPoint(x: 344.6, y: 682), CGPoint(x: 344.6, y: 522.4)]])
+            (SG.ground2, [[CGPoint(x: 289.7, y: 150), CGPoint(x: 409.7, y: 150), CGPoint(x: 409.7, y: 900), CGPoint(x: 289.7, y: 900)]]),
+            (SG.ground2, [[CGPoint(x: 40, y: 350), CGPoint(x: 479.7, y: 350), CGPoint(x: 479.7, y: 470), CGPoint(x: 40, y: 470)]]),
+            (SG.ground2.opacity(0.5), [[CGPoint(x: 40, y: 350), CGPoint(x: 209.7, y: 350), CGPoint(x: 409.7, y: 150), CGPoint(x: 240, y: 150)]])
         ],
         .massing: [
             (SG.ground2.opacity(0.5), [[CGPoint(x: 30, y: 520), CGPoint(x: 260, y: 520), CGPoint(x: 260, y: 840), CGPoint(x: 200, y: 900), CGPoint(x: -30, y: 900), CGPoint(x: -30, y: 580)]]),

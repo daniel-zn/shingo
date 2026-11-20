@@ -296,10 +296,11 @@
     },
     "readout": {
       "$type": "fontFamily",
-      "$value": "seven-segment (generated SVG / SGSegDisplay)",
+      "$value": "Shingo Grid Heavy figures",
       "$extensions": {
         "shingo": {
-          "use": "timers, counters, hero numbers; wide cells, no ghosts"
+          "ios": "SGReadout",
+          "use": "timers, counters, hero numbers; each digit in a fixed .94em cell; one digit may print coral"
         }
       }
     },

@@ -101,9 +101,16 @@ def aperture():
 
 
 def segment():
-    # a giant seven-segment 4: sector 04, the system's recurring unit
-    k = 8.4
-    return [("g3" if s == "g" else "g2", p) for s, p in zip("fgbc", _seg_digit("fgbc", k, 22, 236))]
+    # a giant Shingo Grid 4 (sector 04, the system's recurring unit): stem and bar solid, the 45° diagonal in half-tone
+    st, bt, top, bar = 120, 120, 150, 470          # stroke, bar thickness, cap top, bar bottom
+    T = st * 2 ** .5
+    bar_top = bar - bt
+    rise = bar_top - top                           # the diagonal climbs from the bar to the cap line
+    x_left = 40
+    stem_r = x_left + rise + T
+    return [("g3", [(stem_r - st, top), (stem_r, top), (stem_r, 900), (stem_r - st, 900)]),
+            ("g3", [(x_left, bar_top), (stem_r + 70, bar_top), (stem_r + 70, bar), (x_left, bar)]),
+            ("g2", [(x_left, bar_top), (x_left + T, bar_top), (x_left + T + rise, top), (x_left + rise, top)])]
 
 
 def massing():
@@ -194,7 +201,7 @@ MONOLITHS = {
     "diamond": ("Diamond", "the mark, cropped", diamond_mark),
     "girder": ("Girder", "a truss of / members", girder),
     "aperture": ("Aperture", "a wall with one window", aperture),
-    "segment": ("Segment", "a giant readout 4", segment),
+    "segment": ("Segment", "a giant Shingo Grid 4", segment),
     "massing": ("Massing", "three cut blocks", massing),
     "ramp": ("Ramp", "a / incline", ramp),
     "pylon": ("Pylon", "a vented tower", pylon),

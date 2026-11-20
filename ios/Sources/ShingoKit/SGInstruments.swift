@@ -5,64 +5,35 @@ import SwiftUI
 // ticks, plates and the coral signal. Mirrors the "instruments" section of
 // web/shingo.css and the gallery's section 05.
 
-// MARK: - Seven-segment readout
+// MARK: - Figure readout
 
-public struct SGSegDisplay: View {
+/// Big figures in Shingo Grid: timers, counters, balances. `height` is the slot the readout fills;
+/// characters at the indexes in `hot` print in coral. Each digit sits in a fixed cell so live
+/// values never jump. (Replaces the retired seven-segment display.)
+public struct SGReadout: View {
     public var text: String
     public var height: CGFloat
-    /// Character indexes drawn in coral.
     public var hot: Set<Int>
-    public var ghost: Bool
-    public init(_ text: String, height: CGFloat = 48, hot: Set<Int> = [], ghost: Bool = false) {
-        self.text = text; self.height = height; self.hot = hot; self.ghost = ghost
+    public init(_ text: String, height: CGFloat = 48, hot: Set<Int> = []) {
+        self.text = text; self.height = height; self.hot = hot
     }
-
-    static let map: [Character: String] = ["0": "abcdef", "1": "bc", "2": "abged", "3": "abgcd", "4": "fgbc", "5": "afgcd",
-                                           "6": "afgedc", "7": "abc", "8": "abcdefg", "9": "abcdfg", "-": "g", " ": ""]
-
-    private var unitWidth: CGFloat {
-        text.reduce(CGFloat(0)) { $0 + (($1 == "." || $1 == ":") ? 16 : 53) } - 9 + 4
-    }
-
     public var body: some View {
-        Canvas { ctx, size in
-            let s = size.height / 60
-            ctx.translateBy(x: 2 * s, y: 0)   // upright segments: no slant
-            ctx.scaleBy(x: s, y: s)
-            let t: CGFloat = 5.6, w: CGFloat = 44, h: CGFloat = 60, g: CGFloat = 1.3
-            func hseg(_ x0: CGFloat, _ x1: CGFloat, _ yc: CGFloat) -> Path {
-                Path { p in p.addLines([CGPoint(x: x0, y: yc), CGPoint(x: x0 + t/2, y: yc - t/2), CGPoint(x: x1 - t/2, y: yc - t/2),
-                                        CGPoint(x: x1, y: yc), CGPoint(x: x1 - t/2, y: yc + t/2), CGPoint(x: x0 + t/2, y: yc + t/2)]); p.closeSubpath() }
-            }
-            func vseg(_ xc: CGFloat, _ y0: CGFloat, _ y1: CGFloat) -> Path {
-                Path { p in p.addLines([CGPoint(x: xc, y: y0), CGPoint(x: xc + t/2, y: y0 + t/2), CGPoint(x: xc + t/2, y: y1 - t/2),
-                                        CGPoint(x: xc, y: y1), CGPoint(x: xc - t/2, y: y1 - t/2), CGPoint(x: xc - t/2, y: y0 + t/2)]); p.closeSubpath() }
-            }
-            let x0 = t/2 + g, x1 = w - t/2 - g, m = h/2
-            let segs: [Character: Path] = ["a": hseg(x0, x1, t/2), "g": hseg(x0, x1, m), "d": hseg(x0, x1, h - t/2),
-                                           "f": vseg(t/2, t/2 + g, m - g), "b": vseg(w - t/2, t/2 + g, m - g),
-                                           "e": vseg(t/2, m + g, h - t/2 - g), "c": vseg(w - t/2, m + g, h - t/2 - g)]
-            var x: CGFloat = 0
-            for (i, ch) in text.enumerated() {
-                let lit: Color = hot.contains(i) ? SG.coral : SG.groundHi
-                if ch == "." {
-                    ctx.fill(Path(CGRect(x: x, y: h - 7, width: 7, height: 7)), with: .color(lit)); x += 16; continue
-                }
-                if ch == ":" {
-                    ctx.fill(Path(CGRect(x: x, y: h * 0.28, width: 7, height: 7)), with: .color(lit))
-                    ctx.fill(Path(CGRect(x: x, y: h * 0.64, width: 7, height: 7)), with: .color(lit)); x += 16; continue
-                }
-                let on = Self.map[ch] ?? ""
-                for (k, path) in segs where on.contains(k) || ghost {
-                    ctx.fill(path.offsetBy(dx: x, dy: 0), with: .color(on.contains(k) ? lit : SG.ground3))
-                }
-                x += 53
+        let size = height * 0.92
+        HStack(alignment: .firstTextBaseline, spacing: 0) {
+            ForEach(Array(text.enumerated()), id: \.offset) { i, ch in
+                Text(String(ch)).font(SGFont.number(size))
+                    .foregroundStyle(hot.contains(i) ? SG.coral : SG.groundHi)
+                    .frame(width: ch.isNumber ? size * 0.94 : nil)
             }
         }
-        .frame(width: height * unitWidth / 60, height: height)
+        .frame(height: size * 0.65)
+        .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text(text))
     }
 }
+
+@available(*, deprecated, renamed: "SGReadout")
+public typealias SGSegDisplay = SGReadout
 
 // MARK: - Cell meter
 

@@ -102,7 +102,7 @@ public struct SGScrambleText: View {
 
 // MARK: Live readouts
 
-/// A seven-segment countdown that re-renders every second and loops.
+/// A figure countdown that re-renders every second and loops.
 public struct SGLiveCountdown: View {
     var seconds: Int; var height: CGFloat; var hot: Set<Int>
     @State private var start = Date()
@@ -112,7 +112,7 @@ public struct SGLiveCountdown: View {
         TimelineView(.periodic(from: start, by: 1)) { tl in
             let elapsed = reduceMotion ? 0 : Int(tl.date.timeIntervalSince(start))
             let t = seconds - elapsed % (seconds + 1)
-            SGSegDisplay(String(format: "%02d:%02d", t / 60, t % 60), height: height, hot: hot)
+            SGReadout(String(format: "%02d:%02d", t / 60, t % 60), height: height, hot: hot)
         }
     }
 }

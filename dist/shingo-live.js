@@ -1,7 +1,7 @@
 /* Shingō live layer: machine behaviour for the print system.
    - Decode: text resolves from glyph noise when it arrives, changes or is touched;
      titles slowest, then labels, then data, staggered down the screen.
-   - Live readouts: seven-segment counters and countdowns re-render in place.
+   - Live readouts: figure counters and countdowns re-render in place.
    - Coordinates: the last digits of live coordinates drift.
    - Transitions: a hazard band wipes along the one diagonal between views.
    - HUD: a bracket reticle snaps to data under the pointer with a callout.
@@ -14,39 +14,23 @@
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- seven-segment geometry (mirrors tools/build.py seg7) ---------- */
-  var SEG = { '0': 'abcdef', '1': 'bc', '2': 'abged', '3': 'abgcd', '4': 'fgbc', '5': 'afgcd', '6': 'afgedc', '7': 'abc', '8': 'abcdefg', '9': 'abcdfg', '-': 'g', ' ': '' };
-  var W = 44, H = 60, T = 5.6, G = 1.3, GAP = 9;
-  function hseg(x0, x1, yc) { return [[x0, yc], [x0 + T / 2, yc - T / 2], [x1 - T / 2, yc - T / 2], [x1, yc], [x1 - T / 2, yc + T / 2], [x0 + T / 2, yc + T / 2]]; }
-  function vseg(xc, y0, y1) { return [[xc, y0], [xc + T / 2, y0 + T / 2], [xc + T / 2, y1 - T / 2], [xc, y1], [xc - T / 2, y1 - T / 2], [xc - T / 2, y0 + T / 2]]; }
-  var x0 = T / 2 + G, x1 = W - T / 2 - G, m = H / 2;
-  var S = { a: hseg(x0, x1, T / 2), g: hseg(x0, x1, m), d: hseg(x0, x1, H - T / 2), f: vseg(T / 2, T / 2 + G, m - G), b: vseg(W - T / 2, T / 2 + G, m - G), e: vseg(T / 2, m + G, H - T / 2 - G), c: vseg(W - T / 2, m + G, H - T / 2 - G) };
-  function segInner(text, hot) {
-    var out = '', x = 0;
-    for (var i = 0; i < text.length; i++) {
-      var ch = text[i], cls = hot.indexOf(i) >= 0 ? 'hot' : 'on';
-      if (ch === '.') { out += '<rect class="' + cls + '" x="' + x + '" y="' + (H - 7) + '" width="7" height="7"/>'; x += 7 + GAP; continue; }
-      if (ch === ':') { out += '<rect class="' + cls + '" x="' + x + '" y="' + (H * .28).toFixed(1) + '" width="7" height="7"/><rect class="' + cls + '" x="' + x + '" y="' + (H * .64).toFixed(1) + '" width="7" height="7"/>'; x += 7 + GAP; continue; }
-      var lit = SEG[ch] || '';
-      for (var k in S) if (lit.indexOf(k) >= 0) out += '<polygon class="' + cls + '" points="' + S[k].map(function (p) { return (p[0] + x).toFixed(2) + ',' + p[1].toFixed(2); }).join(' ') + '"/>';
-      x += W + GAP;
-    }
-    return out;
-  }
-  function setSeg(svg, text) {
-    var hot = (svg.getAttribute('data-hot') || '').split(',').filter(Boolean).map(Number);
-    svg.querySelector('g').innerHTML = segInner(text, hot);
-    svg.setAttribute('aria-label', text);
+  /* ---------- figure readouts (mirror tools/build.py seg7) ---------- */
+  function setSeg(el, text) {
+    var hot = (el.getAttribute('data-hot') || '').split(',').filter(Boolean).map(Number);
+    el.innerHTML = text.split('').map(function (ch, i) {
+      return '<b class="' + (hot.indexOf(i) >= 0 ? 'hot' : '') + (/\d/.test(ch) ? '' : ' p') + '">' + ch + '</b>';
+    }).join('');
+    el.setAttribute('aria-label', text);
   }
 
   /* ---------- live readouts ---------- */
   function pad(n, w) { n = String(n); while (n.length < w) n = '0' + n; return n; }
   function liveReadouts() {
-    document.querySelectorAll('svg.seg7.live-down').forEach(function (svg) {
+    document.querySelectorAll('.sg-fig.live-down').forEach(function (svg) {
       var start = svg.getAttribute('aria-label'), p = start.split(':'), t = (+p[0]) * 60 + (+p[1]), t0 = t;
       setInterval(function () { t = t > 0 ? t - 1 : t0; setSeg(svg, pad(Math.floor(t / 60), 2) + ':' + pad(t % 60, 2)); }, 1000);
     });
-    document.querySelectorAll('svg.seg7.live-up').forEach(function (svg) {
+    document.querySelectorAll('.sg-fig.live-up').forEach(function (svg) {
       var v = parseInt(svg.getAttribute('aria-label'), 10), len = String(v).length;
       setInterval(function () { if (Math.random() < .5) { v += 1 + Math.floor(Math.random() * 3); setSeg(svg, pad(v % Math.pow(10, len), len)); } }, 1400);
     });

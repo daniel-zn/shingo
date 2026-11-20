@@ -264,7 +264,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 @keyframes sg-pulse { 0%, 8% { stroke: var(--ground-hi); } 9%, 100% { stroke: var(--ground-3); } }
 .mo-cells { width: 64%; margin-right: 22px; }   /* the skew leans the cells right by their height */
 .mo .sg-display { font-size: min(30px, 9cqw) !important; }
-.mo svg.seg7 { max-width: 84cqw; height: auto; }
+.mo .sg-fig { font-size: min(84px, 15cqw) !important; }
 .mo-cells i { animation: sg-fill 2.4s steps(1) infinite; animation-delay: calc(var(--i) * .12s); }
 @keyframes sg-fill { 0% { background: var(--ground-3); } 4%, 70% { background: var(--ground-hi); } 71%, 100% { background: var(--ground-3); } }
 .mo-cells i:last-child { animation-name: sg-fill-hot; }
@@ -295,7 +295,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
   clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); display: grid; gap: 12px; }
 .la .steps li { background: var(--ground-dim); color: var(--ground); height: 24px; }
 .la .steps .done { background: var(--ground); color: var(--ground-hi); }
-.la .seg7 { color: var(--ground); --off: var(--ground-dim); }
+.la .sg-fig { color: var(--ground); }
 
 
 .xp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
@@ -315,7 +315,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 .con-rail a[aria-current]::before { content: ""; position: absolute; left: -10px; top: 8px; bottom: 8px; width: 4px; background: var(--coral); }
 .con-top { grid-column: 2 / -1; display: flex; align-items: center; gap: 18px; padding: 0 24px; border-bottom: var(--hair) solid var(--ground-hi); background: var(--ground); }
 .con-kpi { grid-column: 2; grid-row: 2; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; padding: 18px 24px 4px; align-items: end; }
-.con-kpi .seg7 { color: var(--ground-hi); }
+.con-kpi .sg-fig { color: var(--ground-hi); }
 .con-kpi .smx { grid-column: 1 / -1 !important; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .con-main { grid-column: 2; grid-row: 3; padding: 14px 24px; overflow: hidden; }
 .con-side { grid-column: 3; grid-row: 2 / 4; display: flex; flex-direction: column; gap: 12px; padding: 14px 22px 16px; border-left: var(--hair) solid var(--ground-3); background: var(--ground); }
@@ -490,7 +490,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="u-div div-ticks"></div>
       <section class="u-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="nframe"><b>Threats</b><div style="margin:2px 0 2px"><svg class="seg7 live-up" data-hot="" viewBox="0 0 207 60" height="30" width="103.5" role="img" aria-label="1284"><g transform="translate(2 0)"><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><polygon class="on" points="110.1,2.8 112.9,0 143.1,0 145.9,2.8 143.1,5.6 112.9,5.6"/><polygon class="on" points="110.1,30 112.9,27.2 143.1,27.2 145.9,30 143.1,32.8 112.9,32.8"/><polygon class="on" points="110.1,57.2 112.9,54.4 143.1,54.4 145.9,57.2 143.1,60 112.9,60"/><polygon class="on" points="108.8,4.1 111.6,6.9 111.6,25.9 108.8,28.7 106,25.9 106,6.9"/><polygon class="on" points="147.2,4.1 150,6.9 150,25.9 147.2,28.7 144.4,25.9 144.4,6.9"/><polygon class="on" points="108.8,31.3 111.6,34.1 111.6,53.1 108.8,55.9 106,53.1 106,34.1"/><polygon class="on" points="147.2,31.3 150,34.1 150,53.1 147.2,55.9 144.4,53.1 144.4,34.1"/><polygon class="on" points="163.1,30 165.9,27.2 196.1,27.2 198.9,30 196.1,32.8 165.9,32.8"/><polygon class="on" points="161.8,4.1 164.6,6.9 164.6,25.9 161.8,28.7 159,25.9 159,6.9"/><polygon class="on" points="200.2,4.1 203,6.9 203,25.9 200.2,28.7 197.4,25.9 197.4,6.9"/><polygon class="on" points="200.2,31.3 203,34.1 203,53.1 200.2,55.9 197.4,53.1 197.4,34.1"/></g></svg></div></div>
+          <div class="nframe"><b>Threats</b><div style="margin:2px 0 2px"><span class="sg-fig live-up" data-hot="" role="img" aria-label="1284" style="font-size:28px"><b class="">1</b><b class="">2</b><b class="">8</b><b class="">4</b></span></div></div>
           <div class="nframe"><b>Data</b><div class="sg-num" style="font-size:24px;margin:0 0 12px;color:var(--ground-hi)">4.2<span class="sg-mono"> / 10 GB</span></div><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
         </div>
         <div>
@@ -513,7 +513,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Run log</h3><div class="u-tag u-meta">10–16<br>NOV</div><div class="u-span"><span><span class="sg-fr">journal de course</span></span><i></i><span>W46</span></div></header>
-      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px"><svg class="seg7 " data-hot="" viewBox="0 0 170 60" height="76" width="215.33" role="img" aria-label="42.6"><g transform="translate(2 0)"><polygon class="on" points="4.1,30 6.9,27.2 37.1,27.2 39.9,30 37.1,32.8 6.9,32.8"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><rect class="on" x="106" y="53" width="7" height="7"/><polygon class="on" points="126.1,2.8 128.9,0 159.1,0 161.9,2.8 159.1,5.6 128.9,5.6"/><polygon class="on" points="126.1,30 128.9,27.2 159.1,27.2 161.9,30 159.1,32.8 128.9,32.8"/><polygon class="on" points="126.1,57.2 128.9,54.4 159.1,54.4 161.9,57.2 159.1,60 128.9,60"/><polygon class="on" points="124.8,4.1 127.6,6.9 127.6,25.9 124.8,28.7 122,25.9 122,6.9"/><polygon class="on" points="124.8,31.3 127.6,34.1 127.6,53.1 124.8,55.9 122,53.1 122,34.1"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/></g></svg><span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
+      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px"><span class="sg-fig " data-hot="" role="img" aria-label="42.6" style="font-size:70px"><b class="">4</b><b class="">2</b><b class=" p">.</b><b class="">6</b></span><span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
         <div class="dayrow"><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>m</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>w</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>f</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>s</i></span><span><svg width="30" height="30" style="color:var(--coral)"><use href="#g-x-solid"/></svg><i>s</i></span></div></div>
       <div class="u-div div-ticks"></div>
       <section class="u-body">
@@ -524,7 +524,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <nav class="tabbar chamfer"><a><svg><use href="#g-i-today"/></svg>today</a><a aria-current="page"><svg><use href="#g-i-log"/></svg>log</a><a><svg><use href="#g-i-routes"/></svg>routes</a><a><svg><use href="#g-i-me"/></svg>me</a></nav>
       <i class="home"></i>
     </div></div>
-    <figcaption><b>D · Fitness</b><span><em class="tier">utility</em> A seven-segment distance over five zone plates, X marks for run and rest days, and heart-rate zones as cell runs. French sits in the span rule.</span></figcaption>
+    <figcaption><b>D · Fitness</b><span><em class="tier">utility</em> Shingo Grid figures over five zone plates, X marks for run and rest days, and heart-rate zones as cell runs. French sits in the span rule.</span></figcaption>
   </figure>
 
 
@@ -836,7 +836,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Interval</h3><div class="u-tag sg-jp-v">計時</div><div class="u-span"><span>round 3</span><i></i><span>of 8</span></div></header>
-      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px"><svg class="seg7 live-down" data-hot="2" viewBox="0 0 223 60" height="92" width="341.93" role="img" aria-label="02:47"><g transform="translate(2 0)"><polygon class="on" points="4.1,2.8 6.9,0 37.1,0 39.9,2.8 37.1,5.6 6.9,5.6"/><polygon class="on" points="4.1,57.2 6.9,54.4 37.1,54.4 39.9,57.2 37.1,60 6.9,60"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="2.8,31.3 5.6,34.1 5.6,53.1 2.8,55.9 0,53.1 0,34.1"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,30 59.9,27.2 90.1,27.2 92.9,30 90.1,32.8 59.9,32.8"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><rect class="hot" x="106" y="16.8" width="7" height="7"/><rect class="hot" x="106" y="38.4" width="7" height="7"/><polygon class="on" points="126.1,30 128.9,27.2 159.1,27.2 161.9,30 159.1,32.8 128.9,32.8"/><polygon class="on" points="124.8,4.1 127.6,6.9 127.6,25.9 124.8,28.7 122,25.9 122,6.9"/><polygon class="on" points="163.2,4.1 166,6.9 166,25.9 163.2,28.7 160.4,25.9 160.4,6.9"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/><polygon class="on" points="179.1,2.8 181.9,0 212.1,0 214.9,2.8 212.1,5.6 181.9,5.6"/><polygon class="on" points="216.2,4.1 219,6.9 219,25.9 216.2,28.7 213.4,25.9 213.4,6.9"/><polygon class="on" points="216.2,31.3 219,34.1 219,53.1 216.2,55.9 213.4,53.1 213.4,34.1"/></g></svg><div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
+      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px"><span class="sg-fig live-down" data-hot="2" role="img" aria-label="02:47" style="font-size:85px"><b class="">0</b><b class="">2</b><b class="hot p">:</b><b class="">4</b><b class="">7</b></span><div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
       <div class="u-div div-ticks"></div>
       <section class="u-body u-body--end" style="gap:16px">
         <div><div class="u-label" style="margin-bottom:10px"><span>Rounds</span><span>3 / 8</span></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="hot"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
@@ -847,7 +847,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       
       <i class="home"></i>
     </div></div>
-    <figcaption><b>R · Interval timer</b><span><em class="tier">utility</em> A seven-segment clock with a coral colon is the hero. Rounds print as a cell meter and intensity as a ruler. The one action is a keycap. 計時 means timekeeping.</span></figcaption>
+    <figcaption><b>R · Interval timer</b><span><em class="tier">utility</em> A big figure clock with a coral colon is the hero. Rounds print as a cell meter and intensity as a ruler. The one action is a keycap. 計時 means timekeeping.</span></figcaption>
   </figure>
 
 
@@ -925,7 +925,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Conditions</h3><div class="u-tag u-meta">17<br>NOV</div><div class="u-span"><span><span class="sg-fr">conditions extérieures</span></span><i></i><span>lis</span></div></header>
-      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-start;gap:10px"><svg class="seg7 " data-hot="" viewBox="0 0 154 60" height="96" width="246.4" role="img" aria-label="-04"><g transform="translate(2 0)"><polygon class="on" points="4.1,30 6.9,27.2 37.1,27.2 39.9,30 37.1,32.8 6.9,32.8"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="55.8,4.1 58.6,6.9 58.6,25.9 55.8,28.7 53,25.9 53,6.9"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><polygon class="on" points="94.2,31.3 97,34.1 97,53.1 94.2,55.9 91.4,53.1 91.4,34.1"/><polygon class="on" points="110.1,30 112.9,27.2 143.1,27.2 145.9,30 143.1,32.8 112.9,32.8"/><polygon class="on" points="108.8,4.1 111.6,6.9 111.6,25.9 108.8,28.7 106,25.9 106,6.9"/><polygon class="on" points="147.2,4.1 150,6.9 150,25.9 147.2,28.7 144.4,25.9 144.4,6.9"/><polygon class="on" points="147.2,31.3 150,34.1 150,53.1 147.2,55.9 144.4,53.1 144.4,34.1"/></g></svg><span class="sg-cap" style="font-size:16px;color:var(--ground-hi);padding-top:6px">°C</span></div>
+      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-start;gap:10px"><span class="sg-fig " data-hot="" role="img" aria-label="-04" style="font-size:88px"><b class=" p">-</b><b class="">0</b><b class="">4</b></span><span class="sg-cap" style="font-size:16px;color:var(--ground-hi);padding-top:6px">°C</span></div>
         <div class="sg-mono" style="margin-top:10px;color:var(--ground-dim)">FEELS -09 · DEW -07 · SLEET FROM 14:00</div></div>
       <div class="u-div div-ticks"></div>
       <section class="u-body u-body--end">
@@ -940,7 +940,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       
       <i class="home"></i>
     </div></div>
-    <figcaption><b>W · Conditions</b><span><em class="tier">utility</em> A seven-segment temperature over rain bands, wind and humidity as cell runs, wind barbs for the next six hours, and ice as the one fault lamp.</span></figcaption>
+    <figcaption><b>W · Conditions</b><span><em class="tier">utility</em> A big figure temperature over rain bands, wind and humidity as cell runs, wind barbs for the next six hours, and ice as the one fault lamp.</span></figcaption>
   </figure>
 
 
@@ -952,14 +952,14 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div style="top:150px;left:0;right:0;text-align:center;color:var(--ground-hi)"><div class="sg-fr" style="font-size:16px">mardi 17 novembre</div><div class="sg-display" style="font-size:92px;margin-top:8px">09:41</div></div>
       <div class="la">
         <div style="display:flex;justify-content:space-between;align-items:center"><span class="sg-wordmark" style="font-size:14px">Axiom · transfer</span><span class="sg-mono">Nº 0917</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div class="sg-cap" style="font-size:10px">Arrives in</div><svg class="seg7 live-down" data-hot="2" viewBox="0 0 223 60" height="44" width="163.53" role="img" aria-label="00:12"><g transform="translate(2 0)"><polygon class="on" points="4.1,2.8 6.9,0 37.1,0 39.9,2.8 37.1,5.6 6.9,5.6"/><polygon class="on" points="4.1,57.2 6.9,54.4 37.1,54.4 39.9,57.2 37.1,60 6.9,60"/><polygon class="on" points="2.8,4.1 5.6,6.9 5.6,25.9 2.8,28.7 0,25.9 0,6.9"/><polygon class="on" points="41.2,4.1 44,6.9 44,25.9 41.2,28.7 38.4,25.9 38.4,6.9"/><polygon class="on" points="2.8,31.3 5.6,34.1 5.6,53.1 2.8,55.9 0,53.1 0,34.1"/><polygon class="on" points="41.2,31.3 44,34.1 44,53.1 41.2,55.9 38.4,53.1 38.4,34.1"/><polygon class="on" points="57.1,2.8 59.9,0 90.1,0 92.9,2.8 90.1,5.6 59.9,5.6"/><polygon class="on" points="57.1,57.2 59.9,54.4 90.1,54.4 92.9,57.2 90.1,60 59.9,60"/><polygon class="on" points="55.8,4.1 58.6,6.9 58.6,25.9 55.8,28.7 53,25.9 53,6.9"/><polygon class="on" points="94.2,4.1 97,6.9 97,25.9 94.2,28.7 91.4,25.9 91.4,6.9"/><polygon class="on" points="55.8,31.3 58.6,34.1 58.6,53.1 55.8,55.9 53,53.1 53,34.1"/><polygon class="on" points="94.2,31.3 97,34.1 97,53.1 94.2,55.9 91.4,53.1 91.4,34.1"/><rect class="hot" x="106" y="16.8" width="7" height="7"/><rect class="hot" x="106" y="38.4" width="7" height="7"/><polygon class="on" points="163.2,4.1 166,6.9 166,25.9 163.2,28.7 160.4,25.9 160.4,6.9"/><polygon class="on" points="163.2,31.3 166,34.1 166,53.1 163.2,55.9 160.4,53.1 160.4,34.1"/><polygon class="on" points="179.1,2.8 181.9,0 212.1,0 214.9,2.8 212.1,5.6 181.9,5.6"/><polygon class="on" points="179.1,30 181.9,27.2 212.1,27.2 214.9,30 212.1,32.8 181.9,32.8"/><polygon class="on" points="179.1,57.2 181.9,54.4 212.1,54.4 214.9,57.2 212.1,60 181.9,60"/><polygon class="on" points="216.2,4.1 219,6.9 219,25.9 216.2,28.7 213.4,25.9 213.4,6.9"/><polygon class="on" points="177.8,31.3 180.6,34.1 180.6,53.1 177.8,55.9 175,53.1 175,34.1"/></g></svg></div><div class="t-right"><div class="sg-cap" style="font-size:10px">To Lena Sato</div><div class="sg-num" style="font-size:26px">€240.00</div></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div class="sg-cap" style="font-size:10px">Arrives in</div><span class="sg-fig live-down" data-hot="2" role="img" aria-label="00:12" style="font-size:29px"><b class="">0</b><b class="">0</b><b class="hot p">:</b><b class="">1</b><b class="">2</b></span></div><div class="t-right"><div class="sg-cap" style="font-size:10px">To Lena Sato</div><div class="sg-num" style="font-size:26px">€240.00</div></div></div>
         <ol class="steps"><li class="done">Amount</li><li class="done">Confirm</li><li class="on">Sending</li></ol>
       </div>
       <span class="cut" style="bottom:40px;left:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--ground-hi)"><use href="#g-plus"/></svg></span>
       <span class="cut" style="bottom:40px;right:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="22" height="22" style="color:var(--ground-hi)"><use href="#g-i-scan"/></svg></span>
       <i class="home"></i>
     </div></div>
-    <figcaption><b>X · Live activity</b><span><em class="tier">poster</em> The system surfaces in the same print: an expanded Dynamic Island and a Live Activity plate tracking a transfer, with slash steps and a seven-segment countdown.</span></figcaption>
+    <figcaption><b>X · Live activity</b><span><em class="tier">poster</em> The system surfaces in the same print: an expanded Dynamic Island and a Live Activity plate tracking a transfer, with slash steps and a figure countdown.</span></figcaption>
   </figure>
 
 
@@ -1110,7 +1110,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
         <div><span class="sg-mono">aside · anybody italic</span><span class="sg-fr" style="font-size:15px">ingénierie du signal</span></div>
         <div><span class="sg-mono">stencil · saira stencil one</span><span class="sg-stencil" style="font-size:30px">Unit 09</span></div>
         <div><span class="sg-mono">kanji · biz udgothic</span><span class="sg-jp" style="font-size:22px">信号工学 · 保護中</span></div>
-        <div><span class="sg-mono">readout · seven-segment</span><span><!--@SEG7|08:14|40|2--></span></div>
+        <div><span class="sg-mono">readout · shingo grid figures</span><span><!--@SEG7|08:14|40|2--></span></div>
       </div>
     </div>
   </div>
@@ -1124,7 +1124,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 <section class="sec">
   <div class="sec-h"><span class="sg-num">05</span><h2 class="sg-display">Instruments</h2><span class="sg-mono">useful, decorative parts extrapolated from the system · every one is live</span></div>
   <div class="insts">
-    <div class="inst inst--wide"><h3><span>Seven-segment readout</span><span>seg7() · SGSegDisplay</span></h3><p>Big numerals for timers, speed, balances and counters, in thin upright segments. Any digit can light coral.</p>
+    <div class="inst inst--wide"><h3><span>Figure readout</span><span>seg7() · SGReadout</span></h3><p>Big numerals for timers, speed, balances and counters, set in Shingo Grid figures, each in a fixed cell so live values never jump. Any digit can light coral.</p>
       <div class="demo" style="gap:28px;flex-wrap:wrap"><!--@SEG7|02:47|56|2--><!--@SEG7|42.6|56|--><!--@SEG7|-18|56|0--></div></div>
     <div class="inst"><h3><span>Cell meter</span><span>.cells · SGCellMeter</span></h3><p>Cells slanted at the system's 45°, like a hazard stripe that fills up. For levels, rounds and caps. The last cell can run hot.</p>
       <div class="demo" style="display:grid;gap:12px"><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i><i></i></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div></div>

@@ -87,7 +87,7 @@ public struct DashboardExample: View {
             .padding(.horizontal, SG.gutter)
         } content: {
             HStack(spacing: 12) {
-                SGNotchFrame("Threats") { SGSegDisplay("1284", height: 30) }
+                SGNotchFrame("Threats") { SGReadout("1284", height: 30) }
                 SGNotchFrame("Data") {
                     Text("4.2 / 10 GB").sgNumber(22).foregroundStyle(SG.groundHi).padding(.bottom, 10)
                     SGCellMeter(count: 10, filled: 4)
@@ -135,7 +135,7 @@ public struct IntervalExample: View {
     public var body: some View {
         SGUtilityScreen("Interval", span: (Text("round 3"), Text("of 8")), tag: .japanese("計時"), monolith: .cells) {
             VStack(spacing: 10) {
-                SGSegDisplay("02:47", height: 92, hot: [2])
+                SGReadout("02:47", height: 92, hot: [2])
                 Text("Work 45 s · rest 15 s · next: rest").sgMono(11).foregroundStyle(SG.groundDim)
             }
             .frame(maxWidth: .infinity)
