@@ -84,7 +84,7 @@
 }
 
 /* ------------------------------------------------------------------ type */
-.sg-display  { font-family: var(--f-display); font-synthesis: none; font-stretch: 150%; font-weight: 900; text-transform: uppercase; letter-spacing: 0; line-height: .9; }   /* 40 pt and up */
+.sg-display  { font-family: var(--f-display); font-synthesis: none; font-stretch: 150%; font-weight: 900; text-transform: uppercase; letter-spacing: 0; line-height: 1; }   /* 40 pt and up; two-line titles need the air */
 .sg-wordmark { font-family: var(--f-title); font-stretch: 125%; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: .95; }                        /* titles 26, inline 15 */
 .sg-cap      { font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; line-height: 1.1; }
 .sg-label    { font-family: var(--f-sans); font-weight: 500; letter-spacing: 0; line-height: 1.25; }
@@ -94,7 +94,12 @@
 .sg-ghost    { color: var(--sage-ghost); }
 .t-right     { text-align: right; }
 /* the display face renders with crisp edges: no subpixel bleed on its cuts */
-.sg-display, .u-title, .sg-num { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: geometricPrecision; }
+.sg-display, .u-title, .sg-num { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: geometricPrecision; font-kerning: normal; }
+/* tracking by size: the wide faces open up as they get small and tighten a touch when huge.
+   Shingo Grid: about +.06em at 14px, +.03em at 20px, 0 at 28-40px, -.015em at 100px.
+   Shingo Signal caps: about +.11em at 11px, +.08em at 14px, +.03em at 24px. */
+.sg-display, .u-title, .sg-num { letter-spacing: clamp(-0.015em, calc(1.6px - 0.055em), 0.07em); }
+.sg-cap, .sg-wordmark { letter-spacing: clamp(0.02em, calc(1.8px - 0.05em), 0.12em); font-kerning: normal; }
 
 /* ---------------------------------------------------------- stripe field */
 .tex { background: repeating-linear-gradient(var(--a, var(--angle)), var(--ground) 0, var(--ground-2) calc(var(--stripe-period) * .5), var(--ground) var(--stripe-period)); }
@@ -242,7 +247,7 @@
 .u > .u-hd, .u > .u-hero, .u > .u-div, .u > .u-body { position: relative; }
 .u-hd { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; align-items: end; padding: 60px 24px 0; }
 .u-code { grid-column: 1; grid-row: 1; writing-mode: vertical-rl; transform: rotate(180deg); font: 400 7px/1 var(--f-mono); letter-spacing: .24em; color: var(--ground-dim); padding-bottom: 2px; }
-.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-display); font-synthesis: none; font-stretch: 125%; font-weight: 800; font-size: 28px; letter-spacing: .01em; line-height: .95; text-transform: uppercase; color: var(--ground-hi); }
+.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-display); font-synthesis: none; font-stretch: 125%; font-weight: 800; font-size: 28px; letter-spacing: .01em; line-height: 1.02; text-transform: uppercase; color: var(--ground-hi); }
 .u-tag { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
 .u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ground-dim); }
 .u-hd .sg-jp-v { color: var(--ground-dim); font-size: 12px; }
@@ -343,7 +348,7 @@
 .keycap::after { inset: 0; background: var(--kc, var(--coral)); }
 .keycap:active::after { background: var(--kc-shade, var(--coral-deep)); }
 
-.keycap small { font: 400 10px var(--f-mono); letter-spacing: .04em; }
+.keycap small { font: 400 10px var(--f-mono); letter-spacing: .08em; white-space: nowrap; }
 .keycap .led { width: 8px; height: 8px; background: #0c0c0a; }
 .keycap--print { --kc: var(--ground-hi); --kc-shade: var(--ground-dim); color: var(--ground); }
 .keycap:focus-visible { outline: 2px solid var(--coral); outline-offset: 4px; }

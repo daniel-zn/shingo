@@ -124,7 +124,7 @@ def glyphs(S, C, B, **_):
               [crect(S, t, B - S, H - S, tr=c), crect(S, S, B - S, b, br=c)])
     g["C"] = (B, [[(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, S + c), (S + c, S), (B, S), (B, 0), (C, 0), (0, C), (0, H - C)]], [])
     g["D"] = (B, [crect(0, 0, B, H, tr=C, br=C)], [crect(S, S, B - S, H - S, tr=c, br=c)])
-    e = B - S * .9
+    e = B * .76                                    # middle arm shorter than top and foot, so E/F have rhythm
     g["E"] = (B, [[(0, 0), (0, H), (B, H), (B, H - S), (S, H - S), (S, t), (e, t), (e, b), (S, b), (S, S), (B, S), (B, 0)]], [])
     g["F"] = (B, [[(0, 0), (0, H), (B, H), (B, H - S), (S, H - S), (S, t), (e, t), (e, b), (S, b), (S, 0)]], [])
     gx = B * .48
@@ -154,7 +154,9 @@ def glyphs(S, C, B, **_):
     g["O"] = (B, [crect(0, 0, B, H, C, C, C, C)], [crect(S, S, B - S, H - S, c, c, c, c)])
     g["P"] = (B, [[(0, 0), (0, H), (B - C, H), (B, H - C), (B, b + C), (B - C, b), (S, b), (S, 0)]],
               [crect(S, t, B - S, H - S, tr=c, br=c)])
-    g["Q"] = (B + S * .6, [crect(0, 0, B, H, C, C, 0, C), rect(B - S, 0, B + S * .6, S)], [crect(S, S, B - S, H - S, c, c, 0, c)])
+    qy1 = S * .95                                  # the tail stays below the counter and crosses the chamfer square-on
+    qtail = clipbox(band(B - C / 2 - (qy1 - C / 2) - T / 2, -S * .45, qy1, T, rising=False), 0, B + S * .55, -S * .45, H)
+    g["Q"] = (B + S * .55, [crect(0, 0, B, H, C, C, C, C), qtail], [crect(S, S, B - S, H - S, c, c, c, c)])
     xl = B - T - b
     g["R"] = (B, [[(0, 0), (0, H), (B - C, H), (B, H - C), (B, b + C), (B - C, b), (S, b), (S, 0)],
                   [(xl, b + 1), (xl + T, b + 1), (B, 0), (B - T, 0)]],
@@ -212,7 +214,8 @@ def glyphs(S, C, B, **_):
     g["_"] = (B * .8, [rect(0, -S * 1.4, B * .8, -S * .4)], [])
     sw = H * .62
     g["/"] = (sw, [[(0, 0), (tx, 0), (sw, H), (sw - tx, H)]], [])
-    g["·"] = (q, [rect(0, M - q / 2, q, M + q / 2)], [])
+    q7 = S * .7
+    g["·"] = (q7, [rect(0, M - q7 / 2, q7, M + q7 / 2)], [])
     g["'"] = (S, [rect(0, H - 260, S, H)], [])
     g['"'] = (S * 2.6, [rect(0, H - 260, S, H), rect(S * 1.6, H - 260, S * 2.6, H)], [])
     g["’"] = (S, [[(0, H), (S, H), (S, H - S), (S * .2, H - S * 1.8), (0, H - S * 1.8)]], [])
@@ -322,11 +325,13 @@ def glyphs(S, C, B, **_):
     xs1 = B / 2 + S * .2                            # the 1: stem just right of centre, a chamfered flag, a foot
     g["1"] = (B, [crect(xs1 - S * 1.5, H - S, xs1 + S, H, tl=C * .8), rect(xs1, 0, xs1 + S, H),
                   rect(xs1 - S * 1.3, 0, xs1 + S * 2.3, S)], [])
-    # the 4: an open top-left, the bar across, the stem on the right with the letters' cut where it turns
-    g["4"] = (B, [[(0, H), (S, H), (S, t), (B - S, t), (B - S, H), (B, H), (B, 0), (B - S, 0), (B - S, b), (C, b), (0, b + C)]], [])
+    # the 4: closed by a 45° diagonal from the bar's left end up into the stem; the bar runs a little past the stem
+    d4 = H - b
+    w4 = d4 + T                                     # stem's right edge
+    g["4"] = (w4 + S * .55, [rect(w4 - S, 0, w4, H), band(0, b, H, T), rect(0, b, w4 + S * .55, t)], [])
     # the 3: the middle bar reaches back as far as the top and bottom ends do
     g["3"] = (B, [[(0, H), (B - C, H), (B, H - C), (B, C), (B - C, 0), (0, 0), (0, S), (B - S - c, S), (B - S, S + c), (B - S, b),
-                   (S * 1.4, b), (S * 1.4, t), (B - S, t), (B - S, H - S - c), (B - S - c, H - S), (0, H - S)]], [])
+                   (B * .45, b), (B * .45, t), (B - S, t), (B - S, H - S - c), (B - S - c, H - S), (0, H - S)]], [])
     # the 5: the top-left turn takes the chamfer too
     g["5"] = (B, [[(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, t), (B - Cm, t), (B, t - Cm), (B, C), (B - C, 0), (0, 0), (0, S),
                    (B - S - c, S), (B - S, S + c), (B - S, b - cm), (B - S - cm, b), (0, b), (0, H - C)]], [])
@@ -336,7 +341,11 @@ def glyphs(S, C, B, **_):
     g["/"] = (sw, [clipbox(sl, f * .8, sw - f * .8, 0, H)], [])
     pw = B * .92
     sq = S * 1.5
-    g["%"] = (pw, [rect(0, H - sq, sq, H), rect(pw - sq, 0, pw, sq), clipbox([(0, 0), (T2, 0), (pw, H), (pw - T2, H)], f, pw - f, 0, H)], [])
+    sq = S * 1.55                                  # two big square dots and a steep slash between them
+    pw = H * .95
+    sl_ = clipbox([(0, 0), (T2, 0), (pw, H), (pw - T2, H)], 0, pw, 0, H)
+    g["%"] = (pw, [rect(0, H - sq, sq, H), rect(pw - sq, 0, pw, sq),
+                   clipbox(sl_, 0, pw, 0, H)], [])
     # times: a small X
     th = H * .56
     tw = th + T * .8
@@ -369,7 +378,7 @@ ACCENTS = {  # shapes over the cap height, centred on 0: 45° strokes cut level,
     "grave": lambda S, B: [_acc_band(-S * .15 - S * .05, S * 1.15, S * .8, rising=False)],
     "circ": lambda S, B: [[(-S * 1.55, 0), (-S * .75, 0), (0, S * .75), (S * .75, 0), (S * 1.55, 0), (S * .4, S * 1.15), (-S * .4, S * 1.15)]],
     "uml": lambda S, B: [rect(-S * 1.7, 0, -S * .6, S * 1.0), rect(S * .6, 0, S * 1.7, S * 1.0)],
-    "macron": lambda S, B: [rect(-B * .32, 0, B * .32, S * .75)],
+    "macron": lambda S, B: [rect(-B * .3, 0, B * .3, S * .62)],
     "tilde": lambda S, B: [_acc_band(-S * 1.9, S * .95, S * .75), [(x + S * .95, y) for x, y in _acc_band(-S * 1.9, S * .95, S * .75, rising=False)],
                            [(x + S * 1.9, y) for x, y in _acc_band(-S * 1.9, S * .95, S * .75)]],
     "ring": lambda S, B: [crect(-S * 1.25, 0, S * 1.25, S * 1.6, tl=S * .6, tr=S * .6, br=S * .6, bl=S * .6)],
@@ -427,15 +436,25 @@ def side_space(ch, shapes, SB):
             gaps.append(min(260, (e - x_edge) if e is not None else 260))
         avg = sum(gaps) / len(gaps)
         out.append(max(SB * .4, SB - .36 * avg))
-    return out[0], out[1], x0, x1
+    l, r = TRIM.get(ch, (0, 0))
+    return out[0] - l * S_TRIM, out[1] - r * S_TRIM, x0, x1
+
+
+S_TRIM = 132
+# open sides the measure under-reads: (left, right) trims in strokes
+TRIM = {"C": (0, .3), "G": (0, .25), "L": (0, .4), "J": (.25, 0), "F": (0, .2), "E": (0, .08), "K": (0, .1),
+        "O": (.1, .1), "Q": (.1, 0), "D": (0, .1), "R": (0, .1), "T": (.05, .05)}
 
 
 # pairs the optical spacing cannot fix on its own (units of 1/1000 em)
-KERN = {("L", "T"): -70, ("L", "Y"): -60, ("L", "V"): -50, ("T", "A"): -55, ("A", "T"): -55, ("A", "V"): -40,
-        ("V", "A"): -40, ("A", "Y"): -45, ("Y", "A"): -45, ("P", "A"): -45, ("F", "A"): -35, ("T", "."): -60,
-        ("T", ","): -60, ("Y", "."): -50, ("Y", ","): -50, ("P", "."): -60, ("P", ","): -60, ("F", "."): -45,
-        ("F", ","): -45, ("7", "."): -40, ("L", "’"): -70, ("T", "J"): -40, ("Y", "J"): -35, ("A", "’"): -40,
-        ("K", "O"): -20, ("X", "O"): -15, ("T", "O"): -15, ("O", "T"): -15, ("R", "T"): -25, ("R", "Y"): -25}
+KERN = {("L", "T"): -110, ("L", "Y"): -110, ("L", "V"): -100, ("L", "A"): -40, ("L", "O"): -35, ("L", "’"): -110,
+        ("T", "A"): -75, ("A", "T"): -75, ("A", "V"): -85, ("V", "A"): -85, ("A", "Y"): -85, ("Y", "A"): -85,
+        ("A", "W"): -40, ("W", "A"): -40, ("P", "A"): -75, ("F", "A"): -65, ("P", "."): -90, ("P", ","): -90,
+        ("F", "."): -70, ("F", ","): -70, ("T", "."): -80, ("T", ","): -80, ("Y", "."): -80, ("Y", ","): -80,
+        ("V", "."): -70, ("V", ","): -70, ("7", "."): -60, ("T", "J"): -60, ("Y", "J"): -55, ("A", "’"): -70,
+        ("K", "O"): -30, ("X", "O"): -25, ("T", "O"): -25, ("O", "T"): -25, ("Y", "O"): -30, ("O", "Y"): -30,
+        ("O", "V"): -25, ("V", "O"): -25, ("R", "T"): -40, ("R", "Y"): -45, ("R", "V"): -35, ("F", "L"): -20,
+        ("L", "U"): -20, ("T", "T"): -20, ("1", "1"): -30}
 
 
 def build(weight):
