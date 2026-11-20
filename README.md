@@ -260,7 +260,7 @@ ShingoKit covers the tokens, type, alphabet shapes, components, instruments, ico
 - **Shingo Signal** is a modified Orbitron, built by `tools/signal_font.py` from the variable font kept in `tools/vendor/`. It adds the characters Orbitron lacks (macron vowels Ā Ē Ī Ō Ū, the middle dot ·, º ª №, « », arrows ← ↑ → ↓, ◆, ′ ″, ² ³, ™), drawn from Orbitron's own strokes. Orbitron reserves its name, so the modified font carries a new one; it stays under the SIL Open Font License 1.1 (`OFL-ShingoSignal.txt`).
 - Anybody, Saira Stencil One and IBM Plex Mono are licensed under the SIL Open Font License 1.1 (licence texts next to the fonts in `ios/Sources/ShingoKit/Resources/Fonts/OFL-*.txt`). You may bundle them all in an app; keep the licence texts with them.
 - Japanese uses Hiragino Sans, which ships with iOS, and BIZ UDGothic on the web. BIZ UDGothic isn't bundled because it's 4 MB.
-- Rebuilding the fonts needs `pip install fonttools brotli`.
+- Rebuilding the fonts needs `pip install fonttools brotli skia-pathops`.
 
 
 ## Licence

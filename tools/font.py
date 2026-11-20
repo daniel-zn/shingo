@@ -25,8 +25,8 @@ UPM = 1000
 
 WEIGHTS = {
     # stroke, outer cut, body width, side bearing, space. One cut, after the RADAR reference:
-    # strokes about a fifth of the cap height, small hard corner cuts (about 3/4 of the stroke), letters wider than tall.
-    "Heavy": dict(S=136, C=104, B=800, SB=58, SP=300),
+    # strokes about a fifth of the cap height, cuts a little larger than the stroke, letters wider than tall.
+    "Heavy": dict(S=136, C=176, B=800, SB=58, SP=300),
 }
 
 
@@ -353,6 +353,20 @@ COMPOSED = {
 }
 
 
+def snap(pts):
+    """Whole font units, keeping every 45° edge exactly 45°: a point that starts a 45°
+    edge from an already snapped point moves by the same amount in x and y."""
+    out = [(round(pts[0][0]), round(pts[0][1]))]
+    for (px, py), (x, y) in zip(pts, pts[1:]):
+        dx, dy = x - px, y - py
+        if abs(abs(dx) - abs(dy)) < 1e-6 and abs(dx) > 1e-6:      # a true 45° step
+            d = round(abs(dx))
+            out.append((out[-1][0] + (d if dx > 0 else -d), out[-1][1] + (d if dy > 0 else -d)))
+        else:
+            out.append((round(x), round(y)))
+    return out
+
+
 def ink_left(shapes, y):
     """Leftmost ink at height y across all shapes (None if the row is empty)."""
     best = None
@@ -412,7 +426,7 @@ def build(weight):
     def draw(shapes, holes):
         pen = TTGlyphPen(None)
         for pts, outer in [(s, True) for s in shapes] + [(h, False) for h in holes]:
-            pts = [(round(x), round(y)) for x, y in pts]
+            pts = snap(pts)
             # TrueType: filled contours run clockwise, holes counter-clockwise (y up)
             if (area(pts) < 0) != outer:
                 pts = pts[::-1]
@@ -449,6 +463,10 @@ def build(weight):
                 sCapHeight=H, sxHeight=H, usWeightClass=900, achVendID="SHGO",
                 fsSelection=0x20)
     fb.setupPost()
+    # one clean outline per glyph: overlapping strokes (bowl and leg, stem and arms, the X's
+    # crossing) are merged, so joins and cuts render as single crisp edges
+    from fontTools.ttLib.removeOverlaps import removeOverlaps
+    removeOverlaps(fb.font)
     kern = "\n".join(f"  pos {names[l]} {names[r]} {v};" for (l, r), v in KERN.items() if l in names and r in names)
     from fontTools.feaLib.builder import addOpenTypeFeaturesFromString
     addOpenTypeFeaturesFromString(fb.font, "languagesystem DFLT dflt;\nlanguagesystem latn dflt;\nfeature kern {\n" + kern + "\n} kern;\n")

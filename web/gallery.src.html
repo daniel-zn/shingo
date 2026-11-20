@@ -212,7 +212,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 .tf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(66px, 1fr)); border-top: 1px solid var(--ground-3); border-left: 1px solid var(--ground-3); }
 .tf-grid > div { border-right: 1px solid var(--ground-3); border-bottom: 1px solid var(--ground-3); display: grid; justify-items: center; gap: 4px; padding: 12px 2px 7px; min-width: 0;
   background: linear-gradient(var(--ground-3), var(--ground-3)) 0 calc(12px + 36px * .93) / 100% 1px no-repeat; }
-.tf-grid b { font: 400 36px/1 "Shingo Grid", monospace; color: var(--ground-hi); font-synthesis: none; }
+.tf-grid b { font: 400 36px/1 "Shingo Grid", monospace; color: var(--ground-hi); font-synthesis: none; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
 .tf-grid.tf-signal b { font: 800 30px/1.2 "Shingo Signal", monospace; }
 .tf-grid span { font: 400 8.5px var(--f-mono); color: var(--ground-dim); }
 .tf-lines { display: grid; gap: 6px; font: 400 clamp(22px, 3.4vw, 40px)/1.15 "Shingo Grid", monospace; color: var(--ground-hi); overflow-wrap: anywhere; }

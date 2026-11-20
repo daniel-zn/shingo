@@ -96,6 +96,8 @@
 .sg-mono     { font-family: var(--f-mono); font-weight: 500; font-size: 11px; line-height: 1.3; letter-spacing: 0; }
 .sg-ghost    { color: var(--sage-ghost); }
 .t-right     { text-align: right; }
+/* the display face renders with crisp edges: no subpixel bleed on its cuts */
+.sg-display, .u-title, .sg-num { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: geometricPrecision; }
 
 /* ---------------------------------------------------------- stripe field */
 .tex { background: repeating-linear-gradient(var(--a, var(--angle)), var(--ground) 0, var(--ground-2) calc(var(--stripe-period) * .5), var(--ground) var(--stripe-period)); }
