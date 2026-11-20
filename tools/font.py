@@ -245,7 +245,18 @@ def glyphs(S, C, B, **_):
     g["…"] = (S * 5, [rect(0, 0, S, S), rect(S * 2, 0, S * 3, S), rect(S * 4, 0, S * 5, S)], [])
     g["#"] = (B, [rect(0, M + S * .5, B, M + S * 1.4), rect(0, M - S * 1.4, B, M - S * .5),
                   rect(B * .28 - S / 2, 0, B * .28 + S / 2, H), rect(B * .72 - S / 2, 0, B * .72 + S / 2, H)], [])
-    g["&"] = (B * 1.05, g["8"][1] + [rect(B - S, 0, B * 1.05, S)], g["8"][2])
+    # &: a small cut loop on top, an open bowl below, and a 45° leg from the waist to the baseline
+    aw = B * .92
+    lt = M + S * .35                                   # top of the lower bowl
+    cl = C * .75
+    cin = max(0, cl - S * (2 - R2))
+    loop = crect(S * .35, M - S * .25, aw * .62, H, cl, cl, cl, cl)
+    loop_h = crect(S * 1.35, M + S * .75, aw * .62 - S, H - S, cin, cin, cin, cin)
+    x1 = aw * .7
+    bowl = [(cl, lt), (x1, lt), (x1, lt - S), (S + cin, lt - S), (S, lt - S - cin), (S, S + max(0, C - S * (2 - R2))),
+            (S + max(0, C - S * (2 - R2)), S), (x1, S), (x1, 0), (C, 0), (0, C), (0, lt - cl)]
+    leg = clipbox(band(aw - T - lt, 0, lt, T, rising=False), 0, aw, 0, lt)
+    g["&"] = (aw, [loop, bowl, leg], [loop_h])
     g["<"] = (B * .7, [[(B * .7, H * .85), (B * .7, H * .85 - T * .9), (B * .7 - (H * .35 - 0), M), (B * .7, H * .15 + T * .9), (B * .7, H * .15), (0, M)]], [])
     g[">"] = (B * .7, [[(0, H * .85), (0, H * .85 - T * .9), (H * .35, M), (0, H * .15 + T * .9), (0, H * .15), (B * .7, M)]], [])
     g["*"] = (B * .6, [rect(B * .3 - S / 2.5, H - B * .6, B * .3 + S / 2.5, H), rect(0, H - B * .3 - S / 2.5, B * .6, H - B * .3 + S / 2.5)], [])
@@ -274,12 +285,14 @@ def glyphs(S, C, B, **_):
     y7 = H - S
     g["7"] = (B, [crect(0, H - S, B, H, tr=C * .75), clipbox(band(B - T - y7, 0, y7, T), B - T - y7 + f, B, 0, y7)], [])
     # Z: the diagonal runs bar to bar
-    zd = H - S
-    g["Z"] = (B, [rect(0, H - S, B, H), rect(0, 0, B, S), band((B - T - zd) / 2, S / 2, H - S / 2, T)], [])
+    # Z: the diagonal's edges land exactly on the bars' inner corners, so the width follows from the 45°
+    zd = H - 2 * S
+    zw = zd + T
+    g["Z"] = (zw, [rect(0, H - S, zw, H), rect(0, 0, zw, S), band(0, S - 1, H - S + 1, T)], [])
     # N: the diagonal leaves the top of the left stem and runs into the right one
-    nw = B * .88
-    yn = H - (nw - T)
-    g["N"] = (nw, [rect(0, 0, S, H), rect(nw - S, 0, nw, H), clipbox(band(0, yn, H, T, rising=False), 0, nw, yn, H)], [])
+    # N: one 45° stroke from the top-left corner to the bottom-right corner, between full stems
+    nw = H + T
+    g["N"] = (nw, [rect(0, 0, S, H), rect(nw - S, 0, nw, H), band(0, 0, H, T, rising=False)], [])
     # M and W: the stems carry a V whose arms meet in a point
     mw = B * 1.2
     arm = clipbox(band(0, 0, H, T, rising=False), 0, mw / 2, 0, H)
