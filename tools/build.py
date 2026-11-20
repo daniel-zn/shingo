@@ -923,6 +923,36 @@ def backdrops_gallery(src):
             f'  <div class="bgs">{old}</div>')
 
 
+def typeface_card():
+    """Audit card for Shingo Grid: every character in the font file, grouped, with
+    spacing and kerning strings, plus the characters Shingo Signal adds to Orbitron."""
+    from fontTools.ttLib import TTFont
+    import html
+    fonts = ROOT / "ios" / "Sources" / "ShingoKit" / "Resources" / "Fonts"
+    grid = sorted(c for c in TTFont(fonts / "ShingoGrid-Heavy.ttf").getBestCmap() if c > 32 and c != 0xA0)
+    orb = set(TTFont(ROOT / "tools" / "vendor" / "Orbitron[wght].ttf").getBestCmap())
+    added = sorted(c for c in TTFont(fonts / "ShingoSignal-ExtraBold.ttf").getBestCmap() if c not in orb and c > 32)
+    groups = [("Capitals", [c for c in grid if 0x41 <= c <= 0x5A]),
+              ("Figures", [c for c in grid if 0x30 <= c <= 0x39]),
+              ("Accented capitals", [c for c in grid if c >= 0xC0 and chr(c).isalpha()]),
+              ("Punctuation and symbols", [c for c in grid if not chr(c).isalnum()])]
+    cell = lambda c: f'<div><b>{html.escape(chr(c))}</b><span>U+{c:04X}</span></div>'
+    out = [f'  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Shingo Grid Heavy · every character</span>'
+           f'<span class="sg-mono">{len(grid)} characters, read from the font file · tools/font.py · lowercase falls through to Shingo Signal</span></div>',
+           '  <div class="tf-card"><div class="tf-hero sg-display">Radar Axiom</div>']
+    for name, cs in groups:
+        out.append(f'<div class="tf-group"><h4>{name}<span>{len(cs)}</span></h4><div class="tf-grid">{"".join(cell(c) for c in cs)}</div></div>')
+    out.append('<div class="tf-group"><h4>Spacing<span>each letter between H and between O; then the kerned pairs</span></h4><div class="tf-lines">'
+               '<div>' + "".join(f"H{c}" for c in "ABCDEFGHIJKLM") + 'H</div><div>' + "".join(f"H{c}" for c in "NOPQRSTUVWXYZ") + 'H</div>'
+               '<div>' + "".join(f"O{c}" for c in "ABCDEFGHIJKLM") + 'O</div><div>' + "".join(f"O{c}" for c in "NOPQRSTUVWXYZ") + 'O</div>'
+               '<div>H0H1H2H3H4H5H6H7H8H9H</div><div>LT LY AV VA TA AT PA YA T. P, RT KO</div>'
+               '<div>RELAY FLEET · TRANSFER · KILL SWITCH · NOW PLAYING</div><small>kerning lives in the font (GPOS kern); spacing is optical: open sides sit closer</small></div></div>')
+    out.append(f'<div class="tf-group"><h4>Shingo Signal: characters added to Orbitron<span>{len(added)} · tools/signal_font.py</span></h4>'
+               f'<div class="tf-grid tf-signal">{"".join(cell(c) for c in added)}</div></div>')
+    out.append('</div>')
+    return "\n".join(out)
+
+
 def main():
     export_glyphs()
     defs = sprite().split("<defs>")[1].split("</defs>")[0]
@@ -930,6 +960,7 @@ def main():
     src = seg7_tags(src)
     src = src.replace("<!--@EXPLORE-->", explorations() + "\n" + console())
     src = src.replace("<!--@PATTERNS-->", patterns())
+    src = src.replace("<!--@TYPEFACE-->", typeface_card())
     src = src.replace("<!--@BACKDROPS-->", backdrops_gallery(src))
     (ROOT / "ios" / "Sources" / "ShingoKit" / "SGMonolith.swift").write_text(monoliths.swift())
     src = src.replace("<!--@LIVEJS-->", (ROOT / "web" / "shingo-live.js").read_text())

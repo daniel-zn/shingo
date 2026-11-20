@@ -204,6 +204,19 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 .sheet h3 span:last-child { font: 400 10.5px var(--f-mono); color: var(--ground-dim); text-transform: none; letter-spacing: 0; }
 .sheet > div { min-width: 0; }
 .typescale > div > span { min-width: 0; overflow-wrap: anywhere; }
+/* typeface audit card: every character, drawn from the font file itself */
+.tf-card { border: 1px solid var(--ground-3); padding: 22px; display: grid; gap: 22px; }
+.tf-hero { font-size: clamp(44px, 8vw, 104px); line-height: .95; color: var(--ground-hi); }
+.tf-group h4 { margin: 0 0 8px; display: flex; justify-content: space-between; gap: 10px; font: 600 11px var(--f-cap); letter-spacing: .08em; text-transform: uppercase; color: var(--ground-hi); }
+.tf-group h4 span { font: 400 10px var(--f-mono); color: var(--ground-dim); letter-spacing: 0; text-transform: none; }
+.tf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(66px, 1fr)); border-top: 1px solid var(--ground-3); border-left: 1px solid var(--ground-3); }
+.tf-grid > div { border-right: 1px solid var(--ground-3); border-bottom: 1px solid var(--ground-3); display: grid; justify-items: center; gap: 4px; padding: 12px 2px 7px; min-width: 0;
+  background: linear-gradient(var(--ground-3), var(--ground-3)) 0 calc(12px + 36px * .93) / 100% 1px no-repeat; }
+.tf-grid b { font: 400 36px/1 "Shingo Grid", monospace; color: var(--ground-hi); font-synthesis: none; }
+.tf-grid.tf-signal b { font: 800 30px/1.2 "Shingo Signal", monospace; }
+.tf-grid span { font: 400 8.5px var(--f-mono); color: var(--ground-dim); }
+.tf-lines { display: grid; gap: 6px; font: 400 clamp(22px, 3.4vw, 40px)/1.15 "Shingo Grid", monospace; color: var(--ground-hi); overflow-wrap: anywhere; }
+.tf-lines small { display: block; font: 400 10px var(--f-mono); color: var(--ground-dim); margin-top: 10px; }
 .sheet .stack { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .glyphs { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); border-top: 1px solid var(--ground-3); border-left: 1px solid var(--ground-3); }
 .glyphs div { background: var(--ground); border-right: 1px solid var(--ground-3); border-bottom: 1px solid var(--ground-3); display: grid; justify-items: center; gap: 8px; padding: 14px 4px 10px; }
@@ -1101,6 +1114,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       </div>
     </div>
   </div>
+  <!--@TYPEFACE-->
   <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Content motifs</span><span class="sg-mono">shapes taken from each screen's subject · same rules as the alphabet</span></div>
   <div class="alpha"><div><figure><svg class="motif" viewBox="0 0 342 108" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-tumblers"/></svg></figure><b>Lock tumblers</b><p>Passcode. Six pin stacks; entered digits align on the shear line, the latest pin in coral.</p></div><div><figure><svg class="motif" viewBox="0 0 200 120" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-stamp"/></svg></figure><b>Postage and cancel</b><p>Inbox. A perforated stamp with a square postmark and cancel bars.</p></div><div><figure><svg class="motif" viewBox="0 0 342 100" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-dip"/></svg></figure><b>DIP switch bank</b><p>Settings. Eight switches print the config word; the last one changed is coral.</p></div><div><figure><svg class="motif" viewBox="0 0 342 112" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-barbs"/></svg></figure><b>Wind barbs</b><p>Conditions. Meteorological barbs for the next six hours: lines are 10 kt, a pennant is 50.</p></div><div><figure><svg class="motif" viewBox="0 0 342 56" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-flow"/></svg></figure><b>Packet flow</b><p>Transfer. Account to person as slash packets; the one in flight is coral.</p></div><div><figure><svg class="motif" viewBox="0 0 60 64" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-print"/></svg></figure><b>Cut fingerprint</b><p>Credential. Ridges drawn as broken cut-corner loops.</p></div><div><figure><svg class="motif" viewBox="0 0 80 82" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-compass"/></svg></figure><b>Compass rose</b><p>Route. Eight points from diamonds; north in coral.</p></div><div><figure><svg class="motif" viewBox="0 0 38 172" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-meters"/></svg></figure><b>Level meters</b><p>Player. Left and right cell columns; the peak cell runs hot.</p></div><div><figure><svg class="motif" viewBox="0 0 342 140" style="max-height:96px;width:auto;max-width:100%" aria-hidden="true"><use href="#g-m-micro"/></svg></figure><b>Security microtext</b><p>Wallet. Repeating micro type printed under the card, like a banknote.</p></div></div>
   <!--@BACKDROPS-->

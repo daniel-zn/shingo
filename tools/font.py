@@ -353,6 +353,45 @@ COMPOSED = {
 }
 
 
+def ink_left(shapes, y):
+    """Leftmost ink at height y across all shapes (None if the row is empty)."""
+    best = None
+    for pts in shapes:
+        for (xa, ya), (xb, yb) in zip(pts, pts[1:] + pts[:1]):
+            if (ya <= y < yb) or (yb <= y < ya):
+                x = xa + (y - ya) * (xb - xa) / (yb - ya)
+                best = x if best is None else min(best, x)
+    return best
+
+
+def side_space(ch, shapes, SB):
+    """Optical spacing. Each side gets the base bearing minus part of the white it
+    already holds, so open and diagonal sides (A, K, L, T, V, X, Y, 7) sit as
+    close as straight stems do. Punctuation keeps the plain bearing."""
+    xs = [x for pts in shapes for x, _ in pts]
+    x0, x1 = min(xs), max(xs)
+    if not ch.isalnum() or ch in "×":
+        return SB, SB, x0, x1
+    mirrored = [[(-x, y) for x, y in pts] for pts in shapes]
+    out = []
+    for side, x_edge in ((shapes, x0), (mirrored, -x1)):
+        gaps = []
+        for y in range(10, H, 20):
+            e = ink_left(side, y)
+            gaps.append(min(260, (e - x_edge) if e is not None else 260))
+        avg = sum(gaps) / len(gaps)
+        out.append(max(SB * .3, SB - .42 * avg))
+    return out[0], out[1], x0, x1
+
+
+# pairs the optical spacing cannot fix on its own (units of 1/1000 em)
+KERN = {("L", "T"): -70, ("L", "Y"): -60, ("L", "V"): -50, ("T", "A"): -55, ("A", "T"): -55, ("A", "V"): -40,
+        ("V", "A"): -40, ("A", "Y"): -45, ("Y", "A"): -45, ("P", "A"): -45, ("F", "A"): -35, ("T", "."): -60,
+        ("T", ","): -60, ("Y", "."): -50, ("Y", ","): -50, ("P", "."): -60, ("P", ","): -60, ("F", "."): -45,
+        ("F", ","): -45, ("7", "."): -40, ("L", "’"): -70, ("T", "J"): -40, ("Y", "J"): -35, ("A", "’"): -40,
+        ("K", "O"): -20, ("X", "O"): -15, ("T", "O"): -15, ("O", "T"): -15, ("R", "T"): -25, ("R", "Y"): -25}
+
+
 def build(weight):
     P = WEIGHTS[weight]
     S, SB, SP = P["S"], P["SB"], P["SP"]
@@ -389,9 +428,10 @@ def build(weight):
     metrics["space"] = (SP, 0)
     for ch, (w, shapes, holes) in g.items():
         n = names[ch]
-        shifted = lambda pts: [(x + SB, y) for x, y in pts]
+        lsb, rsb, x0, x1 = side_space(ch, shapes, SB)
+        shifted = lambda pts: [(x - x0 + lsb, y) for x, y in pts]
         pen_glyphs[n] = draw([shifted(s) for s in shapes], [shifted(h) for h in holes])
-        metrics[n] = (round(w + 2 * SB), SB)
+        metrics[n] = (round(lsb + (x1 - x0) + rsb), round(lsb))
         cmap[ord(ch)] = n
         # caps only: no lowercase, so units inside figures ("38 km/h") fall through to Shingo Signal
 
@@ -409,6 +449,9 @@ def build(weight):
                 sCapHeight=H, sxHeight=H, usWeightClass=900, achVendID="SHGO",
                 fsSelection=0x20)
     fb.setupPost()
+    kern = "\n".join(f"  pos {names[l]} {names[r]} {v};" for (l, r), v in KERN.items() if l in names and r in names)
+    from fontTools.feaLib.builder import addOpenTypeFeaturesFromString
+    addOpenTypeFeaturesFromString(fb.font, "languagesystem DFLT dflt;\nlanguagesystem latn dflt;\nfeature kern {\n" + kern + "\n} kern;\n")
     from fontTools.misc.timeTools import timestampFromString
     ts = timestampFromString("Thu Nov 19 00:00:00 2026")     # fixed, so rebuilds are byte-identical
     fb.setupHead(unitsPerEm=UPM, macStyle=1, created=ts, modified=ts)

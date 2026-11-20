@@ -256,7 +256,7 @@ ShingoKit covers the tokens, type, alphabet shapes, components, instruments, ico
 
 ## Fonts
 
-- **Shingo Grid Heavy** is drawn in this repo by `tools/font.py` and is MIT licensed with the rest of the repo. It covers A–Z, figures, common punctuation, € $ % and the accented capitals for English, French and Portuguese; anything else, lowercase included, falls through to Shingo Signal, then Anybody.
+- **Shingo Grid Heavy** is drawn in this repo by `tools/font.py`, spaced optically (each side gets the base bearing minus part of the white it already holds) and kerned for the classic pairs (LT, AV, TA, PA…); the gallery's Components section has an audit card with every character, read from the font file. It is MIT licensed with the rest of the repo. It covers A–Z, figures, common punctuation, € $ % and the accented capitals for English, French and Portuguese; anything else, lowercase included, falls through to Shingo Signal, then Anybody.
 - **Shingo Signal** is a modified Orbitron, built by `tools/signal_font.py` from the variable font kept in `tools/vendor/`. It adds the characters Orbitron lacks (macron vowels Ā Ē Ī Ō Ū, the middle dot ·, º ª №, « », arrows ← ↑ → ↓, ◆, ′ ″, ² ³, ™), drawn from Orbitron's own strokes. Orbitron reserves its name, so the modified font carries a new one; it stays under the SIL Open Font License 1.1 (`OFL-ShingoSignal.txt`).
 - Anybody, Saira Stencil One and IBM Plex Mono are licensed under the SIL Open Font License 1.1 (licence texts next to the fonts in `ios/Sources/ShingoKit/Resources/Fonts/OFL-*.txt`). You may bundle them all in an app; keep the licence texts with them.
 - Japanese uses Hiragino Sans, which ships with iOS, and BIZ UDGothic on the web. BIZ UDGothic isn't bundled because it's 4 MB.
