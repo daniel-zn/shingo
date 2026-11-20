@@ -159,8 +159,9 @@ def glyphs(S, C, B, **_):
     g["R"] = (B, [[(0, 0), (0, H), (B - C, H), (B, H - C), (B, b + C), (B - C, b), (S, b), (S, 0)],
                   [(xl, b + 1), (xl + T, b + 1), (B, 0), (B - T, 0)]],
               [crect(S, t, B - S, H - S, tr=c, br=c)])
-    g["S"] = (B, [[(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, t + c), (S + c, t), (B - C, t), (B, t - C), (B, C), (B - C, 0), (0, 0),
-                   (0, S), (B - S - c, S), (B - S, S + c), (B - S, b - c), (B - S - c, b), (C, b), (0, b + C), (0, H - C)]], [])
+    Cm, cm = S, S * (R2 - 1)                    # middle turns: outer cut = bar height, inner keeps full weight
+    g["S"] = (B, [[(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, t + cm), (S + cm, t), (B - Cm, t), (B, t - Cm), (B, C), (B - C, 0), (0, 0),
+                   (0, S), (B - S - c, S), (B - S, S + c), (B - S, b - cm), (B - S - cm, b), (Cm, b), (0, b + Cm), (0, H - C)]], [])
     g["T"] = (B, [[(0, H), (B, H), (B, H - S), (B / 2 + S / 2, H - S), (B / 2 + S / 2, 0), (B / 2 - S / 2, 0), (B / 2 - S / 2, H - S), (0, H - S)]], [])
     g["U"] = (B, [[(0, H), (S, H), (S, S + c), (S + c, S), (B - S - c, S), (B - S, S + c), (B - S, H), (B, H), (B, C), (B - C, 0), (C, 0), (0, C)]], [])
     a, f = B / 2, S * .6
@@ -180,15 +181,15 @@ def glyphs(S, C, B, **_):
               [crect(S, S, B - S, H - S, c, c, c, c)])
     ow = S * 2.2                       # the 1 is narrow: digits are proportional (readouts that must align use seg7)
     g["1"] = (ow, [crect(0, H - S, ow, H, tl=min(C, S)), rect(ow - S, 0, ow, H)], [])
-    g["2"] = (B, [[(0, H), (B - C, H), (B, H - C), (B, b + C), (B - C, b), (S + c, b), (S, b - c), (S, S), (B, S), (B, 0), (0, 0), (0, t - C), (C, t),
-                   (B - S - c, t), (B - S, t + c), (B - S, H - S - c), (B - S - c, H - S), (0, H - S)]], [])
+    g["2"] = (B, [[(0, H), (B - C, H), (B, H - C), (B, b + Cm), (B - Cm, b), (S + cm, b), (S, b - cm), (S, S), (B, S), (B, 0), (0, 0), (0, t - Cm), (Cm, t),
+                   (B - S - cm, t), (B - S, t + cm), (B - S, H - S - c), (B - S - c, H - S), (0, H - S)]], [])
     g["3"] = (B, [[(0, H), (B - C, H), (B, H - C), (B, C), (B - C, 0), (0, 0), (0, S), (B - S - c, S), (B - S, S + c), (B - S, b),
                    (B * .3, b), (B * .3, t), (B - S, t), (B - S, H - S - c), (B - S - c, H - S), (0, H - S)]], [])
     g["4"] = (B, [[(0, H), (S, H), (S, t), (B - S, t), (B - S, H), (B, H), (B, 0), (B - S, 0), (B - S, b), (C, b), (0, b + C)]], [])
-    g["5"] = (B, [[(0, H), (B, H), (B, H - S), (S, H - S), (S, t), (B - C, t), (B, t - C), (B, C), (B - C, 0), (0, 0), (0, S),
-                   (B - S - c, S), (B - S, S + c), (B - S, b - c), (B - S - c, b), (0, b)]], [])
-    six = [(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, t), (B - C, t), (B, t - C), (B, C), (B - C, 0), (C, 0), (0, C), (0, H - C)]
-    six_h = crect(S, S, B - S, b, br=c, bl=c)
+    g["5"] = (B, [[(0, H), (B, H), (B, H - S), (S, H - S), (S, t), (B - Cm, t), (B, t - Cm), (B, C), (B - C, 0), (0, 0), (0, S),
+                   (B - S - c, S), (B - S, S + c), (B - S, b - cm), (B - S - cm, b), (0, b)]], [])
+    six = [(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, t), (B - Cm, t), (B, t - Cm), (B, C), (B - C, 0), (C, 0), (0, C), (0, H - C)]
+    six_h = crect(S, S, B - S, b, tr=cm, br=c, bl=c)
     g["6"] = (B, [six], [six_h])
     g["7"] = (B, [rect(0, H - S, B - C, H), [(B - C, H), (B, H - C), (B, H - S)], [(0, 0), (tx, 0), (B, H - S), (B - tx, H - S)],
                   [(B - C, H - S), (B, H - S), (B, H - C), (B - C, H)]], [])
@@ -241,7 +242,10 @@ def glyphs(S, C, B, **_):
     g["€"] = (ew, [[(ew * .14 + C, H), (ew, H), (ew, H - S), (ew * .14 + S + c, H - S), (ew * .14 + S, H - S - c), (ew * .14 + S, S + c),
                     (ew * .14 + S + c, S), (ew, S), (ew, 0), (ew * .14 + C, 0), (ew * .14, C), (ew * .14, H - C)],
                    rect(0, M + S * .25, ew * .66, M + S * .9), rect(0, M - S * .9, ew * .66, M - S * .25)], [])
-    g["$"] = (B, g["S"][1] + [rect(B / 2 - S / 2.4, -S * .8, B / 2 + S / 2.4, H + S * .8)], [])
+    # $: the S with two upright bars through it, the same weight, set symmetrically about the centre
+    dbw, dbg = S * .42, S * .55
+    g["$"] = (B, g["S"][1] + [rect(B / 2 - dbg / 2 - dbw, -S * .7, B / 2 - dbg / 2, H + S * .7),
+                              rect(B / 2 + dbg / 2, -S * .7, B / 2 + dbg / 2 + dbw, H + S * .7)], [])
     g["…"] = (S * 5, [rect(0, 0, S, S), rect(S * 2, 0, S * 3, S), rect(S * 4, 0, S * 5, S)], [])
     g["#"] = (B, [rect(0, M + S * .5, B, M + S * 1.4), rect(0, M - S * 1.4, B, M - S * .5),
                   rect(B * .28 - S / 2, 0, B * .28 + S / 2, H), rect(B * .72 - S / 2, 0, B * .72 + S / 2, H)], [])
@@ -324,8 +328,8 @@ def glyphs(S, C, B, **_):
     g["3"] = (B, [[(0, H), (B - C, H), (B, H - C), (B, C), (B - C, 0), (0, 0), (0, S), (B - S - c, S), (B - S, S + c), (B - S, b),
                    (S * 1.4, b), (S * 1.4, t), (B - S, t), (B - S, H - S - c), (B - S - c, H - S), (0, H - S)]], [])
     # the 5: the top-left turn takes the chamfer too
-    g["5"] = (B, [[(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, t), (B - C, t), (B, t - C), (B, C), (B - C, 0), (0, 0), (0, S),
-                   (B - S - c, S), (B - S, S + c), (B - S, b - c), (B - S - c, b), (0, b), (0, H - C)]], [])
+    g["5"] = (B, [[(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, t), (B - Cm, t), (B, t - Cm), (B, C), (B - C, 0), (0, 0), (0, S),
+                   (B - S - c, S), (B - S, S + c), (B - S, b - cm), (B - S - cm, b), (0, b), (0, H - C)]], [])
     # slash and percent: steeper than 45° so they stay narrow, same facets
     sw, T2 = H * .6, S * 1.2
     sl = [(0, 0), (T2, 0), (sw, H), (sw - T2, H)]
