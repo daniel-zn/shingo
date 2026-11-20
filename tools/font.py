@@ -25,8 +25,8 @@ UPM = 1000
 
 WEIGHTS = {
     # stroke, outer cut, body width, side bearing, space. One cut, after the RADAR reference:
-    # strokes about a fifth of the cap height, cuts a little larger than the stroke, letters wider than tall.
-    "Heavy": dict(S=136, C=176, B=800, SB=58, SP=300),
+    # strokes about a fifth of the cap height, small hard corner cuts (about 3/4 of the stroke), letters wider than tall.
+    "Heavy": dict(S=136, C=104, B=800, SB=58, SP=300),
 }
 
 
