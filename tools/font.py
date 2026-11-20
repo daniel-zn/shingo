@@ -294,14 +294,23 @@ def glyphs(S, C, B, **_):
     g["V"] = (B, [[(0, H), (0, cv), (cv, 0), (B - cv, 0), (B, cv), (B, H), (B - S, H), (B - S, S + cvi), (B - S - cvi, S),
                    (S + cvi, S), (S, S + cvi), (S, H)]], [])
     # 0: the O with the slash from the picture, its ends inside the frame
-    zw = B * .86
-    zo = crect(0, 0, zw, H, C, C, C, C)
-    zs = band((zw - T - (H - 2 * S)) / 2, S, H - S, T)
-    g["0"] = (zw, [zo, clipbox(zs, S * .5, zw - S * .5, S * .5, H - S * .5)], [crect(S, S, zw - S, H - S, c, c, c, c)])
+    # figures share one width (tabular) and the letters' chamfers
+    zo = crect(0, 0, B, H, C, C, C, C)
+    zt = T * .62                                    # the slash is lighter than the frame, as in the reference
+    zs = band((B - zt - (H - 2 * S)) / 2, S, H - S, zt)
+    g["0"] = (B, [zo, clipbox(zs, S - 1, B - S + 1, S - 1, H - S + 1)], [crect(S, S, B - S, H - S, c, c, c, c)])
     # 1 and 4: square flag and bar ends
-    ow = S * 2.3
-    g["1"] = (ow, [rect(0, H - S, ow, H), rect(ow - S, 0, ow, H)], [])
-    g["4"] = (B, [[(0, H), (S, H), (S, t), (B - S, t), (B - S, H), (B, H), (B, 0), (B - S, 0), (B - S, b), (0, b)]], [])
+    xs1 = B / 2 + S * .2                            # the 1: stem just right of centre, a chamfered flag, a foot
+    g["1"] = (B, [crect(xs1 - S * 1.5, H - S, xs1 + S, H, tl=C * .8), rect(xs1, 0, xs1 + S, H),
+                  rect(xs1 - S * 1.3, 0, xs1 + S * 2.3, S)], [])
+    # the 4: an open top-left, the bar across, the stem on the right with the letters' cut where it turns
+    g["4"] = (B, [[(0, H), (S, H), (S, t), (B - S, t), (B - S, H), (B, H), (B, 0), (B - S, 0), (B - S, b), (C, b), (0, b + C)]], [])
+    # the 3: the middle bar reaches back as far as the top and bottom ends do
+    g["3"] = (B, [[(0, H), (B - C, H), (B, H - C), (B, C), (B - C, 0), (0, 0), (0, S), (B - S - c, S), (B - S, S + c), (B - S, b),
+                   (S * 1.4, b), (S * 1.4, t), (B - S, t), (B - S, H - S - c), (B - S - c, H - S), (0, H - S)]], [])
+    # the 5: the top-left turn takes the chamfer too
+    g["5"] = (B, [[(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, t), (B - C, t), (B, t - C), (B, C), (B - C, 0), (0, 0), (0, S),
+                   (B - S - c, S), (B - S, S + c), (B - S, b - c), (B - S - c, b), (0, b), (0, H - C)]], [])
     # slash and percent: steeper than 45° so they stay narrow, same facets
     sw, T2 = H * .6, S * 1.2
     sl = [(0, 0), (T2, 0), (sw, H), (sw - T2, H)]
@@ -332,17 +341,21 @@ def glyphs(S, C, B, **_):
     return g
 
 
-ACCENTS = {  # name: shapes over the cap height, centred on 0; all square-ended like the letters
-    "acute": lambda S, B: [rect(S * .1, S * .45, S * 1.1, S * 1.1), rect(-S * .45, 0, S * .55, S * .55)],
-    "grave": lambda S, B: [rect(-S * 1.1, S * .45, -S * .1, S * 1.1), rect(-S * .55, 0, S * .45, S * .55)],
-    "circ": lambda S, B: [rect(-S * 1.5, 0, -S * .5, S * .6), rect(-S * .6, S * .5, S * .6, S * 1.1), rect(S * .5, 0, S * 1.5, S * .6)],
-    "uml": lambda S, B: [rect(-S * 1.6, 0, -S * .6, S * .8), rect(S * .6, 0, S * 1.6, S * .8)],
-    "macron": lambda S, B: [rect(-B * .3, 0, B * .3, S * .6)],
-    "tilde": lambda S, B: [rect(-S * 1.6, 0, -S * .6, S * .9), rect(-S * .7, S * .5, S * .7, S * .9), rect(-S * .1, 0, S * .9, S * .45),
-                           rect(S * .6, 0, S * 1.6, S * .9)],
-    "ring": lambda S, B: [rect(-S * 1.1, 0, S * 1.1, S * 1.4)],
+def _acc_band(x0, h, w, rising=True):
+    return band(x0, 0, h, w, rising)
+
+
+ACCENTS = {  # shapes over the cap height, centred on 0: 45° strokes cut level, like the letters' diagonals
+    "acute": lambda S, B: [_acc_band(-S * .95, S * 1.15, S * .8)],
+    "grave": lambda S, B: [_acc_band(-S * .15 - S * .05, S * 1.15, S * .8, rising=False)],
+    "circ": lambda S, B: [[(-S * 1.55, 0), (-S * .75, 0), (0, S * .75), (S * .75, 0), (S * 1.55, 0), (S * .4, S * 1.15), (-S * .4, S * 1.15)]],
+    "uml": lambda S, B: [rect(-S * 1.7, 0, -S * .6, S * 1.0), rect(S * .6, 0, S * 1.7, S * 1.0)],
+    "macron": lambda S, B: [rect(-B * .32, 0, B * .32, S * .75)],
+    "tilde": lambda S, B: [_acc_band(-S * 1.9, S * .95, S * .75), [(x + S * .95, y) for x, y in _acc_band(-S * 1.9, S * .95, S * .75, rising=False)],
+                           [(x + S * 1.9, y) for x, y in _acc_band(-S * 1.9, S * .95, S * .75)]],
+    "ring": lambda S, B: [crect(-S * 1.25, 0, S * 1.25, S * 1.6, tl=S * .6, tr=S * .6, br=S * .6, bl=S * .6)],
 }
-ACCENT_HOLES = {"ring": lambda S, B: [rect(-S * .45, S * .45, S * .45, S * .95)]}
+ACCENT_HOLES = {"ring": lambda S, B: [crect(-S * .5, S * .5, S * .5, S * 1.1, tl=S * .2, tr=S * .2, br=S * .2, bl=S * .2)]}
 COMPOSED = {
     "À": ("A", "grave"), "Á": ("A", "acute"), "Â": ("A", "circ"), "Ä": ("A", "uml"), "Ã": ("A", "tilde"), "Å": ("A", "ring"), "Ā": ("A", "macron"),
     "È": ("E", "grave"), "É": ("E", "acute"), "Ê": ("E", "circ"), "Ë": ("E", "uml"), "Ē": ("E", "macron"),
@@ -410,14 +423,16 @@ def build(weight):
     P = WEIGHTS[weight]
     S, SB, SP = P["S"], P["SB"], P["SP"]
     g = glyphs(**P)
-    gap = S * .45
+    gap = S * .5
     for ch, (base, acc) in COMPOSED.items():
         w, shapes, holes = g[base]
         dx = w / 2
         up = lambda pts: [(x + dx, y + H + gap) for x, y in pts]
         g[ch] = (w, shapes + [up(p) for p in ACCENTS[acc](S, P["B"])],
                  holes + [up(p) for p in ACCENT_HOLES.get(acc, lambda *_: [])(S, P["B"])])
-    g["Ç"] = (g["C"][0], g["C"][1] + [rect(g["C"][0] * .45, -S * 1.1, g["C"][0] * .45 + S * .9, 0)], [])
+    cx = g["C"][0] * .5
+    g["Ç"] = (g["C"][0], g["C"][1] + [rect(cx - S * .45, -S * .55, cx + S * .45, 0), _acc_band(cx - S * .45 - S * .7, S * .7, S * .9, rising=False) and
+              [(x, y - S * 1.25) for x, y in _acc_band(cx - S * 1.15, S * .7, S * .9)]], [])
 
     names = {ch: ("uni%04X" % ord(ch)) for ch in g}
     order = [".notdef", "space"] + [names[ch] for ch in g]
@@ -443,6 +458,8 @@ def build(weight):
     for ch, (w, shapes, holes) in g.items():
         n = names[ch]
         lsb, rsb, x0, x1 = side_space(ch, shapes, SB)
+        if ch.isdigit():                                # figures: plain, slightly open bearings (no optical tightening)
+            lsb = rsb = SB * 1.15
         shifted = lambda pts: [(x - x0 + lsb, y) for x, y in pts]
         pen_glyphs[n] = draw([shifted(s) for s in shapes], [shifted(h) for h in holes])
         metrics[n] = (round(lsb + (x1 - x0) + rsb), round(lsb))
