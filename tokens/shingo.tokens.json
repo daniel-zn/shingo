@@ -219,7 +219,7 @@
           "width": "single (wide)",
           "weight": 900,
           "ios": "ShingoGrid-Heavy",
-          "case": "upper",
+          "case": "upper and lower (full lowercase: x-height .74 cap, ascenders 1.05 cap, descenders -.30 cap)",
           "use": "display wordmarks 40 pt+, screen titles 28"
         }
       }

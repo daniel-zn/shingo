@@ -337,7 +337,7 @@ S['N'] = fig('N', 'Lock screen', 'The manifesto, after reference 2: the only pla
         <svg viewBox="0 0 300 230" style="width:84%;height:auto;align-self:center;margin-top:2px"><use href="#g-chevrons"/></svg>
         <div class="hazard"></div>
         <div class="sg-wordmark" style="font-size:15px">Axiom signal systems</div>
-        <div><div class="barcode--v" style="height:30px;--bc:var(--ground-hi)"></div><div class="sg-mono" style="display:flex;justify-content:space-between;font-size:9px;margin-top:4px"><span>4</span><span>902609</span><span>260911</span><span>9</span></div></div>
+        <div><div class="barcode--v" style="height:30px;--bc:var(--ground-hi)"></div><div class="sg-mono" style="display:flex;justify-content:space-between;font-size:10px;margin-top:4px"><span>4</span><span>902609</span><span>260911</span><span>9</span></div></div>
       </div>
       <span class="cut" style="bottom:40px;left:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--ground-hi)"><use href="#g-plus"/></svg></span>
       <span class="cut" style="bottom:40px;right:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="22" height="22" style="color:var(--ground-hi)"><use href="#g-reticle"/></svg></span>
@@ -490,7 +490,7 @@ S['Z'] = fig('Z', 'Relay city', 'The relay network as a diagram: cut-square node
       </svg>
       {SB}
       <div style="top:66px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:flex-start;color:var(--ground-hi)"><div><div class="sg-mono" style="color:var(--ground-dim)">NETWORK · 5 RELAYS</div><div class="sg-display" style="font-size:40px;margin-top:8px">Relay<br>city</div></div><div class="sg-mono t-right" style="color:var(--ground-dim)">17 NOV<br>2026</div></div>
-      <div style="left:0;bottom:90px;width:70px;height:240px;background:var(--ground-hi);color:var(--ground);clip-path:polygon(16px 0,100% 0,100% 100%,0 100%,0 16px);display:grid;align-content:center;justify-items:center;gap:6px"><span class="sg-jp" style="font-size:24px;line-height:1.05;writing-mode:vertical-rl">中継都市</span><span class="sg-mono" style="font-size:8px">Nº 05</span></div>
+      <div style="left:0;bottom:90px;width:70px;height:240px;background:var(--ground-hi);color:var(--ground);clip-path:polygon(16px 0,100% 0,100% 100%,0 100%,0 16px);display:grid;align-content:center;justify-items:center;gap:6px"><span class="sg-jp" style="font-size:24px;line-height:1.05;writing-mode:vertical-rl">中継都市</span><span class="sg-mono" style="font-size:10px">Nº 05</span></div>
       <div style="left:90px;right:24px;bottom:44px;display:flex;justify-content:space-between" class="sg-mono"><span style="color:var(--ground-hi)">2835 × 1890 PX</span><span style="color:var(--ground-hi)">200 PPI</span></div>
       <i class="home"></i>
     </div></div>""", tier='poster')

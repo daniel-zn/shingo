@@ -924,11 +924,13 @@ def typeface_card():
     added = sorted(c for c in TTFont(fonts / "ShingoSignal-ExtraBold.ttf").getBestCmap() if c not in orb and c > 32)
     groups = [("Capitals", [c for c in grid if 0x41 <= c <= 0x5A]),
               ("Figures", [c for c in grid if 0x30 <= c <= 0x39]),
-              ("Accented capitals", [c for c in grid if c >= 0xC0 and chr(c).isalpha()]),
+              ("Lowercase", [c for c in grid if 0x61 <= c <= 0x7A]),
+              ("Accented capitals", [c for c in grid if c >= 0xC0 and chr(c).isalpha() and chr(c).isupper()]),
+              ("Accented lowercase", [c for c in grid if c >= 0xC0 and chr(c).isalpha() and not chr(c).isupper()]),
               ("Punctuation and symbols", [c for c in grid if not chr(c).isalnum()])]
     cell = lambda c: f'<div><b>{html.escape(chr(c))}</b><span>U+{c:04X}</span></div>'
     out = [f'  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Shingo Grid Heavy · every character</span>'
-           f'<span class="sg-mono">{len(grid)} characters, read from the font file · tools/font.py · lowercase falls through to Shingo Signal</span></div>',
+           f'<span class="sg-mono">{len(grid)} characters, read from the font file · full lowercase · tools/font.py</span></div>',
            '  <div class="tf-card"><div class="tf-hero sg-display">Radar Axiom</div>']
     for name, cs in groups:
         out.append(f'<div class="tf-group"><h4>{name}<span>{len(cs)}</span></h4><div class="tf-grid">{"".join(cell(c) for c in cs)}</div></div>')
@@ -936,7 +938,7 @@ def typeface_card():
                '<div>' + "".join(f"H{c}" for c in "ABCDEFGHIJKLM") + 'H</div><div>' + "".join(f"H{c}" for c in "NOPQRSTUVWXYZ") + 'H</div>'
                '<div>' + "".join(f"O{c}" for c in "ABCDEFGHIJKLM") + 'O</div><div>' + "".join(f"O{c}" for c in "NOPQRSTUVWXYZ") + 'O</div>'
                '<div>H0H1H2H3H4H5H6H7H8H9H</div><div>LT LY AV VA TA AT PA YA T. P, RT KO</div>'
-               '<div>RELAY FLEET · TRANSFER · KILL SWITCH · NOW PLAYING</div><small>kerning lives in the font (GPOS kern); spacing is optical: open sides sit closer</small></div></div>')
+               '<div>RELAY FLEET · TRANSFER · KILL SWITCH · NOW PLAYING</div><div>Relay fleet · night transfer · quiet jog box · Tunnel 04</div><small>kerning lives in the font (GPOS kern); spacing is optical: open sides sit closer</small></div></div>')
     out.append(f'<div class="tf-group"><h4>Shingo Signal: characters added to Orbitron<span>{len(added)} · tools/signal_font.py</span></h4>'
                f'<div class="tf-grid tf-signal">{"".join(cell(c) for c in added)}</div></div>')
     out.append('</div>')
