@@ -327,11 +327,10 @@ def glyphs(S, C, B, **_):
     g["1"] = (B, [crect(xs1 - S * 1.5, H - S, xs1 + S, H, tl=C * .8), rect(xs1, 0, xs1 + S, H),
                   rect(xs1 - S * 1.3, 0, xs1 + S * 2.3, S)], [])
     # the 4: closed by a 45° diagonal from the bar's left end up into the stem; the bar runs a little past the stem
-    # full width: the diagonal rises from the bar's left end to the cap line, a top bar carries it into the
-    # stem through a chamfer, and the crossbar runs a little past the stem
-    d4 = H - b
-    sr = B - S * .55                                # stem's right edge
-    g["4"] = (B, [rect(sr - S, 0, sr, H), band(0, b, H, T), crect(d4, H - S, sr, H, tr=C * .75), rect(0, b, B, t)], [])
+    # the open 4: a 45° arm rises from the bar's left end to the cap line (free end cut level, clear of the
+    # stem), the stem stands right of centre, and the crossbar runs a little past it
+    sr = B * .78                                    # stem's right edge
+    g["4"] = (B * .9, [rect(sr - S, 0, sr, H), band(0, b, H, T), rect(0, b, B * .9, t)], [])
     # the 3: the middle bar reaches back as far as the top and bottom ends do
     g["3"] = (B, [[(0, H), (B - C, H), (B, H - C), (B, C), (B - C, 0), (0, 0), (0, S), (B - S - c, S), (B - S, S + c), (B - S, b),
                    (B * .45, b), (B * .45, t), (B - S, t), (B - S, H - S - c), (B - S - c, H - S), (0, H - S)]], [])
