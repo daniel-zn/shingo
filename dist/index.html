@@ -598,7 +598,7 @@
 
 /* spec rail: a vertical line of mono spec text that runs on as a hairline */
 .rail { display: inline-flex; align-items: center; gap: 8px; writing-mode: vertical-rl; transform: rotate(180deg);
-  font: 500 9.5px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ground-dim); white-space: nowrap; }
+  font: 500 10px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ground-dim); white-space: nowrap; }
 .rail::before { content: ""; flex: 1 1 auto; min-height: 16px; width: 1px; background: currentColor; opacity: .7; }
 .rail--up::before { order: 2; }
 
@@ -618,7 +618,7 @@
   font: 900 13px/1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; color: var(--ground-hi); }
 .vstamp::before { content: ""; position: absolute; inset: 0; z-index: -1; background: currentColor;
   clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px, 8px 0, 9.5px 1.5px, 1.5px 9.5px, 1.5px calc(100% - 1.5px), calc(100% - 1.5px) calc(100% - 1.5px), calc(100% - 1.5px) 1.5px, 9.5px 1.5px); }
-.vstamp small { font: 500 9px var(--f-mono); letter-spacing: .1em; opacity: .8; }
+.vstamp small { font: 500 10px var(--f-mono); letter-spacing: .1em; opacity: .8; }
 .vstamp--sig { color: var(--signal-text); }
 
 /* mark tile: the brand mark knocked out of a coral square (the references' logo tiles) */
@@ -629,8 +629,8 @@
 /* data callout: a node, a name in the display face and key/value rows (the posters' city labels) */
 .dcall { display: grid; gap: 4px; min-width: 0; color: var(--ground-hi); }
 .dcall > b { display: flex; align-items: center; gap: 7px; font: 900 15px/1 var(--f-display); text-transform: uppercase; letter-spacing: .03em; }
-.dcall > b::before { content: ""; width: 9px; height: 9px; flex: none; box-shadow: inset 0 0 0 1.5px currentColor; background: radial-gradient(currentColor 0 1.6px, transparent 2px); }
-.dcall dl { margin: 0 0 0 16px; display: grid; grid-template-columns: auto 1fr; gap: 1px 10px; font: 500 9px/1.3 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; }
+.dcall > b::before { content: ""; width: 9px; height: 9px; flex: none; box-shadow: inset 0 0 0 1.5px currentColor; background: linear-gradient(currentColor, currentColor) center / 3px 3px no-repeat; }
+.dcall dl { margin: 0 0 0 16px; display: grid; grid-template-columns: auto 1fr; gap: 1px 10px; font: 500 10px/1.3 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; }
 .dcall dt { color: var(--ground-dim); } .dcall dd { margin: 0; }
 
 /* specimen column: a glyph grid; figures may print in signal text as the one accent */
@@ -642,7 +642,7 @@
 .gbuild { position: relative; overflow: hidden; container-type: inline-size; aspect-ratio: 1.8; color: var(--ground-hi); }
 .gbuild .gb-g { position: absolute; left: 8%; bottom: -.4cqw; font: 900 58cqw/1 var(--f-display); color: var(--ground-3); letter-spacing: 0; font-synthesis: none; }
 .gbuild .gb-l { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid var(--ground-dim); }
-.gbuild .gb-l span { position: absolute; right: 8px; top: -14px; font: 500 9px var(--f-mono); letter-spacing: .08em; color: var(--ground-dim); text-transform: uppercase; }
+.gbuild .gb-l span { position: absolute; right: 8px; top: -15px; font: 500 10px var(--f-mono); letter-spacing: .08em; color: var(--ground-dim); text-transform: uppercase; }
 .gbuild .gb-v { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1px solid var(--ground-dim); }
 
 /* tech frame: a panel with crosshairs on its four corners and a spec rail down one side */
