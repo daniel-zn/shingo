@@ -603,7 +603,7 @@ def _xp_frame(n, word, jp, line, body):
             f'<text x="22" y="554" class="xp-d" font-size="46" fill="var(--ground-hi)">{word}</text>'
             f'<text x="376" y="482" class="xp-j" font-size="18" fill="var(--ground-hi)" text-anchor="end">{jp}</text>'
             f'<text x="24" y="578" class="xp-m" font-size="9" fill="var(--ground-dim)">{line}</text>'
-            f'<text x="376" y="578" class="xp-m" font-size="9" fill="var(--ground-dim)" text-anchor="end">{n} / 06</text></svg>')
+            f'<text x="376" y="578" class="xp-m" font-size="9" fill="var(--ground-dim)" text-anchor="end">{n} / 12</text></svg>')
 
 
 def _xp_tunnel():
@@ -945,13 +945,91 @@ def typeface_card():
     return "\n".join(out)
 
 
+# ---------------------------------------------------------------- gallery chrome (print furniture)
+import print_kit as pk  # noqa: E402
+
+
+def header():
+    """The gallery header as a spec sheet, after the RADAR type poster."""
+    return f'''<header class="hd2">
+  <div class="hd2-top">{pk.marktile(34)}<span class="u-code" style="writing-mode:horizontal-tb;transform:none;font-size:10px">SK·09·LIS · FIELD MANUAL</span><i class="grow"></i>
+    <span class="sg-mono" style="color:var(--ground-dim)">REV 2611 · EYES ONLY</span>{pk.vstamp("Spec v1.0", "2026", sig=True)}</div>
+  <div class="hd2-mast"><h1 class="sg-display">Shingō</h1><span class="sg-jp hd-jp">信号</span></div>
+  <div class="hd2-rule">{pk.xh()}<span class="yearspan sg-num" style="font-size:20px;color:var(--ground-hi);flex:1">20<i></i>26</span>{pk.xh()}</div>
+  <div class="hd2-grid">
+    <div class="hd2-col">
+      {pk.coords(["Sector 04 / LIS", "38° 42′ 49″ N", "Unit 09", "A–Z / a–z / 0–9"], dim=(1,))}
+      {pk.spaced("Hard corners and controlled geometry give every screen structural weight. Two inks and one signal, printed on a striped ground.", hot=("Hard", "corners", "signal"))}
+      <p class="lede">An industrial interface system for iOS and the web: hard 45° cuts, hazard bars, chevrons, barcodes and mono telemetry, with one coral signal per screen. English leads, with Japanese and <span class="sg-fr">français</span> woven in sparingly.</p>
+      <div class="modes">
+        <div class="mode-dark mode-chip"><i class="tex"></i><b></b><span class="sg-mono">dark</span><span class="sg-fr">ink ground, bone print</span></div>
+        <div class="mode-light mode-chip"><i class="tex"></i><b></b><span class="sg-mono">light</span><span class="sg-fr">sage ground, ink print</span></div>
+      </div>
+    </div>
+    {pk.gbuild("S", guides=(("cap 650", 0.16), ("x-height 481", 0.338), ("baseline", 0.84)), verticals=(0.08, 0.6))}
+    <div class="hd2-spec">
+      <span class="sg-cap" style="font-size:11px;color:var(--ground-hi)">Shingo Grid · heavy</span>
+      {pk.specgrid("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 4)}
+      {pk.spaced("Display typeface · latin / numeric / symbols · caps and lowercase", style="font-size:9px")}
+    </div>
+  </div>
+  <div class="hd2-foot"><span class="hd2-copy">C</span><div><b>Shingō / 2026</b><div class="sg-mono" style="color:var(--ground-dim);font-size:10px;margin-top:3px">VERSION 1.0 · MIT</div></div>
+    {pk.spaced("Axiom signal systems · comsec monitoring · network operations and defense", style="max-width:620px")}<i class="barcode--v"></i></div>
+</header>
+<div class="page-rail" aria-hidden="true">{pk.rail("SK·09·LIS · Shingō field manual · rev 2611 · eyes only · two inks one signal")}</div>'''
+
+
+def section_heads(src):
+    """Every section head becomes a print plate: giant tonal numeral, spec code, spaced microtext, rail."""
+    heads = re.findall(r'<div class="sec-h"><span class="sg-num">(\d\d)</span>', src)
+    total = len(heads)
+    def rep(m):
+        n, title, desc = m.group(1), m.group(2), m.group(3)
+        plain = re.sub(r"<[^>]+>", "", desc)
+        width = min(int(len(plain) * 8.4), 860)
+        return (f'<header class="sech"><span class="sech-n" aria-hidden="true">{n}</span>'
+                f'<div class="sech-b"><div class="sech-code"><b>SG·§{n}</b><span>Rev 2611</span>{pk.xh(dim=True)}<span>{int(n):02d} / {total:02d}</span></div>'
+                f'<h2 class="sg-display">{title}</h2><p class="spaced" style="width:{width}px">{desc}</p></div>'
+                f'<span class="sech-r">{pk.rail(f"Shingō field manual · section {n}")}</span>{pk.xh()}{pk.xh()}</header>')
+    return re.sub(r'<div class="sec-h"><span class="sg-num">(\d\d)</span><h2 class="sg-display">(.*?)</h2><span class="sg-mono">(.*?)</span></div>', rep, src)
+
+
+def printkit():
+    """Gallery card: the print furniture."""
+    card = lambda title, cls, text, demo, wide=False: (f'<div class="inst{" inst--wide" if wide else ""}"><h3><span>{title}</span><span>{cls}</span></h3>'
+                                                       f'<p>{text}</p><div class="demo" style="display:block">{demo}</div></div>')
+    cities = [("Lisbon", [("Relay", "04"), ("Latency", "23 ms"), ("Location", "38.71 N 9.14 W")]),
+              ("Osaka", [("Relay", "12"), ("Latency", "212 ms"), ("Location", "34.69 N 135.50 E")])]
+    return f'''  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Print furniture</span><span class="sg-mono">the technical-print layer from the references · print or dim ink only · tools/print_kit.py · SGPrint.swift</span></div>
+  <div class="insts">
+    {card("Glyph construction", ".gbuild · SGGlyphBuild", "One giant letter in tonal ink on grid paper, with its construction guides labelled. The hero of a specimen, an about page or an empty state.",
+          pk.gbuild("R", verticals=(0.08, 0.6)), wide=True)}
+    {card("Coordinate stack", ".coords · SGCoordStack", "Short data lines set in the display face: sector, year, position, unit, range. The RADAR poster's data block.",
+          pk.coords(["North / East", "2026", "40° 17′ 22″", "Unit 04", "A–Z / 0–9"], dim=(2,)))}
+    {card("Spaced microtext", ".spaced · SGSpacedText", "Captions whose words spread to the full measure on every line, so a paragraph prints as a block of type.",
+          pk.spaced("Above the noise, machines hum in silence. Pipes, wires, steel. The quiet pulse of the city.", style="width:250px", hot=("silence.",)))}
+    {card("Spec rail", ".rail · SGRail", "A vertical line of spec text that runs on as a hairline, along the edge of a poster or panel.",
+          '<div style="display:flex;gap:22px;height:150px">' + pk.rail("2835 × 1890 px") + pk.rail("200 ppi") + pk.rail("“Silent pulse”") + pk.rail("made by axiom", up=True) + '</div>')}
+    {card("Crosshairs and tech frame", ".xh .techframe · SGCrosshair", "Registration marks with an open centre. Four of them pin a panel to the sheet.",
+          pk.techframe('<div class="sg-mono" style="padding:22px 18px;color:var(--ground-hi);box-shadow:inset 0 0 0 1px var(--ground-3)">PANEL 04 · LIS<br><span style="color:var(--ground-dim)">2835 × 1890 · 200 PPI</span></div>', style="margin:10px"))}
+    {card("Stamps and mark tile", ".vstamp .marktile · SGVersionStamp", "Version and test stamps in a cut hairline box; one per view may print in signal. The mark tile is the brand knocked out of coral.",
+          '<div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">' + pk.marktile(40) + pk.vstamp("Test v01", sig=True) + pk.vstamp("Rev 2611") + pk.vstamp("Proof", "09") + '</div>')}
+    {card("Data callouts", ".dcall · SGDataCallout", "A node, a name in the display face and key/value rows: cities on a map, units in a fleet, rooms in a building.",
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">' + "".join(pk.dcall(n, r) for n, r in cities) + '</div>')}
+    {card("Specimen column", ".specgrid · SGSpecGrid", "The face shown as a grid. Figures carry the signal, as on the type poster.",
+          pk.specgrid("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 6))}
+  </div>
+'''
+
+
 def main():
     export_glyphs()
     defs = sprite().split("<defs>")[1].split("</defs>")[0]
     src = (ROOT / "web" / "gallery.src.html").read_text()
     src = seg7_tags(src)
     src = src.replace("<!--@EXPLORE-->", explorations() + "\n" + console())
-    src = src.replace("<!--@PATTERNS-->", patterns())
+    src = src.replace("<!--@PATTERNS-->", patterns() + printkit())
+    src = src.replace("<!--@HEADER-->", header())
     src = src.replace("<!--@TYPEFACE-->", typeface_card())
     src = src.replace("<!--@BACKDROPS-->", backdrops_gallery(src))
     (ROOT / "ios" / "Sources" / "ShingoKit" / "SGMonolith.swift").write_text(monoliths.swift())
@@ -959,12 +1037,13 @@ def main():
     src = src.replace("<!--@CONSTRUCT-->", constructed("AXIOM", unit=10, x=2, y=2)[0] + constructed("AX-09", unit=4.2, x=2, y=72)[0])
     src = src.replace("<!--@XEXPL-->", exploded_x(100, 65, 52))
     src = src.replace("<!--@LANGUAGES-->", (ROOT / "web" / "partials" / "languages.html").read_text())
+    src = section_heads(src)
     src = src.replace("<!--@KEYART_DARK-->", keyart("dark")).replace("<!--@KEYART_LIGHT-->", keyart("light"))
     src = src.replace("<!--@SWATCHES-->", "".join(
         f'<div><i style="background:var(--{k})"></i><b>{k}</b><span>{v}<br>dark {PALETTE["dark"][k]} · light {PALETTE["light"][k]}</span></div>'
         for k, v in ROLES.items()))
     # gallery chrome decodes as it scrolls into view (web/shingo-live.js)
-    src = re.sub(r'class="(sec-h|alpha-h|inst)(\b[^"]*)"', r'class="\1\2" data-decode-view', src)
+    src = re.sub(r'class="(sech|alpha-h|inst|hd2)(\b[^"]*)"', r'class="\1\2" data-decode-view', src)
     css = embed_fonts((ROOT / "web" / "shingo.css").read_text())
     out = (src.replace("<!--@CSS-->", css).replace("<!--@SPRITE-->", sprite()))
     (ROOT / "dist").mkdir(exist_ok=True)

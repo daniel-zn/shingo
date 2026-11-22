@@ -30,6 +30,49 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 .mode-chip .sg-fr { font-size: 12px; color: var(--on-ground); }
 .theme-switch { position: fixed; z-index: 50; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: 230px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
 
+
+/* ---- header: a spec sheet after the RADAR poster ---- */
+.hd2 { position: relative; display: grid; gap: 18px; padding-bottom: 30px; }
+.hd2-top { display: flex; align-items: center; gap: 14px; }
+.hd2-top .grow { flex: 1; height: var(--hair); background: var(--ground-3); }
+.hd2-mast { display: flex; align-items: flex-start; gap: 14px; }
+.hd2-mast h1 { margin: 0; font-size: clamp(56px, 11vw, 168px); line-height: .82; color: var(--ground-hi); }
+.hd2-mast .hd-jp { font-size: clamp(24px, 3.4vw, 48px); color: var(--signal-text); padding-top: .2em; }
+.hd2-rule { display: flex; align-items: center; gap: 10px; }
+.hd2-rule i.ln { flex: 1; height: var(--hair); background: var(--ground-hi); }
+.hd2-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) 210px; gap: 26px; align-items: stretch; }
+.hd2-col { display: grid; gap: 18px; align-content: start; min-width: 0; }
+.hd2 .lede { font-size: 17px; line-height: 1.45; margin: 0; color: var(--on-ground); }
+.hd2 .gbuild { box-shadow: inset 0 0 0 1px var(--ground-3); align-self: start; }
+.hd2-spec { display: grid; gap: 12px; align-content: start; border-left: var(--hair) solid var(--ground-3); padding-left: 18px; }
+.hd2-spec .specgrid { font-size: 19px; gap: 6px 4px; }
+.hd2-foot { display: grid; grid-template-columns: auto auto minmax(0, 1fr) 150px; gap: 18px; align-items: center; padding-top: 12px; border-top: var(--hair) solid var(--ground-hi); }
+.hd2-foot b { font: 900 14px var(--f-display); letter-spacing: .04em; text-transform: uppercase; color: var(--ground-hi); }
+.hd2-foot .barcode--v { height: 26px; --bc: var(--ground-hi); }
+.hd2-copy { display: grid; place-items: center; width: 34px; height: 34px; box-shadow: inset 0 0 0 2px var(--ground-hi); font: 900 18px var(--f-display); color: var(--ground-hi);
+  clip-path: polygon(7px 0, 100% 0, 100% 100%, 0 100%, 0 7px); }
+@media (max-width: 1100px) { .hd2-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .hd2-spec { grid-column: 1 / -1; border: 0; padding: 0; } .hd2-spec .specgrid { --cols: 9 !important; } }
+@media (max-width: 700px) { .hd2-grid { grid-template-columns: minmax(0, 1fr); } .hd2-foot { grid-template-columns: auto minmax(0, 1fr); } .hd2-foot .spaced, .hd2-foot .barcode--v { display: none; } }
+
+/* ---- section heads: a giant tonal numeral, the spec code, word-spaced microtext, a rail ---- */
+.sech { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 22px; align-items: end; margin-bottom: 30px; padding: 0 30px 14px 0; }
+.sech::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: var(--hair); background: var(--ground-hi); }
+.sech-n { font: 900 clamp(84px, 11vw, 150px)/.72 var(--f-display); color: var(--ground-3); letter-spacing: -.01em; font-synthesis: none; user-select: none; }
+.sech-b { display: grid; gap: 8px; min-width: 0; padding-bottom: 2px; }
+.sech-code { display: flex; align-items: center; gap: 10px; font: 500 10px var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ground-dim); }
+.sech-code b { font-weight: 500; color: var(--signal-text); }
+.sech h2 { margin: 0; font-size: clamp(28px, 4.2vw, 54px); color: var(--ground-hi); line-height: .9; }
+.sech .spaced { max-width: 100%; }
+.sech-r { position: absolute; right: 0; top: 0; bottom: 14px; display: flex; overflow: hidden; }
+.sech-r .rail { height: 100%; }
+.sech > .xh { position: absolute; bottom: -6px; } .sech > .xh:first-of-type { left: -7px; } .sech > .xh:last-of-type { right: -7px; }
+@media (max-width: 700px) { .sech { grid-template-columns: minmax(0, 1fr); padding-right: 0; } .sech-n { font-size: 72px; } .sech-r { display: none; } }
+
+/* ---- page rail: the manual's spine on wide screens ---- */
+.page-rail { position: fixed; left: 10px; top: 50%; transform: translateY(-50%); z-index: 5; height: 70vh; display: none; }
+.page-rail .rail { height: 100%; }
+@media (min-width: 1560px) { .page-rail { display: flex; } }
+
 /* sections */
 .sec { padding-top: 64px; }
 .sec-h { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 18px; align-items: end; margin-bottom: 26px; }
@@ -362,21 +405,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 
 <div class="wrap">
 
-<header class="hd">
-  <div>
-    <div class="hd-mark"><span class="u-code">SK·09·LIS</span><h1 class="sg-display">Shingō</h1><span class="sg-jp hd-jp">信号</span></div>
-    <div class="yearspan sg-num">20<i></i>26</div>
-    <p class="lede">An industrial interface system for iOS and the web. Interfaces are printed on a striped ground: hard 45° cuts, hazard bars, chevrons, barcodes and mono telemetry, with one coral signal per screen. English leads, with Japanese and <span class="sg-fr">français</span> woven in sparingly.</p>
-  </div>
-  <div class="hd-side">
-    <div class="hazard"></div>
-    <div class="modes">
-      <div class="mode-dark mode-chip"><i class="tex"></i><b></b><span class="sg-mono">dark</span><span class="sg-fr">ink ground, bone print</span></div>
-      <div class="mode-light mode-chip"><i class="tex"></i><b></b><span class="sg-mono">light</span><span class="sg-fr">sage ground, ink print</span></div>
-    </div>
-    <p>Every screen ships in both modes with the same layering. Dark prints bone on ink stripes. Light prints ink on sage. Plates are solid print with the text knocked out, in both modes. Coral is the same in both. The page follows your system setting, and the switch in the corner flips it.</p>
-  </div>
-</header>
+<!--@HEADER-->
 <div class="theme-switch seg" role="group" aria-label="Color mode" id="theme-switch"><button type="button" data-t="" aria-pressed="true">system</button><button type="button" data-t="light">light</button><button type="button" data-t="dark">dark</button></div>
 
 <!-- ========================================================== 01 KEY ART -->

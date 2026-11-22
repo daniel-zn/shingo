@@ -96,9 +96,9 @@
     setTimeout(function () { t0 = performance.now(); frame(); }, delay || 0);
   }
   var DECODE = [
-    ['title', '.u-title, .sg-display, .sec-h h2'],
-    ['label', '.u-label > span, .nframe > b, .smx b, .u-code, .stable th, .u-foot b, .tabbar a, .con-rail a span, .inst h3 > span:first-child, .alpha-h .sg-cap, .sec-h .sg-num, .optrow, .btn, .keycap > span, [data-decode="label"]'],
-    ['data', '.sec-h > .sg-mono, .alpha-h > .sg-mono, .inst h3 > span:last-child, .u-span > span, .u-meta, .spec > span, .stable td.n, .stable td b, .stable td .sg-mono, .smx span, .u-foot span, .state, .nframe .sg-num, [data-decode="data"]']
+    ['title', '.u-title, .sg-display, .sech h2'],
+    ['label', '.u-label > span, .nframe > b, .smx b, .u-code, .stable th, .u-foot b, .tabbar a, .con-rail a span, .inst h3 > span:first-child, .alpha-h .sg-cap, .sech-code, .coords > span, .dcall > b, .optrow, .btn, .keycap > span, [data-decode="label"]'],
+    ['data', '.sech .spaced, .alpha-h > .sg-mono, .dcall dd, .vstamp, .inst h3 > span:last-child, .u-span > span, .u-meta, .spec > span, .stable td.n, .stable td b, .stable td .sg-mono, .smx span, .u-foot span, .state, .nframe .sg-num, [data-decode="data"]']
   ];
   // decode everything in a region on arrival, top to bottom, staggered by weight then document order
   function scrambleScreen(scr) {

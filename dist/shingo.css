@@ -572,3 +572,73 @@
 
 /* any element can host the live layer (scramble, readouts, wipe, HUD): give it data-sg-live */
 [data-sg-live] { position: relative; overflow: clip; }
+
+/* ================================================== print furniture
+   The technical-print layer from the references: what a printed spec sheet carries around
+   its content. All of it prints in the print or dim ink; coral is reserved for the mark tile
+   and one stamp per view. Generators: tools/print_kit.py · SwiftUI: SGPrint.swift */
+
+/* crosshair: a registration "+" with an open centre */
+.xh { display: inline-block; position: relative; width: 14px; height: 14px; flex: none; color: var(--ground-hi); vertical-align: middle; }
+.xh::before, .xh::after { content: ""; position: absolute; background: currentColor; }
+.xh::before { left: 0; right: 0; top: calc(50% - .75px); height: 1.5px;
+  -webkit-mask: linear-gradient(90deg, #000 0 35%, transparent 35% 65%, #000 65%); mask: linear-gradient(90deg, #000 0 35%, transparent 35% 65%, #000 65%); }
+.xh::after { top: 0; bottom: 0; left: calc(50% - .75px); width: 1.5px;
+  -webkit-mask: linear-gradient(#000 0 35%, transparent 35% 65%, #000 65%); mask: linear-gradient(#000 0 35%, transparent 35% 65%, #000 65%); }
+.xh--dim { color: var(--ground-dim); }
+.xh--abs { position: absolute; margin: -7px 0 0 -7px; }
+
+/* spec rail: a vertical line of mono spec text that runs on as a hairline */
+.rail { display: inline-flex; align-items: center; gap: 8px; writing-mode: vertical-rl; transform: rotate(180deg);
+  font: 500 9.5px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ground-dim); white-space: nowrap; }
+.rail::before { content: ""; flex: 1 1 auto; min-height: 16px; width: 1px; background: currentColor; opacity: .7; }
+.rail--up::before { order: 2; }
+
+/* spaced microtext: each line's words spread to the full measure, like the posters' captions */
+.spaced { margin: 0; font: 500 10px/1.55 var(--f-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ground-dim);
+  text-align: justify; text-align-last: justify; text-justify: inter-word; hyphens: none; }
+.spaced b { font-weight: inherit; color: var(--ground-hi); }
+
+/* coordinate stack: the RADAR data block, set in the display face */
+.coords { display: grid; gap: .1em; font-family: var(--f-display); font-synthesis: none; font-weight: 900; font-size: 22px; line-height: .9;
+  letter-spacing: .01em; color: var(--ground-hi); }   /* case is the author's: "A–Z / a–z" */
+.coords > span { white-space: nowrap; }
+.coords > .co-dim { color: var(--ground-dim); }
+
+/* version stamp: a hairline box with one cut corner; --sig makes it the view's coral stamp */
+.vstamp { display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px 5px 12px; position: relative; isolation: isolate;
+  font: 900 13px/1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; color: var(--ground-hi); }
+.vstamp::before { content: ""; position: absolute; inset: 0; z-index: -1; background: currentColor;
+  clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px, 8px 0, 9.5px 1.5px, 1.5px 9.5px, 1.5px calc(100% - 1.5px), calc(100% - 1.5px) calc(100% - 1.5px), calc(100% - 1.5px) 1.5px, 9.5px 1.5px); }
+.vstamp small { font: 500 9px var(--f-mono); letter-spacing: .1em; opacity: .8; }
+.vstamp--sig { color: var(--signal-text); }
+
+/* mark tile: the brand mark knocked out of a coral square (the references' logo tiles) */
+.marktile { display: inline-grid; place-items: center; width: 34px; height: 34px; flex: none; background: var(--coral); color: #0c0c0a;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%); }
+.marktile svg { width: 60%; height: 60%; }
+
+/* data callout: a node, a name in the display face and key/value rows (the posters' city labels) */
+.dcall { display: grid; gap: 4px; min-width: 0; color: var(--ground-hi); }
+.dcall > b { display: flex; align-items: center; gap: 7px; font: 900 15px/1 var(--f-display); text-transform: uppercase; letter-spacing: .03em; }
+.dcall > b::before { content: ""; width: 9px; height: 9px; flex: none; box-shadow: inset 0 0 0 1.5px currentColor; background: radial-gradient(currentColor 0 1.6px, transparent 2px); }
+.dcall dl { margin: 0 0 0 16px; display: grid; grid-template-columns: auto 1fr; gap: 1px 10px; font: 500 9px/1.3 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; }
+.dcall dt { color: var(--ground-dim); } .dcall dd { margin: 0; }
+
+/* specimen column: a glyph grid; figures may print in signal text as the one accent */
+.specgrid { display: grid; grid-template-columns: repeat(var(--cols, 4), 1fr); gap: 2px 6px; font: 900 22px/1.05 var(--f-display); color: var(--ground-hi); text-align: center; }
+.specgrid .fig { color: var(--signal-text); }
+
+/* glyph construction: one giant letter in tonal ink on grid paper, with labelled guides */
+/* fixed 1.8:1 sheet: the glyph's baseline sits at 84% and its cap line at 16%, so the guides are true */
+.gbuild { position: relative; overflow: hidden; container-type: inline-size; aspect-ratio: 1.8; color: var(--ground-hi); }
+.gbuild .gb-g { position: absolute; left: 8%; bottom: -.4cqw; font: 900 58cqw/1 var(--f-display); color: var(--ground-3); letter-spacing: 0; font-synthesis: none; }
+.gbuild .gb-l { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid var(--ground-dim); }
+.gbuild .gb-l span { position: absolute; right: 8px; top: -14px; font: 500 9px var(--f-mono); letter-spacing: .08em; color: var(--ground-dim); text-transform: uppercase; }
+.gbuild .gb-v { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1px solid var(--ground-dim); }
+
+/* tech frame: a panel with crosshairs on its four corners and a spec rail down one side */
+.techframe { position: relative; }
+.techframe > .xh { position: absolute; }
+.techframe > .xh:nth-of-type(1) { left: -7px; top: -7px; } .techframe > .xh:nth-of-type(2) { right: -7px; top: -7px; }
+.techframe > .xh:nth-of-type(3) { left: -7px; bottom: -7px; } .techframe > .xh:nth-of-type(4) { right: -7px; bottom: -7px; }
