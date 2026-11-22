@@ -266,7 +266,12 @@
   font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ground-hi); }
 .u-label span:last-child { font: 400 11px var(--f-mono); color: var(--ground-dim); }
 .u-dim { color: var(--ground-dim); }
-.u-foot { margin-top: auto; display: grid; grid-template-columns: minmax(0, 1fr) 112px; gap: 16px; align-items: end; padding-top: 12px; border-top: var(--hair) solid var(--ground-hi); }
+.u-foot { margin-top: auto; display: grid; grid-template-columns: minmax(0, 1fr) 112px; gap: 16px; align-items: end; padding-top: 12px; border-top: var(--hair) solid var(--ground-hi); position: relative; }
+/* the imprint rule is pinned to the sheet: a crosshair on each end */
+.u-foot::before, .u-foot::after { content: ""; position: absolute; top: -7.75px; width: 14px; height: 14px; color: var(--ground-hi);
+  background: linear-gradient(currentColor, currentColor) 0 50% / 35% 1.5px no-repeat, linear-gradient(currentColor, currentColor) 100% 50% / 35% 1.5px no-repeat,
+              linear-gradient(currentColor, currentColor) 50% 0 / 1.5px 35% no-repeat, linear-gradient(currentColor, currentColor) 50% 100% / 1.5px 35% no-repeat; }
+.u-foot::before { left: -7px; } .u-foot::after { right: -7px; }
 .u-foot b { display: block; font: 700 expanded 12px var(--f-title); letter-spacing: .04em; text-transform: uppercase; color: var(--ground-hi); }
 .u-foot span { display: block; margin-top: 4px; font: 500 10px var(--f-mono); text-transform: uppercase; color: var(--ground-dim); }
 .u-foot .barcode--v { height: 26px; --bc: var(--ground-hi); }

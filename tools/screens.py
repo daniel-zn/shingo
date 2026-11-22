@@ -11,6 +11,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from build import seg7, exploded_x, relay_net, constructed, NET_CITIES, NET_ROUTES  # noqa: E402
+import print_kit as pk  # noqa: E402
 
 SRC = pathlib.Path(__file__).resolve().parent.parent / 'web' / 'gallery.src.html'
 
@@ -341,6 +342,7 @@ S['N'] = fig('N', 'Lock screen', 'The manifesto, after reference 2: the only pla
       </div>
       <span class="cut" style="bottom:40px;left:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--ground-hi)"><use href="#g-plus"/></svg></span>
       <span class="cut" style="bottom:40px;right:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="22" height="22" style="color:var(--ground-hi)"><use href="#g-reticle"/></svg></span>
+      {pk.rail("Signal engineering · rev 2611 · eyes only", style="position:absolute;right:7px;top:236px;bottom:300px")}
       <i class="home"></i>
     </div></div>''', tier='poster')
 
@@ -499,7 +501,45 @@ POSTER_BG = {'L': 'hangar', 'M': 'switchback', 'N': 'segment'}
 for k, name in POSTER_BG.items():
     S[k] = S[k].replace('<div class="phone"><div class="scr tex">', f'<div class="phone"><div class="scr tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-{name}"/></svg>', 1)
 
-ORDER = 'T A B C D E F G H I J K L M N O P Q R S U V W X Y Z'.split()
+# ---------------------------------------------------------------- 1 about (specimen sheet)
+S['1'] = fig('1', 'About', 'The app\'s about page as a type specimen sheet, after the RADAR poster: the mark tile, a version stamp, a giant glyph construction on grid paper, the coordinate stack, a specimen column and word-spaced microtext.', f"""<div class="phone"><div class="scr tex">
+      {SB}
+      <div style="top:58px;left:24px;right:24px;display:flex;align-items:center;gap:10px">{pk.marktile(28)}<span class="sg-mono" style="color:var(--ground-dim);font-size:10px">AX·ABOUT</span><i style="flex:1;height:1.5px;background:var(--ground-3)"></i>{pk.vstamp("v 4.2", "2611", sig=True, style="font-size:11px")}</div>
+      <div class="sg-display" style="top:100px;left:22px;font-size:44px;color:var(--ground-hi)">Axiom</div>
+      <div class="yearspan sg-num" style="top:152px;left:24px;right:24px;font-size:16px;color:var(--ground-hi)">20<i></i>26</div>
+      {pk.gbuild("A", guides=(("cap", 0.16), ("x-height", 0.338), ("baseline", 0.84)), verticals=(0.08, 0.66), style="position:absolute;top:184px;left:0;right:0")}
+      {pk.coords(["Relay / 4.2", "Build 2611", "38° 42′ 49″ N", "A–Z / a–z / 0–9"], dim=(2,), style="position:absolute;top:416px;left:24px;font-size:17px")}
+      {pk.specgrid("ABCDEFGHIJKLMNOP0123", 4, style="position:absolute;top:416px;right:24px;width:112px;font-size:13px;gap:3px 2px")}
+      {pk.spaced("Every packet sealed. Three relays, two keys, zero logs. Printed in two inks and one signal.", style="position:absolute;top:528px;left:24px;right:24px", hot=("sealed.",))}
+      <div style="top:586px;left:24px;right:24px;display:grid;gap:0">
+        <div class="set"><span class="sg-label">Licences</span><span class="sg-mono u-dim">MIT · OFL</span></div>
+        <div class="set"><span class="sg-label">Privacy report</span><span class="sg-mono u-dim">ZERO LOGS</span></div>
+      </div>
+      <div class="u-foot" style="position:absolute;left:24px;right:24px;bottom:38px"><div><b>Axiom / 2026</b><span>Version 4.2 · build 2611</span></div><i class="barcode--v"></i></div>
+      {pk.rail("Axiom signal systems · rev 2611", style="position:absolute;top:416px;bottom:250px;right:6px;display:none")}
+      <i class="home"></i>
+    </div></div>""", tier='poster')
+
+# ---------------------------------------------------------------- 2 coverage (data callouts)
+S['2'] = fig('2', 'Coverage', 'The relay network as data callouts: nodes on grid paper pinned by crosshairs, then each city as a callout with its relay, latency and position. 網羅 means coverage.', utility(f'''
+      {mast('Coverage', 'sector 04', '5 relays', jp('網羅'))}
+      <div class="u-hero u-hero--pad"><div class="techframe blueprint" style="height:196px;position:relative;box-shadow:inset 0 0 0 1px var(--ground-3)">{pk.xh()}{pk.xh()}{pk.xh()}{pk.xh()}
+        <svg viewBox="-10 -10 320 290" style="position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px)" aria-hidden="true">{relay_net(NET_CITIES, NET_ROUTES, hot=0, label=False)}</svg>
+        <span class="sg-mono" style="position:absolute;left:10px;bottom:8px;font-size:10px;color:var(--ground-dim)">2835 × 1890 · 200 PPI</span></div></div>
+      <div class="u-div div-ticks"></div>
+      <section class="u-body" style="gap:12px">
+        <div class="u-label"><span>Relays</span><span>5 online</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 16px">
+          {pk.dcall("Lisbon", [("Relay", "04"), ("Latency", "23 ms"), ("Pos", "38.71 N")])}
+          {pk.dcall("Porto", [("Relay", "07"), ("Latency", "31 ms"), ("Pos", "41.15 N")])}
+          {pk.dcall("Lyon", [("Relay", "02"), ("Latency", "48 ms"), ("Pos", "45.76 N")])}
+          {pk.dcall("Osaka", [("Relay", "12"), ("Latency", "212 ms"), ("Pos", "34.69 N")])}
+        </div>
+        {pk.spaced("Above the noise, relays hum in silence. Every route level or forty-five degrees.", style="margin-top:4px")}
+      </section>''', tab=tabbar(TAB_VPN, 3)))
+
+S['2'] = S['2'].replace('<div class="phone"><div class="scr u tex">', '<div class="phone"><div class="scr u tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-girder"/></svg>', 1)
+ORDER = 'T 1 A B C D E F G H I J K L M N O P Q R S U V W X Y Z 2'.split()
 grid = '\n'.join(S[k] for k in ORDER)
 src = SRC.read_text()
 a = src.index('<div class="screens">') + len('<div class="screens">')
