@@ -4,7 +4,7 @@
 
 ![key art in both modes](docs/keyart.png)
 
-Open `dist/index.html` in a browser for the full gallery: key art, the shape alphabet, content motifs, backdrops, 26 iPhone screens, widgets, components, instruments, the poster series, motion studies, patterns for any app, a desktop console and language rules. Use the switch in the corner to flip modes.
+Open `dist/index.html` in a browser for the full gallery: key art, the shape alphabet, content motifs, backdrops, 28 iPhone screens, widgets, components, instruments, the poster series, motion studies, patterns for any app, a desktop console and language rules. Use the switch in the corner to flip modes.
 
 ## Art direction
 
@@ -57,6 +57,10 @@ One spec. Everything in the repo follows it, and anything new must too.
 17. **The machine reports.** Notifications type in like a telex (state, message, timestamp; faults take a coral edge). Loading prints as drafting hatch that slides steadily, never a shimmer or a spinner.
 18. **Beyond the phone.** Larger screens keep the grammar and add a rail: masthead across the top, readouts as the hero, the spec table as the body, a side panel for the selection, and the imprint plus ticker as the footer (see the Console section of the gallery).
 
+**Print furniture**
+
+19. **Every sheet is a technical print.** Around the content sits the furniture of a printed spec sheet: crosshairs pinning frames and rules, vertical spec rails, word-spaced microtext, a coordinate stack in the display face, version stamps, the coral mark tile, data callouts, a specimen column and the giant glyph construction on grid paper. Furniture prints in the print or dim ink; coral only fills the mark tile and at most one stamp per view. Poster screens and the gallery use it freely; utility screens carry it on the imprint rule and in heroes. Generators: `tools/print_kit.py`; SwiftUI: `SGPrint.swift`.
+
 | dashboard | interval timer | transfer | device |
 |---|---|---|---|
 | ![](docs/dark/screen-c.png) | ![](docs/dark/screen-r.png) | ![](docs/dark/screen-s.png) | ![](docs/light/screen-q.png) |
@@ -95,6 +99,8 @@ tools/screens.py              regenerates the gallery screens from the grammar
 tools/font.py                 draws Shingo Grid Heavy, the title face, from grid geometry: TTF for iOS, WOFF2 for the web
 tools/signal_font.py          builds Shingo Signal from tools/vendor/Orbitron[wght].ttf: two weights plus the missing glyphs
 web/fonts/                    ShingoGrid-Heavy, ShingoSignal-SemiBold, ShingoSignal-ExtraBold (WOFF2)
+tools/print_kit.py            print furniture generators: crosshairs, rails, spaced microtext, coords, stamps, callouts
+tools/posters.py              the second poster series (XP·07–12)
 tools/monoliths.py            the monolith backdrops as polygon data (web symbols and SwiftUI are generated from it)
 tools/build.py                glyphs, motifs, backdrops, key art, posters; builds dist/
 tools/check_tokens.py         fails the build if tokens.json, shingo.css and SGTheme.swift disagree
@@ -230,6 +236,8 @@ Point the agent at `skills/shingo/SKILL.md`. It holds the rules in checklist for
 | `.ticket`, `.keycap`, `.rocker`, `.dataplate` | `SGTicket`, `SGKeycapStyle`, `SGRockerStyle`, `SGDataPlate` | |
 | `.marks`, `.colorbar`, `.ticker`, `.bootlog`, `.lamps` | `.printMarks()`, `SGColorBar`, `SGTicker`, `SGBootLog`, `SGLamps` | |
 | `.callout`, `.blueprint`, `#g-wave`, `#g-matrix` | `SGCallout`, `SGBlueprint`, `SGWave`, `SGMatrixCode` | |
+| `.xh`, `.techframe`, `.rail`, `.spaced` | `SGCrosshair`, `.sgTechFrame()`, `SGRail`, `SGSpacedText` | print furniture |
+| `.coords`, `.vstamp`, `.marktile`, `.dcall`, `.specgrid`, `.gbuild` | `SGCoordStack`, `SGVersionStamp`, `SGMarkTile`, `SGDataCallout`, `SGSpecGrid`, `SGGlyphBuild` | print furniture |
 | `.state--ok/warn/fault/off/busy` | `SGState(.nominal/.caution/.fault/.offline/.syncing)` | one shape per state |
 | `.stable` | `SGSpecTable` | coded columns, coral bar on selection |
 | `.xcheck`, `.dradio`, `.stepper` | `SGXCheckboxStyle`, `SGDiamondRadio`, `SGStepper` | the form set |

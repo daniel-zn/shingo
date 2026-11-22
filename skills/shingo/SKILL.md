@@ -7,7 +7,7 @@ description: Apply the Shingō 信号 industrial print design system (sci-fi ind
 
 Interfaces are **printed** on a striped ground like a two-ink screen print: wide hard type, one 45° diagonal, hazard bars, chevrons, big hard figures, stencil serials, mono telemetry and one coral signal per screen. Every screen exists in light and dark.
 
-Source of truth, in this order: `README.md` (rules 1–18), `tokens/tokens.json`, `web/shingo.css`, `ios/Sources/ShingoKit/`. The gallery `dist/index.html` shows every piece; `dist/starter.html` is a complete page to copy.
+Source of truth, in this order: `README.md` (rules 1–19), `tokens/tokens.json`, `web/shingo.css`, `ios/Sources/ShingoKit/`. The gallery `dist/index.html` shows every piece; `dist/starter.html` is a complete page to copy.
 
 ## Set up
 
@@ -29,6 +29,7 @@ Source of truth, in this order: `README.md` (rules 1–18), `tokens/tokens.json`
 10. Motion is never eased. Slides (tickers, marching hazard/hatch, the wipe band) move continuously and linearly; state changes (blinks, fills, pulses) use `steps()`. Text decodes from class-keeping glyph noise on arrival (titles → labels → data), on change (new values) and on touch (control labels); never paragraphs, inputs or readouts. Respect reduced motion.
 11. English runs the UI. At most one Japanese accent (vertical tag `.sg-jp-v` or seal `.hanko`) and one French aside (`.sg-fr`, usually in the span rule) per screen. Use `tokens/lexicon.json`.
 12. Larger screens keep the grammar and add a rail (see `.con` in the gallery).
+13. Print furniture frames the sheet (README rule 19): `.xh` crosshairs and `.techframe`, `.rail` spec rails, `.spaced` word-spaced microtext, `.coords` coordinate stacks, `.vstamp` stamps, `.marktile` (the only coral furniture), `.dcall` data callouts, `.specgrid`, `.gbuild` glyph construction. Generators in `tools/print_kit.py`, SwiftUI in `SGPrint.swift`. Poster screens use it freely; utility screens on the imprint rule and in heroes.
 
 ## Build a screen
 

@@ -578,7 +578,7 @@ def export_glyphs():
 # ---------------------------------------------------------------- poster
 def keyart(mode):
     """Key art: the shirt's print stack + the poster's instrument column, in HTML."""
-    return f'''<figure><div class="ka tex mode-{mode}"><div class="ka-in">
+    return f'''<figure><div class="techframe">{pk.xh()}{pk.xh()}{pk.xh()}{pk.xh()}<div class="ka tex mode-{mode}"><div class="ka-in">
       <div class="ka-mast"><span class="u-code">SK·09·LIS</span><span class="sg-display">AXIOM</span></div>
       <div class="slab-cut ka-slab"></div><div class="ka-head brackets"><svg><use href="#g-reg"/></svg></div>
       <div class="yearspan sg-num ka-year">20<i></i>26</div>
@@ -589,7 +589,7 @@ def keyart(mode):
       <div class="ka-chev"><svg viewBox="0 0 300 230"><use href="#g-chevrons"/></svg></div>
       <div class="hazard ka-haz"></div>
       <div class="ka-foot"><div><div class="sg-label">Axiom signal systems</div><div class="sg-mono">COMSEC MONITORING · NETWORK OPERATIONS AND DEFENSE</div></div><i class="barcode--v"></i></div>
-    </div></div><figcaption class="cap"><b>Key art · {mode}</b><span>{"bone print on ink stripes" if mode == "dark" else "ink print on sage stripes"}</span></figcaption></figure>'''
+    </div></div></div><figcaption class="cap"><b>Key art · {mode}</b><span>{"bone print on ink stripes" if mode == "dark" else "ink print on sage stripes"}</span></figcaption></figure>'''
 
 
 # ---------------------------------------------------------------- explorations: poster series + motion
@@ -801,12 +801,12 @@ def console():
   <div class="sec-h"><span class="sg-num">07</span><h2 class="sg-display">Console</h2><span class="sg-mono">the same system beyond the phone · 1240 × 780 desktop layout · every part comes from the kit · point at data, click rows</span></div>
   <div class="con-wrap"><div class="con scr-like tex">
     <svg class="sg-bg" aria-hidden="true" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"><use href="#g-bg-massing"/></svg>
-    <nav class="con-rail"><svg class="con-mark" style="color:var(--coral)"><use href="#g-mark"/></svg>{rail}</nav>
+    <nav class="con-rail"><span class="con-mark">{pk.marktile(30)}</span>{rail}</nav>
     <header class="con-top">
       <span class="u-code" style="position:static">AX·CON</span>
       <h3 class="sg-display" style="margin:0;font-size:30px;color:var(--ground-hi)">Relay fleet</h3>
       <div class="u-span" style="margin:0;flex:1"><span>Sector 04 · <span class="live-coord">38.71 N 9.14 W</span></span><i></i><span>17 Nov 2026</span></div>
-      <label class="search" style="width:260px"><svg><use href="#g-i-scan"/></svg><input id="con-s" placeholder="Search relays"><kbd>⌘K</kbd></label>
+      <label class="search" style="width:260px"><svg><use href="#g-i-scan"/></svg><input id="con-s" placeholder="Search relays"><kbd>⌘K</kbd></label>{pk.vstamp("Rev 2611")}
     </header>
     <section class="con-kpi">
       <div class="nframe"><b>Uptime</b>{seg7("99.82", 34)}</div>
