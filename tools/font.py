@@ -331,11 +331,14 @@ def glyphs(S, C, B, **_):
     g["1"] = (B, [crect(xs1 - S * 1.5, H - S, xs1 + S, H, tl=C * .8), rect(xs1, 0, xs1 + S, H),
                   rect(xs1 - S * 1.3, 0, xs1 + S * 2.3, S)], [])
     # the 4: closed by a 45° diagonal from the bar's left end up into the stem; the bar runs a little past the stem
-    # the closed 4: the crossbar sits low (bottom at .28 H), one 45° arm rises from its left end straight
-    # into the top of the stem, and the bar runs half a stroke past the stem
-    b4 = H * .28
-    sr = (H - b4) + T                               # the arm's right edge meets the stem's right edge at the cap line
-    g["4"] = (sr + S * .5, [rect(sr - S, 0, sr, H), band(0, b4, H, T), rect(0, b4, sr + S * .5, b4 + S)], [])
+    # the open 4, after the RADAR poster: a full-height left stroke drops to a low crossbar (bottom at .30 H),
+    # the stem stands half a stroke in from the right so the bar runs past it, and the turn from the left
+    # stroke into the bar takes a cut capped at the bar's height (with the inner cut that keeps full weight)
+    b4, w4 = H * .30, B * .84
+    t4, sr4 = b4 + S, w4 - S * .5
+    k4, ki4 = S, S * (R2 - 1)
+    g["4"] = (w4, [[(0, H), (S, H), (S, t4 + ki4), (S + ki4, t4), (sr4 - S, t4), (sr4 - S, H), (sr4, H), (sr4, t4), (w4, t4),
+                    (w4, b4), (sr4, b4), (sr4, 0), (sr4 - S, 0), (sr4 - S, b4), (k4, b4), (0, b4 + k4)]], [])
     # the 3: the middle bar reaches back as far as the top and bottom ends do
     g["3"] = (B, [[(0, H), (B - C, H), (B, H - C), (B, C), (B - C, 0), (0, 0), (0, S), (B - S - c, S), (B - S, S + c), (B - S, b),
                    (B * .45, b), (B * .45, t), (B - S, t), (B - S, H - S - c), (B - S - c, H - S), (0, H - S)]], [])
