@@ -322,6 +322,10 @@ def glyphs(S, C, B, **_):
     zt = T                                         # the slash at full stroke weight
     zs = band((B - zt - (H - 2 * S)) / 2, S, H - S, zt)
     g["0"] = (B, [zo, clipbox(zs, S - 1, B - S + 1, S - 1, H - S + 1)], [crect(S, S, B - S, H - S, c, c, c, c)])
+    # Ø: the O with the zero's slash running out through both corners
+    ow_, oshapes, oholes = g["O"]
+    ost = band((ow_ - T - (H + S)) / 2, -S * .5, H + S * .5, T)
+    g["Ø"] = (ow_, oshapes + [clipbox(ost, -S * .3, ow_ + S * .3, -S * .5, H + S * .5)], oholes)
     # 1 and 4: square flag and bar ends
     xs1 = B / 2 + S * .2                            # the 1: stem just right of centre, a chamfered flag, a foot
     g["1"] = (B, [crect(xs1 - S * 1.5, H - S, xs1 + S, H, tl=C * .8), rect(xs1, 0, xs1 + S, H),

@@ -732,10 +732,11 @@ def _xp_ops():
 
 
 def explorations():
-    posters = [_xp_tunnel(), _xp_lattice(), _xp_slash(), _xp_signal(), _xp_relay(), _xp_ops()]
+    import posters as series_two          # XP·07–12 (tools/posters.py)
+    posters = [_xp_tunnel(), _xp_lattice(), _xp_slash(), _xp_signal(), _xp_relay(), _xp_ops()] + series_two.posters()
     cells = "".join(f'<i style="--i:{i}"></i>' for i in range(12))
     return f'''<section class="sec">
-  <div class="sec-h"><span class="sg-num">06</span><h2 class="sg-display">Explorations</h2><span class="sg-mono">a poster series and motion studies · each piece built from one primitive of the alphabet</span></div>
+  <div class="sec-h"><span class="sg-num">06</span><h2 class="sg-display">Explorations</h2><span class="sg-mono">two poster series of six and motion studies · the first built from the alphabet, the second from the reference prints: specimen, pulse, sector, transit, proof, unit</span></div>
   <div class="xp-grid">{"".join(f'<figure>{p}</figure>' for p in posters)}</div>
   <div class="alpha-h" style="margin-top:36px"><span class="sg-cap">Motion and live behaviour</span><span class="sg-mono">never eased · slides glide, states step · still when reduced motion is on · on the screens above: tap a tab, point at data</span></div>
   <div class="mo-grid">

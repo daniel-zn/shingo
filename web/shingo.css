@@ -608,7 +608,7 @@
 .coords > .co-dim { color: var(--ground-dim); }
 
 /* version stamp: a hairline box with one cut corner; --sig makes it the view's coral stamp */
-.vstamp { display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px 5px 12px; position: relative; isolation: isolate;
+.vstamp { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex: none; padding: 5px 10px 5px 12px; position: relative; isolation: isolate;
   font: 900 13px/1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; color: var(--ground-hi); }
 .vstamp::before { content: ""; position: absolute; inset: 0; z-index: -1; background: currentColor;
   clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px, 8px 0, 9.5px 1.5px, 1.5px 9.5px, 1.5px calc(100% - 1.5px), calc(100% - 1.5px) calc(100% - 1.5px), calc(100% - 1.5px) 1.5px, 9.5px 1.5px); }
