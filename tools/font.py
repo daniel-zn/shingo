@@ -206,7 +206,7 @@ def glyphs(S, C, B, **_):
     q = S * .9
     g["."] = (S, [rect(0, 0, S, S)], [])
     g[","] = (S, [[(0, S), (S, S), (S, 0), (S * .2, -S * .8), (0, -S * .8)]], [])
-    g[":"] = (S, [rect(0, 0, S, S), rect(0, M - S / 2 + 60, S, M + S / 2 + 60)], [])
+    g[":"] = (S, [rect(0, M - 135 - S / 2, S, M - 135 + S / 2), rect(0, M + 135 - S / 2, S, M + 135 + S / 2)], [])  # centred on the figures
     g[";"] = (S, [[(0, S), (S, S), (S, 0), (S * .2, -S * .8), (0, -S * .8)], rect(0, M - S / 2 + 60, S, M + S / 2 + 60)], [])
     g["-"] = (B * .52, [rect(0, b, B * .52, t)], [])
     g["–"] = (B * .8, [rect(0, b, B * .8, t)], [])
@@ -244,7 +244,7 @@ def glyphs(S, C, B, **_):
     ew = B * .92
     g["€"] = (ew, [[(ew * .14 + C, H), (ew, H), (ew, H - S), (ew * .14 + S + c, H - S), (ew * .14 + S, H - S - c), (ew * .14 + S, S + c),
                     (ew * .14 + S + c, S), (ew, S), (ew, 0), (ew * .14 + C, 0), (ew * .14, C), (ew * .14, H - C)],
-                   rect(0, M + S * .25, ew * .66, M + S * .9), rect(0, M - S * .9, ew * .66, M - S * .25)], [])
+                   rect(ew * .06, M + S * .4, ew * .66, M + S * .95), rect(ew * .06, M - S * .95, ew * .66, M - S * .4)], [])
     # $: the S with two upright bars through it, the same weight, set symmetrically about the centre
     dbw, dbg = S * .42, S * .55
     g["$"] = (B, g["S"][1] + [rect(B / 2 - dbg / 2 - dbw, -S * .7, B / 2 - dbg / 2, H + S * .7),
@@ -346,16 +346,13 @@ def glyphs(S, C, B, **_):
     g["5"] = (B, [[(C, H), (B, H), (B, H - S), (S + c, H - S), (S, H - S - c), (S, t), (B - Cm, t), (B, t - Cm), (B, C), (B - C, 0), (0, 0), (0, S),
                    (B - S - c, S), (B - S, S + c), (B - S, b - cm), (B - S - cm, b), (0, b), (0, H - C)]], [])
     # slash and percent: steeper than 45° so they stay narrow, same facets
-    sw, T2 = H * .6, S * 1.2
-    sl = [(0, 0), (T2, 0), (sw, H), (sw - T2, H)]
-    g["/"] = (sw, [clipbox(sl, f * .8, sw - f * .8, 0, H)], [])
-    pw = B * .92
-    sq = S * 1.5
-    sq = S * 1.55                                  # two big square dots and a steep slash between them
-    pw = H * .95
-    sl_ = clipbox([(0, 0), (T2, 0), (pw, H), (pw - T2, H)], 0, pw, 0, H)
-    g["%"] = (pw, [rect(0, H - sq, sq, H), rect(pw - sq, 0, pw, sq),
-                   clipbox(sl_, 0, pw, 0, H)], [])
+    # slash and percent: the system's one diagonal, 45° at full weight, on the figure width (so
+    # 3/8 and 82% sit on the figures' grid); the ends are trimmed by the cell's upright facets
+    fw = round(B * .9)
+    x45 = (fw - (H + T)) / 2
+    g["/"] = (fw, [clipbox(band(x45, 0, H, T), 0, fw, 0, H)], [])
+    sq = S * 1.55                                  # two big square dots either side of the slash
+    g["%"] = (fw, [rect(0, H - sq, sq, H), rect(fw - sq, 0, fw, sq), clipbox(band(x45, 0, H, T), 0, fw, 0, H)], [])
     # times: a small X
     th = H * .56
     tw = th + T * .8
@@ -603,6 +600,11 @@ KERN = {("L", "T"): -110, ("L", "Y"): -110, ("L", "V"): -100, ("L", "A"): -40, (
         ("r", "."): -70, ("r", ","): -70, ("f", "."): -50, ("f", ","): -50, ("y", "."): -50, ("y", ","): -50, ("v", "."): -45,
         ("r", "a"): -20, ("a", "v"): -25, ("a", "y"): -25, ("v", "a"): -25, ("y", "a"): -25, ("y", "o"): -20, ("o", "y"): -20,
         ("k", "o"): -20, ("k", "e"): -20, ("f", "f"): -20}
+# figures close up on a decimal point or a thousands comma (42.6, 1,284)
+KERN.update({(d, p): -40 for d in "0123456789" for p in ".," if (d, p) not in KERN})
+# the 45° slash nests into the figures' 45° corner cuts (3/8, 09/29)
+KERN.update({(a, b): -70 for d in "0123456789" for a, b in ((d, "/"), ("/", d))})
+KERN.update({(a, b): -50 for l in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" for a, b in ((l, "/"), ("/", l))})
 
 
 def build(weight):

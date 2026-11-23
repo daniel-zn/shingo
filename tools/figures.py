@@ -2,9 +2,9 @@
 
 Every figure is built on the same skeleton and the same rules, so they read as a set:
 
-- one width W for 0 2–9 (the 1 is narrower), the cap height H, the stroke S;
-- one middle bar for every figure that has one (2 3 4 5 6 8 9), set a little above centre so
-  upper bowls are a touch smaller than lower ones;
+- one width W for every figure (the 1 included: it fills its cell, as on the reference), the cap
+  height H, the stroke S;
+- one middle bar for every figure that has one (2 3 4 5 6 8 9), on the capitals' crossbar line;
 - strokes are unions of level and upright bars (plus the 45° diagonals of 7 and the zero's slash);
 - a stroke that turns gets a 45° cut on its outer corner and the matching inner cut on its inner
   corner, so it never thins: big cuts (C / c) at the box corners, capped cuts (S / cm) at the
@@ -87,13 +87,13 @@ def corner(x, y, sx, sy, a):
 def build(S, C, B, H, band, clip, stroke):
     """Figures 0–9 for Shingo Grid. Returns {ch: (advance, outers, holes)}.
 
-    Verticals carry the full stroke S; horizontals are lighter (.82 S) so the counters of the
+    Verticals carry the full stroke S; horizontals are a shade lighter (.9 S) so the counters of the
     three-bar figures stay open at small sizes. Every value is a whole font unit.
     """
-    Sv, Sh = S, round(S * .82)                      # vertical and horizontal strokes
+    Sv, Sh = S, round(S * .9)                       # vertical and horizontal strokes
     W = round(B * .9)                               # one body width for 0 2–9
     T = round(Sv * R2)                              # level width of a 45° stroke
-    Mf = round(H * .52)                             # the middle bar sits a touch above centre
+    Mf = H // 2                                     # the middle bar: on the capitals' crossbar line
     mb = Mf - Sh // 2
     mt = mb + Sh
     xr = W - Sv
@@ -126,12 +126,12 @@ def build(S, C, B, H, band, clip, stroke):
     sl = clip(band(x0, Sh, H - Sh, t0), Sv, xr, Sh, H - Sh)
     put("0", [top, bot, left, right, sl], cut=box_cuts, fill=box_fills)
 
-    # 1: a stem, a flag whose end is cut down to half the bar, a foot of 2.5 strokes
-    x1 = round(Sv * 1.25)
-    fl = x1 - round(Sv * 1.2)
-    foot = round(Sv * 1.25)
-    put("1", [rect(fl, H - Sh, x1 + Sv, H), rect(x1, 0, x1 + Sv, H), rect(x1 + Sv // 2 - foot, 0, x1 + Sv // 2 + foot, Sh)],
-        cut=[corner(fl, H, 1, -1, Sh // 2)], w=None)
+    # 1: as on the reference, it fills the figure cell: the stem on the centre line, a flag whose end
+    # is cut down to half the bar, a foot across the cell, so 1284 and 11:11 keep the figures' rhythm
+    x1 = (W - Sv) // 2
+    fl = round(W * .12)
+    put("1", [rect(fl, H - Sh, x1 + Sv, H), rect(x1, 0, x1 + Sv, H), rect(round(W * .1), 0, round(W * .9), Sh)],
+        cut=[corner(fl, H, 1, -1, Sh // 2)])
 
     # 2: top, right upper, middle, left lower, foot; the top-right and both middle turns are cut
     put("2", [top, rect(xr, mb, W, H), mid, rect(0, 0, Sv, mt), bot],
@@ -151,21 +151,24 @@ def build(S, C, B, H, band, clip, stroke):
         cut=[corner(W, mt, -1, -1, Cm), corner(W, 0, -1, 1, C)],
         fill=[corner(xr, mb, -1, -1, cm), corner(xr, Sh, -1, 1, c)])
 
-    # 6: the top arm stops at two thirds, so the 6 never reads as 8; full left, bowl below; 9 is the 6 turned
-    six = dict(add=[rect(0, H - Sh, round(W * .68), H), left, mid, rect(xr, 0, W, mt), bot],
-               cut=[corner(0, H, 1, -1, C), corner(0, 0, 1, 1, C), corner(W, 0, -1, 1, C), corner(W, mt, -1, -1, Cm)],
-               fill=[corner(Sv, H - Sh, 1, -1, c), corner(Sv, Sh, 1, 1, c), corner(xr, Sh, -1, 1, c), corner(xr, mb, -1, -1, cm)])
-    put("6", **six)
-    turn = lambda polys: [[(W - x, H - y) for x, y in pts] for pts in polys]
-    put("9", turn(six["add"]), turn(six["cut"]), turn(six["fill"]))
+    # 6: the top arm stops at two thirds, so the 6 never reads as 8; full left, bowl below
+    put("6", [rect(0, H - Sh, round(W * .68), H), left, mid, rect(xr, 0, W, mt), bot],
+        cut=[corner(0, H, 1, -1, C), corner(0, 0, 1, 1, C), corner(W, 0, -1, 1, C), corner(W, mt, -1, -1, Cm)],
+        fill=[corner(Sv, H - Sh, 1, -1, c), corner(Sv, Sh, 1, 1, c), corner(xr, Sh, -1, 1, c), corner(xr, mb, -1, -1, cm)])
+    # 9: drawn on the shared middle bar (not the 6 turned, which would drop its bar below the others):
+    # bowl above, full right, the foot arm stops at two thirds
+    put("9", [top, rect(0, mb, Sv, H), mid, right, rect(W - round(W * .68), 0, W, Sh)],
+        cut=[corner(0, H, 1, -1, C), corner(W, H, -1, -1, C), corner(W, 0, -1, 1, C), corner(0, mb, 1, 1, Cm)],
+        fill=[corner(Sv, H - Sh, 1, -1, c), corner(xr, H - Sh, -1, -1, c), corner(xr, Sh, -1, 1, c), corner(Sv, mt, 1, 1, cm)])
 
     # 7: bent, as on the reference: the top bar turns down the right side, breaks at 45° and lands on
     # a short upright foot left of centre
-    xf = round(W * .42)                             # the foot's centre line
-    yf = round(H * .13)                             # the foot's height
+    # a middle-turn cut at the corner, so the drop shows before the break and the inside turns at 135°
+    xf = W // 2                                    # the foot sits on the centre line
+    yf = round(H * .17)                             # the foot's height
     yk = yf + (W - Sv // 2 - xf)                    # where the right side breaks into the diagonal
     leg = stroke([(W - Sv / 2, H - Sh / 2), (W - Sv / 2, yk), (xf, yf), (xf, 0)], Sv)
-    put("7", [top, leg], cut=[corner(W, H, -1, -1, C)], fill=[corner(xr, H - Sh, -1, -1, c)])
+    put("7", [top, leg], cut=[corner(W, H, -1, -1, Cm)], fill=[corner(xr, H - Sh, -1, -1, cm)])
 
     # 8: two bowls on one middle bar, every corner cut, the waist notched on both sides
     put("8", [top, bot, left, right, mid],

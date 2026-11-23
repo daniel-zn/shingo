@@ -639,7 +639,8 @@ def _xp_slash():
     o.append('</g>')
     o.append(f'<polygon points="{_chamf(200, 260, 162, 74, 18)}" fill="var(--ground)"/>')
     o.append(f'<polygon points="{_chamf(200, 260, 162, 74, 18)}" fill="none" stroke="var(--ground-hi)" stroke-width="1.5"/>')
-    o.append(f'<g transform="translate(66 226)">{seg7("09:41", 68, "2")}</g>')
+    # SVG text, not seg7(): the readout's HTML spans would break the parser out of the <svg>
+    o.append('<text x="56" y="290" class="xp-d" font-size="70" fill="var(--ground-hi)">09<tspan fill="var(--coral)">:</tspan>41</text>')
     o.append('<text x="56" y="210" class="xp-m" font-size="9" fill="var(--ground-dim)">LOCAL TIME · LIS</text>')
     return _xp_frame("03", "SLASH", "斜線", "ONE ANGLE · RISING LEFT TO RIGHT", "".join(o))
 
@@ -746,7 +747,7 @@ def explorations():
     <figure><div class="mo"><svg class="mo-scope" viewBox="0 0 200 200"><use href="#g-scope"/><g class="mo-sweep"><polygon points="100,100 196,100 190,72" fill="var(--coral)"/></g></svg></div><figcaption><b>Step sweep</b><span>Scanning. The sweep turns in eight 45° steps.</span></figcaption></figure>
     <figure><div class="mo"><div class="hazard hazard--run" style="width:76%"></div><div class="sg-mono mo-lbl">WRITING FIRMWARE<i class="caret"></i></div></div><figcaption><b>March</b><span>Busy. Hazard stripes march along the one diagonal.</span></figcaption></figure>
     <figure><div class="mo mo-wipe" style="position:relative"><div class="mo-view"><div class="sg-display" style="font-size:30px;color:var(--ground-hi)">Protected</div><div class="sg-mono mo-lbl" style="margin-top:8px;color:var(--ground-dim)">SINCE 08:14 · LIS-04</div></div><div class="mo-view" hidden><div class="sg-display" style="font-size:30px;color:var(--ground-hi)">Run log</div><div class="sg-mono mo-lbl" style="margin-top:8px;color:var(--ground-dim)">W46 · 42.6 KM</div></div><div class="mo-view" hidden><div class="sg-display" style="font-size:30px;color:var(--ground-hi)">Wallet</div><div class="sg-mono mo-lbl" style="margin-top:8px;color:var(--ground-dim)">€8,214.60</div></div></div><figcaption><b>Print wipe</b><span>Between views a hazard band slides across on the diagonal, and the new title resolves from glyph noise.</span></figcaption></figure>
-    <figure><div class="mo"><div style="display:grid;gap:6px;justify-items:center">{seg7("02:47", 54, "2", cls="live-down")}<span class="sg-mono mo-lbl" style="color:var(--ground-dim)">ROUND 3 · WORK</span></div></div><figcaption><b>Live readout</b><span>Readouts re-render segment by segment: timers count, counters climb, coordinates drift.</span></figcaption></figure>
+    <figure><div class="mo"><div style="display:grid;gap:6px;justify-items:center">{seg7("02:47", 54, "2", cls="live-down")}<span class="sg-mono mo-lbl" style="color:var(--ground-dim)">ROUND 3 · WORK</span></div></div><figcaption><b>Live readout</b><span>Readouts re-render digit by digit: timers count, counters climb, coordinates drift.</span></figcaption></figure>
   </div>
 </section>'''
 
