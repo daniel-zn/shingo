@@ -48,7 +48,8 @@
      Noise keeps each character's class (digits flicker through digits, letters through hard
      capitals, kanji through kanji) so widths and structure hold; punctuation never scrambles.
      Each character locks at its own random moment; frames land unevenly (28–80 ms). */
-  var NZ = { d: '0123456789', a: 'XKZNRVHEW#/', l: 'xkznrvhew#/', j: '信号経路保護暗中封鎖', o: '' };
+  var NZ = { d: '023456789',   /* no 1: the other figures share one width, so noise never jumps */
+            a: 'XKZNRVHEW#/', l: 'xkznrvhew#/', j: '信号経路保護暗中封鎖', o: '' };
   function cls(c) {
     if (c >= '0' && c <= '9') return 'd';
     if (/[A-ZÀ-Þ]/.test(c)) return 'a';

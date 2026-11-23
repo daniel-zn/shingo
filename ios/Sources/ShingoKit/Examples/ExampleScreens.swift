@@ -135,7 +135,7 @@ public struct IntervalExample: View {
     public var body: some View {
         SGUtilityScreen("Interval", span: (Text("round 3"), Text("of 8")), tag: .japanese("計時"), monolith: .cells) {
             VStack(spacing: 10) {
-                SGReadout("02:47", height: 92, hot: [2])
+                SGReadout("02:47", height: 92, hot: [2], tabular: true)
                 Text("Work 45 s · rest 15 s · next: rest").sgMono(11).foregroundStyle(SG.groundDim)
             }
             .frame(maxWidth: .infinity)

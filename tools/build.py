@@ -85,8 +85,9 @@ def _segs(w=44, h=60, t=5.6, g=1.3):
 def seg7(text, height=48, hot="", ghost=False, cls=""):
     """A readout in Shingo Grid figures. `height` is the slot the readout fills (digits keep
     the footprint the old segment digits had: font-size = .92 x height); characters at
-    indexes in `hot` print in coral. Each digit sits in a fixed 1em cell so live counters never
-    jump (cells of .94em). (The name stays for compatibility: the seven-segment face is retired.)"""
+    indexes in `hot` print in coral. Static readouts set on the figures' own widths; readouts that
+    tick (cls "live-down" / "live-up", or "sg-fig--tab") put each digit in a fixed .94em cell so the
+    value never jumps. (The name stays for compatibility: the seven-segment face is retired.)"""
     hs = set(hot.split(",")) if hot else set()
     cells = "".join(f'<b class="{"hot" if str(i) in hs else ""}{" p" if not ch.isdigit() else ""}">{ch}</b>' for i, ch in enumerate(text))
     return (f'<span class="sg-fig {cls}" data-hot="{hot}" role="img" aria-label="{text}" '

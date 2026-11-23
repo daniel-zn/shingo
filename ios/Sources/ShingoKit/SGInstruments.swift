@@ -14,8 +14,11 @@ public struct SGReadout: View {
     public var text: String
     public var height: CGFloat
     public var hot: Set<Int>
-    public init(_ text: String, height: CGFloat = 48, hot: Set<Int> = []) {
-        self.text = text; self.height = height; self.hot = hot
+    /// Fixed cells for values that tick (timers, counters) so they never jump; static values
+    /// set on the figures' own widths.
+    public var tabular: Bool
+    public init(_ text: String, height: CGFloat = 48, hot: Set<Int> = [], tabular: Bool = false) {
+        self.text = text; self.height = height; self.hot = hot; self.tabular = tabular
     }
     public var body: some View {
         let size = height * 0.92
@@ -23,7 +26,7 @@ public struct SGReadout: View {
             ForEach(Array(text.enumerated()), id: \.offset) { i, ch in
                 Text(String(ch)).font(SGFont.number(size))
                     .foregroundStyle(hot.contains(i) ? SG.coral : SG.groundHi)
-                    .frame(width: ch.isNumber ? size * 0.94 : nil)
+                    .frame(width: tabular && ch.isNumber ? size * 0.94 : nil)
             }
         }
         .frame(height: size * 0.65)

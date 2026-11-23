@@ -379,7 +379,7 @@ def glyphs(S, C, B, **_):
     g.update(lowercase(S, C, B, f))
     # figures: one system for all ten digits (tools/figures.py), replacing the drawings above
     import figures
-    g.update(figures.build(S, C, B, H, band, clipbox))
+    g.update(figures.build(S, C, B, H, band, clipbox, stroke))
     return g
 
 
@@ -624,7 +624,8 @@ def build(weight):
                  [(x, y - S * 1.25) for x, y in _acc_band(cx - S * 1.15, S * .7, S * .9)]], [])
 
     names = {ch: ("uni%04X" % ord(ch)) for ch in g}
-    order = [".notdef", "space"] + [names[ch] for ch in g]
+    digits = "0123456789"
+    order = [".notdef", "space"] + [names[ch] for ch in g] + [names[d] + ".tnum" for d in digits]
     pen_glyphs, metrics, cmap = {}, {}, {32: "space", 0xA0: "space"}
 
     def draw(shapes, holes):
@@ -644,15 +645,26 @@ def build(weight):
     metrics[".notdef"] = (500 + 2 * SB, 0)
     pen_glyphs["space"] = TTGlyphPen(None).glyph()
     metrics["space"] = (SP, 0)
+    ink = {}
     for ch, (w, shapes, holes) in g.items():
         n = names[ch]
         lsb, rsb, x0, x1 = side_space(ch, shapes, SB)
-        if ch.isdigit():                                # figures: plain, slightly open bearings (no optical tightening)
-            lsb = rsb = SB * 1.15
+        if ch.isdigit():                                # figures: the letters' plain bearing (no optical tightening)
+            lsb = rsb = SB
         shifted = lambda pts: [(x - x0 + lsb, y) for x, y in pts]
         pen_glyphs[n] = draw([shifted(s) for s in shapes], [shifted(h) for h in holes])
         metrics[n] = (round(lsb + (x1 - x0) + rsb), round(lsb))
+        if ch in digits:
+            ink[ch] = (shapes, holes, x0, x1)
         cmap[ord(ch)] = n
+
+    # tabular figures (tnum): every digit on the widest digit's advance, ink centred
+    tw = max(x1 - x0 for _, _, x0, x1 in ink.values()) + 2 * SB
+    for d, (shapes, holes, x0, x1) in ink.items():
+        off = (tw - (x1 - x0)) / 2 - x0
+        mv = lambda pts: [(x + off, y) for x, y in pts]
+        pen_glyphs[names[d] + ".tnum"] = draw([mv(s) for s in shapes], [mv(h) for h in holes])
+        metrics[names[d] + ".tnum"] = (round(tw), round((tw - (x1 - x0)) / 2))
 
     fb = FontBuilder(UPM, isTTF=True)
     fb.setupGlyphOrder(order)
@@ -674,7 +686,8 @@ def build(weight):
     removeOverlaps(fb.font)
     kern = "\n".join(f"  pos {names[l]} {names[r]} {v};" for (l, r), v in KERN.items() if l in names and r in names)
     from fontTools.feaLib.builder import addOpenTypeFeaturesFromString
-    addOpenTypeFeaturesFromString(fb.font, "languagesystem DFLT dflt;\nlanguagesystem latn dflt;\nfeature kern {\n" + kern + "\n} kern;\n")
+    addOpenTypeFeaturesFromString(fb.font, "languagesystem DFLT dflt;\nlanguagesystem latn dflt;\nfeature kern {\n" + kern + "\n} kern;\n"
+                                   + "feature tnum {\n" + "".join(f"  sub {names[d]} by {names[d]}.tnum;\n" for d in digits) + "} tnum;\n")
     from fontTools.misc.timeTools import timestampFromString
     ts = timestampFromString("Thu Nov 19 00:00:00 2026")     # fixed, so rebuilds are byte-identical
     fb.setupHead(unitsPerEm=UPM, macStyle=1, created=ts, modified=ts)

@@ -7,7 +7,7 @@ Shingō 信号 is an industrial print design system for iOS and the web. The art
 - `web/shingo.css` — tokens + every component. `web/shingo-live.js` — the live layer.
 - `web/gallery.src.html` + `web/partials/` — gallery source with `<!--@…-->` placeholders.
 - `tools/screens.py` — writes the 28 phone screens into the gallery source.
-- `tools/font.py` — draws Shingo Grid Heavy, the title face. `tools/signal_font.py` — builds Shingo Signal (Orbitron plus missing glyphs) for subheads and labels. Run them after changing a glyph, then the build.
+- `tools/font.py` — draws Shingo Grid Heavy, the title face; its figures come from `tools/figures.py` (one system for 0–9, skia-pathops). `tools/signal_font.py` — builds Shingo Signal (Orbitron plus missing glyphs) for subheads and labels. Run them after changing a glyph, then the build.
 - `tools/print_kit.py` — print furniture generators (used by build.py and screens.py). `tools/posters.py` — poster series XP·07–12.
 - `tools/monoliths.py` — the monolith backdrops as polygon data; build.py turns it into `#g-bg-*` symbols and `SGMonolith.swift` (generated).
 - `tools/build.py` — glyphs, backdrops, motifs, posters, patterns, console; writes `dist/` (gallery + standalone kit) and `tokens/shingo.tokens.json`; runs `tools/check_tokens.py`.

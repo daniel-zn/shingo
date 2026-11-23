@@ -43,7 +43,8 @@ public enum SGDecodeWeight {
 /// Glyph noise that keeps each character's class: digits through digits, capitals through hard
 /// capitals, kanji through kanji. Punctuation and spaces never scramble, so structure holds.
 enum SGNoise {
-    static let digits = Array("0123456789"), upper = Array("XKZNRVHEW#/"), lower = Array("xkznrvhew#/"), kanji = Array("信号経路保護暗中封鎖")
+    // digit noise leaves out the 1: the other figures share one width, so noise never jumps
+    static let digits = Array("023456789"), upper = Array("XKZNRVHEW#/"), lower = Array("xkznrvhew#/"), kanji = Array("信号経路保護暗中封鎖")
     static func pool(_ c: Character) -> [Character]? {
         if c.isNumber && c.isASCII { return digits }
         if c.isUppercase { return upper }
@@ -112,7 +113,7 @@ public struct SGLiveCountdown: View {
         TimelineView(.periodic(from: start, by: 1)) { tl in
             let elapsed = reduceMotion ? 0 : Int(tl.date.timeIntervalSince(start))
             let t = seconds - elapsed % (seconds + 1)
-            SGReadout(String(format: "%02d:%02d", t / 60, t % 60), height: height, hot: hot)
+            SGReadout(String(format: "%02d:%02d", t / 60, t % 60), height: height, hot: hot, tabular: true)
         }
     }
 }
