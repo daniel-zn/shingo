@@ -377,6 +377,9 @@ def glyphs(S, C, B, **_):
     g["’"] = (S, [rect(0, H - S, S, H), rect(S * .45, H - S * 1.85, S, H - S)], [])
     g["‘"] = (S, [rect(0, H - S, S, H), rect(0, H - S * 1.85, S * .55, H - S)], [])
     g.update(lowercase(S, C, B, f))
+    # figures: one system for all ten digits (tools/figures.py), replacing the drawings above
+    import figures
+    g.update(figures.build(S, C, B, H, band, clipbox))
     return g
 
 
