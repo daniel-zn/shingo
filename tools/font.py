@@ -440,7 +440,11 @@ def punctuation():
     dna = clipbox(band(0, M - aa, M, T, rising=False), 0, aw, M - aa, M)
     g["<"] = (aw, [solid(upa, dna)])
     g[">"] = (aw, [solid(mirror(upa, aw), mirror(dna, aw))])
-    g["*"] = (400, [solid(R(200 - 60, H - 400, 200 + 60, H), R(0, H - 200 - 60, 400, H - 200 + 60))])
+    # asterisk: an upright cross and a 45° cross on one centre, eight short arms at the cap line
+    sa, ta = 380, diag(84)
+    ca = H - sa // 2
+    xa = lambda rising: shift(clipbox(band(-30, 0, sa, ta, rising), 0, sa + ta - 60, 0, sa), (sa - (sa + ta - 60)) // 2, H - sa)
+    g["*"] = (sa, [solid(R(sa // 2 - 44, H - sa, sa // 2 + 44, H), R(0, ca - 44, sa, ca + 44), xa(True), xa(False))])
     g["#"] = (760, [solid(R(0, M + 60, 760, M + 60 + 124), R(0, M - 60 - 124, 760, M - 60), R(170, 30, 170 + 140, H - 30), R(450, 30, 450 + 140, H - 30))])
     # euro: the C with two bars through its stem
     we = 740

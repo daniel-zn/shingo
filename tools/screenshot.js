@@ -39,6 +39,7 @@ const fs = require('fs');
     await (await p.$('.con')).screenshot({ path: path.join(dir, 'console.png') });
     await p.evaluate(() => window.scrollTo(0, 0));
     await p.screenshot({ path: path.join(dir, 'header.png') });
+    await (await p.$('.hd2')).screenshot({ path: path.join(dir, 'masthead.png') });
     console.log(mode, 'screens', figs.length);
   }
   console.log('errors', errs, 'scrollWidth', await p.evaluate(() => document.documentElement.scrollWidth));
