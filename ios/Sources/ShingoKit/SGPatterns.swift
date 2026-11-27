@@ -132,7 +132,7 @@ public struct SGStepper: View {
     public var body: some View {
         HStack(spacing: 4) {
             key("−") { value = max(range.lowerBound, value - 1) }
-            SGScrambleText("\(value)", weight: .touch).font(SGFont.title(22)).monospacedDigit().foregroundStyle(SG.groundHi).frame(minWidth: 64)
+            SGScrambleText("\(value)", weight: .touch).font(SGFont.number(22)).monospacedDigit().foregroundStyle(SG.groundHi).frame(minWidth: 64)
             key("+") { value = min(range.upperBound, value + 1) }
         }
         .accessibilityElement()

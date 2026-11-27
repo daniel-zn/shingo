@@ -2,8 +2,8 @@
    SHINGŌ 信号 — industrial print system (web reference implementation)
 
    Direction: sci-fi industrial. Content is PRINTED on a striped ground,
-   set in wide, short, hard type (Shingo Grid, Shingo Signal, Anybody,
-   IBM Plex Mono, a wide stencil),
+   set in wide, short, hard type (Shingo Grid in three weights and a stencil
+   cut, Anybody, IBM Plex Mono),
    like a technical garment print: hard edges, 45° chamfers, hazard bars,
    chevrons, barcodes, corner brackets, mono telemetry, one coral signal.
 
@@ -27,9 +27,13 @@
    Mirrors tokens/tokens.json and ios/Sources/ShingoKit/SGTheme.swift
    ========================================================================== */
 
-@font-face { font-family: "Shingo Grid"; src: url("fonts/ShingoGrid-Heavy.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: "Shingo Signal"; src: url("fonts/ShingoSignal-SemiBold.woff2") format("woff2"); font-weight: 100 699; font-display: swap; }
-@font-face { font-family: "Shingo Signal"; src: url("fonts/ShingoSignal-ExtraBold.woff2") format("woff2"); font-weight: 700 900; font-display: swap; }
+/* Shingo Grid, three weights of one cut-plate face: Medium answers 100–649 (labels are set at 600),
+   Bold 650–849 (subheads at 700 and 800), Heavy 850–900 (display, titles and figures, always 900). */
+@font-face { font-family: "Shingo Grid"; src: url("fonts/ShingoGrid-Medium.woff2") format("woff2"); font-weight: 100 649; font-display: swap; }
+@font-face { font-family: "Shingo Grid"; src: url("fonts/ShingoGrid-Bold.woff2") format("woff2"); font-weight: 650 849; font-display: swap; }
+@font-face { font-family: "Shingo Grid"; src: url("fonts/ShingoGrid-Heavy.woff2") format("woff2"); font-weight: 850 900; font-display: swap; }
+/* the stencil cut of the Heavy: capitals and figures bridged on the system's diagonal (lowercase sets in capitals) */
+@font-face { font-family: "Shingo Grid Stencil"; src: url("fonts/ShingoGrid-Stencil.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
 
 :root, .mode-dark {
   --ground: #0b0b0a;  --ground-2: #1b1c18;  --ground-3: #2e2f2a;
@@ -63,18 +67,17 @@
 
 :root {
   /* ---- type: wide, short, hard ---- */
-  /* Two faces of our own (web/fonts, tools/font.py, tools/signal_font.py):
-     Shingo Grid Heavy: display, screen titles and big figures. A cut-plate grotesque: one heavy weight,
+  /* One face of our own, in three weights (web/fonts, tools/font.py). Shingo Grid is a cut-plate grotesque:
      cap height .7 em, every corner a round letter would curve through cut at 45° top-left and bottom-right
-     (the plates' own cut), the other two square. Capitals, lowercase, figures (tnum for columns).
-     Shingo Signal: Orbitron completed with the characters it lacks. ExtraBold 800 for subheads and
-     inline wordmarks, SemiBold 600 for labels, buttons and chips. */
-  --f-display: "Shingo Grid", "Shingo Signal", "Anybody", "Arial Black", sans-serif;   /* display, titles 32, figures */
-  --f-title: "Shingo Signal", "Anybody", "Arial", sans-serif;                          /* 800: subheads, inline wordmarks */
-  --f-cap: "Shingo Signal", "Anybody", "Arial", sans-serif;                            /* 600 caps: labels, buttons */
+     (the plates' own cut), the other two square. Capitals, lowercase, figures (tnum for columns), arrows.
+     Heavy 900: display, screen titles and big figures. Bold 700/800: subheads and inline wordmarks.
+     Medium 600: labels, buttons, chips and tabs. */
+  --f-display: "Shingo Grid", "Anybody", "Arial Black", sans-serif;   /* 900: display, titles 32, figures */
+  --f-title: "Shingo Grid", "Anybody", "Arial", sans-serif;           /* 700–800: subheads, inline wordmarks */
+  --f-cap: "Shingo Grid", "Anybody", "Arial", sans-serif;             /* 600 caps: labels, buttons */
   --f-sans: "Anybody", "Helvetica Neue", Arial, sans-serif;                  /* 100% / 500: body */
   --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;      /* 500: telemetry */
-  --f-stencil: "Saira Stencil One", "Anybody", sans-serif;                   /* wide stencil: serials, stamps */
+  --f-stencil: "Shingo Grid Stencil", "Shingo Grid", "Anybody", sans-serif;  /* the Heavy, bridged: serials, stamps */
   --f-fr: "Anybody", "Helvetica Neue", sans-serif;                           /* italic 500: French asides */
   --f-jp: "BIZ UDGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; /* 700: signage kanji */
 
@@ -87,12 +90,12 @@
 
 /* ------------------------------------------------------------------ type */
 .sg-display  { font-family: var(--f-display); font-synthesis: none; font-weight: 900; text-transform: uppercase; letter-spacing: 0; line-height: .92; }   /* 40 pt and up; lines stack close, like stacked plates */
-.sg-wordmark { font-family: var(--f-title); font-stretch: 125%; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: .95; }                        /* titles 26, inline 15 */
-.sg-cap      { font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; line-height: 1.1; }
+.sg-wordmark { font-family: var(--f-title); font-synthesis: none; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: .95; }   /* Bold: subheads 20–26, inline 12–15 */
+.sg-cap      { font-family: var(--f-cap); font-synthesis: none; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; line-height: 1.1; }        /* Medium: labels 10–13 */
 .sg-label    { font-family: var(--f-sans); font-weight: 500; letter-spacing: 0; line-height: 1.25; }
 .sg-num      { font-family: var(--f-display); font-synthesis: none; font-weight: 900; letter-spacing: .01em; line-height: 1; }
 .sg-num--tab { font-variant-numeric: tabular-nums; }  /* columns and values that tick; the face's tnum figures */
-.sg-stencil  { font-family: var(--f-stencil); font-weight: 400; text-transform: uppercase; letter-spacing: .02em; line-height: .9; }
+.sg-stencil  { font-family: var(--f-stencil); font-synthesis: none; font-weight: 900; text-transform: uppercase; letter-spacing: .02em; line-height: .9; }
 .sg-mono     { font-family: var(--f-mono); font-weight: 500; font-size: 11px; line-height: 1.3; letter-spacing: 0; }
 .sg-ghost    { color: var(--sage-ghost); }
 .t-right     { text-align: right; }
@@ -101,7 +104,7 @@
 /* tracking by size: the wide faces open up as they get small and close up when huge.
    Shingo Grid is drawn tight (stems a stem apart): about +.07em at 13px, +.04em at 20px,
    +.012em at 32px, 0 at 44px, -.012em from 80px.
-   Shingo Signal caps: about +.11em at 11px, +.08em at 14px, +.03em at 24px. */
+   Bold and Medium caps: about +.11em at 11px, +.08em at 14px, +.03em at 24px. */
 .sg-display, .u-title, .sg-num { letter-spacing: clamp(-0.012em, calc(1.32px - 0.03em), 0.07em); }
 .sg-cap, .sg-wordmark { letter-spacing: clamp(0.02em, calc(1.8px - 0.05em), 0.12em); font-kerning: normal; }
 
@@ -254,9 +257,9 @@
      body     .u-body  rows and frames, hairlines in ground-3, labels in wide caps
      footer   .u-foot  the imprint: print rule, wide-caps line, mono ref, barcode
    POSTER screens (launch, onboarding, lock screen, empty state) compose freely.
-   Type: display 40+ and titles 32 in Shingo Grid Heavy; subheads and labels in Shingo Signal
-         (800 / 600 caps, 10–15); body Anybody 15; telemetry IBM Plex Mono 11;
-         numerals as Shingo Grid figure readouts or the wide stencil; kanji in BIZ UDGothic.
+   Type: display 40+ and titles 32 in Shingo Grid Heavy; subheads in Shingo Grid Bold and labels
+         in Shingo Grid Medium (caps, 10–15); body Anybody 15; telemetry IBM Plex Mono 11;
+         numerals as Shingo Grid figure readouts or the stencil cut; kanji in BIZ UDGothic.
    Coral: one signal block or one primary action per screen, plus small states.
    Languages: Japanese in the masthead tag (or a seal); French in the span rule. */
 .u { display: flex; flex-direction: column; }
@@ -360,10 +363,10 @@
 
 /* rubber stamp: stencil caps in a double frame, worn */
 .stamp { display: inline-grid; place-items: center; padding: 5px 10px 4px; --st: var(--coral); --gap: var(--ground); color: var(--st);
-  border: 2px solid var(--st); font: 400 15px/1 var(--f-stencil); letter-spacing: .1em; text-transform: uppercase; }
+  border: 2px solid var(--st); font: 900 15px/1 var(--f-stencil); letter-spacing: .08em; text-transform: uppercase; }
 
 /* ticket stub: plate with square notches and a perforation */
-.ticket { --stub: 92px; display: grid; grid-template-columns: minmax(0, 1fr) var(--stub); background: var(--sage-hi); color: var(--ink);
+.ticket { --stub: 104px; display: grid; grid-template-columns: minmax(0, 1fr) var(--stub); background: var(--sage-hi); color: var(--ink);
   clip-path: polygon(0 0, calc(100% - var(--stub) - 7px) 0, calc(100% - var(--stub) - 7px) 7px, calc(100% - var(--stub) + 7px) 7px, calc(100% - var(--stub) + 7px) 0, 100% 0,
                      100% 100%, calc(100% - var(--stub) + 7px) 100%, calc(100% - var(--stub) + 7px) calc(100% - 7px), calc(100% - var(--stub) - 7px) calc(100% - 7px), calc(100% - var(--stub) - 7px) 100%, 0 100%); }
 .ticket > div { padding: 14px 16px; min-width: 0; }
@@ -371,7 +374,7 @@
 
 /* keycap: a physical push button, top plate over a shadow plate */
 .keycap { all: unset; box-sizing: border-box; position: relative; isolation: isolate; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  width: 100%; height: 60px; padding: 0 20px; color: #0c0c0a; font: 700 expanded 22px var(--f-display); letter-spacing: .06em; text-transform: uppercase; }
+  width: 100%; height: 60px; padding: 0 20px; color: #0c0c0a; font: 900 22px var(--f-display); letter-spacing: .04em; text-transform: uppercase; }
 .keycap::before, .keycap::after { content: ""; position: absolute; z-index: -1; --c: 14px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .keycap::before { display: none; }
 .keycap::after { inset: 0; background: var(--kc, var(--coral)); }
@@ -561,7 +564,7 @@
   --c: 7px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .stepper button:active { background: var(--ground-dim); }
 .stepper button:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
-.stepper output { min-width: 64px; padding: 0 6px; text-align: center; font: 800 expanded 22px var(--f-display); color: var(--ground-hi); font-variant-numeric: tabular-nums; }
+.stepper output { min-width: 64px; padding: 0 6px; text-align: center; font: 900 22px var(--f-display); color: var(--ground-hi); font-variant-numeric: tabular-nums; }
 .search { position: relative; display: flex; align-items: center; height: 44px; padding: 0 12px 0 40px; box-shadow: inset 0 0 0 1.5px var(--ground-dim);
   --c: 10px; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .search svg { position: absolute; left: 12px; width: 18px; height: 18px; color: var(--ground-hi); }

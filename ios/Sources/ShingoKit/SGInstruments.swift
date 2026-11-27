@@ -236,8 +236,8 @@ public struct SGStamp: View {
 // MARK: - Ticket stub
 
 public struct TicketShape: Shape {
-    public var stub: CGFloat = 92, notch: CGFloat = 7
-    public init(stub: CGFloat = 92, notch: CGFloat = 7) { self.stub = stub; self.notch = notch }
+    public var stub: CGFloat = 104, notch: CGFloat = 7
+    public init(stub: CGFloat = 104, notch: CGFloat = 7) { self.stub = stub; self.notch = notch }
     public func path(in r: CGRect) -> Path {
         let x = r.maxX - stub, n = notch
         return Path { p in
@@ -251,7 +251,7 @@ public struct TicketShape: Shape {
 
 public struct SGTicket<Main: View, Stub: View>: View {
     var stubWidth: CGFloat; let main: Main; let stub: Stub
-    public init(stubWidth: CGFloat = 92, @ViewBuilder main: () -> Main, @ViewBuilder stub: () -> Stub) {
+    public init(stubWidth: CGFloat = 104, @ViewBuilder main: () -> Main, @ViewBuilder stub: () -> Stub) {
         self.stubWidth = stubWidth; self.main = main(); self.stub = stub()
     }
     public var body: some View {
@@ -276,7 +276,7 @@ public struct SGKeycapStyle: ButtonStyle {
         let pressed = configuration.isPressed
         ZStack {
             HStack {
-                configuration.label.font(SGFont.title(18)).textCase(.uppercase).tracking(0.4)
+                configuration.label.font(SGFont.display(22)).textCase(.uppercase).tracking(22 * 0.04)
                 Spacer()
                 if !hint.isEmpty { Text(hint).sgMono(10) }
                 Rectangle().fill(SG.inkFixed).frame(width: 8, height: 8)

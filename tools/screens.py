@@ -380,8 +380,8 @@ S['S'] = fig('S', 'Transfer', 'Slash steps as the hero, packets in flight from a
       {DIV}
       <section class="u-body u-body--end" style="gap:16px">
         <svg class="motif" viewBox="0 0 342 56" style="" aria-hidden="true"><use href="#g-m-flow"/></svg>
-        <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div>
-          <span class="stamp" style="position:absolute;right:104px;bottom:10px;font-size:13px;--gap:var(--sage-hi)">Verified</span></div>
+        <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:20px">0917</span></div>
+          <span class="stamp" style="position:absolute;right:116px;bottom:10px;font-size:13px;--gap:var(--sage-hi)">Verified</span></div>
         <div class="spec spec--ground"><span>From</span><i></i><span>Main ·· 4417</span><span>Arrives</span><i></i><span>Instantly</span><span>Fee</span><i></i><span>€0.00</span></div>
         <button class="keycap" type="button" style="margin-top:6px"><span>Send €240</span><small>HOLD 1 S</small><i class="led"></i></button>
         <div class="sg-fr u-dim" style="text-align:center;font-size:12px">virement instantané · sans frais</div>

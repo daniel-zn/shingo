@@ -36,8 +36,8 @@ ROLES = {"ground": "striped background", "ground-2": "stripe highlight", "ground
 
 def resolve(svg, mode):
     """Replace var(--x) with the literal colour for one mode (for standalone files)."""
-    fonts = {"f-display": "'Shingo Grid', 'Shingo Signal', Anybody, sans-serif", "f-title": "'Shingo Signal', Anybody, sans-serif", "f-cap": "'Shingo Signal', Anybody, sans-serif", "f-sans": "Anybody, sans-serif",
-             "f-mono": "'IBM Plex Mono', monospace", "f-jp": "'BIZ UDGothic', 'Hiragino Sans', sans-serif", "f-stencil": "'Saira Stencil One', sans-serif"}
+    fonts = {"f-display": "'Shingo Grid', Anybody, sans-serif", "f-title": "'Shingo Grid', Anybody, sans-serif", "f-cap": "'Shingo Grid', Anybody, sans-serif", "f-sans": "Anybody, sans-serif",
+             "f-mono": "'IBM Plex Mono', monospace", "f-jp": "'BIZ UDGothic', 'Hiragino Sans', sans-serif", "f-stencil": "'Shingo Grid Stencil', 'Shingo Grid', sans-serif"}
     return re.sub(r"var\(--([a-z0-9-]+)\)", lambda m: PALETTE[mode].get(m.group(1)) or fonts[m.group(1)], svg)
 
 
@@ -844,7 +844,7 @@ def console():
 
 
 FONTS_URL = ("https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900"
-             "&family=Saira+Stencil+One&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@700&display=swap")
+             "&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@700&display=swap")
 
 
 def embed_fonts(css):
@@ -924,38 +924,42 @@ def backdrops_gallery(src):
 
 
 def typeface_card():
-    """Audit card for Shingo Grid: every character in the font file, grouped, with
-    spacing and kerning strings, plus the characters Shingo Signal adds to Orbitron."""
+    """Audit card for Shingo Grid: the three weights, then every character in the font file, grouped,
+    with spacing and kerning strings."""
     from fontTools.ttLib import TTFont
     import html
+    import font as F
     fonts = ROOT / "ios" / "Sources" / "ShingoKit" / "Resources" / "Fonts"
     grid = sorted(c for c in TTFont(fonts / "ShingoGrid-Heavy.ttf").getBestCmap() if c > 32 and c != 0xA0)
-    orb = set(TTFont(ROOT / "tools" / "vendor" / "Orbitron[wght].ttf").getBestCmap())
-    added = sorted(c for c in TTFont(fonts / "ShingoSignal-ExtraBold.ttf").getBestCmap() if c not in orb and c > 32)
     groups = [("Capitals", [c for c in grid if 0x41 <= c <= 0x5A]),
               ("Figures", [c for c in grid if 0x30 <= c <= 0x39]),
               ("Lowercase", [c for c in grid if 0x61 <= c <= 0x7A]),
               ("Accented capitals", [c for c in grid if c >= 0xC0 and chr(c).isalpha() and chr(c).isupper()]),
               ("Accented lowercase", [c for c in grid if c >= 0xC0 and chr(c).isalpha() and not chr(c).isupper()]),
-              ("Punctuation and symbols", [c for c in grid if not chr(c).isalnum()])]
+              ("Punctuation and symbols", [c for c in grid if not chr(c).isalnum() or chr(c) in "²³"])]
     cell = lambda c: f'<div><b>{html.escape(chr(c))}</b><span>U+{c:04X}</span></div>'
-    out = [f'  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Shingo Grid Heavy · every character</span>'
-           f'<span class="sg-mono">{len(grid)} characters, read from the font file · a cut-plate grotesque: cuts top-left and bottom-right only · tools/font.py</span></div>',
-           '  <div class="tf-card"><div class="tf-hero sg-display">Radar Axiom</div>']
+    use = {"Heavy": "display 40+, titles 32, figures", "Bold": "subheads, inline wordmarks", "Medium": "labels, buttons, chips, tabs"}
+    line = {"Heavy": "Relay fleet 09", "Bold": "Night transit · Axiom signal systems", "Medium": "Future engineering · time in zone · kill switch → 0123456789"}
+    out = [f'  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Shingo Grid · three weights and a stencil, every character</span>'
+           f'<span class="sg-mono">{len(grid)} characters in each weight, read from the font file · a cut-plate grotesque: cuts top-left and bottom-right only · tools/font.py</span></div>',
+           '  <div class="tf-card"><div class="tf-hero sg-display">Radar Axiom</div>',
+           '<div class="tf-group"><h4>Weights<span>one set of drawings; strokes per 1000 units</span></h4><div class="tf-weights">'
+           + "".join(f'<div><span class="sg-mono">{w} {v["cls"]}<br>stem {v["SV"]} · bar {v["SH"]}<br>{use[w]}</span><b style="font-weight:{v["cls"]}">{line[w]}</b></div>'
+                     for w, v in F.WEIGHTS.items())
+           + f'<div><span class="sg-mono">Stencil 900<br>the Heavy, bridged · slit {F.BRIDGE}<br>serials, stamps</span><b style="font-family:var(--f-stencil);font-weight:900">Unit 09 · AX-04 · 0941·2611</b></div>'
+           + '</div></div>']
     for name, cs in groups:
         out.append(f'<div class="tf-group"><h4>{name}<span>{len(cs)}</span></h4><div class="tf-grid">{"".join(cell(c) for c in cs)}</div></div>')
     out.append('<div class="tf-group"><h4>Spacing<span>each letter between H and between O; then the kerned pairs</span></h4><div class="tf-lines">'
                '<div>' + "".join(f"H{c}" for c in "ABCDEFGHIJKLM") + 'H</div><div>' + "".join(f"H{c}" for c in "NOPQRSTUVWXYZ") + 'H</div>'
                '<div>' + "".join(f"O{c}" for c in "ABCDEFGHIJKLM") + 'O</div><div>' + "".join(f"O{c}" for c in "NOPQRSTUVWXYZ") + 'O</div>'
                '<div>H0H1H2H3H4H5H6H7H8H9H</div><div>LT LY L7 TJ PJ P. F, T. Y, RT 3/8 42.6</div>'
-               '<div>RELAY FLEET · TRANSFER · KILL SWITCH · NOW PLAYING</div><div>Relay fleet · night transfer · quiet jog box · Tunnel 04</div><small>stems stand a stem apart; spacing is optical (open sides sit closer); the few pairs it cannot reach are kerned in the font (GPOS kern)</small></div></div>')
-    out.append(f'<div class="tf-group"><h4>Shingo Signal: characters added to Orbitron<span>{len(added)} · tools/signal_font.py</span></h4>'
-               f'<div class="tf-grid tf-signal">{"".join(cell(c) for c in added)}</div></div>')
+               '<div>RELAY FLEET · TRANSFER · KILL SWITCH · NOW PLAYING</div><div>Relay fleet · night transfer · quiet jog box · Tunnel 04</div>'
+               '<small>stems stand a stem apart; spacing is optical (open sides sit closer); the few pairs it cannot reach are kerned in the font (GPOS kern)</small></div></div>')
     out.append('</div>')
     return "\n".join(out)
 
 
-# ---------------------------------------------------------------- gallery chrome (print furniture)
 import print_kit as pk  # noqa: E402
 
 

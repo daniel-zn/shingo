@@ -226,14 +226,14 @@
     },
     "title": {
       "$type": "fontFamily",
-      "$value": "Shingo Signal",
+      "$value": "Shingo Grid",
       "$extensions": {
         "shingo": {
           "width": "single (wide)",
-          "weight": 800,
-          "ios": "ShingoSignal-ExtraBold",
+          "weight": 700,
+          "ios": "ShingoGrid-Bold",
           "case": "upper",
-          "use": "subheads, inline wordmarks (below 18 pt)"
+          "use": "subheads, inline wordmarks (below 18 pt); web weights 700 and 800 both resolve to Bold"
         }
       }
     },
@@ -250,14 +250,14 @@
     },
     "cap": {
       "$type": "fontFamily",
-      "$value": "Shingo Signal",
+      "$value": "Shingo Grid",
       "$extensions": {
         "shingo": {
           "width": "single (wide)",
-          "weight": 600,
-          "ios": "ShingoSignal-SemiBold",
+          "weight": 500,
+          "ios": "ShingoGrid-Medium",
           "case": "upper",
-          "use": "labels, group headers, buttons, chips"
+          "use": "labels, group headers, buttons, chips, tabs; web weight 600 resolves to Medium"
         }
       }
     },
@@ -286,10 +286,12 @@
     },
     "stencil": {
       "$type": "fontFamily",
-      "$value": "Saira Stencil One",
+      "$value": "Shingo Grid Stencil",
       "$extensions": {
         "shingo": {
-          "ios": "SairaStencilOne-Regular",
+          "weight": 900,
+          "ios": "ShingoGrid-Stencil",
+          "case": "upper (lowercase sets in capitals)",
           "use": "serials, stamps; once per screen"
         }
       }

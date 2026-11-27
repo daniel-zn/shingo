@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900&family=Saira+Stencil+One&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@700&display=swap">
 <style>
 <!--@CSS-->
 
@@ -264,10 +264,14 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 .tf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(66px, 1fr)); border-top: 1px solid var(--ground-3); border-left: 1px solid var(--ground-3); }
 .tf-grid > div { border-right: 1px solid var(--ground-3); border-bottom: 1px solid var(--ground-3); display: grid; justify-items: center; gap: 4px; padding: 12px 2px 7px; min-width: 0;
   background: linear-gradient(var(--ground-3), var(--ground-3)) 0 calc(12px + 36px * .93) / 100% 1px no-repeat; }
-.tf-grid b { font: 400 36px/1 "Shingo Grid", monospace; color: var(--ground-hi); font-synthesis: none; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
-.tf-grid.tf-signal b { font: 800 30px/1.2 "Shingo Signal", monospace; }
+.tf-grid b { font: 900 36px/1 "Shingo Grid", monospace; color: var(--ground-hi); font-synthesis: none; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+.tf-weights { display: grid; gap: 14px; }
+.tf-weights > div { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 16px; align-items: baseline; padding-top: 12px; border-top: 1px solid var(--ground-3); }
+.tf-weights .sg-mono { color: var(--ground-dim); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; line-height: 1.5; }
+.tf-weights b { font-family: "Shingo Grid", monospace; font-size: clamp(20px, 3vw, 38px); line-height: 1.1; text-transform: uppercase; color: var(--ground-hi); font-synthesis: none; overflow-wrap: anywhere; }
+@media (max-width: 640px) { .tf-weights > div { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
 .tf-grid span { font: 400 8.5px var(--f-mono); color: var(--ground-dim); }
-.tf-lines { display: grid; gap: 6px; font: 400 clamp(22px, 3.4vw, 40px)/1.15 "Shingo Grid", monospace; color: var(--ground-hi); overflow-wrap: anywhere; }
+.tf-lines { display: grid; gap: 6px; font: 900 clamp(22px, 3.4vw, 40px)/1.15 "Shingo Grid", monospace; color: var(--ground-hi); overflow-wrap: anywhere; }
 .tf-lines small { display: block; font: 400 10px var(--f-mono); color: var(--ground-dim); margin-top: 10px; }
 .sheet .stack { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .glyphs { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); border-top: 1px solid var(--ground-3); border-left: 1px solid var(--ground-3); }
@@ -452,7 +456,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
     <div><i>01</i><b>Two inks</b><p>Everything is print on ground: solid shapes in the print ink with text knocked out, or outlines. No third tone. Coral is the only extra ink.</p></div>
     <div><i>02</i><b>One grammar</b><p>Masthead, one hero, a divider, the body, the imprint. Each screen sits on one backdrop composition from the shape alphabet. Poster screens compose freely.</p></div>
     <div><i>03</i><b>One angle</b><p>Every diagonal rises left to right at 45°: corner cuts (top-left and bottom-right), hazard stripes, cells, bands and the stripe field. No tilts, textures or shadows.</p></div>
-    <div><i>04</i><b>Three sizes</b><p>Shingo Grid Heavy sets display 40 and up, titles 32 and big figures: one heavy weight, cut like the plates. Shingo Signal sets subheads and inline wordmarks at 14, and labels in its semibold. Body is Anybody, telemetry is mono, serials are stencil.</p></div>
+    <div><i>04</i><b>Three sizes</b><p>One face, three weights and a stencil, all cut like the plates. Shingo Grid Heavy sets display 40 and up, titles 32 and big figures; Bold sets subheads and inline wordmarks; Medium sets labels in caps; the stencil cut sets serials and stamps. Body is Anybody, telemetry is mono.</p></div>
     <div><i>05</i><b>One signal</b><p>Coral marks one block or one primary action per screen, plus the latest or active state. Switches turn on in print, not coral.</p></div>
     <div><i>06</i><b>Tag and aside</b><p>Japanese lives in the masthead tag or a seal. French lives in the span rule. Each appears once at most.</p></div>
   </div>
@@ -927,8 +931,8 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="u-div div-slash"></div>
       <section class="u-body u-body--end" style="gap:16px">
         <svg class="motif" viewBox="0 0 342 56" style="" aria-hidden="true"><use href="#g-m-flow"/></svg>
-        <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div>
-          <span class="stamp" style="position:absolute;right:104px;bottom:10px;font-size:13px;--gap:var(--sage-hi)">Verified</span></div>
+        <div class="ticket" style="position:relative"><div><div class="sg-cap" style="font-size:11px">To · Lena Sato</div><div class="sg-num" style="font-size:30px;margin-top:6px">€240.00</div><div class="sg-mono" style="margin-top:6px">FRIDAY ROUTE</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:20px">0917</span></div>
+          <span class="stamp" style="position:absolute;right:116px;bottom:10px;font-size:13px;--gap:var(--sage-hi)">Verified</span></div>
         <div class="spec spec--ground"><span>From</span><i></i><span>Main ·· 4417</span><span>Arrives</span><i></i><span>Instantly</span><span>Fee</span><i></i><span>€0.00</span></div>
         <button class="keycap" type="button" style="margin-top:6px"><span>Send €240</span><small>HOLD 1 S</small><i class="led"></i></button>
         <div class="sg-fr u-dim" style="text-align:center;font-size:12px">virement instantané · sans frais</div>
@@ -1192,17 +1196,17 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="swatches"><!--@SWATCHES--></div>
     </div>
     <div style="grid-column:1/-1">
-      <h3><span>type scale</span><span>Shingo Grid · Shingo Signal (from Orbitron) · Anybody · Saira Stencil One · IBM Plex Mono · BIZ UDGothic</span></h3>
+      <h3><span>type scale</span><span>Shingo Grid (Heavy · Bold · Medium · Stencil) · Anybody · IBM Plex Mono · BIZ UDGothic</span></h3>
       <div class="typescale">
         <div><span class="sg-mono">display 40+ · shingo grid heavy</span><span class="sg-display" style="font-size:48px">Axiom</span></div>
         <div><span class="sg-mono">title 32 · shingo grid heavy</span><span class="u-title">Protected</span></div>
-        <div><span class="sg-mono">subhead 22 · shingo signal 800</span><span class="sg-wordmark" style="font-size:22px">Night transit</span></div>
+        <div><span class="sg-mono">subhead 22 · shingo grid bold</span><span class="sg-wordmark" style="font-size:22px">Night transit</span></div>
         <div><span class="sg-mono">number 36 · shingo grid heavy</span><span class="sg-num" style="font-size:40px">€8,214.60</span></div>
-        <div><span class="sg-mono">label 11 · shingo signal 600</span><span class="sg-cap" style="font-size:11px">Future engineering · time in zone</span></div>
+        <div><span class="sg-mono">label 11 · shingo grid medium</span><span class="sg-cap" style="font-size:11px">Future engineering · time in zone</span></div>
         <div><span class="sg-mono">body 15 · anybody 500</span><span class="sg-label" style="font-size:15px">Kill switch pauses traffic if the tunnel drops.</span></div>
         <div><span class="sg-mono">mono 11 · ibm plex mono</span><span class="sg-mono" style="font-size:11px">COMSEC MONITORING · NETWORK OPERATIONS · SP C53</span></div>
         <div><span class="sg-mono">aside · anybody italic</span><span class="sg-fr" style="font-size:15px">ingénierie du signal</span></div>
-        <div><span class="sg-mono">stencil · saira stencil one</span><span class="sg-stencil" style="font-size:30px">Unit 09</span></div>
+        <div><span class="sg-mono">stencil · shingo grid stencil</span><span class="sg-stencil" style="font-size:30px">Unit 09</span></div>
         <div><span class="sg-mono">kanji · biz udgothic</span><span class="sg-jp" style="font-size:22px">信号工学 · 保護中</span></div>
         <div><span class="sg-mono">readout · shingo grid figures</span><span><!--@SEG7|08:14|40|2--></span></div>
       </div>
@@ -1235,7 +1239,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
     <div class="inst"><h3><span>Rubber stamp</span><span>.stamp · SGStamp</span></h3><p>An inspection stamp: stencil caps in a single straight frame. For verified, paid, sealed and void states.</p>
       <div class="demo" style="gap:22px"><span class="stamp">Verified</span><span class="stamp" style="--st:var(--ground-hi)">Sealed</span><span class="stamp">Void</span></div></div>
     <div class="inst"><h3><span>Ticket stub</span><span>.ticket · SGTicket</span></h3><p>A plate with square notches and a perforation: boarding passes, receipts, plans, invites.</p>
-      <div class="demo" style="display:block"><div class="ticket"><div><div class="sg-cap" style="font-size:11px">Transfer · LIS → OPO</div><div class="sg-num" style="font-size:24px;margin-top:6px">€240.00</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:26px">0917</span></div></div></div></div>
+      <div class="demo" style="display:block"><div class="ticket"><div><div class="sg-cap" style="font-size:11px">Transfer · LIS → OPO</div><div class="sg-num" style="font-size:24px;margin-top:6px">€240.00</div></div><div><span class="sg-mono">Nº</span><span class="sg-stencil" style="font-size:20px">0917</span></div></div></div></div>
     <div class="inst"><h3><span>Keycap</span><span>.keycap · SGKeycapStyle</span></h3><p>A flat machine push button: a cut coral plate with an indicator square and a hold hint. For the one action that should feel mechanical. Press it.</p>
       <div class="demo" style="display:block"><button class="keycap" type="button"><span>Engage</span><small>HOLD 1 S</small><i class="led"></i></button></div></div>
     <div class="inst"><h3><span>Rocker switch</span><span>.rocker · SGRockerStyle</span></h3><p>An I / O rocker for hardware-grade on/off states such as kill switch, maintenance mode or airplane mode.</p>
@@ -1268,7 +1272,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="demo"><svg viewBox="0 0 330 64" style="width:100%;max-width:520px;height:auto"><!--@CONSTRUCT--></svg></div></div>
     <div class="inst"><h3><span>Exploded X</span><span>exploded_x()</span></h3><p>The hard X broken into five slabs, set over a scene as the one coral element.</p>
       <div class="demo" style="display:block"><svg viewBox="0 0 200 130" style="width:100%;height:auto"><!--@XEXPL--></svg></div></div>
-    <div class="inst"><h3><span>Stencil serial</span><span>.sg-stencil</span></h3><p>A wide stencil for unit numbers, serials and stamped labels. Use it like spray paint on equipment, once per screen.</p>
+    <div class="inst"><h3><span>Stencil serial</span><span>.sg-stencil</span></h3><p>The Heavy, bridged: every slit rises left to right, and the two corners the plates leave square are the two a mitre opens. For unit numbers, serials and stamped labels. Use it like spray paint on equipment, once per screen.</p>
       <div class="demo" style="gap:18px;align-items:baseline;color:var(--ground-hi)"><span class="sg-stencil" style="font-size:46px">09</span><span class="sg-stencil" style="font-size:22px">Unit AX-04</span></div></div>
   </div>
 <!--@PATTERNS-->

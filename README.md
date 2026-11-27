@@ -23,7 +23,13 @@ One spec. Everything in the repo follows it, and anything new must too.
 
 **Type**
 
-7. **Wide, short, hard.** Two faces of our own. **Shingo Grid Heavy** sets display 40+, screen titles 32 and big figures. It is a cut-plate grotesque: the square, wide-shouldered skeleton Orbitron made familiar, with the system's own corners. One heavy weight (cap height 0.7 em, stems a quarter of it, bars a shade lighter so three-bar letters stay open), letters about a tenth wider than tall. Wherever a stroke turns a corner a round letter would curve through, the corner is cut at 45° the way every plate is cut: top-left and bottom-right only, so every cut in a line of type rises left to right. The other two corners, and every terminal, stay square. Diagonals run at 45° and end level on a short upright facet; B, 3 and 8 take a sawtooth waist (the same cut, the same direction); and the rule survives a half turn, so 6/9, b/q, d/p, n/u and M/W are each other rotated. **Shingo Signal**, Orbitron completed with the characters it lacks, sets subheads and inline wordmarks (ExtraBold 800) and labels, buttons and chips (SemiBold 600). Body text is Anybody, telemetry IBM Plex Mono, serials Saira Stencil One and kanji BIZ UDGothic (Hiragino Sans on iOS). Nothing prints below 10 pt (tab labels 11 pt). Big numbers are Shingo Grid figures: proportional by default, tabular (`tnum`, `.sg-num--tab`) for columns, and readouts that tick give each digit a fixed cell. Never condensed, never rounded.
+7. **Wide, short, hard.** One face of our own sets everything that is not body text or telemetry. **Shingo Grid** is a cut-plate grotesque: the square, wide-shouldered skeleton Orbitron made familiar, with the system's own corners. Wherever a stroke turns a corner a round letter would curve through, the corner is cut at 45° the way every plate is cut: top-left and bottom-right only, so every cut in a line of type rises left to right. The other two corners, and every terminal, stay square. Diagonals run at 45° and end level on a short upright facet; B, 3 and 8 take a sawtooth waist (the same cut, the same direction); and the rule survives a half turn, so 6/9, b/q, d/p, n/u and M/W are each other rotated. It comes in three weights from one set of drawings, and a stencil:
+   - **Heavy** (stems a quarter of the cap height) sets display 40+, screen titles 32 and big figures.
+   - **Bold** sets subheads and inline wordmarks.
+   - **Medium** sets labels, buttons, chips and tabs, in caps, tracked out as they get small.
+   - **Stencil** is the Heavy, bridged, for serials and stamps (once per screen). Every bridge is a slit on the same diagonal. The two corners the plate rule leaves square, top-right and bottom-left, are exactly the two a mitre can open "/", so where the plate is not cut the stencil opens it.
+
+   Letters are about a tenth wider than tall, the cap height is 0.7 em, and bars are a shade lighter than stems so three-bar letters stay open. Body text is Anybody, telemetry IBM Plex Mono and kanji BIZ UDGothic (Hiragino Sans on iOS). Nothing prints below 10 pt (tab labels 11 pt). Big numbers are Shingo Grid figures: proportional by default, tabular (`tnum`, `.sg-num--tab`) for columns, and readouts that tick give each digit a fixed cell. Never condensed, never rounded.
 
 ![Shingo Grid Heavy: the wordmark, the S on its construction guides and the specimen column](docs/dark/masthead.png)
 
@@ -102,9 +108,8 @@ templates/starter.src.html    a complete app page built only from the kit (sourc
 web/gallery.src.html          gallery source
 web/partials/languages.html   the language section
 tools/screens.py              regenerates the gallery screens from the grammar
-tools/font.py                 draws Shingo Grid Heavy, the title face, as unions of bars and 45° strokes with the plate cuts taken out: TTF for iOS, WOFF2 for the web
-tools/signal_font.py          builds Shingo Signal from tools/vendor/Orbitron[wght].ttf: two weights plus the missing glyphs
-web/fonts/                    ShingoGrid-Heavy, ShingoSignal-SemiBold, ShingoSignal-ExtraBold (WOFF2)
+tools/font.py                 draws Shingo Grid (Heavy, Bold, Medium and the Stencil) from one set of drawings: unions of bars and 45° strokes with the plate cuts taken out; TTF for iOS, WOFF2 for the web
+web/fonts/                    ShingoGrid-Heavy, -Bold, -Medium, -Stencil (WOFF2)
 tools/print_kit.py            print furniture generators: crosshairs, rails, spaced microtext, coords, stamps, callouts
 tools/posters.py              the second poster series (XP·07–12)
 tools/monoliths.py            the monolith backdrops as polygon data (web symbols and SwiftUI are generated from it)
@@ -112,8 +117,8 @@ tools/build.py                glyphs, motifs, backdrops, key art, posters; build
 tools/check_tokens.py         fails the build if tokens.json, shingo.css and SGTheme.swift disagree
 tools/screenshot.js           renders every screen in both modes (preinstalled Playwright)
 dist/index.html               the built, self-contained gallery
-dist/shingo.css               the kit stylesheet for other apps (our faces from dist/fonts/, the rest from Google Fonts)
-dist/fonts/                   Shingo Grid and Shingo Signal WOFF2 files
+dist/shingo.css               the kit stylesheet for other apps (Shingo Grid from dist/fonts/, the rest from Google Fonts)
+dist/fonts/                   the Shingo Grid WOFF2 files
 dist/shingo-live.js           the live layer, standalone
 dist/shingo-sprite.svg        every glyph, icon, motif and backdrop as <symbol id="g-…">
 dist/starter.html             the starter page, built (open it next to shingo.css)
@@ -135,7 +140,7 @@ ios/                          Swift package "ShingoKit" (iOS 17+), all colours d
   Sources/ShingoKit/SGPatterns.swift    SGState, SGSpecTable, SGXCheckboxStyle, SGDiamondRadio, SGStepper, SGSearchField, SGTelex, SGSkeleton
   Sources/ShingoKit/SGLanguage.swift    VerticalText, Hanko, HazardBar, ChevronStack, YearSpan, ManifestoExample
   Sources/ShingoKit/Examples/           LaunchExample, DashboardExample, IntervalExample with light/dark #Previews
-  Sources/ShingoKit/Resources/Fonts/    Anybody (3 widths + italic), Saira Stencil One, IBM Plex Mono (SIL OFL)
+  Sources/ShingoKit/Resources/Fonts/    Shingo Grid (4 cuts, MIT); Anybody (3 widths + italic) and IBM Plex Mono (SIL OFL)
 docs/                         screenshots of every screen in docs/dark and docs/light
 ```
 
@@ -161,7 +166,7 @@ The repo is built to be lifted into anything. Pick the route that fits.
 
 **A web app**
 
-1. Copy `dist/shingo.css`, `dist/fonts/`, `dist/shingo-live.js` and `dist/shingo-sprite.svg` into the app, keeping `fonts/` next to the stylesheet. Anybody, Plex Mono and the stencil come from Google Fonts; self-host them if you need to.
+1. Copy `dist/shingo.css`, `dist/fonts/`, `dist/shingo-live.js` and `dist/shingo-sprite.svg` into the app, keeping `fonts/` next to the stylesheet. Anybody, Plex Mono and BIZ UDGothic come from Google Fonts; self-host them if you need to.
 2. Inline the sprite once at the top of `<body>` (or fetch it and inject it), then use any glyph with `<svg><use href="#g-i-scan"/></svg>`.
 3. Put `class="tex"` on the page or app root for the striped ground, and `data-sg-live` on any region that should get the live layer (decode, readouts, HUD, wipe). Phone screens use `.scr`, desktop consoles `.con`. `data-decode-view` decodes any other element when it scrolls into view, `data-decode-change` decodes a value whenever its text changes, and `data-no-decode` opts a node out.
 4. Start from `dist/starter.html`: a masthead, readout hero, hazard divider, spec table, telex feed, form set and imprint, in both modes, responsive down to 390 px.
@@ -264,7 +269,7 @@ Every phrase, with its Japanese reading, is in `tokens/lexicon.json`. These are 
 
 ## Origins
 
-Shingō started from two references: a sage and coral poster (palette, striped ground, layered forms, right-aligned telemetry) and a trilingual technical print (wide industrial type, hazard bars, chevrons, barcodes, three languages). Later references added field-operations print (status matrices, redaction, ID plates) and a construction-guide poster (an exploded X, guides, city data over a photo). Earlier rounded forms from the first poster have been retired. The first title face, a light, very wide octagonal design, has been retired too: Shingo Grid was drawn again as the cut-plate face above, so the type finally obeys the system's own first shape rule.
+Shingō started from two references: a sage and coral poster (palette, striped ground, layered forms, right-aligned telemetry) and a trilingual technical print (wide industrial type, hazard bars, chevrons, barcodes, three languages). Later references added field-operations print (status matrices, redaction, ID plates) and a construction-guide poster (an exploded X, guides, city data over a photo). Earlier rounded forms from the first poster have been retired. The first title face, a light, very wide octagonal design, has been retired too: Shingo Grid was drawn again as the cut-plate face above, so the type finally obeys the system's own first shape rule. Orbitron (as Shingo Signal) and Saira Stencil One, which set subheads, labels and serials until then, gave way to the new face's lighter weights and its stencil, so the system now speaks in one voice; both remain in the history if you want them back.
 
 ## SwiftUI coverage
 
@@ -272,9 +277,19 @@ ShingoKit covers the tokens, type and its four impressions, alphabet shapes, com
 
 ## Fonts
 
-- **Shingo Grid Heavy** is drawn in this repo by `tools/font.py`. Every glyph is a union of bars, stems and 45° strokes with the plate cuts taken out (skia-pathops), on whole font units, so every edge is level, upright or exactly 45°. The numbers: 1000 units per em, cap height 700, x-height 540, ascenders 740, descenders −190; capital stems 170, bars 148, diagonals 158 (square to the stroke); the plate cut is 150 deep, with the inner corner cut to match so a stroke keeps its weight round the turn. Stems stand about a stem apart; spacing is optical (each side gets the base bearing minus part of the white it already holds), and the few pairs that cannot reach are kerned (LT, LY, TJ, P., 3/8…). Being square-shouldered, the face needs none of the classic diagonal pairs. It covers A–Z and a full lowercase (a two-storey a; n, u, m and w cut like the capitals), figures, common punctuation, € $ % and the accented capitals and lowercase for English, French and Portuguese; anything else falls through to Shingo Signal, then Anybody. The figures share one body width and the capitals' rules: a slashed zero whose slash runs between the two square corners, a 1 with a flag cut right through, a closed 4 on a 45° stroke, a straight 7. The S and the 5 are cut at their extremes and square at the waist; the 2 is square at its extremes and cut at both waist turns, so its neck runs "/". Tabular alternates (`tnum`) share one advance, and the tabular 1 stands on a foot so it fills its cell. The gallery's Components section has an audit card with every character, read from the font file. MIT licensed with the rest of the repo.
-- **Shingo Signal** is a modified Orbitron, built by `tools/signal_font.py` from the variable font kept in `tools/vendor/`. It adds the characters Orbitron lacks (macron vowels Ā Ē Ī Ō Ū, the middle dot ·, º ª №, « », arrows ← ↑ → ↓, ◆, ′ ″, ² ³, ™), drawn from Orbitron's own strokes. Orbitron reserves its name, so the modified font carries a new one; it stays under the SIL Open Font License 1.1 (`OFL-ShingoSignal.txt`).
-- Anybody, Saira Stencil One and IBM Plex Mono are licensed under the SIL Open Font License 1.1 (licence texts next to the fonts in `ios/Sources/ShingoKit/Resources/Fonts/OFL-*.txt`). You may bundle them all in an app; keep the licence texts with them.
+- **Shingo Grid** is drawn in this repo by `tools/font.py`, MIT licensed with the rest of the repo. Every glyph is a union of bars, stems and 45° strokes with the plate cuts taken out (skia-pathops), on whole font units, so every edge is level, upright or exactly 45°. One set of drawings makes every weight: positions are shared, strokes come from the weight's row in `WEIGHTS`, and details that follow the stroke (notches, points, accents) scale with it.
+
+  | | stem | bar | diagonal | the O | bearing | web weights it answers | iOS name |
+  |---|---|---|---|---|---|---|---|
+  | **Heavy** | 170 | 148 | 158 | 770 | 52 | 850–900 | `ShingoGrid-Heavy` |
+  | **Bold** | 142 | 128 | 134 | 760 | 60 | 650–849 | `ShingoGrid-Bold` |
+  | **Medium** | 120 | 112 | 116 | 750 | 68 | 100–649 | `ShingoGrid-Medium` |
+  | **Stencil** | the Heavy, bridged by 84-unit slits | | | | | its own family, `Shingo Grid Stencil` | `ShingoGrid-Stencil` |
+
+  1000 units per em, cap height 700, x-height 540, ascenders 740, descenders −190. The plate cut is 150 deep in the Heavy (142 and 134 in the lighter weights), with the inner corner cut to match so a stroke keeps its weight round the turn. The Medium sets caps at 10 to 13 px, so its bars stay close to its stems. Stems stand about a stem apart in the Heavy and open up as the weight drops; spacing is optical (each side gets the base bearing minus part of the white it already holds), and the few pairs that cannot reach are kerned (LT, LY, TJ, P., 3/8…). Being square-shouldered, the face needs none of the classic diagonal pairs.
+- Each weight covers A–Z and a full lowercase (a two-storey a; n, u, m and w cut like the capitals), figures, common punctuation, arrows (← ↑ → ↓), ◆, №, primes, guillemets, € $ % and the accented capitals and lowercase for English, French and Portuguese; anything else (Æ, Œ, ß, ™) falls through to Anybody. The figures share one body width and the capitals' rules: a slashed zero whose slash runs between the two square corners, a 1 with a flag cut right through, a closed 4 on a 45° stroke, a straight 7. The S and the 5 are cut at their extremes and square at the waist; the 2 is square at its extremes and cut at both waist turns, so its neck runs "/". Tabular alternates (`tnum`) share one advance, and the tabular 1 stands on a foot so it fills its cell. The gallery's Components section has an audit card with the weights and every character, read from the font file.
+- **The stencil** carries capitals and figures; lowercase sets in the capitals. A square corner where a bar and a stem join is opened by a mitre slit through its inner corner; a glyph no mitre reaches is bridged once (across the H's crossbar, the stem of I K T Y, the falling stroke of M N V W X, a bar of F Z 4 7); the zero's slash floats clear of its frame. Letters keep the Heavy's spacing, so a bridge never shifts a line.
+- Anybody and IBM Plex Mono are licensed under the SIL Open Font License 1.1 (licence texts next to the fonts in `ios/Sources/ShingoKit/Resources/Fonts/OFL-*.txt`). You may bundle them in an app; keep the licence texts with them.
 - Japanese uses Hiragino Sans, which ships with iOS, and BIZ UDGothic on the web. BIZ UDGothic isn't bundled because it's 4 MB.
 - Rebuilding the fonts needs `pip install fonttools brotli skia-pathops`.
 

@@ -19,6 +19,6 @@
     "build": "python3 tools/screens.py && python3 tools/build.py",
     "check": "python3 tools/check_tokens.py",
     "shots": "node tools/screenshot.js docs 1",
-    "fonts": "python3 tools/font.py && python3 tools/signal_font.py"
+    "fonts": "python3 tools/font.py"
   }
 }

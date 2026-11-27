@@ -65,15 +65,20 @@ public enum SG {
 
 // MARK: - Type: wide, short, hard
 
-/// Shingo Grid Heavy's own numbers (tools/font.py), per em.
+/// Shingo Grid's own numbers (tools/font.py), per em. The three weights share them.
 public enum SGFace {
     public static let capHeight: CGFloat = 0.70
     public static let xHeight: CGFloat = 0.54
     /// One tabular figure's advance; readouts that tick give each digit a cell this wide.
     public static let figureCell: CGFloat = 0.84
-    /// Tracking by size, in points.
+    /// Heavy's tracking by size, in points.
     public static func tracking(_ size: CGFloat) -> CGFloat {
         min(max(1.32 - 0.03 * size, -0.012 * size), 0.07 * size)
+    }
+    /// Bold and Medium caps: about +.11 em at 11 pt, +.08 em at 14, +.03 em at 24
+    /// (the web's `clamp(.02em, 1.8px - .05em, .12em)`).
+    public static func capTracking(_ size: CGFloat) -> CGFloat {
+        min(max(1.8 - 0.05 * size, 0.02 * size), 0.12 * size)
     }
 }
 
@@ -81,26 +86,27 @@ public enum SGFont {
     /// Shingo Grid Heavy: display wordmarks and screen titles (18 pt and up). A cut-plate grotesque:
     /// one heavy weight, cap height 0.7 em, corners cut at 45° top-left and bottom-right only.
     public static func display(_ size: CGFloat) -> Font { .custom("ShingoGrid-Heavy", size: size) }
-    /// Shingo Signal ExtraBold (Orbitron, completed): subheads and inline wordmarks below 18 pt.
-    public static func title(_ size: CGFloat) -> Font { .custom("ShingoSignal-ExtraBold", size: size) }
+    /// Shingo Grid Bold: subheads and inline wordmarks below 18 pt.
+    public static func title(_ size: CGFloat) -> Font { .custom("ShingoGrid-Bold", size: size) }
     /// Shingo Grid Heavy: big figures in text (proportional; `.monospacedDigit()` gives the tabular set).
     public static func number(_ size: CGFloat) -> Font { .custom("ShingoGrid-Heavy", size: size) }
-    /// Shingo Signal SemiBold: labels in caps ("FUTURE ENGINEERING"), buttons, chips.
-    public static func cap(_ size: CGFloat) -> Font { .custom("ShingoSignal-SemiBold", size: size) }
+    /// Shingo Grid Medium: labels in caps ("FUTURE ENGINEERING"), buttons, chips, tabs.
+    public static func cap(_ size: CGFloat) -> Font { .custom("ShingoGrid-Medium", size: size) }
     /// Anybody Medium: body and row labels.
     public static func body(_ size: CGFloat = 15) -> Font { .custom("Anybody-Medium", size: size) }
     /// Anybody Expanded Bold: emphasised lines (the trilingual stack).
     public static func bodyBold(_ size: CGFloat = 15) -> Font { .custom("AnybodyExpanded-Bold", size: size) }
     /// IBM Plex Mono Medium: telemetry and metadata.
     public static func mono(_ size: CGFloat = 11) -> Font { .custom("IBMPlexMono-Medium", size: size) }
-    /// Saira Stencil One: stamped numerals, serials, stamps. Wide. Once per screen.
-    public static func stencil(_ size: CGFloat) -> Font { .custom("SairaStencilOne-Regular", size: size) }
+    /// Shingo Grid Stencil: the Heavy, bridged on the system's diagonal. Stamped numerals, serials,
+    /// stamps; capitals and figures (lowercase sets in capitals). Once per screen.
+    public static func stencil(_ size: CGFloat) -> Font { .custom("ShingoGrid-Stencil", size: size) }
 
     /// Call once at launch (e.g. in your App init). Registers the bundled OFL fonts
     /// so you don't need UIAppFonts entries in Info.plist.
     public static func register() {
-        let names = ["ShingoGrid-Heavy", "ShingoSignal-ExtraBold", "ShingoSignal-SemiBold", "AnybodyExtraExpanded-ExtraBold", "AnybodyExpanded-Bold", "AnybodyExpanded-SemiBold", "Anybody-Medium",
-                     "Anybody-MediumItalic", "SairaStencilOne-Regular", "IBMPlexMono-Medium"]
+        let names = ["ShingoGrid-Heavy", "ShingoGrid-Bold", "ShingoGrid-Medium", "AnybodyExtraExpanded-ExtraBold", "AnybodyExpanded-Bold", "AnybodyExpanded-SemiBold", "Anybody-Medium",
+                     "Anybody-MediumItalic", "ShingoGrid-Stencil", "IBMPlexMono-Medium"]
         for name in names {
             guard let url = Bundle.module.url(forResource: name, withExtension: "ttf") else { continue }
             CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
@@ -109,16 +115,16 @@ public enum SGFont {
 }
 
 public extension View {
-    /// Wordmark: Shingo Grid Heavy at 18 pt and up (display, titles), Shingo Signal ExtraBold below (inline).
-    /// Shingo Grid is drawn tight, so it opens up as it gets small and closes up when huge
-    /// (the web's `clamp(-.012em, 1.32px - .03em, .07em)`).
+    /// Wordmark: Shingo Grid Heavy at 18 pt and up (display, titles), Shingo Grid Bold below (inline).
+    /// The face is drawn tight, so it opens up as it gets small and closes up when huge
+    /// (the web's `clamp(-.012em, 1.32px - .03em, .07em)` for Heavy, `SGFace.capTracking` below 18 pt).
     func sgWordmark(_ size: CGFloat) -> some View {
         font(size >= 18 ? SGFont.display(size) : SGFont.title(size)).textCase(.uppercase)
-            .tracking(size >= 18 ? SGFace.tracking(size) : size * 0.01)
+            .tracking(size >= 18 ? SGFace.tracking(size) : SGFace.capTracking(size))
     }
-    /// Condensed caps label, tracked out.
+    /// Caps label in Shingo Grid Medium, tracked out by size.
     func sgCap(_ size: CGFloat = 12) -> some View {
-        font(SGFont.cap(size)).textCase(.uppercase).tracking(size * 0.05)
+        font(SGFont.cap(size)).textCase(.uppercase).tracking(SGFace.capTracking(size))
     }
     func sgLabel(_ size: CGFloat = 15) -> some View { font(SGFont.body(size)) }
     /// Telemetry. Uppercase by default, like the print.
@@ -126,5 +132,5 @@ public extension View {
         font(SGFont.mono(size)).textCase(upper ? .uppercase : nil).tracking(size * 0.04)
     }
     func sgNumber(_ size: CGFloat) -> some View { font(SGFont.number(size)) }
-    func sgStencil(_ size: CGFloat) -> some View { font(SGFont.stencil(size)).textCase(.uppercase).tracking(size * 0.04) }
+    func sgStencil(_ size: CGFloat) -> some View { font(SGFont.stencil(size)).textCase(.uppercase).tracking(size * 0.02) }
 }

@@ -1,16 +1,20 @@
-"""Shingo Grid: the system's own display face.
+"""Shingo Grid: the system's own type family.
 
     python3 tools/font.py
 
-A cut-plate grotesque. Its skeleton is the square, wide-shouldered one Orbitron made
-familiar; its corners are the system's own. Every glyph is a plate: bars and stems of one
-heavy weight, and wherever a letter would curve the corner is cut at 45° the way every
+A cut-plate grotesque in three weights. Its skeleton is the square, wide-shouldered one
+Orbitron made familiar; its corners are the system's own. Every glyph is a plate: bars and
+stems of one weight, and wherever a letter would curve the corner is cut at 45° the way every
 button, tag and card in Shingō is cut: top-left and bottom-right only, so every cut in a
 line of type rises left to right. The other two corners stay square.
 
+    Heavy  900  display 40+, screen titles, big figures
+    Bold   700  subheads and inline wordmarks
+    Medium 500  labels, buttons, chips, tabs (caps, 10 to 13 px)
+
 The rules, in the order the drawings apply them:
 
-- One heavy weight. Stems SV, bars SH (a shade lighter, so three-bar letters stay open),
+- One weight per cut. Stems SV, bars SH (a shade lighter, so three-bar letters stay open),
   diagonals SD. Letters are a little wider than tall; nothing is condensed.
 - Cuts sit top-left and bottom-right, CUT deep, wherever a stroke turns a corner a round
   letter would curve through. The inner corner takes the matching cut, so the stroke
@@ -24,13 +28,15 @@ The rules, in the order the drawings apply them:
 - Turned letters agree: the rule survives a half turn, so 6/9, b/q, d/p, n/u, M/W are
   each other rotated.
 
+One set of drawings makes every weight: positions are shared, strokes come from the weight's
+row in WEIGHTS, and details that follow the stroke (notches, points, accents) scale with it.
 Glyphs are built as unions of bars, stems and 45° strokes with the cuts subtracted
 (skia-pathops), on whole font units, so every edge is level, upright or exactly 45°.
 
-Writes ios/Sources/ShingoKit/Resources/Fonts/ShingoGrid-Heavy.ttf and
-web/fonts/ShingoGrid-Heavy.woff2. Capitals, a full lowercase, figures (proportional by
-default, tabular under `tnum`), punctuation, € $ % and the accents for English, French and
-Portuguese.
+Writes ios/Sources/ShingoKit/Resources/Fonts/ShingoGrid-<Weight>.ttf and
+web/fonts/ShingoGrid-<Weight>.woff2. Capitals, a full lowercase, figures (proportional by
+default, tabular under `tnum`), punctuation, arrows, € $ % and the accents for English,
+French and Portuguese.
 """
 import math
 import pathlib
@@ -48,17 +54,33 @@ H = 700            # cap height
 X = 540            # x-height
 ASC = 740          # ascenders (b d f h k l) rise a little past the caps
 DSC = -190         # descenders (g j p q y)
-SV, SH = 170, 148  # capitals and figures: stems, bars
-SD = 158           # diagonals, measured square to the stroke
-LV, LH = 160, 122  # lowercase: stems, bars
-LD = 146           # lowercase diagonals
-CUT = 150          # the plate cut (outer), capitals and figures
-LCUT = 118         # the lowercase cut
-FACET = 64         # the upright facet that trims a diagonal's point
-SB = 52            # side bearing next to a straight stem
-SPACE = 290
-WO = 770           # the O; every other width is set against it
-WFIG = 720         # one body width for the figures
+
+WEIGHTS = {
+    # capitals and figures: stems SV, bars SH, diagonals SD (square to the stroke); lowercase: LV, LH, LD;
+    # the plate cut (CUT, LCUT); the facet that trims a diagonal's point (FACET, LFACET); the bearing next
+    # to a straight stem (SB); the O, the figures' body and the lowercase o, which every other width follows
+    "Heavy": dict(cls=900, SV=170, SH=148, SD=158, LV=160, LH=122, LD=146, CUT=150, LCUT=118, FACET=64, LFACET=56,
+                  SB=52, SPACE=290, WO=770, WFIG=720, LO=610),
+    "Bold": dict(cls=700, SV=142, SH=128, SD=134, LV=134, LH=106, LD=124, CUT=142, LCUT=112, FACET=54, LFACET=46,
+                 SB=60, SPACE=280, WO=760, WFIG=710, LO=600),
+    # the label weight sets caps at 10 to 13 px, so its bars stay close to its stems
+    "Medium": dict(cls=500, SV=120, SH=112, SD=116, LV=114, LH=94, LD=106, CUT=134, LCUT=106, FACET=46, LFACET=40,
+                   SB=68, SPACE=270, WO=750, WFIG=700, LO=590),
+}
+# the Heavy's own numbers, for the tools that draw its construction (print_kit.py, posters.py)
+SV, SH, SD, CUT, WO, WFIG = (WEIGHTS["Heavy"][k] for k in ("SV", "SH", "SD", "CUT", "WO", "WFIG"))
+
+
+class Face:
+    """One weight's numbers. `t(v)` scales a detail drawn for the Heavy to this weight's stroke."""
+
+    def __init__(self, name):
+        self.name = name
+        self.__dict__.update(WEIGHTS[name])
+        self.s = self.SV / WEIGHTS["Heavy"]["SV"]
+
+    def t(self, v):
+        return round(v * self.s)
 
 
 # ---- geometry kernel -----------------------------------------------------------------
@@ -100,9 +122,10 @@ def _union(polys):
     return acc
 
 
-def resolve(parts):
+def resolve(parts, trim=()):
     """A glyph is a list of parts, each (add, cut, fill): union(add + fill) minus cut.
-    Parts are resolved on their own and then joined, so a cut only bites the part it belongs to.
+    Parts are resolved on their own and then joined, so a cut only bites the part it belongs to;
+    `trim` is taken out of the whole glyph afterwards (the stencil's bridges).
     Returns (outer contours, holes) on whole units, with no repeated or collinear points."""
     acc = None
     for add, cut, fill in parts:
@@ -110,6 +133,8 @@ def resolve(parts):
         if cut:
             p = pathops.op(p, _union(cut), pathops.PathOp.DIFFERENCE)
         acc = p if acc is None else pathops.op(acc, p, pathops.PathOp.UNION)
+    if trim:
+        acc = pathops.op(acc, _union(trim), pathops.PathOp.DIFFERENCE)
     acc = pathops.simplify(acc)
     out = []
     for c in _contours(acc):
@@ -176,6 +201,11 @@ def shift(poly, dx, dy=0):
     return [(x + dx, y + dy) for x, y in poly]
 
 
+def each(part, fn):
+    """Apply a point transform to every polygon of a part."""
+    return tuple([fn(q) for q in lst] for lst in part)
+
+
 def diag(s):
     """Level width of a 45° stroke s thick, kept even so centred strokes land on whole units."""
     return 2 * round(s * R2 / 2)
@@ -185,7 +215,7 @@ CORNER = {"tl": (0, 1, 1, -1), "tr": (1, 1, -1, -1), "br": (1, 0, -1, 1), "bl": 
 
 
 class Pen:
-    """The drawing rules for one set of weights (capitals and figures, or the lowercase)."""
+    """The drawing rules for one set of strokes (capitals and figures, or the lowercase)."""
 
     def __init__(self, sv, sh, sd, cut):
         self.sv, self.sh, self.cut = sv, sh, cut
@@ -233,9 +263,10 @@ def solid(*polys):
 
 
 # ---- capitals ------------------------------------------------------------------------
-def capitals():
-    p = Pen(SV, SH, SD, CUT)
-    T, f = p.T, FACET
+def capitals(F):
+    SV, SH, WO, t = F.SV, F.SH, F.WO, F.t
+    p = Pen(SV, SH, F.SD, F.CUT)
+    T, f = p.T, F.FACET
     M = H // 2
     mb, mt = M - SH // 2, M + SH // 2          # the middle bar, on the centre line
     g = {}
@@ -247,21 +278,21 @@ def capitals():
     g["C"] = (wc, [p.box(0, 0, wc, H, "tbl", "tl")])
     wu = WO - 10
     g["U"] = (wu, [p.box(0, 0, wu, H, "lbr", "br")])
-    ya = 230                                   # the A's bar sits low, so the eye above it stays open
+    ya = 304 - SH // 2                         # the A's bar sits low, so the eye above it stays open
     g["A"] = (WO, [p.box(0, 0, WO, H, "tlr", "tl"), solid(R(0, ya, WO, ya + SH))])
 
     # stems and arms: no turn a round letter would make, so no cuts
     g["H"] = (WO, [solid(R(0, 0, SV, H), R(WO - SV, 0, WO, H), R(0, mb, WO, mt))])
-    we = 680
+    we = WO - 90
     g["E"] = (we, [solid(R(0, 0, SV, H), R(0, H - SH, we, H), R(0, 0, we, SH), R(0, mb, we - 60, mt))])
-    wf = 650
+    wf = WO - 120
     g["F"] = (wf, [solid(R(0, 0, SV, H), R(0, H - SH, wf, H), R(0, mb, wf - 70, mt))])
-    wl = 640
+    wl = WO - 130
     g["L"] = (wl, [solid(R(0, 0, SV, H), R(0, 0, wl, SH))])
-    wt = 720
+    wt = WO - 50
     g["T"] = (wt, [solid(R(0, H - SH, wt, H), R(wt // 2 - SV // 2, 0, wt // 2 + SV // 2, H))])
     g["I"] = (SV, [solid(R(0, 0, SV, H))])
-    wj = 640
+    wj = WO - 130
     g["J"] = (wj, [p.box(0, 0, wj, H, "br", "br"), solid(R(0, 0, SV, 250))])
 
     # S: cut at the two extremes, square at the waist
@@ -269,16 +300,16 @@ def capitals():
     g["S"] = (ws, [p.path([R(0, H - SH, ws, H), R(0, mb, SV, H), R(0, mb, ws, mt), R(ws - SV, 0, ws, mt), R(0, 0, ws, SH)],
                           ((0, 0, ws, H), "tl"), ((0, 0, ws, H), "br"))])
     # G: the C, a lower right stem and a spur back to the centre
-    g["G"] = (WO, [p.path([R(0, H - SH, WO, H), R(0, 0, SV, H), R(0, 0, WO, SH), R(WO - SV, 0, WO, mt), R(350, mb, WO, mt)],
+    g["G"] = (WO, [p.path([R(0, H - SH, WO, H), R(0, 0, SV, H), R(0, 0, WO, SH), R(WO - SV, 0, WO, mt), R(WO * 5 // 11, mb, WO, mt)],
                           ((0, 0, WO, H), "tl"), ((0, 0, WO, H), "br"))])
     # B: two bowls and the sawtooth waist
     wb = WO - 30
-    n = 70                                     # the sawtooth's depth
+    n = t(70)                                  # the sawtooth's depth
     bc, bf = p.corner(0, 0, wb, H, "br")
     g["B"] = (wb, [([R(0, 0, SV, H), R(0, H - SH, wb, H), R(0, mb, wb, mt), R(0, 0, wb, SH), R(wb - SV, 0, wb, H)],
                     bc + [tri(wb, M, -1, 1, n)], bf)])
     # P and R: a tall bowl with its bottom-right cut; the R's leg runs out of the bowl at 45° onto a facet
-    yb = 250
+    yb = 324 - SH // 2
     wp = WO - 40
     g["P"] = (wp, [p.path([R(0, 0, SV, H), R(0, H - SH, wp, H), R(0, yb, wp, yb + SH), R(wp - SV, yb, wp, H)], ((0, yb, wp, H), "br"))])
     wr = WO - 20
@@ -288,13 +319,14 @@ def capitals():
                    solid(leg)])
     # Q: where the O's bottom-right corner is cut away, the Q's is pushed out: a short 45° tooth
     # square across the corner, its end cut level on a facet
-    tq = diag(124)
+    tq = diag(t(124))
     cx, cy = WO - SV // 2, SH // 2             # the corner joint's centre
-    tooth = clipbox(band(cx - tq // 2 - (cy + 150), -150, 262, tq, rising=False), WO - SV - 150, WO + 76, -116, 262)
-    g["Q"] = (WO + 76, [p.box(0, 0, WO, H, cuts="tl"), solid(tooth)])
+    top = SH + t(114)
+    tooth = clipbox(band(cx - tq // 2 - (cy + t(150)), -t(150), top, tq, rising=False), WO - SV - t(150), WO + t(76), -t(116), top)
+    g["Q"] = (WO + t(76), [p.box(0, 0, WO, H, cuts="tl"), solid(tooth)])
 
     # diagonals
-    xv = 380                                   # K: the arms meet at a short neck on the stem
+    xv = SV + T - t(14)                        # K: the arms meet at a short neck on the stem
     wk = xv + M - f
     up = clipbox(band(xv - T - M, 0, H, T), 0, wk, M, H)
     dn = clipbox(band(xv - T - M, 0, H, T, rising=False), 0, wk, 0, M)
@@ -302,47 +334,48 @@ def capitals():
     wx = H + T - 2 * f
     g["X"] = (wx, [solid(clipbox(band(-f, 0, H, T), 0, wx, 0, H), clipbox(band(-f, 0, H, T, rising=False), 0, wx, 0, H))])
     # V: the shield. Stems down to the break, then 45° to a short flat
-    wv, fl = 780, 116
+    wv, fl = WO + 10, 2 * round(t(116) / 2)
     yo = wv // 2 - fl // 2
     yi = yo + T - SV
     g["V"] = (wv, [([[(0, H), (0, yo), (yo, 0), (wv - yo, 0), (wv, yo), (wv, H)]],
                     [[(SV, H + 10), (SV, yi), (wv // 2, yi - (wv // 2 - SV)), (wv - SV, yi), (wv - SV, H + 10)]], [])])
     # Y: arms land on facets at the top and meet over the stem
-    wy = 780
+    wy = WO + 10
     stop = H - (wy // 2 - SV // 2 + f)
     arm = clipbox(band(-f, stop, H, T, rising=False), 0, wy // 2, stop, H)
     g["Y"] = (wy, [solid(arm, mirror(arm, wy), R(wy // 2 - SV // 2, 0, wy // 2 + SV // 2, stop + 1))])
     # M: the stems carry a 45° V whose point is cut level; W is the M turned over
-    wm, ft = 930, 44
+    wm, ft = WO + 160, t(44)
     marm = clipbox(band(0, 0, H, T, rising=False), 0, wm // 2, H - wm // 2 + ft, H)
     mparts = [R(0, 0, SV, H), R(wm - SV, 0, wm, H), marm, mirror(marm, wm)]
     g["M"] = (wm, [solid(*mparts)])
     g["W"] = (wm, [solid(*[turn(q, wm, H) for q in mparts])])
     # N: one 45° stroke through the centre, running into both stems
-    wn = 790
+    wn = WO + 20
     g["N"] = (wn, [solid(R(0, 0, SV, H), R(wn - SV, 0, wn, H), clipbox(band(wn // 2 - M - T // 2, 0, H, T, rising=False), 0, wn, 0, H))])
     # Z: the diagonal lands exactly on the bars' inner corners, so the width follows from the 45°
     wz = H - 2 * SH + T
     g["Z"] = (wz, [solid(R(0, H - SH, wz, H), R(0, 0, wz, SH), band(0, SH - 2, H - SH + 2, T))])
     # Ø: the O with a slash running out through both square corners
-    sl = diag(118)
+    sl = diag(t(118))
     g["Ø"] = (WO, [p.box(0, 0, WO, H), solid(clipbox(band(WO // 2 - sl // 2 - M - 70, -70, H + 70, sl), -40, WO + 40, -70, H + 70))])
     return g
 
 
 # ---- figures -------------------------------------------------------------------------
-def figures():
+def figures(F):
     """One system for all ten: the capitals' weights and cuts on one body width.
     2 and S/5 are complements: the S and 5 are cut at their extremes with a square waist,
     the 2 is square at its extremes and cut at both waist turns, so its neck runs "/"."""
-    p = Pen(SV, SH, SD, CUT)
-    T, f, W = p.T, FACET, WFIG
+    SV, SH, W, t = F.SV, F.SH, F.WFIG, F.t
+    p = Pen(SV, SH, F.SD, F.CUT)
+    T = p.T
     M = H // 2
     mb, mt = M - SH // 2, M + SH // 2
-    n = 70
+    n = t(70)
     g = {}
     # 0: narrower than the O, with a slash from square corner to square corner
-    ts = diag(108)
+    ts = diag(t(108))
     sl = clipbox(band(W // 2 - ts // 2 - M, 0, H, ts), SV - 2, W - SV + 2, SH - 2, H - SH + 2)
     g["0"] = (W, [p.box(0, 0, W, H), solid(sl)])
     # 1: a stem and a flag whose end is cut right through at 45°
@@ -351,9 +384,9 @@ def figures():
     g["2"] = (W, [p.path([R(0, H - SH, W, H), R(W - SV, mb, W, H), R(0, mb, W, mt), R(0, 0, SV, mt), R(0, 0, W, SH)],
                          ((0, 0, W, mt), "tl"), ((0, mb, W, H), "br"))])
     c3, f3 = p.corner(0, 0, W, H, "br")
-    g["3"] = (W, [([R(0, H - SH, W, H), R(W - SV, 0, W, H), R(220, mb, W, mt), R(0, 0, W, SH)], c3 + [tri(W, M, -1, 1, n)], f3)])
+    g["3"] = (W, [([R(0, H - SH, W, H), R(W - SV, 0, W, H), R(W * 11 // 36, mb, W, mt), R(0, 0, W, SH)], c3 + [tri(W, M, -1, 1, n)], f3)])
     # 4: closed. A 45° stroke from the bar's end up into the stem; the bar runs a little past the stem
-    y4, ov = 150, 46
+    y4, ov = 224 - SH // 2, t(46)
     sr = W - ov
     d4 = clipbox(band(sr - T - (H - y4), y4, H, T), 0, W, y4, H)
     g["4"] = (W, [solid(R(sr - SV, 0, sr, H), R(0, y4, W, y4 + SH), d4)])
@@ -361,7 +394,7 @@ def figures():
     six = p.path([R(0, H - SH, W, H), R(0, 0, SV, H), R(0, mb, W, mt), R(W - SV, 0, W, mt), R(0, 0, W, SH)],
                  ((0, 0, W, H), "tl"), ((0, 0, W, mt), "br"))
     g["6"] = (W, [six])
-    g["9"] = (W, [tuple([turn(q, W, H) for q in lst] for lst in six)])
+    g["9"] = (W, [each(six, lambda q: turn(q, W, H))])
     # 7: the bar and a 45° leg down to a facet
     g["7"] = (W, [solid(R(0, H - SH, W, H), clipbox(band(W - T - (H - SH), 0, H - SH + 2, T), 0, W, 0, H))])
     c8, f8 = p.corner(0, 0, W, H, "tl")
@@ -376,58 +409,84 @@ def figures():
 
 
 # ---- punctuation and symbols ----------------------------------------------------------
-def punctuation():
-    p = Pen(SV, SH, SD, CUT)
-    T, f = p.T, FACET
+def punctuation(F, caps, figs):
+    SV, SH, WO, t = F.SV, F.SH, F.WO, F.t
+    p = Pen(SV, SH, F.SD, F.CUT)
+    T, f = p.T, F.FACET
     M = H // 2
     mb, mt = M - SH // 2, M + SH // 2
     dot = SV                                   # points are stem-wide squares
     g = {}
     g["."] = (dot, [solid(R(0, 0, dot, dot))])
-    tail = [R(0, 0, dot, dot), R(0, -120, 92, 0)]
+    tail = [R(0, 0, dot, dot), R(0, -t(120), t(92), 0)]
     g[","] = (dot, [solid(*tail)])
     cy = 96                                    # the colon's points sit centred on the figures
     g[":"] = (dot, [solid(R(0, M - cy - dot, dot, M - cy), R(0, M + cy, dot, M + cy + dot))])
     g[";"] = (dot, [solid(*tail, R(0, M + cy, dot, M + cy + dot))])
     g["…"] = (dot * 5, [solid(R(0, 0, dot, dot), R(dot * 2, 0, dot * 3, dot), R(dot * 4, 0, dot * 5, dot))])
-    g["·"] = (140, [solid(R(0, M - 70, 140, M + 70))])
+    md = t(140)
+    g["·"] = (md, [solid(R(0, M - md // 2, md, M - md // 2 + md))])
+    bl = 2 * t(110)
+    g["•"] = (bl, [solid(R(0, M - bl // 2, bl, M + bl // 2))])
     g["-"] = (380, [solid(R(0, mb, 380, mt))])
     g["–"] = (560, [solid(R(0, mb, 560, mt))])
     g["—"] = (860, [solid(R(0, mb, 860, mt))])
-    g["_"] = (600, [solid(R(0, -170, 600, -40))])
+    g["_"] = (600, [solid(R(0, -40 - t(130), 600, -40))])
     g["!"] = (dot, [solid(R(0, dot + 80, dot, H), R(0, 0, dot, dot))])
     wq = 640
     xs = wq // 2 - SV // 2 - 20
     g["?"] = (wq, [p.path([R(0, H - SH, wq, H), R(wq - SV, mb, wq, H), R(xs, mb, wq, mt), R(xs, dot + 80, xs + SV, mt)], ((xs, mb, wq, H), "br")),
                    solid(R(xs, 0, xs + SV, dot))])
-    qh = 250
-    g["'"] = (140, [solid(R(0, H - qh, 140, H))])
-    g['"'] = (370, [solid(R(0, H - qh, 140, H), R(230, H - qh, 370, H))])
-    g["’"] = (dot, [solid(R(0, H - dot, dot, H), R(dot - 92, H - dot - 120, dot, H - dot))])
-    g["‘"] = (dot, [solid(R(0, H - dot, dot, H), R(0, H - dot - 120, 92, H - dot))])
+    # inverted marks: the same shapes turned over, standing on the baseline with the capitals
+    for ch, src in (("¡", "!"), ("¿", "?")):
+        w = g[src][0]
+        g[ch] = (w, [each(part, lambda q, w=w: turn(q, w, H)) for part in g[src][1]])
+    qh, qw, qt, qk = 250, t(140), t(120), t(92)
+    g["'"] = (qw, [solid(R(0, H - qh, qw, H))])
+    g['"'] = (2 * qw + 90, [solid(R(0, H - qh, qw, H), R(qw + 90, H - qh, 2 * qw + 90, H))])
+    close = [R(0, H - dot, dot, H), R(dot - qk, H - dot - qt, dot, H - dot)]
+    opened = [R(0, H - dot, dot, H), R(0, H - dot - qt, qk, H - dot)]
+    g["’"] = (dot, [solid(*close)])
+    g["‘"] = (dot, [solid(*opened)])
+    step = dot + t(70)
+    g["”"] = (dot + step, [solid(*close, *[shift(q, step) for q in close])])
+    g["“"] = (dot + step, [solid(*opened, *[shift(q, step) for q in opened])])
+    # primes: short strokes on the system's diagonal
+    ph, pw = 230, t(124)
+    prime = clipbox(band(-30, H - ph, H, pw), 0, ph + pw - 60, H - ph, H)
+    g["′"] = (ph + pw - 60, [solid(prime)])
+    g["″"] = (ph + 2 * pw - 60 + t(50), [solid(prime, shift(prime, pw + t(50)))])
     # the slash and the percent: the system's one diagonal on a facet at each end
     fs = 150
     ws = H + T - 2 * fs
     g["/"] = (ws, [solid(clipbox(band(-fs, 0, H, T), 0, ws, 0, H))])
     # percent: two small plate rings with the slash squeezed between them on tall facets
-    dq, dst = 256, 84
+    dq, dst = 256, t(84)
     rp = Pen(dst, dst, dst, 76)
     gapp = 40
     xp = dq + gapp - (H - dq)                  # the slash clears the upper ring by gapp
     wpc = 2 * (dq + gapp) + T - (H - 2 * dq)
     g["%"] = (wpc, [solid(clipbox(band(xp, 0, H, T), dq // 2, wpc - dq // 2, 0, H)), rp.box(0, H - dq, dq, H), rp.box(wpc - dq, 0, wpc, dq)])
     g["+"] = (520, [solid(R(0, mb, 520, mt), R(260 - SH // 2, M - 260, 260 + SH // 2, M + 260))])
-    g["="] = (520, [solid(R(0, M + 46, 520, M + 46 + 128), R(0, M - 46 - 128, 520, M - 46))])
+    g["−"] = (520, [solid(R(0, mb, 520, mt))])
+    eq = t(128)
+    g["="] = (520, [solid(R(0, M + 46, 520, M + 46 + eq), R(0, M - 46 - eq, 520, M - 46))])
+    dd = 2 * t(70)
+    g["÷"] = (520, [solid(R(0, mb, 520, mt), R(260 - dd // 2, mt + t(70), 260 + dd // 2, mt + t(70) + dd), R(260 - dd // 2, mb - t(70) - dd, 260 + dd // 2, mb - t(70)))])
     # times: a small X on facets
-    th, tt = 400, diag(124)
-    tw = th + tt - 2 * 44
-    g["×"] = (tw, [solid(shift(clipbox(band(-44, 0, th, tt), 0, tw, 0, th), 0, M - th // 2),
-                         shift(clipbox(band(-44, 0, th, tt, rising=False), 0, tw, 0, th), 0, M - th // 2))])
+    th, tt, tf = 400, diag(t(124)), t(44)
+    tw = th + tt - 2 * tf
+    g["×"] = (tw, [solid(shift(clipbox(band(-tf, 0, th, tt), 0, tw, 0, th), 0, M - th // 2),
+                         shift(clipbox(band(-tf, 0, th, tt, rising=False), 0, tw, 0, th), 0, M - th // 2))])
     # degree and ordinal: a small plate ring at the cap line
-    dg, ds = 270, 88
+    dg, ds = 270, t(88)
     ring = Pen(ds, ds, ds, 76).box(0, H - dg, dg, H)
     g["°"] = (dg, [ring])
-    g["º"] = (dg, [ring, solid(R(0, H - dg - 110, dg, H - dg - 40))])
+    under = R(0, H - dg - 40 - t(70), dg, H - dg - 40)
+    g["º"] = (dg, [ring, solid(under)])
+    # numero: the N and the ordinal ring
+    wn = caps["N"][0]
+    g["№"] = (wn + t(70) + dg, caps["N"][1] + [each(ring, lambda q: shift(q, wn + t(70))), solid(shift(under, wn + t(70)))])
     bw, top, bot = 330, H + 60, -150           # brackets: square; parentheses: brackets with the plate cuts
     g["["] = (bw, [solid(R(0, bot, SV, top), R(0, top - SH, bw, top), R(0, bot, bw, bot + SH))])
     g["]"] = (bw, [solid(R(bw - SV, bot, bw, top), R(0, top - SH, bw, top), R(0, bot, bw, bot + SH))])
@@ -440,41 +499,69 @@ def punctuation():
     dna = clipbox(band(0, M - aa, M, T, rising=False), 0, aw, M - aa, M)
     g["<"] = (aw, [solid(upa, dna)])
     g[">"] = (aw, [solid(mirror(upa, aw), mirror(dna, aw))])
+    # guillemets: the angle bracket twice, a little smaller
+    ga = 200
+    gw = T + ga - f
+    gu = clipbox(band(0, M, M + ga, T), 0, gw, M, M + ga)
+    gd = clipbox(band(0, M - ga, M, T, rising=False), 0, gw, M - ga, M)
+    gs = T + t(40)
+    g["«"] = (gw + gs, [solid(gu, gd, shift(gu, gs), shift(gd, gs))])
+    g["»"] = (gw + gs, [solid(*[mirror(q, gw + gs) for q in (gu, gd, shift(gu, gs), shift(gd, gs))])])
+    # arrows: a bar with the angle bracket's point; the upright ones are the level one turned a quarter
+    wa = H
+    head = [shift(mirror(q, gw), wa - gw) for q in (gu, gd)]
+    right = [R(0, mb, wa - T // 2, mt)] + head
+    g["→"] = (wa, [solid(*right)])
+    g["←"] = (wa, [solid(*[mirror(q, wa) for q in right])])
+    quarter = lambda q: [(ga + (M - y), x) for x, y in q]      # level → upright, pointing up
+    g["↑"] = (2 * ga, [solid(*[quarter(q) for q in right])])
+    g["↓"] = (2 * ga, [solid(*[turn(quarter(q), 2 * ga, H) for q in right])])
+    # diamond: the mark's outline, solid
+    dm = 230
+    g["◆"] = (2 * dm, [solid([(0, M), (dm, M + dm), (2 * dm, M), (dm, M - dm)])])
     # asterisk: an upright cross and a 45° cross on one centre, eight short arms at the cap line
-    sa, ta = 380, diag(84)
+    sa, ta, ah, af = 380, diag(t(84)), t(44), t(30)
     ca = H - sa // 2
-    xa = lambda rising: shift(clipbox(band(-30, 0, sa, ta, rising), 0, sa + ta - 60, 0, sa), (sa - (sa + ta - 60)) // 2, H - sa)
-    g["*"] = (sa, [solid(R(sa // 2 - 44, H - sa, sa // 2 + 44, H), R(0, ca - 44, sa, ca + 44), xa(True), xa(False))])
-    g["#"] = (760, [solid(R(0, M + 60, 760, M + 60 + 124), R(0, M - 60 - 124, 760, M - 60), R(170, 30, 170 + 140, H - 30), R(450, 30, 450 + 140, H - 30))])
+    xa = lambda rising: shift(clipbox(band(-af, 0, sa, ta, rising), 0, sa + ta - 2 * af, 0, sa), (sa - (sa + ta - 2 * af)) // 2, H - sa)
+    g["*"] = (sa, [solid(R(sa // 2 - ah, H - sa, sa // 2 + ah, H), R(0, ca - ah, sa, ca + ah), xa(True), xa(False))])
+    hb, hu = t(124), 2 * round(t(140) / 2)
+    g["#"] = (760, [solid(R(0, M + 60, 760, M + 60 + hb), R(0, M - 60 - hb, 760, M - 60), R(240 - hu // 2, 30, 240 + hu // 2, H - 30), R(520 - hu // 2, 30, 520 + hu // 2, H - 30))])
     # euro: the C with two bars through its stem
-    we = 740
-    g["€"] = (we, [p.box(70, 0, we, H, "tbl", "tl"), solid(R(0, M + 30, 470, M + 30 + 104), R(0, M - 30 - 104, 470, M - 30))])
+    we, eb = 740, t(104)
+    g["€"] = (we, [p.box(70, 0, we, H, "tbl", "tl"), solid(R(0, M + 30, 470, M + 30 + eb), R(0, M - 30 - eb, 470, M - 30))])
     # dollar: the S with a bar showing above and below it
-    ws_ = WO - 30
+    ws_, sb_ = WO - 30, t(62)
     g["$"] = (ws_, [p.path([R(0, H - SH, ws_, H), R(0, mb, SV, H), R(0, mb, ws_, mt), R(ws_ - SV, 0, ws_, mt), R(0, 0, ws_, SH)],
                            ((0, 0, ws_, H), "tl"), ((0, 0, ws_, H), "br")),
-                    solid(R(ws_ // 2 - 62, H - 2, ws_ // 2 + 62, H + 84), R(ws_ // 2 - 62, -84, ws_ // 2 + 62, 2))])
+                    solid(R(ws_ // 2 - sb_, H - 2, ws_ // 2 + sb_, H + 84), R(ws_ // 2 - sb_, -84, ws_ // 2 + sb_, 2))])
     # ampersand: a small plate loop over an open bowl, a 45° leg from the waist to the baseline
-    wa = 780
-    lx0, lx1, ly0 = 80, 560, 300               # the loop
+    wa_ = 780
+    lx0, lx1, ly0 = 80, 560, 374 - SH // 2     # the loop
     loop = p.box(lx0, ly0, lx1, H, c=110)
     bx1 = 640                                  # the bowl: open to the right, bottom bar full
     bowl = p.path([R(0, ly0, lx1, ly0 + SH), R(0, 0, SV, ly0 + SH), R(0, 0, bx1, SH)], ((0, 0, bx1, ly0 + SH), "tl", 110))
-    leg = clipbox(band(wa + f - T - (ly0 + SH // 2), 0, ly0 + SH // 2, T, rising=False), 0, wa, 0, ly0 + SH)
-    g["&"] = (wa, [loop, bowl, solid(leg)])
+    leg = clipbox(band(wa_ + f - T - (ly0 + SH // 2), 0, ly0 + SH // 2, T, rising=False), 0, wa_, 0, ly0 + SH)
+    g["&"] = (wa_, [loop, bowl, solid(leg)])
     # at: a plate frame open at the lower right, a solid core, the tail running out along the baseline
-    g["@"] = (WO, [p.box(0, 0, WO, H, "tbl", "tl"), solid(R(WO - SV, 250, WO, H), R(300, 250, WO, 250 + 190), R(300, 250, 300 + 190, 450), R(300, 0, WO, SH))])
+    core = t(190)
+    g["@"] = (WO, [p.box(0, 0, WO, H, "tbl", "tl"), solid(R(WO - SV, 250, WO, H), R(300, 250, WO, 250 + core), R(300, 250, 300 + core, 450), R(300, 0, WO, SH))])
+    # superiors: the figures at six tenths, hung from the cap line
+    for ch, src in (("²", "2"), ("³", "3")):
+        o, h = resolve(figs[src][1])
+        up = lambda q: [(round(x * .6), round(H - (H - y) * .6)) for x, y in q]
+        g[ch] = (round(figs[src][0] * .6), [([up(c) for c in o], [up(c) for c in h], [])])
     return g
 
 
 # ---- lowercase -----------------------------------------------------------------------
-def lowercase():
+def lowercase(F):
     """The capitals' rules at x-height. Bars are lighter (LH) so the three-bar letters (a e s)
     keep their counters; cuts scale with the x-height. The rule survives a half turn, so
     n/u, b/q, d/p and m/w are each other rotated."""
-    p = Pen(LV, LH, LD, LCUT)
-    T, f = p.T, 56
-    wo = 610                                   # the o; bowls share it
+    LV, LH, wo, t = F.LV, F.LH, F.LO, F.t
+    p = Pen(LV, LH, F.LD, F.LCUT)
+    T, f = p.T, F.LFACET
+    c2 = F.LCUT - 18                           # the cut where three bars share the x-height (a e s f)
     g = {}
     mb = (X - LH) // 2                         # middle bar (a e s)
     mt = mb + LH
@@ -483,20 +570,20 @@ def lowercase():
     wc = wo - 50
     g["c"] = (wc, [p.box(0, 0, wc, X, "tbl", "tl")])
     # e: the eye closed by the middle bar, open below it
-    g["e"] = (wo, [p.path([R(0, X - LH, wo, X), R(0, 0, LV, X), R(wo - LV, mb, wo, X), R(0, mb, wo, mt), R(0, 0, wo, LH)], ((0, 0, wo, X), "tl", 100))])
+    g["e"] = (wo, [p.path([R(0, X - LH, wo, X), R(0, 0, LV, X), R(wo - LV, mb, wo, X), R(0, mb, wo, mt), R(0, 0, wo, LH)], ((0, 0, wo, X), "tl", c2))])
     # a: two storeys. The top bar and a full right stem; the bowl hangs on the stem
     wa = wo - 20
-    g["a"] = (wa, [p.path([R(30, X - LH, wa, X), R(wa - LV, 0, wa, X), R(0, mb, wa, mt), R(0, 0, LV, mt), R(0, 0, wa, LH)], ((0, 0, wa, mt), "tl", 100))])
+    g["a"] = (wa, [p.path([R(30, X - LH, wa, X), R(wa - LV, 0, wa, X), R(0, mb, wa, mt), R(0, 0, LV, mt), R(0, 0, wa, LH)], ((0, 0, wa, mt), "tl", c2))])
     ws = wo - 30
     g["s"] = (ws, [p.path([R(0, X - LH, ws, X), R(0, mb, LV, X), R(0, mb, ws, mt), R(ws - LV, 0, ws, mt), R(0, 0, ws, LH)],
-                          ((0, 0, ws, X), "tl", 100), ((0, 0, ws, X), "br", 100))])
+                          ((0, 0, ws, X), "tl", c2), ((0, 0, ws, X), "br", c2))])
     # b d p q: a bowl on a stem; the bowl's free corner on the cut diagonal is cut
     g["b"] = (wo, [p.box(0, 0, wo, X, "tbr", "br"), solid(R(0, 0, LV, ASC))])
     g["d"] = (wo, [p.box(0, 0, wo, X, "tbl", "tl"), solid(R(wo - LV, 0, wo, ASC))])
     g["p"] = (wo, [p.box(0, 0, wo, X, "tbr", "br"), solid(R(0, DSC, LV, X))])
     g["q"] = (wo, [p.box(0, 0, wo, X, "tbl", "tl"), solid(R(wo - LV, DSC, wo, X))])
     # descender hooks: the stem turns left along the descender; its corner is a bottom-right one, so it is cut
-    hc = 96
+    hc = F.LCUT - 22
     def hook(xr, x0):
         return p.path([R(xr - LV, DSC, xr, X), R(x0, DSC, xr, DSC + LH)], ((x0 - LV, DSC, xr, X), "br", hc))
     g["g"] = (wo, [p.box(0, 0, wo, X, "tbl", "tl"), hook(wo, 70)])
@@ -505,19 +592,19 @@ def lowercase():
     g["n"] = (wn, [p.box(0, 0, wn, X, "tlr", "tl")])
     g["u"] = (wn, [p.box(0, 0, wn, X, "lbr", "br")])
     g["h"] = (wn, [solid(R(0, 0, LV, ASC), R(0, X - LH, wn, X), R(wn - LV, 0, wn, X))])
-    wm = 900
+    wm = wo + 290
     marc = p.box(0, 0, wm, X, "tlr", "tl")
     mstem = R(wm // 2 - LV // 2, 0, wm // 2 + LV // 2, X)
     g["m"] = (wm, [marc, solid(mstem)])
-    g["w"] = (wm, [tuple([turn(q, wm, X) for q in lst] for lst in marc), solid(mstem)])
-    wr = 400
+    g["w"] = (wm, [each(marc, lambda q: turn(q, wm, X)), solid(mstem)])
+    wr = LV + 240
     g["r"] = (wr, [p.box(0, 0, wr, X, "tl", "tl")])
     # i j l: stems; the points are stem-wide squares
-    gap = 64
-    dot = lambda x: R(x, X + gap, x + LV, X + gap + 136)
+    gap, dh = 64, t(136)
+    dot = lambda x: R(x, X + gap, x + LV, X + gap + dh)
     g["ı"] = (LV, [solid(R(0, 0, LV, X))])
     g["i"] = (LV, [solid(R(0, 0, LV, X), dot(0))])
-    wj = 300
+    wj = LV + 140
     g["j"] = (wj, [hook(wj, 0), solid(dot(wj - LV))])
     g["l"] = (LV, [solid(R(0, 0, LV, ASC))])
     # t f: a stem crossed at the x-height; the t stands on a square foot, the f's head is cut
@@ -525,14 +612,14 @@ def lowercase():
     wt = xs + LV + 150
     g["t"] = (wt, [solid(R(xs, 0, xs + LV, ASC - 60), R(0, X - LH, wt, X), R(xs, 0, wt, LH))])
     wf = xs + LV + 170
-    g["f"] = (wf, [p.box(xs, 0, wf, ASC, "tl", "tl", c=100), solid(R(0, X - LH, wf - 30, X))])
+    g["f"] = (wf, [p.box(xs, 0, wf, ASC, "tl", "tl", c=c2), solid(R(0, X - LH, wf - 30, X))])
     # k v x y z: the capitals' diagonals at x-height
     M = X // 2
-    xv = 310
+    xv = LV + T - f
     wk = xv + M - f
     g["k"] = (wk, [solid(R(0, 0, LV, ASC), clipbox(band(xv - T - M, 0, X, T), 0, wk, M, X),
                          clipbox(band(xv - T - M, 0, X, T, rising=False), 0, wk, 0, M))])
-    wv, fl = 620, 100
+    wv, fl = wo + 10, 2 * round(t(100) / 2)
     yo = wv // 2 - fl // 2
     yi = yo + T - LV
     g["v"] = (wv, [([[(0, X), (0, yo), (yo, 0), (wv - yo, 0), (wv, yo), (wv, X)]],
@@ -546,30 +633,32 @@ def lowercase():
 
 
 # ---- accents -------------------------------------------------------------------------
-def _ab(x0, h, w, rising=True):
-    return band(x0, 0, h, w, rising)
+def accents(F):
+    """Marks over the cap height or x-height, centred on 0: 45° strokes cut level, like the letters' diagonals."""
+    t = F.t
+    aw, tw, cw = t(150), t(110), t(140)
+    return {
+        "acute": [band(-150 + (150 - aw) // 2, 0, 150, aw)],
+        "grave": [band(-150 + (150 - aw) // 2, 0, 150, aw, rising=False)],
+        "circ": [[(-230, 0), (-230 + cw, 0), (0, min(230 - cw, 150 - t(60))), (230 - cw, 0), (230, 0), (60, 150), (-60, 150)]],
+        "uml": [R(-140 - cw // 2, 0, -140 + cw // 2 + cw % 2, t(130)), R(140 - cw // 2, 0, 140 + cw // 2 + cw % 2, t(130))],
+        "macron": [R(-230, 0, 230, t(104))],
+        "narrow": [R(-150, 0, 150, t(104))],
+        "tilde": [band(-250, 0, 120, tw), shift(band(-250, 0, 120, tw, rising=False), 120), shift(band(-250, 0, 120, tw), 240)],
+    }
 
 
-AS = 124   # accent stroke
-ACCENTS = {  # shapes over the cap height or x-height, centred on 0: 45° strokes cut level, like the letters' diagonals
-    "acute": lambda: [_ab(-150, 150, 150)],
-    "grave": lambda: [_ab(-150, 150, 150, rising=False)],
-    "circ": lambda: [[(-230, 0), (-90, 0), (0, 90), (90, 0), (230, 0), (60, 150), (-60, 150)]],
-    "uml": lambda: [R(-210, 0, -70, 130), R(70, 0, 210, 130)],
-    "macron": lambda: [R(-230, 0, 230, 104)],
-    "tilde": lambda: [_ab(-250, 120, 110), [(x + 120, y) for x, y in _ab(-250, 120, 110, rising=False)], [(x + 240, y) for x, y in _ab(-250, 120, 110)]],
-}
 COMPOSED = {
     "À": ("A", "grave"), "Á": ("A", "acute"), "Â": ("A", "circ"), "Ä": ("A", "uml"), "Ã": ("A", "tilde"), "Å": ("A", "ring"), "Ā": ("A", "macron"),
     "È": ("E", "grave"), "É": ("E", "acute"), "Ê": ("E", "circ"), "Ë": ("E", "uml"), "Ē": ("E", "macron"),
-    "Ì": ("I", "grave"), "Í": ("I", "acute"), "Î": ("I", "circ"), "Ï": ("I", "uml"),
+    "Ì": ("I", "grave"), "Í": ("I", "acute"), "Î": ("I", "circ"), "Ï": ("I", "uml"), "Ī": ("I", "narrow"),
     "Ò": ("O", "grave"), "Ó": ("O", "acute"), "Ô": ("O", "circ"), "Ö": ("O", "uml"), "Õ": ("O", "tilde"), "Ō": ("O", "macron"),
     "Ù": ("U", "grave"), "Ú": ("U", "acute"), "Û": ("U", "circ"), "Ü": ("U", "uml"), "Ū": ("U", "macron"),
     "Ñ": ("N", "tilde"), "Ý": ("Y", "acute"), "Ÿ": ("Y", "uml"),
     # lowercase: the same marks over the x-height; the i takes them on the dotless ı
     "à": ("a", "grave"), "á": ("a", "acute"), "â": ("a", "circ"), "ä": ("a", "uml"), "ã": ("a", "tilde"), "å": ("a", "ring"), "ā": ("a", "macron"),
     "è": ("e", "grave"), "é": ("e", "acute"), "ê": ("e", "circ"), "ë": ("e", "uml"), "ē": ("e", "macron"),
-    "ì": ("ı", "grave"), "í": ("ı", "acute"), "î": ("ı", "circ"), "ï": ("ı", "uml"), "ī": ("ı", "macron"),
+    "ì": ("ı", "grave"), "í": ("ı", "acute"), "î": ("ı", "circ"), "ï": ("ı", "uml"), "ī": ("ı", "narrow"),
     "ò": ("o", "grave"), "ó": ("o", "acute"), "ô": ("o", "circ"), "ö": ("o", "uml"), "õ": ("o", "tilde"), "ō": ("o", "macron"),
     "ù": ("u", "grave"), "ú": ("u", "acute"), "û": ("u", "circ"), "ü": ("u", "uml"), "ū": ("u", "macron"),
     "ñ": ("n", "tilde"), "ý": ("y", "acute"), "ÿ": ("y", "uml"),
@@ -577,31 +666,122 @@ COMPOSED = {
 ACCENT_GAP = 58
 
 
-def glyphs():
-    """Every glyph as (body width, parts)."""
+def glyphs(F):
+    """Every glyph of one weight as (body width, parts)."""
     g = {}
-    g.update(capitals())
-    g.update(figures())
-    g.update(punctuation())
-    g.update(lowercase())
-    ring = Pen(84, 84, 84, 70).box(-125, 0, 125, 230)
+    caps, figs = capitals(F), figures(F)
+    g.update(caps)
+    g.update(figs)
+    g.update(punctuation(F, caps, figs))
+    g.update(lowercase(F))
+    marks = accents(F)
+    rs = F.t(84)
+    ring = Pen(rs, rs, rs, 70).box(-125, 0, 125, 230)
     for ch, (base, acc) in COMPOSED.items():
         w, parts = g[base]
         top = (X if base.islower() or base == "ı" else H) + ACCENT_GAP
         dx = w // 2
         if acc == "ring":
-            mark = [tuple([shift(q, dx, top) for q in lst] for lst in ring)]
+            mark = [each(ring, lambda q: shift(q, dx, top))]
         else:
-            polys = ACCENTS[acc]()
-            if acc == "macron" and base == "ı":
-                polys = [R(-150, 0, 150, 104)]
-            mark = [solid(*[shift(q, dx, top) for q in polys])]
+            mark = [solid(*[shift(q, dx, top) for q in marks[acc]])]
         g[ch] = (w, parts + mark)
+    cs, cb = F.t(62), F.t(150)
     for ch, base in (("Ç", "C"), ("ç", "c")):
         w, parts = g[base]
         cx = w // 2
-        g[ch] = (w, parts + [solid(R(cx - 62, -90, cx + 62, 2), shift(_ab(-150, 110, 150), cx, -190))])
+        g[ch] = (w, parts + [solid(R(cx - cs, -90, cx + cs, 2), shift(band(-150 + (150 - cb) // 2, 0, 110, cb), cx, -190))])
     return g
+
+
+# ---- stencil -------------------------------------------------------------------------
+BRIDGE = 84        # a bridge's width, measured level (about 59 square to the slit)
+
+
+def stencil(F, g):
+    """Shingo Grid Stencil: the Heavy capitals and figures, bridged. Every bridge is a slit on the
+    system's one diagonal, so it rises left to right like every cut.
+
+    - A square corner where a bar and a stem join is opened by a mitre slit through its inner
+      corner. Only top-right and bottom-left corners mitre "/", and those are exactly the two the
+      plate rule leaves square: where the plate is not cut, the stencil opens it.
+    - A glyph no mitre reaches is bridged once: across its crossbar (H), its stem (I K T Y), the
+      stroke that crosses the slit (M N V W X), or a bar (F Z 4 7).
+    - The zero's slash floats clear of its frame, so no counter is closed.
+
+    Returns {character: [slits]} for the glyphs in g; lowercase is set in the capitals."""
+    SV, SH, WO, W, t = F.SV, F.SH, F.WO, F.WFIG, F.t
+    T, f = diag(F.SD), F.FACET
+    bw = BRIDGE
+    M = H // 2
+    mb, mt = M - SH // 2, M + SH // 2
+
+    def slit(cx, cy, x0, x1, y0, y1):
+        """A "/" slit through (cx, cy), kept inside a box."""
+        L = 1600
+        return clipbox(band(cx - bw / 2 - L, cy - L, cy + L, bw), x0, x1, y0, y1)
+
+    def tr(x, y):                               # the square top-right corner at (x, y)
+        return slit(x - SV, y - SH, x - SV - bw, x + 4, y - SH - bw, y + 4)
+
+    def bl(x, y):                               # the square bottom-left corner at (x, y)
+        return slit(x + SV, y + SH, x - 4, x + SV + bw, y - 4, y + SH + bw)
+
+    def bar(x, y0, y1):                         # across a level bar
+        return slit(x, (y0 + y1) / 2, x - 400, x + 400, y0 - 2, y1 + 2)
+
+    def stem(x0, x1, y):                        # across an upright stem
+        return slit((x0 + x1) / 2, y, x0 - 2, x1 + 2, y - 400, y + 400)
+
+    w = lambda ch: g[ch][0]
+    cx = lambda ch: w(ch) // 2
+    out = {
+        "A": [tr(WO, H)], "B": [tr(w("B"), H), bl(0, 0)], "C": [bl(0, 0)], "D": [tr(WO, H), bl(0, 0)],
+        "E": [bl(0, 0), bar(SV + bw // 2 + 26, H - SH, H)], "F": [bar(SV + bw // 2 + 26, H - SH, H)],
+        "G": [bl(0, 0), tr(WO, mt)], "H": [bar(WO // 2, mb, mt)], "I": [stem(0, SV, M)], "J": [bl(0, 0)],
+        "K": [stem(0, SV, M + 120)], "L": [bl(0, 0)],
+        "N": [slit(cx("N"), M, SV + 2, w("N") - SV - 2, 0, H)],
+        "O": [tr(WO, H), bl(0, 0)], "P": [tr(w("P"), H)], "Q": [tr(WO, H), bl(0, 0)], "R": [tr(w("R"), H)],
+        "S": [tr(w("S"), mt), bl(0, mb)],
+        "T": [stem(cx("T") - SV // 2, cx("T") + SV // 2, H - SH - 80)], "U": [bl(0, 0)],
+        "Z": [bar(w("Z") * .34, H - SH, H), bar(w("Z") * .66, 0, SH)],
+        "0": [tr(W, H), bl(0, 0)], "1": [tr(w("1"), H)], "2": [tr(W, H), bl(0, 0)], "3": [tr(W, H)],
+        "5": [bl(0, mb), tr(W, mt)], "6": [bl(0, 0), tr(W, mt)], "7": [bar(W * .4, H - SH, H)],
+        "8": [tr(W, H), bl(0, 0)], "9": [tr(W, H), bl(0, mb)],
+    }
+    # M W V: the falling stroke is cut square across its middle, as the N's is
+    wm = w("M")
+    ms = slit(T // 2 + 190, H - 190, SV + 2, wm // 2 - 2, H - 420, H)
+    out["M"] = [ms]
+    out["W"] = [turn(ms, wm, H)]
+    wv = w("V")
+    yo = wv // 2 - t(116) // 2                  # where the V's stem breaks into its slope
+    vx = (yo + T // 2 + 96) // 2                # a point on the slope's centre line, x + y = yo + T / 2
+    out["V"] = [slit(vx, yo + T // 2 - vx, SV // 2, wv // 2 - 2, 40, yo)]
+    # Y: across the stem, under the fork
+    wy = w("Y")
+    fork = H - (wy // 2 - SV // 2 + f)
+    out["Y"] = [stem(wy // 2 - SV // 2, wy // 2 + SV // 2, fork - 110)]
+    # X: the falling stroke is cut either side of the crossing; the rising one runs through
+    wx = w("X")
+    d = 96
+    out["X"] = [slit(wx // 2 + d, M - d, wx // 2 + d - 150, wx // 2 + d + 150, M - d - 150, M - d + 150),
+                slit(wx // 2 - d, M + d, wx // 2 - d - 150, wx // 2 - d + 150, M + d - 150, M + d + 150)]
+    # 4: the bar is cut under the counter, so the triangle opens
+    sr = W - t(46)
+    y4 = 224 - SH // 2
+    out["4"] = [bar(sr - SV - 124, y4, y4 + SH)]
+    out["1.tnum"] = [tr((500 - SV) // 2 + SV, H)]
+    return out
+
+
+def stencil_zero(F):
+    """The stencil's zero: the frame, and the slash floating clear of it."""
+    SV, SH, W = F.SV, F.SH, F.WFIG
+    p = Pen(SV, SH, F.SD, F.CUT)
+    ts, gap = diag(F.t(108)), 46
+    sl = clipbox(band(W // 2 - ts // 2 - H // 2, 0, H, ts), SV + gap, W - SV - gap, SH + gap, H - SH - gap)
+    return (W, [p.box(0, 0, W, H), solid(sl)])
 
 
 # ---- spacing -------------------------------------------------------------------------
@@ -616,13 +796,13 @@ def ink_left(shapes, y):
     return best
 
 
-def side_space(ch, shapes):
+def side_space(ch, shapes, SB):
     """Optical spacing. Each side gets the base bearing minus part of the white it already
     holds, so open and diagonal sides (C, E, K, L, T, X, Y, 7) sit as close as straight stems
     do. Punctuation keeps the plain bearing."""
     xs = [x for pts in shapes for x, _ in pts]
     x0, x1 = min(xs), max(xs)
-    if not ch.isalnum():
+    if not ch.isalnum() or ch in "²³":
         return SB, SB, x0, x1
     mirrored = [[(-x, y) for x, y in pts] for pts in shapes]
     top = X if ch.islower() else H                  # lowercase meet their neighbours in the x-height
@@ -668,7 +848,20 @@ KERN[("/", "/")] = -150
 
 # ---- build ---------------------------------------------------------------------------
 def build(weight="Heavy"):
-    g = glyphs()
+    is_stencil = weight == "Stencil"
+    F = Face("Heavy" if is_stencil else weight)
+    SB = F.SB
+    g = glyphs(F)
+    trims = {}
+    if is_stencil:
+        g["0"] = stencil_zero(F)
+        trims = stencil(F, g)
+        for ch, (base, acc) in COMPOSED.items():    # accented capitals carry their letter's bridges
+            if base in trims:
+                trims[ch] = trims[base]
+        for ch in ("Ç", "Ø"):
+            trims[ch] = trims[{"Ç": "C", "Ø": "O"}[ch]]
+        g = {ch: v for ch, v in g.items() if not (len(ch) == 1 and ch.islower())}      # unicase: a–z are set in the capitals
     digits = "0123456789"
     tn1 = g.pop("1.tnum")
     names = {ch: ("uni%04X" % ord(ch)) for ch in g}
@@ -693,12 +886,14 @@ def build(weight="Heavy"):
     pen_glyphs[".notdef"] = draw(o, h, SB)
     metrics[".notdef"] = (500 + 2 * SB, SB)
     pen_glyphs["space"] = TTGlyphPen(None).glyph()
-    metrics["space"] = (SPACE, 0)
+    metrics["space"] = (F.SPACE, 0)
 
     ink = {}
     for ch, (w, parts) in g.items():
         outers, holes = resolve(parts)
-        lsb, rsb, x0, x1 = side_space(ch, outers)
+        lsb, rsb, x0, x1 = side_space(ch, outers, SB)       # spaced as the unbridged letter, so a bridge never shifts it
+        if ch in trims:
+            outers, holes = resolve(parts, trims[ch])
         if ch in digits:                                # figures: the plain bearing, so columns and readouts keep step
             lsb = rsb = SB
             ink[ch] = (outers, holes, x0, x1)
@@ -708,8 +903,12 @@ def build(weight="Heavy"):
         cmap[ord(ch)] = names[ch]
 
     # tabular figures (tnum): every digit on one advance, ink centred; the 1 takes its footed form
-    ink["1"] = (*resolve(tn1[1]), 0, tn1[0])
-    tw = WFIG + 2 * SB
+    ink["1"] = (*resolve(tn1[1], trims.get("1.tnum", ())), 0, tn1[0])
+    if is_stencil:
+        lower = {ord(c.lower()): n for c, n in ((chr(k), v) for k, v in cmap.items()) if c.isupper() and len(c.lower()) == 1 and ord(c.lower()) not in cmap}
+        cmap.update(lower)
+        cmap[ord("ı")] = names["I"]
+    tw = F.WFIG + 2 * SB
     for d, (outers, holes, x0, x1) in ink.items():
         off = (tw - (x1 - x0)) // 2
         pen_glyphs[names[d] + ".tnum"] = draw(outers, holes, off - x0)
@@ -722,11 +921,11 @@ def build(weight="Heavy"):
     fb.setupHorizontalMetrics(metrics)
     fb.setupHorizontalHeader(ascent=930, descent=-250)
     family = "Shingo Grid"
-    fb.setupNameTable({"familyName": family, "styleName": weight, "uniqueFontIdentifier": f"ShingoGrid-{weight}-2",
-                       "fullName": f"{family} {weight}", "psName": f"ShingoGrid-{weight}", "version": "Version 2.000",
-                       "copyright": "Shingo Grid. MIT licence, see LICENSE."})
+    fb.setupNameTable({"familyName": f"{family} {weight}", "styleName": "Regular", "typographicFamily": family, "typographicSubfamily": weight,
+                       "uniqueFontIdentifier": f"ShingoGrid-{weight}-2", "fullName": f"{family} {weight}", "psName": f"ShingoGrid-{weight}",
+                       "version": "Version 2.100", "copyright": "Shingo Grid. MIT licence, see LICENSE."})
     fb.setupOS2(sTypoAscender=930, sTypoDescender=-250, sTypoLineGap=0, usWinAscent=1000, usWinDescent=300,
-                sCapHeight=H, sxHeight=X, usWeightClass=900, achVendID="SHGO", fsSelection=0x20)
+                sCapHeight=H, sxHeight=X, usWeightClass=F.cls, achVendID="SHGO", fsSelection=0x40)
     fb.setupPost()
     kern = "\n".join(f"  pos {names[l]} {names[r]} {v};" for (l, r), v in KERN.items() if l in names and r in names)
     from fontTools.feaLib.builder import addOpenTypeFeaturesFromString
@@ -734,7 +933,7 @@ def build(weight="Heavy"):
                                    + "feature tnum {\n" + "".join(f"  sub {names[d]} by {names[d]}.tnum;\n" for d in digits) + "} tnum;\n")
     from fontTools.misc.timeTools import timestampFromString
     ts = timestampFromString("Fri Nov 27 00:00:00 2026")     # fixed, so rebuilds are byte-identical
-    fb.setupHead(unitsPerEm=UPM, macStyle=1, created=ts, modified=ts)
+    fb.setupHead(unitsPerEm=UPM, macStyle=0, created=ts, modified=ts)
     return fb.font
 
 
@@ -742,11 +941,12 @@ def main():
     ios = ROOT / "ios" / "Sources" / "ShingoKit" / "Resources" / "Fonts"
     web = ROOT / "web" / "fonts"
     web.mkdir(parents=True, exist_ok=True)
-    f = build("Heavy")
-    f.save(ios / "ShingoGrid-Heavy.ttf")
-    f.flavor = "woff2"
-    f.save(web / "ShingoGrid-Heavy.woff2")
-    print(f"ShingoGrid-Heavy: {len(f.getGlyphOrder())} glyphs, woff2 {(web / 'ShingoGrid-Heavy.woff2').stat().st_size // 1024} KB")
+    for weight in list(WEIGHTS) + ["Stencil"]:
+        f = build(weight)
+        f.save(ios / f"ShingoGrid-{weight}.ttf")
+        f.flavor = "woff2"
+        f.save(web / f"ShingoGrid-{weight}.woff2")
+        print(f"ShingoGrid-{weight}: {len(f.getGlyphOrder())} glyphs, woff2 {(web / f'ShingoGrid-{weight}.woff2').stat().st_size // 1024} KB")
 
 
 if __name__ == "__main__":
