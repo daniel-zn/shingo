@@ -41,21 +41,88 @@ public typealias SGSegDisplay = SGReadout
 
 // MARK: - Cell meter
 
+/// Coral-harmonized telemetry series ink (up to four simultaneous series).
+public enum SGSeries: Int, CaseIterable, Sendable {
+    case s1 = 1, s2, s3, s4
+    public var color: Color {
+        switch self {
+        case .s1: return SG.series1
+        case .s2: return SG.series2
+        case .s3: return SG.series3
+        case .s4: return SG.series4
+        }
+    }
+}
+
 public struct SGCellMeter: View {
-    public var count: Int, filled: Int, hot: Int?, tall: Bool
-    public init(count: Int = 12, filled: Int, hot: Int? = nil, tall: Bool = false) {
-        self.count = count; self.filled = filled; self.hot = hot; self.tall = tall
+    public var count: Int, filled: Int, hot: Int?, tall: Bool, slim: Bool, fill: Color
+    public init(count: Int = 12, filled: Int, hot: Int? = nil, tall: Bool = false, slim: Bool = false, fill: Color = SG.groundHi) {
+        self.count = count; self.filled = filled; self.hot = hot; self.tall = tall; self.slim = slim; self.fill = fill
     }
     public var body: some View {
-        HStack(spacing: 3) {
+        let h: CGFloat = slim ? 6 : (tall ? 22 : 14)
+        HStack(spacing: slim ? 2 : 3) {
             ForEach(0..<count, id: \.self) { i in
                 Rectangle()
-                    .fill(i == hot ? SG.coral : (i < filled ? SG.groundHi : SG.ground3))
-                    .frame(height: tall ? 22 : 14)
-                    .transformEffect(CGAffineTransform(a: 1, b: 0, c: -1, d: 1, tx: tall ? 22 : 14, ty: 0)) // skewX(-45°): the system diagonal
+                    .fill(i == hot ? SG.coral : (i < filled ? fill : SG.ground3))
+                    .frame(height: h)
+                    .transformEffect(CGAffineTransform(a: 1, b: 0, c: -1, d: 1, tx: h, ty: 0)) // skewX(-45°): the system diagonal
             }
         }
+        .padding(.trailing, slim ? h : 0)
         .accessibilityValue(Text("\(filled) of \(count)"))
+    }
+}
+
+/// 5×5 hard square telemetry series pip (zero corner radius).
+public struct SGSeriesPip: View {
+    public var series: SGSeries
+    public init(_ series: SGSeries) { self.series = series }
+    public var body: some View {
+        Rectangle().fill(series.color).frame(width: 5, height: 5)
+            .accessibilityHidden(true)
+    }
+}
+
+/// Horizontal split multi-series cell meter (up to 4 equal-width 45° slim tracks) with a 5×5 square-pip legend.
+/// Threshold alerts tint only the readout text in `SG.signalText` while segment and pip colours remain distinct.
+public struct SGSplitCellMeter: View {
+    public struct Segment: Identifiable {
+        public var id: Int { series.rawValue }
+        public var series: SGSeries
+        public var label: String
+        public var value: String
+        public var count: Int
+        public var filled: Int
+        public var isAlert: Bool
+        public init(_ series: SGSeries, label: String, value: String, count: Int = 10, filled: Int, isAlert: Bool = false) {
+            self.series = series; self.label = label; self.value = value
+            self.count = count; self.filled = filled; self.isAlert = isAlert
+        }
+    }
+    public var segments: [Segment]
+    public init(_ segments: [Segment]) { self.segments = Array(segments.prefix(4)) }
+    public var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 8) {
+                ForEach(segments) { seg in
+                    SGCellMeter(count: seg.count, filled: seg.filled, slim: true, fill: seg.series.color)
+                }
+            }
+            HStack(spacing: 10) {
+                ForEach(segments) { seg in
+                    HStack(spacing: 5) {
+                        SGSeriesPip(seg.series)
+                        Text(seg.label)
+                            .foregroundStyle(seg.isAlert ? SG.signalText : SG.groundDim)
+                        Text(seg.value)
+                            .foregroundStyle(seg.isAlert ? SG.signalText : SG.groundHi)
+                    }
+                    .sgMono(10)
+                    .monospacedDigit()
+                }
+            }
+        }
     }
 }
 

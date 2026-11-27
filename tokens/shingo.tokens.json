@@ -86,6 +86,26 @@
         "$type": "color",
         "$value": "#8f2b1c",
         "$description": "coral as text inside a print plate (the plate flips the ground): deep coral on bone plates, full coral on ink plates"
+      },
+      "series-1": {
+        "$type": "color",
+        "$value": "#5cd6a0",
+        "$description": "telemetry series 1 · jade (split-complement of coral)"
+      },
+      "series-2": {
+        "$type": "color",
+        "$value": "#5ba8ff",
+        "$description": "telemetry series 2 · cerulean (cool architectural counterpoint)"
+      },
+      "series-3": {
+        "$type": "color",
+        "$value": "#f2c14e",
+        "$description": "telemetry series 3 · marigold (warm ochre sibling)"
+      },
+      "series-4": {
+        "$type": "color",
+        "$value": "#b388ff",
+        "$description": "telemetry series 4 · iris (spaced 4th hue at matched lightness)"
       }
     },
     "light": {
@@ -173,6 +193,26 @@
         "$type": "color",
         "$value": "#ff715e",
         "$description": "coral as text inside a print plate (the plate flips the ground): deep coral on bone plates, full coral on ink plates"
+      },
+      "series-1": {
+        "$type": "color",
+        "$value": "#15593e",
+        "$description": "telemetry series 1 · jade (split-complement of coral)"
+      },
+      "series-2": {
+        "$type": "color",
+        "$value": "#184e8e",
+        "$description": "telemetry series 2 · cerulean (cool architectural counterpoint)"
+      },
+      "series-3": {
+        "$type": "color",
+        "$value": "#694808",
+        "$description": "telemetry series 3 · marigold (warm ochre sibling)"
+      },
+      "series-4": {
+        "$type": "color",
+        "$value": "#5b3a9b",
+        "$description": "telemetry series 4 · iris (spaced 4th hue at matched lightness)"
       }
     }
   },

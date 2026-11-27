@@ -53,6 +53,12 @@ public enum SG {
     public static let signalText = Color(light: 0x8F2B1C, dark: 0xFF715E)
     /// Coral as text inside a print plate, where the ground flips: full coral on ink plates, deep coral on bone plates.
     public static let signalPlate = Color(light: 0xFF715E, dark: 0x8F2B1C)
+    // multi-series telemetry: coral-harmonized inks for dense multi-series meters and pips
+    // (Coral stays reserved for alerts, thresholds and the single primary signal.)
+    public static let series1   = Color(light: 0x15593E, dark: 0x5CD6A0)   // jade (split-complement of coral)
+    public static let series2   = Color(light: 0x184E8E, dark: 0x5BA8FF)   // cerulean (cool architectural counterpoint)
+    public static let series3   = Color(light: 0x694808, dark: 0xF2C14E)   // marigold (warm ochre sibling)
+    public static let series4   = Color(light: 0x5B3A9B, dark: 0xB388FF)   // iris (spaced 4th hue)
 
     // geometry: one angle (45°), three cut sizes
     public static let hair: CGFloat = 1.5

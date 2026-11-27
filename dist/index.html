@@ -29,6 +29,7 @@
      --sage*        plates (filled blocks), the lighter layer
      --ink          text on plates + solid objects
      --coral        the signal: one block per screen + active states
+     --series-1..4  multi-series telemetry inks harmonized to coral (jade, cerulean, marigold, iris)
    Force a mode on any subtree with .mode-light / .mode-dark.
    Mirrors tokens/tokens.json and ios/Sources/ShingoKit/SGTheme.swift
    ========================================================================== */
@@ -46,6 +47,7 @@
   --on-ground: #c9ccc2;  --ground-hi: #dcdfd5;  --ground-dim: #8b8d85;
   --sage: #dcdfd5;  --sage-hi: #dcdfd5;  --sage-lo: #8b8d85;  --sage-line: #8b8d85;  --sage-ghost: #c9ccc2;
   --ink: #0b0b0a;  --ink-dim: #55574f;  --coral: #ff715e;  --signal-text: #ff715e;  --signal-plate: #8f2b1c;  --coral-deep: #e65b48;
+  --series-1: #5cd6a0;  --series-2: #5ba8ff;  --series-3: #f2c14e;  --series-4: #b388ff;
   color-scheme: dark;
 }
 .mode-light {
@@ -53,6 +55,7 @@
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
   --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
   --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;  --coral: #ff715e;  --coral-deep: #e65b48;
+  --series-1: #15593e;  --series-2: #184e8e;  --series-3: #694808;  --series-4: #5b3a9b;
   color-scheme: light;
 }
 @media (prefers-color-scheme: light) {
@@ -60,14 +63,16 @@
     --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
     --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
     --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
-    --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;  color-scheme: light;
+    --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;
+    --series-1: #15593e;  --series-2: #184e8e;  --series-3: #694808;  --series-4: #5b3a9b;  color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
   --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
-  --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;  color-scheme: light;
+  --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;
+  --series-1: #15593e;  --series-2: #184e8e;  --series-3: #694808;  --series-4: #5b3a9b;  color-scheme: light;
 }
 .mode-dark, .mode-light { color: var(--on-ground); }
 
@@ -320,8 +325,27 @@
 .cells { display: flex; gap: 4px; padding-left: 14px; }
 .cells i { flex: 1; height: 14px; background: var(--ground-3); transform: skewX(-45deg); transform-origin: 0 100%; }
 .cells i.on { background: var(--ground-hi); }
+.cells--s1 i.on, .cells i.s1 { background: var(--series-1); }
+.cells--s2 i.on, .cells i.s2 { background: var(--series-2); }
+.cells--s3 i.on, .cells i.s3 { background: var(--series-3); }
+.cells--s4 i.on, .cells i.s4 { background: var(--series-4); }
 .cells i.hot { background: var(--coral); }
 .cells--tall { padding-left: 22px; } .cells--tall i { height: 22px; }
+.cells--slim { gap: 2px; padding-left: 0; padding-right: 6px; } .cells--slim i { height: 6px; }
+
+/* split multi-series cell meter: up to 4 equal-width 45° tracks + 5×5 square-pip legend */
+.cells-split { display: flex; gap: 8px; align-items: center; }
+.cells-split > .cells { flex: 1; min-width: 0; }
+.pip { display: inline-block; width: 5px; height: 5px; flex: 0 0 5px; background: var(--ground-hi); vertical-align: middle; }
+.pip--s1 { background: var(--series-1); }
+.pip--s2 { background: var(--series-2); }
+.pip--s3 { background: var(--series-3); }
+.pip--s4 { background: var(--series-4); }
+.pip--hot { background: var(--coral); }
+.pip-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font: 500 10px/1.3 var(--f-mono); text-transform: uppercase; color: var(--ground-dim); font-variant-numeric: tabular-nums; }
+.pip-item { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.pip-item b { font-weight: 500; color: var(--ground-hi); }
+.pip-item--hot, .pip-item--hot b { color: var(--signal-text); }
 
 /* ruler slider: ticks every 2%, majors every 10%, coral needle */
 .ruler { position: relative; --v: 50%; padding-top: 12px; color: var(--ground-hi); }
@@ -1913,7 +1937,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
     </div>
     <div style="grid-column:1/-1">
       <h3><span>color roles · both modes</span><span>tokens/tokens.json</span></h3>
-      <div class="swatches"><div><i style="background:var(--ground)"></i><b>ground</b><span>striped background<br>dark #0b0b0a · light #bcbfb4</span></div><div><i style="background:var(--ground-2)"></i><b>ground-2</b><span>stripe highlight<br>dark #1b1c18 · light #b0b3a8</span></div><div><i style="background:var(--ground-3)"></i><b>ground-3</b><span>rules, frames, tracks<br>dark #2e2f2a · light #9fa297</span></div><div><i style="background:var(--on-ground)"></i><b>on-ground</b><span>body text on the ground<br>dark #c9ccc2 · light #1c1d19</span></div><div><i style="background:var(--ground-hi)"></i><b>ground-hi</b><span>the print: titles, line art, plates of text<br>dark #dcdfd5 · light #0f100d</span></div><div><i style="background:var(--ground-dim)"></i><b>ground-dim</b><span>secondary print<br>dark #8b8d85 · light #4d4f47</span></div><div><i style="background:var(--sage)"></i><b>sage</b><span>solid print plates<br>dark #dcdfd5 · light #0f100d</span></div><div><i style="background:var(--sage-hi)"></i><b>sage-hi</b><span>plates you press or carry (= print)<br>dark #dcdfd5 · light #0f100d</span></div><div><i style="background:var(--sage-lo)"></i><b>sage-lo</b><span>perforations, pressed plates<br>dark #8b8d85 · light #4d4f47</span></div><div><i style="background:var(--sage-line)"></i><b>sage-line</b><span>hairlines on plates<br>dark #8b8d85 · light #4d4f47</span></div><div><i style="background:var(--sage-ghost)"></i><b>sage-ghost</b><span>faint marks on plates<br>dark #c9ccc2 · light #2e2f2a</span></div><div><i style="background:var(--ink)"></i><b>ink</b><span>text knocked out of plates (= ground)<br>dark #0b0b0a · light #bcbfb4</span></div><div><i style="background:var(--ink-dim)"></i><b>ink-dim</b><span>secondary text on plates<br>dark #55574f · light #8e9187</span></div><div><i style="background:var(--coral)"></i><b>coral</b><span>the signal<br>dark #ff715e · light #ff715e</span></div><div><i style="background:var(--coral-deep)"></i><b>coral-deep</b><span>pressed signal<br>dark #e65b48 · light #e65b48</span></div><div><i style="background:var(--signal-text)"></i><b>signal-text</b><span>coral as text (deep coral on sage)<br>dark #ff715e · light #8f2b1c</span></div><div><i style="background:var(--signal-plate)"></i><b>signal-plate</b><span>coral as text inside a plate<br>dark #8f2b1c · light #ff715e</span></div></div>
+      <div class="swatches"><div><i style="background:var(--ground)"></i><b>ground</b><span>striped background<br>dark #0b0b0a · light #bcbfb4</span></div><div><i style="background:var(--ground-2)"></i><b>ground-2</b><span>stripe highlight<br>dark #1b1c18 · light #b0b3a8</span></div><div><i style="background:var(--ground-3)"></i><b>ground-3</b><span>rules, frames, tracks<br>dark #2e2f2a · light #9fa297</span></div><div><i style="background:var(--on-ground)"></i><b>on-ground</b><span>body text on the ground<br>dark #c9ccc2 · light #1c1d19</span></div><div><i style="background:var(--ground-hi)"></i><b>ground-hi</b><span>the print: titles, line art, plates of text<br>dark #dcdfd5 · light #0f100d</span></div><div><i style="background:var(--ground-dim)"></i><b>ground-dim</b><span>secondary print<br>dark #8b8d85 · light #4d4f47</span></div><div><i style="background:var(--sage)"></i><b>sage</b><span>solid print plates<br>dark #dcdfd5 · light #0f100d</span></div><div><i style="background:var(--sage-hi)"></i><b>sage-hi</b><span>plates you press or carry (= print)<br>dark #dcdfd5 · light #0f100d</span></div><div><i style="background:var(--sage-lo)"></i><b>sage-lo</b><span>perforations, pressed plates<br>dark #8b8d85 · light #4d4f47</span></div><div><i style="background:var(--sage-line)"></i><b>sage-line</b><span>hairlines on plates<br>dark #8b8d85 · light #4d4f47</span></div><div><i style="background:var(--sage-ghost)"></i><b>sage-ghost</b><span>faint marks on plates<br>dark #c9ccc2 · light #2e2f2a</span></div><div><i style="background:var(--ink)"></i><b>ink</b><span>text knocked out of plates (= ground)<br>dark #0b0b0a · light #bcbfb4</span></div><div><i style="background:var(--ink-dim)"></i><b>ink-dim</b><span>secondary text on plates<br>dark #55574f · light #8e9187</span></div><div><i style="background:var(--coral)"></i><b>coral</b><span>the signal<br>dark #ff715e · light #ff715e</span></div><div><i style="background:var(--coral-deep)"></i><b>coral-deep</b><span>pressed signal<br>dark #e65b48 · light #e65b48</span></div><div><i style="background:var(--signal-text)"></i><b>signal-text</b><span>coral as text (deep coral on sage)<br>dark #ff715e · light #8f2b1c</span></div><div><i style="background:var(--signal-plate)"></i><b>signal-plate</b><span>coral as text inside a plate<br>dark #8f2b1c · light #ff715e</span></div><div><i style="background:var(--series-1)"></i><b>series-1</b><span>telemetry series 1 · jade<br>dark #5cd6a0 · light #15593e</span></div><div><i style="background:var(--series-2)"></i><b>series-2</b><span>telemetry series 2 · cerulean<br>dark #5ba8ff · light #184e8e</span></div><div><i style="background:var(--series-3)"></i><b>series-3</b><span>telemetry series 3 · marigold<br>dark #f2c14e · light #694808</span></div><div><i style="background:var(--series-4)"></i><b>series-4</b><span>telemetry series 4 · iris<br>dark #b388ff · light #5b3a9b</span></div></div>
     </div>
     <div style="grid-column:1/-1">
       <h3><span>type scale</span><span>Shingo Grid (Heavy · Bold · Medium · Stencil) · Anybody · IBM Plex Mono · BIZ UDGothic</span></h3>
@@ -1959,6 +1983,33 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="demo" style="gap:28px;flex-wrap:wrap"><span class="sg-fig " data-hot="2" role="img" aria-label="02:47" style="font-size:56px"><b class="">0</b><b class="">2</b><b class="hot p">:</b><b class="">4</b><b class="">7</b></span><span class="sg-fig " data-hot="" role="img" aria-label="42.6" style="font-size:56px"><b class="">4</b><b class="">2</b><b class=" p">.</b><b class="">6</b></span><span class="sg-fig " data-hot="0" role="img" aria-label="-18" style="font-size:56px"><b class="hot p">-</b><b class="">1</b><b class="">8</b></span></div></div>
     <div class="inst" data-decode-view><h3><span>Cell meter</span><span>.cells · SGCellMeter</span></h3><p>Cells slanted at the system's 45°, like a hazard stripe that fills up. For levels, rounds and caps. The last cell can run hot.</p>
       <div class="demo" style="display:grid;gap:12px"><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i><i></i></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="inst" data-decode-view><h3><span>Split cell meter</span><span>.cells-split .pip-legend · SGSplitCellMeter</span></h3><p>Up to four equal-width 45° slim tracks in one row, keyed by 5×5 square pips in coral-harmonized telemetry inks (jade, cerulean, marigold, iris). Threshold alerts tint only the readout text in signal coral so every series keeps its hue.</p>
+      <div class="demo" style="display:grid;gap:14px">
+        <div style="display:grid;gap:6px">
+          <div class="cells-split">
+            <div class="cells cells--slim cells--s1"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="cells cells--slim cells--s2"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="pip-legend">
+            <span class="pip-item"><i class="pip pip--s1"></i>VOL A <b>44%</b></span>
+            <span class="pip-item"><i class="pip pip--s2"></i>VOL B <b>72%</b></span>
+          </div>
+        </div>
+        <div style="display:grid;gap:6px">
+          <div class="cells-split">
+            <div class="cells cells--slim cells--s1"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="cells cells--slim cells--s2"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+            <div class="cells cells--slim cells--s3"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+            <div class="cells cells--slim cells--s4"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="pip-legend">
+            <span class="pip-item"><i class="pip pip--s1"></i>CH-1 <b>38%</b></span>
+            <span class="pip-item"><i class="pip pip--s2"></i>CH-2 <b>64%</b></span>
+            <span class="pip-item pip-item--hot"><i class="pip pip--s3"></i>CH-3 <b>91%</b></span>
+            <span class="pip-item"><i class="pip pip--s4"></i>CH-4 <b>28%</b></span>
+          </div>
+        </div>
+      </div></div>
     <div class="inst" data-decode-view><h3><span>Ruler slider</span><span>.ruler · SGRuler</span></h3><p>A tick scale with a coral needle for volume, zoom, temperature or intensity. Drag it.</p>
       <div class="demo" style="display:block"><div class="ruler" id="k-ruler" style="--v:62%"><div class="ruler-ticks"></div><div class="ruler-labels"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div><input type="range" id="k-ruler-in" min="0" max="100" value="62" aria-label="Ruler value"></div></div></div>
     <div class="inst" data-decode-view><h3><span>Slash steps</span><span>.steps · SGSteps</span></h3><p>A process printed as "/" plates, the system's one diagonal: done in print, current in coral, upcoming in ground-3. For onboarding, checkout and setup.</p>

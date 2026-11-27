@@ -22,16 +22,20 @@ C = dict(ink="var(--ink)", sage="var(--sage)", hi="var(--sage-hi)", lo="var(--sa
 PALETTE = {
     "dark":  {"ground": "#0b0b0a", "ground-2": "#1b1c18", "ground-3": "#2e2f2a", "on-ground": "#c9ccc2", "ground-hi": "#dcdfd5", "ground-dim": "#8b8d85",
               "sage": "#dcdfd5", "sage-hi": "#dcdfd5", "sage-lo": "#8b8d85", "sage-line": "#8b8d85", "sage-ghost": "#c9ccc2",
-              "ink": "#0b0b0a", "ink-dim": "#55574f", "coral": "#ff715e", "coral-deep": "#e65b48", "signal-text": "#ff715e", "signal-plate": "#8f2b1c"},
+              "ink": "#0b0b0a", "ink-dim": "#55574f", "coral": "#ff715e", "coral-deep": "#e65b48", "signal-text": "#ff715e", "signal-plate": "#8f2b1c",
+              "series-1": "#5cd6a0", "series-2": "#5ba8ff", "series-3": "#f2c14e", "series-4": "#b388ff"},
     "light": {"ground": "#bcbfb4", "ground-2": "#b0b3a8", "ground-3": "#9fa297", "on-ground": "#1c1d19", "ground-hi": "#0f100d", "ground-dim": "#4d4f47",
               "sage": "#0f100d", "sage-hi": "#0f100d", "sage-lo": "#4d4f47", "sage-line": "#4d4f47", "sage-ghost": "#2e2f2a",
-              "ink": "#bcbfb4", "ink-dim": "#8e9187", "coral": "#ff715e", "coral-deep": "#e65b48", "signal-text": "#8f2b1c", "signal-plate": "#ff715e"},
+              "ink": "#bcbfb4", "ink-dim": "#8e9187", "coral": "#ff715e", "coral-deep": "#e65b48", "signal-text": "#8f2b1c", "signal-plate": "#ff715e",
+              "series-1": "#15593e", "series-2": "#184e8e", "series-3": "#694808", "series-4": "#5b3a9b"},
 }
 ROLES = {"ground": "striped background", "ground-2": "stripe highlight", "ground-3": "rules, frames, tracks",
          "on-ground": "body text on the ground", "ground-hi": "the print: titles, line art, plates of text", "ground-dim": "secondary print",
          "sage": "solid print plates", "sage-hi": "plates you press or carry (= print)", "sage-lo": "perforations, pressed plates", "sage-line": "hairlines on plates",
          "sage-ghost": "faint marks on plates", "ink": "text knocked out of plates (= ground)", "ink-dim": "secondary text on plates",
-         "coral": "the signal", "coral-deep": "pressed signal", "signal-text": "coral as text (deep coral on sage)", "signal-plate": "coral as text inside a plate"}
+         "coral": "the signal", "coral-deep": "pressed signal", "signal-text": "coral as text (deep coral on sage)", "signal-plate": "coral as text inside a plate",
+         "series-1": "telemetry series 1 · jade", "series-2": "telemetry series 2 · cerulean",
+         "series-3": "telemetry series 3 · marigold", "series-4": "telemetry series 4 · iris"}
 
 
 def resolve(svg, mode):

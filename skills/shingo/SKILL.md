@@ -18,7 +18,7 @@ Source of truth, in this order: `README.md` (rules 1–20), `tokens/tokens.json`
 ## Rules (hard constraints)
 
 1. Two inks: ground (`--ground*`) and print (`--ground-hi`, `--sage*`). Plates are solid print with text knocked out in `--ink`. No third tone, no gradients, no white, no black.
-2. One coral (`--coral`) block or primary action per screen, plus small active/fault states. Coral as text uses `--signal-text` (inside a print plate, `--signal-plate`; `.ticket`, `.dataplate` and `[data-plate]` set it).
+2. One coral (`--coral`) block or primary action per screen, plus small active/fault states. Coral as text uses `--signal-text` (inside a print plate, `--signal-plate`; `.ticket`, `.dataplate` and `[data-plate]` set it). For dense multi-series telemetry only (2–4 simultaneous series in one meter/legend), opt into `--series-1`..`--series-4` (`SG.series1`..`SG.series4` — jade, cerulean, marigold, iris, harmonized to coral in both modes) with `.cells-split` + `.pip-legend` (`SGSplitCellMeter` / `SGSeriesPip`); never use series inks for UI chrome, and keep coral strictly for alerts/thresholds (tint readout text with `.pip-item--hot` / `--signal-text` while keeping bar and 5×5 square pip hues distinct).
 3. Every diagonal rises "/" at 45°. Cuts top-left + bottom-right at 6/12/24. No `border-radius`, shadows, tilts, blur, textures or photos.
 4. Type: one family of our own, Shingo Grid, a cut-plate grotesque (a little wider than tall, corners cut top-left and bottom-right only). Heavy (weight 900) for display 40+, screen titles 32 and big figures; Bold (700–800) for subheads and inline wordmarks; Medium (600) for caps labels, buttons, chips and tabs; Shingo Grid Stencil for serials and stamps (once per screen). Anybody for body, IBM Plex Mono telemetry, BIZ UDGothic / Hiragino kanji. Big numbers are big hard figures (`seg7()` / `SGReadout`): proportional when static, fixed cells when they tick (`live-*` / `tabular: true`), `.sg-num--tab` for columns. Never condensed or rounded fonts.
 5. Utility screens follow the grammar: masthead `.u-hd` (code, title, ONE tag, span rule) → ONE hero → divider (`.hazard` system, ticks data, slash money/content) → `.u-body` → imprint `.u-foot`. Poster screens (launch, onboarding, lock, empty) compose freely.
@@ -37,7 +37,7 @@ Source of truth, in this order: `README.md` (rules 1–20), `tokens/tokens.json`
 1. Decide the tier (poster or utility) and the subject.
 2. Masthead: short code (`AX·01`), uppercase title, one tag, span rule `value ──── value`.
 3. Hero: exactly one form (nested bar, readout, plate, scope, chevrons).
-4. Divider by kind, then the body from kit parts only: `.u-label` group headers, `.stable`, `.spec`, `.cells`, `.nframe`, `.smx`, `.chamfer`, `.brackets`, `.btn--*`, `.tgl`, `.seg`, form set.
+4. Divider by kind, then the body from kit parts only: `.u-label` group headers, `.stable`, `.spec`, `.cells`, `.cells-split` + `.pip-legend`, `.nframe`, `.smx`, `.chamfer`, `.brackets`, `.btn--*`, `.tgl`, `.seg`, form set.
 5. Imprint footer: wide-caps line, mono reference, barcode.
 6. Pick the backdrop. Add the coral: one block or the primary action.
 

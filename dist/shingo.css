@@ -26,6 +26,7 @@
      --sage*        plates (filled blocks), the lighter layer
      --ink          text on plates + solid objects
      --coral        the signal: one block per screen + active states
+     --series-1..4  multi-series telemetry inks harmonized to coral (jade, cerulean, marigold, iris)
    Force a mode on any subtree with .mode-light / .mode-dark.
    Mirrors tokens/tokens.json and ios/Sources/ShingoKit/SGTheme.swift
    ========================================================================== */
@@ -43,6 +44,7 @@
   --on-ground: #c9ccc2;  --ground-hi: #dcdfd5;  --ground-dim: #8b8d85;
   --sage: #dcdfd5;  --sage-hi: #dcdfd5;  --sage-lo: #8b8d85;  --sage-line: #8b8d85;  --sage-ghost: #c9ccc2;
   --ink: #0b0b0a;  --ink-dim: #55574f;  --coral: #ff715e;  --signal-text: #ff715e;  --signal-plate: #8f2b1c;  --coral-deep: #e65b48;
+  --series-1: #5cd6a0;  --series-2: #5ba8ff;  --series-3: #f2c14e;  --series-4: #b388ff;
   color-scheme: dark;
 }
 .mode-light {
@@ -50,6 +52,7 @@
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
   --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
   --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;  --coral: #ff715e;  --coral-deep: #e65b48;
+  --series-1: #15593e;  --series-2: #184e8e;  --series-3: #694808;  --series-4: #5b3a9b;
   color-scheme: light;
 }
 @media (prefers-color-scheme: light) {
@@ -57,14 +60,16 @@
     --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
     --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
     --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
-    --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;  color-scheme: light;
+    --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;
+    --series-1: #15593e;  --series-2: #184e8e;  --series-3: #694808;  --series-4: #5b3a9b;  color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --ground: #bcbfb4;  --ground-2: #b0b3a8;  --ground-3: #9fa297;
   --on-ground: #1c1d19;  --ground-hi: #0f100d;  --ground-dim: #4d4f47;
   --sage: #0f100d;  --sage-hi: #0f100d;  --sage-lo: #4d4f47;  --sage-line: #4d4f47;  --sage-ghost: #2e2f2a;
-  --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;  color-scheme: light;
+  --ink: #bcbfb4;  --ink-dim: #8e9187;  --signal-text: #8f2b1c;  --signal-plate: #ff715e;
+  --series-1: #15593e;  --series-2: #184e8e;  --series-3: #694808;  --series-4: #5b3a9b;  color-scheme: light;
 }
 .mode-dark, .mode-light { color: var(--on-ground); }
 
@@ -317,8 +322,27 @@
 .cells { display: flex; gap: 4px; padding-left: 14px; }
 .cells i { flex: 1; height: 14px; background: var(--ground-3); transform: skewX(-45deg); transform-origin: 0 100%; }
 .cells i.on { background: var(--ground-hi); }
+.cells--s1 i.on, .cells i.s1 { background: var(--series-1); }
+.cells--s2 i.on, .cells i.s2 { background: var(--series-2); }
+.cells--s3 i.on, .cells i.s3 { background: var(--series-3); }
+.cells--s4 i.on, .cells i.s4 { background: var(--series-4); }
 .cells i.hot { background: var(--coral); }
 .cells--tall { padding-left: 22px; } .cells--tall i { height: 22px; }
+.cells--slim { gap: 2px; padding-left: 0; padding-right: 6px; } .cells--slim i { height: 6px; }
+
+/* split multi-series cell meter: up to 4 equal-width 45° tracks + 5×5 square-pip legend */
+.cells-split { display: flex; gap: 8px; align-items: center; }
+.cells-split > .cells { flex: 1; min-width: 0; }
+.pip { display: inline-block; width: 5px; height: 5px; flex: 0 0 5px; background: var(--ground-hi); vertical-align: middle; }
+.pip--s1 { background: var(--series-1); }
+.pip--s2 { background: var(--series-2); }
+.pip--s3 { background: var(--series-3); }
+.pip--s4 { background: var(--series-4); }
+.pip--hot { background: var(--coral); }
+.pip-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font: 500 10px/1.3 var(--f-mono); text-transform: uppercase; color: var(--ground-dim); font-variant-numeric: tabular-nums; }
+.pip-item { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.pip-item b { font-weight: 500; color: var(--ground-hi); }
+.pip-item--hot, .pip-item--hot b { color: var(--signal-text); }
 
 /* ruler slider: ticks every 2%, majors every 10%, coral needle */
 .ruler { position: relative; --v: 50%; padding-top: 12px; color: var(--ground-hi); }

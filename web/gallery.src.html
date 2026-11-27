@@ -1226,6 +1226,33 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="demo" style="gap:28px;flex-wrap:wrap"><!--@SEG7|02:47|56|2--><!--@SEG7|42.6|56|--><!--@SEG7|-18|56|0--></div></div>
     <div class="inst"><h3><span>Cell meter</span><span>.cells · SGCellMeter</span></h3><p>Cells slanted at the system's 45°, like a hazard stripe that fills up. For levels, rounds and caps. The last cell can run hot.</p>
       <div class="demo" style="display:grid;gap:12px"><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i><i></i></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="inst"><h3><span>Split cell meter</span><span>.cells-split .pip-legend · SGSplitCellMeter</span></h3><p>Up to four equal-width 45° slim tracks in one row, keyed by 5×5 square pips in coral-harmonized telemetry inks (jade, cerulean, marigold, iris). Threshold alerts tint only the readout text in signal coral so every series keeps its hue.</p>
+      <div class="demo" style="display:grid;gap:14px">
+        <div style="display:grid;gap:6px">
+          <div class="cells-split">
+            <div class="cells cells--slim cells--s1"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="cells cells--slim cells--s2"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="pip-legend">
+            <span class="pip-item"><i class="pip pip--s1"></i>VOL A <b>44%</b></span>
+            <span class="pip-item"><i class="pip pip--s2"></i>VOL B <b>72%</b></span>
+          </div>
+        </div>
+        <div style="display:grid;gap:6px">
+          <div class="cells-split">
+            <div class="cells cells--slim cells--s1"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="cells cells--slim cells--s2"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+            <div class="cells cells--slim cells--s3"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+            <div class="cells cells--slim cells--s4"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="pip-legend">
+            <span class="pip-item"><i class="pip pip--s1"></i>CH-1 <b>38%</b></span>
+            <span class="pip-item"><i class="pip pip--s2"></i>CH-2 <b>64%</b></span>
+            <span class="pip-item pip-item--hot"><i class="pip pip--s3"></i>CH-3 <b>91%</b></span>
+            <span class="pip-item"><i class="pip pip--s4"></i>CH-4 <b>28%</b></span>
+          </div>
+        </div>
+      </div></div>
     <div class="inst"><h3><span>Ruler slider</span><span>.ruler · SGRuler</span></h3><p>A tick scale with a coral needle for volume, zoom, temperature or intensity. Drag it.</p>
       <div class="demo" style="display:block"><div class="ruler" id="k-ruler" style="--v:62%"><div class="ruler-ticks"></div><div class="ruler-labels"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div><input type="range" id="k-ruler-in" min="0" max="100" value="62" aria-label="Ruler value"></div></div></div>
     <div class="inst"><h3><span>Slash steps</span><span>.steps · SGSteps</span></h3><p>A process printed as "/" plates, the system's one diagonal: done in print, current in coral, upcoming in ground-3. For onboarding, checkout and setup.</p>

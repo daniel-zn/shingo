@@ -14,6 +14,8 @@ One spec. Everything in the repo follows it, and anything new must too.
 1. **Two inks.** Print on ground, nothing else. Solid shapes (keys, cards, badges, tickets, bars, plates) are print ink with the text knocked out. There is no third tone.
 2. **One signal.** Coral is the only extra ink: one block or one primary action per screen, plus the latest or active state. Switches turn on in print. Coral used as text takes `--signal-text`, a deeper coral on sage so small type stays legible. Inside a print plate (tickets, data plates, `[data-plate]`) the ground flips, so it takes `--signal-plate` instead; those plates set it for you. Coral never draws guides, dashed outlines, frames or annotations: construction marks and notes print in the dim ink (`--ground-dim`), and warnings are framed in print with a hazard spine.
 
+   **Multi-series telemetry (optional extension).** When a dense telemetry panel must distinguish 2–4 simultaneous series in one meter or readout group (volumes, channels, multi-band load), Shingō adds four matte industrial inks harmonized to Shingo Coral (`#ff715e`): **Jade** (`--series-1`, split-complement of coral), **Cerulean** (`--series-2`, cool architectural counterpoint), **Marigold** (`--series-3`, warm ochre sibling) and **Iris** (`--series-4`, spaced fourth hue). On dark ground (`#0b0b0a` / `#000000`), all four sit at matched perceptual lightness (OKLCH L ≈ 0.72–0.83) with warm-balanced matte chroma so they read cleanly without neon clash or competing with coral; on light sage ground (`#bcbfb4`), each steps down to an ink-matched print density (OKLCH L ≈ 0.42–0.44, ≈ 4.45:1 contrast, matching `--signal-text` `#8f2b1c`). Use them only for multi-series telemetry bars and 5×5 square legend pips (`.cells-split` + `.pip-legend` / `SGSplitCellMeter`) — never for UI chrome. Coral remains strictly reserved for alerts, thresholds and the single primary signal; when a series crosses a threshold, tint only its readout text in `--signal-text` while keeping its bar and pip distinct. System states still rely on shapes and position, never colour alone.
+
 **Shape**
 
 3. **One angle, one direction.** Every diagonal rises left to right at 45°. Corner cuts sit top-left and bottom-right at 6, 12 or 24 pt. Nothing is tilted, textured, shadowed or rounded; device chrome is the only exception.
@@ -90,6 +92,15 @@ One spec. Everything in the repo follows it, and anything new must too.
 | **Dark** | ink `#0b0b0a` | bone `#dcdfd5` | bone, text knocked out | coral `#ff715e` (text `#ff715e`) |
 | **Light** | sage `#bcbfb4` | ink `#0f100d` | ink, text knocked out | coral `#ff715e` (text `#8f2b1c`) |
 
+Multi-series telemetry inks (opt-in, harmonized to coral `#ff715e`):
+
+| token | hue | dark (`#0b0b0a`) | light (`#bcbfb4`) | relationship to coral |
+|---|---|---|---|---|
+| `--series-1` / `SG.series1` | **Jade** | `#5cd6a0` | `#15593e` | split-complement |
+| `--series-2` / `SG.series2` | **Cerulean** | `#5ba8ff` | `#184e8e` | cool architectural counterpoint |
+| `--series-3` / `SG.series3` | **Marigold** | `#f2c14e` | `#694808` | warm ochre sibling |
+| `--series-4` / `SG.series4` | **Iris** | `#b388ff` | `#5b3a9b` | spaced fourth hue |
+
 Use role tokens, never raw hex. Things printed on the ground use `--ground-*`: `--ground-hi` is the print and `--ground-dim` is secondary print. Things on plates use `--sage-*` and `--ink`. Force a mode on any web subtree with `.mode-light` or `.mode-dark`. On iOS, every `SG` colour is dynamic and follows the system appearance or `.preferredColorScheme`.
 
 | dark | light |
@@ -136,7 +147,7 @@ ios/                          Swift package "ShingoKit" (iOS 17+), all colours d
   Sources/ShingoKit/SGMonolith.swift     SGMonolith: all 22 monoliths (generated, do not edit)
   Sources/ShingoKit/SGLive.swift        SGHaptics, SGScrambleText, SGLiveCountdown, sgHazardWipe transition, sgHUD readout
   Sources/ShingoKit/SGScreen.swift      SGUtilityScreen, SGCode: the screen grammar
-  Sources/ShingoKit/SGInstruments.swift  SGSegDisplay, SGCellMeter, SGRuler, SGSteps, SGIndexTabs, SGCaution, SGStamp, SGTicket, SGKeycapStyle, SGRockerStyle, SGDataPlate, SGSpecRow, SGMatrixCode, .printMarks(), SGColorBar, SGTicker, SGBootLog, SGLamps, SGBlueprint, SGCallout, SGWave
+  Sources/ShingoKit/SGInstruments.swift  SGSegDisplay, SGCellMeter, SGSplitCellMeter, SGSeriesPip, SGRuler, SGSteps, SGIndexTabs, SGCaution, SGStamp, SGTicket, SGKeycapStyle, SGRockerStyle, SGDataPlate, SGSpecRow, SGMatrixCode, .printMarks(), SGColorBar, SGTicker, SGBootLog, SGLamps, SGBlueprint, SGCallout, SGWave
   Sources/ShingoKit/SGPatterns.swift    SGState, SGSpecTable, SGXCheckboxStyle, SGDiamondRadio, SGStepper, SGSearchField, SGTelex, SGSkeleton
   Sources/ShingoKit/SGLanguage.swift    VerticalText, Hanko, HazardBar, ChevronStack, YearSpan, ManifestoExample
   Sources/ShingoKit/Examples/           LaunchExample, DashboardExample, IntervalExample with light/dark #Previews
@@ -244,6 +255,7 @@ Point the agent at `skills/shingo/SKILL.md`. It holds the rules in checklist for
 | `.slot`, `.yearspan`, `.barcode` | `SGSlot`, `YearSpan`, `Barcode` | |
 | `#g-spectrum`, `#g-scope` | `Spectrum`, `Scope` | |
 | `seg7()` → `.sg-fig` (`.live-down` / `.live-up` fixed cells), `.cells`, `.ruler` | `SGReadout` (`tabular:`), `SGCellMeter`, `SGRuler` | readouts and levels |
+| `.cells-split` + `.cells--slim.cells--s1..4`, `.pip-legend` + `.pip--s1..4` | `SGSplitCellMeter`, `SGSeriesPip`, `SGSeries` | up to 4 multi-series 45° tracks + 5×5 square pips; `.pip-item--hot` (`isAlert`) for coral threshold text |
 | `.steps`, `.itabs`, `.caution`, `.stamp` | `SGSteps`, `SGIndexTabs`, `SGCaution`, `SGStamp` | |
 | `.ticket`, `.keycap`, `.rocker`, `.dataplate` | `SGTicket`, `SGKeycapStyle`, `SGRockerStyle`, `SGDataPlate` | |
 | `.marks`, `.colorbar`, `.ticker`, `.bootlog`, `.lamps` | `.printMarks()`, `SGColorBar`, `SGTicker`, `SGBootLog`, `SGLamps` | |
