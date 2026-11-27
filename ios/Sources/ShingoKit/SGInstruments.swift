@@ -7,29 +7,30 @@ import SwiftUI
 
 // MARK: - Figure readout
 
-/// Big figures in Shingo Grid: timers, counters, balances. `height` is the slot the readout fills;
-/// characters at the indexes in `hot` print in coral. Each digit sits in a fixed cell so live
-/// values never jump. (Replaces the retired seven-segment display.)
+/// Big figures in Shingo Grid: timers, counters, balances. `height` is the slot the readout fills:
+/// the figures are set at that size, so their caps stand 0.7 × height tall. Characters at the
+/// indexes in `hot` print in coral. (Replaces the retired seven-segment display.)
 public struct SGReadout: View {
     public var text: String
     public var height: CGFloat
     public var hot: Set<Int>
-    /// Fixed cells for values that tick (timers, counters) so they never jump; static values
-    /// set on the figures' own widths.
+    /// Values that tick (timers, counters) take the tabular figures (the footed 1) in fixed
+    /// cells so they never jump; static values set on the figures' own widths.
     public var tabular: Bool
     public init(_ text: String, height: CGFloat = 48, hot: Set<Int> = [], tabular: Bool = false) {
         self.text = text; self.height = height; self.hot = hot; self.tabular = tabular
     }
     public var body: some View {
-        let size = height * 0.92
+        let size = height
+        let face = tabular ? SGFont.number(size).monospacedDigit() : SGFont.number(size)
         HStack(alignment: .firstTextBaseline, spacing: 0) {
             ForEach(Array(text.enumerated()), id: \.offset) { i, ch in
-                Text(String(ch)).font(SGFont.number(size))
+                Text(String(ch)).font(face)
                     .foregroundStyle(hot.contains(i) ? SG.coral : SG.groundHi)
-                    .frame(width: tabular && ch.isNumber ? size * 0.94 : nil)
+                    .frame(width: tabular && ch.isNumber ? size * SGFace.figureCell : nil)
             }
         }
-        .frame(height: size * 0.65)
+        .frame(height: size * SGFace.capHeight)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text(text))
     }

@@ -219,8 +219,8 @@
           "width": "single (wide)",
           "weight": 900,
           "ios": "ShingoGrid-Heavy",
-          "case": "upper and lower (full lowercase: x-height .74 cap, ascenders 1.05 cap, descenders -.30 cap)",
-          "use": "display wordmarks 40 pt+, screen titles 28"
+          "case": "upper and lower (full lowercase: x-height .54 em, ascenders .74 em, descenders -.19 em; cap height .70 em)",
+          "use": "display wordmarks 40 pt+, screen titles 32"
         }
       }
     },
@@ -300,7 +300,7 @@
       "$extensions": {
         "shingo": {
           "ios": "SGReadout",
-          "use": "timers, counters, hero numbers; each digit in a fixed .94em cell; one digit may print coral"
+          "use": "timers, counters, hero numbers; set at font-size = slot height (caps .7 of it); values that tick take the tabular figures in fixed .84em cells; one digit may print coral"
         }
       }
     },

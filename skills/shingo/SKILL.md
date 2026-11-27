@@ -7,7 +7,7 @@ description: Apply the Shingō 信号 industrial print design system (sci-fi ind
 
 Interfaces are **printed** on a striped ground like a two-ink screen print: wide hard type, one 45° diagonal, hazard bars, chevrons, big hard figures, stencil serials, mono telemetry and one coral signal per screen. Every screen exists in light and dark.
 
-Source of truth, in this order: `README.md` (rules 1–19), `tokens/tokens.json`, `web/shingo.css`, `ios/Sources/ShingoKit/`. The gallery `dist/index.html` shows every piece; `dist/starter.html` is a complete page to copy.
+Source of truth, in this order: `README.md` (rules 1–20), `tokens/tokens.json`, `web/shingo.css`, `ios/Sources/ShingoKit/`. The gallery `dist/index.html` shows every piece; `dist/starter.html` is a complete page to copy.
 
 ## Set up
 
@@ -20,7 +20,7 @@ Source of truth, in this order: `README.md` (rules 1–19), `tokens/tokens.json`
 1. Two inks: ground (`--ground*`) and print (`--ground-hi`, `--sage*`). Plates are solid print with text knocked out in `--ink`. No third tone, no gradients, no white, no black.
 2. One coral (`--coral`) block or primary action per screen, plus small active/fault states. Coral as text uses `--signal-text` (inside a print plate, `--signal-plate`; `.ticket`, `.dataplate` and `[data-plate]` set it).
 3. Every diagonal rises "/" at 45°. Cuts top-left + bottom-right at 6/12/24. No `border-radius`, shadows, tilts, blur, textures or photos.
-4. Type: Shingo Grid Heavy for display 40+, screen titles 28 and big figures; Shingo Signal (Orbitron, completed) 800 for subheads and inline wordmarks, 600 for caps labels and buttons; Anybody for body, IBM Plex Mono telemetry, Saira Stencil One serials (once per screen), BIZ UDGothic / Hiragino kanji. Big numbers are big hard figures (`seg7()` / `SGReadout`): proportional when static, fixed cells when they tick (`live-*` / `tabular: true`), `.sg-num--tab` for columns. Never condensed or rounded fonts.
+4. Type: Shingo Grid Heavy (a cut-plate grotesque: heavy, a little wider than tall, corners cut top-left and bottom-right only) for display 40+, screen titles 32 and big figures; Shingo Signal (Orbitron, completed) 800 for subheads and inline wordmarks, 600 for caps labels and buttons; Anybody for body, IBM Plex Mono telemetry, Saira Stencil One serials (once per screen), BIZ UDGothic / Hiragino kanji. Big numbers are big hard figures (`seg7()` / `SGReadout`): proportional when static, fixed cells when they tick (`live-*` / `tabular: true`), `.sg-num--tab` for columns. Never condensed or rounded fonts.
 5. Utility screens follow the grammar: masthead `.u-hd` (code, title, ONE tag, span rule) → ONE hero → divider (`.hazard` system, ticks data, slash money/content) → `.u-body` → imprint `.u-foot`. Poster screens (launch, onboarding, lock, empty) compose freely.
 6. One backdrop per screen (`<svg class="sg-bg"><use href="#g-bg-…"/></svg>` / `SGMonolith`). Default to a monolith: one oversized mass that bleeds off the edges, printed quietly in the stripe's own tone (ground-2 solid / half-tone, holes show the stripes), chosen by subject from the 22 in `tools/monoliths.py`. It should be felt before it is seen. Line compositions only as heroes or insets, never as a screen backdrop. Coral never draws guides, dashed outlines, frames or annotations; those print in `--ground-dim`. A content motif (`#g-m-*`) only if the subject has one.
 7. States: `.state--ok` solid square, `--warn` hatch, `--fault` coral X, `--off` dim X, `--busy` marching hatch (`SGState`). Never colour alone.
@@ -30,6 +30,7 @@ Source of truth, in this order: `README.md` (rules 1–19), `tokens/tokens.json`
 11. English runs the UI. At most one Japanese accent (vertical tag `.sg-jp-v` or seal `.hanko`) and one French aside (`.sg-fr`, usually in the span rule) per screen. Use `tokens/lexicon.json`.
 12. Larger screens keep the grammar and add a rail (see `.con` in the gallery).
 13. Print furniture frames the sheet (README rule 19): `.xh` crosshairs and `.techframe`, `.rail` spec rails, `.spaced` word-spaced microtext, `.coords` coordinate stacks, `.vstamp` stamps, `.marktile` (the only coral furniture), `.dcall` data callouts, `.specgrid`, `.gbuild` glyph construction. Generators in `tools/print_kit.py`, SwiftUI in `SGPrint.swift`. Poster screens use it freely; utility screens on the imprint rule and in heroes.
+14. Impressions (README rule 20): display type 40 px+ and figure readouts print solid by default, or screened (`.imp-screen`), as a keyline (`.imp-keyline`) or in the stripe tone (`.imp-tone`); SwiftUI `SGDisplayText(_:size:impression:)`. At most one line per screen that is not solid, and only where it means something (the missing thing as a keyline, a count behind as tone). Posters may stack them. Never for labels, body or controls.
 
 ## Build a screen
 
@@ -45,7 +46,7 @@ Source of truth, in this order: `README.md` (rules 1–19), `tokens/tokens.json`
 - [ ] Light and dark both checked (`data-theme="light"|"dark"`, `.mode-light`, SwiftUI previews).
 - [ ] Exactly one coral block/primary action; coral text legible on light (`--signal-text`).
 - [ ] No radius, shadow, gradient, image, tilt or texture; all diagonals "/".
-- [ ] Only kit fonts; hero numbers as Shingo Grid figure readouts.
+- [ ] Only kit fonts; hero numbers as Shingo Grid figure readouts; at most one screened, keyline or tone line.
 - [ ] Grammar order intact; one tag; one hero; one backdrop.
 - [ ] State shapes, spec tables, telex and hatch used where relevant.
 - [ ] Slides linear and continuous, state changes stepped, all off under reduced motion; no horizontal scroll at 390 px.

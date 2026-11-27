@@ -17,7 +17,7 @@ import SwiftUI
 
 public enum SGMetrics {
     public static let display: CGFloat = 40
-    public static let title: CGFloat = 28
+    public static let title: CGFloat = 32
     public static let inline: CGFloat = 14
 }
 

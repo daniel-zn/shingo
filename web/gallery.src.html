@@ -37,8 +37,8 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 .hd2-top { display: flex; align-items: center; gap: 14px; }
 .hd2-top .grow { flex: 1; height: var(--hair); background: var(--ground-3); }
 .hd2-mast { display: flex; align-items: flex-start; gap: 14px; }
-.hd2-mast h1 { margin: 0; font-size: clamp(56px, 11vw, 168px); line-height: .82; color: var(--ground-hi); }
-.hd2-mast .hd-jp { font-size: clamp(24px, 3.4vw, 48px); color: var(--signal-text); padding-top: .2em; }
+.hd2-mast h1 { margin: .09em 0 0 -.012em; font-size: clamp(56px, 15.2vw, 226px); line-height: .76; color: var(--ground-hi); }
+.hd2-mast .hd-jp { font-size: clamp(24px, 4.2vw, 62px); color: var(--signal-text); padding-top: .12em; writing-mode: vertical-rl; letter-spacing: .08em; line-height: 1; }
 .hd2-rule { display: flex; align-items: center; gap: 10px; }
 .hd2-rule i.ln { flex: 1; height: var(--hair); background: var(--ground-hi); }
 .hd2-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) 210px; gap: 26px; align-items: stretch; }
@@ -85,29 +85,37 @@ body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiase
 .ka-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .ka-pair figure { margin: 0; display: grid; gap: 10px; }
 .ka { position: relative; aspect-ratio: 2 / 3; container-type: inline-size; overflow: hidden; color: var(--ground-hi); }
-.ka-in { position: absolute; inset: 6cqw; display: grid; grid-template-columns: minmax(0, 1fr) 21cqw; grid-template-rows: auto auto auto auto 1fr auto auto; column-gap: 5cqw; row-gap: 3.2cqw; }
-.ka-mast { grid-column: 1 / -1; display: flex; align-items: flex-end; gap: 2cqw; }
-.ka-mast .u-code { font-size: 1.3cqw; padding-bottom: 1cqw; }
-.ka-mast .sg-display { font-size: 15.5cqw; line-height: .8; }
-.ka-slab { height: 10cqw; }
-.ka-head { display: grid; place-items: center; }
-.ka-head svg { width: 12cqw; height: 12cqw; }
-.ka-year { grid-column: 1 / -1; font-size: 3.6cqw; }
-.ka-trio { display: grid; gap: .6cqw; align-content: start; }
-.ka-trio .sg-label { font-family: var(--f-title); font-stretch: 125%; font-size: 3.6cqw; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; line-height: 1; }
-.ka-trio .sg-jp { font-size: 4.3cqw; }
-.ka-side { grid-row: 4 / 6; grid-column: 2; display: flex; flex-direction: column; gap: 3cqw; align-items: stretch; }
-.ka-side .sg-num { font-size: 6cqw; text-align: right; }
-.ka-side .sg-mono { font-size: 1.9cqw; text-align: right; }
-.ka-side svg { width: 100%; height: auto; }
-.ka-side .barcode { flex: 1; min-height: 10cqw; --bc: var(--ground-hi); }
-.ka-chev { align-self: end; }
-.ka-chev svg { width: 100%; height: auto; display: block; }
-.ka-haz { grid-column: 1 / -1; height: 4.4cqw; padding-block: .8cqw; }
-.ka-foot { grid-column: 1 / -1; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4cqw; align-items: end; }
-.ka-foot .sg-label { font-family: var(--f-title); font-stretch: 125%; font-size: 3cqw; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
-.ka-foot .sg-mono { font-size: 1.6cqw; color: var(--ground-dim); margin-top: .8cqw; }
-.ka-foot .barcode--v { height: 7cqw; --bc: var(--ground-hi); }
+/* one ink, three impressions: the wordmark solid, screened and as a keyline; then the one coral plate,
+   the unit figure, the chevron monument and the sheet's furniture */
+.ka-in { position: absolute; inset: 5.5cqw; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto minmax(0, 1fr) auto auto; row-gap: 2.6cqw; }
+.ka-top { display: flex; align-items: center; gap: 1.8cqw; font: 500 1.45cqw/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ground-dim); white-space: nowrap; }
+.ka-top i { flex: 1; height: var(--hair); background: var(--ground-3); }
+.ka-top .marktile { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 1cqw), calc(100% - 1cqw) 100%, 0 100%); }
+.ka-stack { display: grid; row-gap: 1.5cqw; margin-top: .6cqw; }
+.ka-stack > div { position: relative; }
+.ka-stack .sg-display { display: block; font-size: 22.2cqw; line-height: .7; letter-spacing: -.012em; margin-left: -.2cqw; white-space: nowrap; }
+.ka-stack small { position: absolute; right: 0; top: 0; writing-mode: vertical-rl; font: 500 1.3cqw/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ground-dim); }
+.ka-year { font-size: 3.4cqw; }
+.ka-body { display: grid; grid-template-columns: minmax(0, 1fr) 13cqw 23cqw; grid-template-rows: auto minmax(0, 1fr); gap: 2.6cqw 3cqw; min-height: 0; }
+.ka-plate { grid-column: 1 / 3; background: var(--coral); color: #0c0c0a; padding: 2.9cqw 3.4cqw 3.1cqw; display: grid; gap: .9cqw; align-content: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4.4cqw), calc(100% - 4.4cqw) 100%, 0 100%); }
+.ka-plate b { font: 800 3.5cqw/1 var(--f-title); font-stretch: 125%; text-transform: uppercase; letter-spacing: .03em; }
+.ka-plate .sg-jp { font-size: 4.2cqw; }
+.ka-chev { min-height: 0; position: relative; }
+.ka-chev svg { position: absolute; left: 0; bottom: 0; height: 100%; width: auto; aspect-ratio: 300 / 230; display: block; }
+.ka-data { display: grid; align-content: space-between; min-height: 0; border-left: 1px solid var(--ground-dim); padding-left: 1.6cqw; font: 500 1.4cqw/1.5 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ground-dim); }
+.ka-data dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0 1.2cqw; }
+.ka-data dd { margin: 0; color: var(--ground-hi); text-align: right; }
+.ka-side { grid-column: 3; grid-row: 1 / 3; display: flex; flex-direction: column; gap: 2.4cqw; min-height: 0; }
+.ka-side .sg-num { font-size: 12.8cqw; line-height: .7; text-align: right; margin-right: -.3cqw; }
+.ka-side .sg-mono { font-size: 1.7cqw; text-align: right; }
+.ka-side svg { width: 100%; height: auto; display: block; flex: none; }
+.ka-side .barcode { --bc: var(--ground-hi); flex: 1; min-height: 5cqw; }
+.ka-haz { height: 4.2cqw; padding-block: .8cqw; }
+.ka-foot { display: grid; grid-template-columns: minmax(0, 1fr) 30cqw; gap: 4cqw; align-items: end; }
+.ka-foot b { display: block; font: 800 2.9cqw/1 var(--f-title); font-stretch: 125%; text-transform: uppercase; letter-spacing: .04em; }
+.ka-foot .sg-mono { font-size: 1.5cqw; color: var(--ground-dim); margin-top: .9cqw; }
+.ka-foot .barcode--v { height: 6.4cqw; --bc: var(--ground-hi); }
 figcaption.cap { display: flex; justify-content: space-between; gap: 12px; }
 figcaption.cap b { font: 600 expanded 13px var(--f-cap); letter-spacing: .05em; text-transform: uppercase; color: var(--ground-hi); }
 figcaption.cap span { font: 400 11px var(--f-mono); color: var(--ground-dim); text-transform: uppercase; }
@@ -271,6 +279,10 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 .swatches i { height: 52px; box-shadow: inset 0 0 0 1px var(--ground-3); }
 .swatches b { font: 600 expanded 12px var(--f-cap); letter-spacing: .1em; text-transform: uppercase; color: var(--ground-hi); }
 .typescale { display: grid; gap: 14px; }
+.imps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px 26px; }
+.imps > div { display: grid; gap: 10px; min-width: 0; }
+.imps .sg-display { font-size: clamp(40px, 4.2vw, 58px); line-height: .76; }
+.imps .sg-mono { color: var(--ground-dim); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
 .typescale > div { display: grid; grid-template-columns: minmax(0, 170px) minmax(0, 1fr); gap: 12px; align-items: baseline; color: var(--ground-hi); }
 .typescale .sg-mono { color: var(--ground-dim); font-size: 10.5px; text-transform: uppercase; }
 
@@ -290,7 +302,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
 .xp-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .xp-grid figure { margin: 0; }
 .xp { display: block; width: 100%; height: auto; box-shadow: 0 0 0 1px var(--ground-3); }
-.xp-d { font-family: var(--f-display); font-stretch: 150%; font-weight: 800; }
+.xp-d { font-family: var(--f-display); font-weight: 900; letter-spacing: -.004em; }
 .xp-t { font-family: var(--f-title); font-stretch: 125%; font-weight: 700; }
 .xp-m { font-family: var(--f-mono); font-weight: 500; letter-spacing: .04em; }
 .xp-j { font-family: var(--f-jp); font-weight: 700; }
@@ -440,7 +452,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
     <div><i>01</i><b>Two inks</b><p>Everything is print on ground: solid shapes in the print ink with text knocked out, or outlines. No third tone. Coral is the only extra ink.</p></div>
     <div><i>02</i><b>One grammar</b><p>Masthead, one hero, a divider, the body, the imprint. Each screen sits on one backdrop composition from the shape alphabet. Poster screens compose freely.</p></div>
     <div><i>03</i><b>One angle</b><p>Every diagonal rises left to right at 45°: corner cuts (top-left and bottom-right), hazard stripes, cells, bands and the stripe field. No tilts, textures or shadows.</p></div>
-    <div><i>04</i><b>Three sizes</b><p>Shingo Grid Heavy sets display 40 and titles 28: one heavy stroke, 45° cuts. Shingo Signal sets subheads and inline wordmarks at 14, and labels in its semibold. Body is Anybody, telemetry is mono, serials are stencil.</p></div>
+    <div><i>04</i><b>Three sizes</b><p>Shingo Grid Heavy sets display 40 and up, titles 32 and big figures: one heavy weight, cut like the plates. Shingo Signal sets subheads and inline wordmarks at 14, and labels in its semibold. Body is Anybody, telemetry is mono, serials are stencil.</p></div>
     <div><i>05</i><b>One signal</b><p>Coral marks one block or one primary action per screen, plus the latest or active state. Switches turn on in print, not coral.</p></div>
     <div><i>06</i><b>Tag and aside</b><p>Japanese lives in the masthead tag or a seal. French lives in the span rule. Each appears once at most.</p></div>
   </div>
@@ -473,9 +485,9 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
     <div class="phone"><div class="scr tex">
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="top:58px;left:24px;right:24px;display:flex;align-items:center;gap:10px"><span class="marktile" aria-hidden="true" style="width:28px;height:28px;"><svg viewBox="0 0 100 100"><use href="#g-mark"/></svg></span><span class="sg-mono" style="color:var(--ground-dim);font-size:10px">AX·ABOUT</span><i style="flex:1;height:1.5px;background:var(--ground-3)"></i><span class="vstamp vstamp--sig" style="font-size:11px">v 4.2<small>2611</small></span></div>
-      <div class="sg-display" style="top:100px;left:22px;font-size:44px;color:var(--ground-hi)">Axiom</div>
+      <div class="sg-display" style="top:98px;left:22px;font-size:50px;color:var(--ground-hi)">Axiom</div>
       <div class="yearspan sg-num" style="top:152px;left:24px;right:24px;font-size:16px;color:var(--ground-hi)">20<i></i>26</div>
-      <div class="gbuild blueprint " style="position:absolute;top:184px;left:0;right:0" aria-hidden="true"><span class="gb-g">A</span><i class="gb-l" style="top:16.0%"><span>cap</span></i><i class="gb-l" style="top:33.8%"><span>x-height</span></i><i class="gb-l" style="top:84.0%"><span>baseline</span></i><i class="gb-v" style="left:8.0%"></i><i class="gb-v" style="left:66.0%"></i></div>
+      <div class="gbuild blueprint " style="position:absolute;top:184px;left:0;right:0" aria-hidden="true"><span class="gb-g">A</span><i class="gb-l" style="top:16.0%"><span>cap</span></i><i class="gb-l" style="top:31.5%"><span>x-height</span></i><i class="gb-l" style="top:84.0%"><span>baseline</span></i><i class="gb-v" style="left:8.0%"></i><i class="gb-v" style="left:54.9%"></i></div>
       <div class="coords" style="position:absolute;top:416px;left:24px;font-size:17px"><span>Relay / 4.2</span><span>Build 2611</span><span class="co-dim">38° 42′ 49″ N</span><span>A–Z / a–z / 0–9</span></div>
       <div class="specgrid" style="--cols:4;position:absolute;top:416px;right:24px;width:112px;font-size:13px;gap:3px 2px"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span class=fig>0</span><span class=fig>1</span><span class=fig>2</span><span class=fig>3</span></div>
       <p class="spaced" style="position:absolute;top:528px;left:24px;right:24px">Every packet sealed. Three relays, two keys, zero logs. Printed in two inks and one signal.</p>
@@ -495,7 +507,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
   <figure data-tier="poster">
     <div class="phone"><div class="scr tex">
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
-      <div style="top:64px;left:22px;display:flex;align-items:flex-end;gap:8px;color:var(--ground-hi)"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:40px">AXIOM</span></div>
+      <div style="top:64px;left:22px;display:flex;align-items:flex-end;gap:8px;color:var(--ground-hi)"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:50px">AXIOM</span></div>
       <div class="sg-cap" style="top:124px;left:42px;font-size:12px;color:var(--ground-dim)">Secure workspace</div>
       <i class="band" style="top:56px;right:0;width:120px;height:120px;clip-path:polygon(100% 0,100% 100%,0 100%)"></i>
       <svg style="top:150px;right:20px;width:84px;height:84px;color:var(--ground-hi)"><use href="#g-x-line"/></svg>
@@ -543,7 +555,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="u-div div-ticks"></div>
       <section class="u-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="nframe"><b>Threats</b><div style="margin:2px 0 2px"><span class="sg-fig live-up" data-hot="" role="img" aria-label="1284" style="font-size:28px"><b class="">1</b><b class="">2</b><b class="">8</b><b class="">4</b></span></div></div>
+          <div class="nframe"><b>Threats</b><div style="margin:2px 0 2px"><span class="sg-fig live-up" data-hot="" role="img" aria-label="1284" style="font-size:30px"><b class="">1</b><b class="">2</b><b class="">8</b><b class="">4</b></span></div></div>
           <div class="nframe"><b>Data</b><div class="sg-num" style="font-size:24px;margin:0 0 12px;color:var(--ground-hi)">4.2<span class="sg-mono"> / 10 GB</span></div><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
         </div>
         <div>
@@ -566,7 +578,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Run log</h3><div class="u-tag u-meta">10–16<br>NOV</div><div class="u-span"><span><span class="sg-fr">journal de course</span></span><i></i><span>W46</span></div></header>
-      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px"><span class="sg-fig " data-hot="" role="img" aria-label="42.6" style="font-size:70px"><b class="">4</b><b class="">2</b><b class=" p">.</b><b class="">6</b></span><span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
+      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-end;gap:10px"><span class="sg-fig " data-hot="" role="img" aria-label="42.6" style="font-size:76px"><b class="">4</b><b class="">2</b><b class=" p">.</b><b class="">6</b></span><span class="sg-cap" style="font-size:14px;padding-bottom:2px">km</span></div>
         <div class="dayrow"><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>m</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>w</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>t</i></span><span><svg width="30" height="30" style="color:var(--ground-dim)"><use href="#g-x-line"/></svg><i>f</i></span><span><svg width="30" height="30" style="color:var(--ground-hi)"><use href="#g-x-solid"/></svg><i>s</i></span><span><svg width="30" height="30" style="color:var(--coral)"><use href="#g-x-solid"/></svg><i>s</i></span></div></div>
       <div class="u-div div-ticks"></div>
       <section class="u-body">
@@ -757,7 +769,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <svg style="top:96px;left:-36px;width:310px;height:310px;color:var(--ground-3)"><use href="#g-x-line"/></svg>
       <svg style="top:250px;left:196px;width:150px;height:150px;color:var(--ground-hi)"><use href="#g-x-line"/></svg>
       <div class="sg-mono" style="top:70px;right:24px;color:var(--ground-dim)">ERR 0X09</div>
-      <h3 class="sg-display" style="margin:0;top:446px;left:24px;font-size:40px;color:var(--ground-hi)">No<br>signal</h3>
+      <h3 class="sg-display" style="margin:0;top:436px;left:24px;font-size:52px;color:var(--ground-hi)">No<br><span class="imp-keyline">signal</span></h3>
       <div class="sg-jp" style="top:444px;right:24px;font-size:40px;line-height:1.05;writing-mode:vertical-rl;color:var(--ground-hi)">圏外</div>
       <div class="caution" style="top:544px;left:24px;right:24px"><div><svg><use href="#g-warn"/></svg><b>Out of range</b><p>WE COULDN'T REACH THE NETWORK. CHECK WI-FI OR MOBILE DATA.</p></div></div>
       <div style="top:652px;left:24px;right:24px;display:grid;gap:10px"><button class="btn btn--block" type="button">Try again</button><button class="btn btn--ghost btn--block" type="button">Open offline files</button></div>
@@ -779,7 +791,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="bar " style="--h:88px;top:314px;left:0;width:240px"><div class="bar__mid"><div class="bar__core"><i class="bar__slot" style="--p:20%"></i></div></div></div>
       <svg style="top:318px;right:24px;width:80px;height:80px;color:var(--ground-hi)"><use href="#g-x-solid"/></svg>
       <div class="hazard" style="top:440px;left:24px;right:24px"></div>
-      <div style="top:490px;left:24px;right:24px;color:var(--ground-hi)"><div class="sg-fr" style="font-size:13px">acheminer chaque paquet</div><h3 class="sg-display" style="margin:10px 0 0;font-size:40px">Route<br>every<br>packet</h3><p class="sg-mono" style="margin:14px 0 0;font-size:12px;color:var(--on-ground)">THREE RELAYS · TWO KEYS · ZERO LOGS</p></div>
+      <div style="top:490px;left:24px;right:24px;color:var(--ground-hi)"><div class="sg-fr" style="font-size:13px">acheminer chaque paquet</div><h3 class="sg-display" style="margin:10px 0 0;font-size:48px">Route<br><span class="imp-screen">every</span><br>packet</h3><p class="sg-mono" style="margin:14px 0 0;font-size:12px;color:var(--on-ground)">THREE RELAYS · TWO KEYS · ZERO LOGS</p></div>
       <ol class="steps" style="top:761px;left:24px;width:200px"><li class="done">Scan</li><li class="on">Keys</li><li>Seal</li></ol>
       <button class="btn" type="button" style="top:752px;right:24px">Next<svg><use href="#g-arrow"/></svg></button>
       <i class="home"></i>
@@ -793,7 +805,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
     <div class="phone"><div class="scr tex"><svg class="sg-bg" aria-hidden="true"><use href="#g-bg-segment"/></svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       <div style="top:64px;left:28px;right:28px;display:flex;flex-direction:column;gap:11px;color:var(--ground-hi)">
-        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:46px">AXIOM</span></div>
+        <div style="display:flex;align-items:flex-end;gap:8px"><span class="u-code" style="position:static">SK·09·LIS</span><span class="sg-display" style="font-size:54px">AXIOM</span></div>
         <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sg-fr" style="font-size:14px">lundi 16 novembre</span><span class="sg-num" style="font-size:14px">9:41</span></div>
         <div style="display:flex;gap:14px;align-items:center"><div class="slab-cut" style="flex:1;height:56px"></div><svg width="58" height="58" style="color:var(--ground-hi)"><use href="#g-reg"/></svg></div>
         <div class="yearspan sg-num" style="font-size:21px">20<i></i>26</div>
@@ -822,7 +834,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Field notes</h3><div class="u-tag sg-jp-v">第九号</div><div class="u-span"><span>nº 09 · lena sato</span><i></i><span>6 min</span></div></header>
-      <div class="u-hero u-hero--pad"><h3 class="sg-display" style="margin:0;font-size:34px;color:var(--ground-hi)">The quiet<br>network</h3></div>
+      <div class="u-hero u-hero--pad"><h3 class="sg-display" style="margin:0;font-size:38px;color:var(--ground-hi)">The quiet<br>network</h3></div>
       <div class="u-div div-slash"></div>
       <section class="u-body u-body--end" style="gap:18px">
         <p class="sg-label" style="margin:0;font-size:15px;line-height:1.55">Most of what keeps you safe online is invisible. Packets leave your phone, cross three relays and arrive without anyone reading them.</p>
@@ -890,7 +902,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Interval</h3><div class="u-tag sg-jp-v">計時</div><div class="u-span"><span>round 3</span><i></i><span>of 8</span></div></header>
-      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px"><span class="sg-fig live-down" data-hot="2" role="img" aria-label="02:47" style="font-size:85px"><b class="">0</b><b class="">2</b><b class="hot p">:</b><b class="">4</b><b class="">7</b></span><div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
+      <div class="u-hero u-hero--pad" style="display:grid;justify-items:center;gap:10px"><span class="sg-fig live-down" data-hot="2" role="img" aria-label="02:47" style="font-size:92px"><b class="">0</b><b class="">2</b><b class="hot p">:</b><b class="">4</b><b class="">7</b></span><div class="sg-mono u-dim">WORK 45 S · REST 15 S · NEXT: REST</div></div>
       <div class="u-div div-ticks"></div>
       <section class="u-body u-body--end" style="gap:16px">
         <div><div class="u-label" style="margin-bottom:10px"><span>Rounds</span><span>3 / 8</span></div><div class="cells cells--tall"><i class="on"></i><i class="on"></i><i class="hot"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
@@ -979,7 +991,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
       
       <header class="u-hd"><span class="u-code">AX·09</span><h3 class="u-title">Conditions</h3><div class="u-tag u-meta">17<br>NOV</div><div class="u-span"><span><span class="sg-fr">conditions extérieures</span></span><i></i><span>lis</span></div></header>
-      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-start;gap:10px"><span class="sg-fig " data-hot="" role="img" aria-label="-04" style="font-size:88px"><b class=" p">-</b><b class="">0</b><b class="">4</b></span><span class="sg-cap" style="font-size:16px;color:var(--ground-hi);padding-top:6px">°C</span></div>
+      <div class="u-hero u-hero--pad"><div style="display:flex;align-items:flex-start;gap:10px"><span class="sg-fig " data-hot="" role="img" aria-label="-04" style="font-size:96px"><b class=" p">-</b><b class="">0</b><b class="">4</b></span><span class="sg-cap" style="font-size:16px;color:var(--ground-hi);padding-top:6px">°C</span></div>
         <div class="sg-mono" style="margin-top:10px;color:var(--ground-dim)">FEELS -09 · DEW -07 · SLEET FROM 14:00</div></div>
       <div class="u-div div-ticks"></div>
       <section class="u-body u-body--end">
@@ -1006,7 +1018,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
       <div style="top:150px;left:0;right:0;text-align:center;color:var(--ground-hi)"><div class="sg-fr" style="font-size:16px">mardi 17 novembre</div><div class="sg-display" style="font-size:92px;margin-top:8px">09:41</div></div>
       <div class="la">
         <div style="display:flex;justify-content:space-between;align-items:center"><span class="sg-wordmark" style="font-size:14px">Axiom · transfer</span><span class="sg-mono">Nº 0917</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div class="sg-cap" style="font-size:10px">Arrives in</div><span class="sg-fig live-down" data-hot="2" role="img" aria-label="00:12" style="font-size:29px"><b class="">0</b><b class="">0</b><b class="hot p">:</b><b class="">1</b><b class="">2</b></span></div><div class="t-right"><div class="sg-cap" style="font-size:10px">To Lena Sato</div><div class="sg-num" style="font-size:26px">€240.00</div></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div class="sg-cap" style="font-size:10px">Arrives in</div><span class="sg-fig live-down" data-hot="2" role="img" aria-label="00:12" style="font-size:32px"><b class="">0</b><b class="">0</b><b class="hot p">:</b><b class="">1</b><b class="">2</b></span></div><div class="t-right"><div class="sg-cap" style="font-size:10px">To Lena Sato</div><div class="sg-num" style="font-size:26px">€240.00</div></div></div>
         <ol class="steps"><li class="done">Amount</li><li class="done">Confirm</li><li class="on">Sending</li></ol>
       </div>
       <span class="cut" style="bottom:40px;left:44px;width:50px;height:50px;--c:10px;background:color-mix(in srgb, var(--ground-hi) 14%, transparent);display:grid;place-items:center"><svg width="20" height="20" style="color:var(--ground-hi)"><use href="#g-plus"/></svg></span>
@@ -1053,7 +1065,7 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
         <path d="M326 214h12 M332 208v12 M52 650h12 M58 644v12" stroke="var(--ground-hi)" stroke-width="1.5"/>
       </svg>
       <div class="sb"><span>9:41</span><span class="sb-r"><i class="sig"></i><i class="bat"></i></span></div><i class="island"></i>
-      <div style="top:66px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:flex-start;color:var(--ground-hi)"><div><div class="sg-mono" style="color:var(--ground-dim)">NETWORK · 5 RELAYS</div><div class="sg-display" style="font-size:40px;margin-top:8px">Relay<br>city</div></div><div class="sg-mono t-right" style="color:var(--ground-dim)">17 NOV<br>2026</div></div>
+      <div style="top:66px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:flex-start;color:var(--ground-hi)"><div><div class="sg-mono" style="color:var(--ground-dim)">NETWORK · 5 RELAYS</div><div class="sg-display" style="font-size:50px;margin-top:8px">Relay<br>city</div></div><div class="sg-mono t-right" style="color:var(--ground-dim)">17 NOV<br>2026</div></div>
       <div style="left:0;bottom:90px;width:70px;height:240px;background:var(--ground-hi);color:var(--ground);clip-path:polygon(16px 0,100% 0,100% 100%,0 100%,0 16px);display:grid;align-content:center;justify-items:center;gap:6px"><span class="sg-jp" style="font-size:24px;line-height:1.05;writing-mode:vertical-rl">中継都市</span><span class="sg-mono" style="font-size:10px">Nº 05</span></div>
       <div style="left:90px;right:24px;bottom:44px;display:flex;justify-content:space-between" class="sg-mono"><span style="color:var(--ground-hi)">2835 × 1890 PX</span><span style="color:var(--ground-hi)">200 PPI</span></div>
       <i class="home"></i>
@@ -1182,7 +1194,8 @@ em.tier { font-style: normal; color: var(--signal-text); margin-right: 6px; text
     <div style="grid-column:1/-1">
       <h3><span>type scale</span><span>Shingo Grid · Shingo Signal (from Orbitron) · Anybody · Saira Stencil One · IBM Plex Mono · BIZ UDGothic</span></h3>
       <div class="typescale">
-        <div><span class="sg-mono">display 40 · shingo grid heavy</span><span class="sg-display" style="font-size:40px">Axiom</span></div>
+        <div><span class="sg-mono">display 40+ · shingo grid heavy</span><span class="sg-display" style="font-size:48px">Axiom</span></div>
+        <div><span class="sg-mono">title 32 · shingo grid heavy</span><span class="u-title">Protected</span></div>
         <div><span class="sg-mono">subhead 22 · shingo signal 800</span><span class="sg-wordmark" style="font-size:22px">Night transit</span></div>
         <div><span class="sg-mono">number 36 · shingo grid heavy</span><span class="sg-num" style="font-size:40px">€8,214.60</span></div>
         <div><span class="sg-mono">label 11 · shingo signal 600</span><span class="sg-cap" style="font-size:11px">Future engineering · time in zone</span></div>

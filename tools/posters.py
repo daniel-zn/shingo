@@ -133,25 +133,32 @@ def _specimen():
         (ma if j % 5 == 0 or y == gy1 else mi).append(f"M{gx0} {y}H{gx1}")
     o.append(lines("".join(mi), G3, .5, ' opacity=".6"'))
     o.append(lines("".join(ma), G3, 1))
-    # the giant letter: cap 190 on the grid, baseline 320
-    k = 190 / 650
-    x0, base = 30 - 54 * k, 320
+    # the giant letter: cap 200 on the grid, baseline 320. Every number is read from the face itself
+    # (tools/font.py for the drawing constants, the font file for the S's advance and bearings)
+    import font as F
+    import print_kit as pk
+    face = pk._face()
+    adv, lsb = face["hmtx"][face["cmap"][ord("S")]]
+    wS = F.WO - 30                                   # the S's body width
+    rsb = adv - lsb - wS
+    k = 200 / F.H
+    x0, base = 30 - lsb * k, 320
     o.append(text(x0, base, "S", 1000 * k, "xp-d", G3))
-    # construction: cap, x-height, baseline; side bearings; the two 45° cuts
-    cap, xh = base - 650 * k, base - 481 * k
-    il, ir = x0 + 54 * k, x0 + 914 * k
+    # construction: cap, x-height, baseline; side bearings; the two plate cuts
+    cap, xh = base - F.H * k, base - F.X * k
+    il, ir = x0 + lsb * k, x0 + (lsb + wS) * k
     o.append(lines(f"M26 {n(cap)}H290M26 {n(xh)}H290M26 {base}H290", DIM, .7))
     o.append(lines(f"M{n(il)} 84V336M{n(ir)} 84V336", DIM, .6, ' stroke-dasharray="2 3"'))
-    s1 = il + (base - 480 * k)          # x + y of the top-left cut
-    s2 = x0 + 914 * k + base - 170 * k  # x + y of the bottom-right cut
+    s1 = il + base - (F.H - F.CUT) * k    # x + y along the top-left cut
+    s2 = ir + base - F.CUT * k            # x + y along the bottom-right cut
     o.append(lines(f"M26 {n(s1 - 26)}L{n(s1 - 80)} 80M{n(s2 - 340)} 340L290 {n(s2 - 290)}", DIM, .7, ' stroke-dasharray="3 2"'))
     o.append(lines(f"M{n(il)} 92H{n(ir)}M{n(il)} 89V95M{n(ir)} 89V95", DIM, .7))
-    o.append(text((il + ir) / 2, 89, "ADVANCE 967", 5.6, anchor="middle"))
-    o.append(text(il + 2, 101, "LSB 54", 5.6))
-    o.append(text(ir - 2, 101, "RSB 53", 5.6, anchor="end"))
-    o.append(text(30, cap - 3, "CAP · 650", 5.6))
-    o.append(text(ir, xh - 3, "X-HEIGHT · 481", 5.6, anchor="end"))
-    o.append(text(30, base + 9, "BASELINE · 0", 5.6))
+    o.append(text((il + ir) / 2, 89, f"ADVANCE {adv}", 5.6, anchor="middle"))
+    o.append(text(il + 2, 101, f"LSB {lsb}", 5.6))
+    o.append(text(ir - 2, 101, f"RSB {rsb}", 5.6, anchor="end"))
+    o.append(text(286, cap - 3, f"CAP · {F.H}", 5.6, anchor="end"))
+    o.append(text(286, xh - 3, f"X-HEIGHT · {F.X}", 5.6, anchor="end"))
+    o.append(text(286, base - 3, "BASELINE · 0", 5.6, anchor="end"))
     o.append(text(s1 - 102, 98, "45°", 5.6, anchor="end"))
     o.append(text(s2 - 284, 292, "45°", 5.6))
     # specimen card over the grid
@@ -165,12 +172,12 @@ def _specimen():
     for i, ch in enumerate("0123456789&#"):
         o.append(text(cols[i % 4], 256 + 17.5 * (i // 4), ch, 14, "xp-d", SIG if ch.isdigit() else HI, "middle"))
     o.append(text(297, 311, "HEAVY 900", 5.5))
-    o.append(text(297, 321, "CAP .65 · X .48", 5.5))
+    o.append(text(297, 321, f"CAP .{F.H // 10} · X .{F.X // 10}", 5.5))
     # header: coral mark tile, type name, test stamp
     o.append(rect(24, 46, 26, 26, CORAL))
     o.append(use("mark", 26, 48, 22, 22, INKF))
     o.append(text(58, 57, "SHINGO GRID HEAVY", 11, "xp-t", HI))
-    o.append(text(58, 68, "TYPE SPECIMEN · WEIGHT 900 · ONE STROKE · 45° CUTS", 6))
+    o.append(text(58, 68, "TYPE SPECIMEN · WEIGHT 900 · ONE WEIGHT · PLATE CUTS", 6))
     o.append(rect(290, 46, 86, 26, "none", f' stroke="{HI}" stroke-width="1.2"'))
     o.append(rect(292.5, 48.5, 81, 21, "none", f' stroke="{HI}" stroke-width=".5"'))
     o.append(lines("M340 48.5V69.5", HI, .8))
@@ -186,9 +193,9 @@ def _specimen():
     # upper and lower case
     o.append(text(212, 404, "Aa", 44, "xp-d", HI))
     o.append(text(212, 420, "UPPER / LOWER", 5.8))
-    o.append(text(212, 430, "ONE HEAVY STROKE", 5.8))
+    o.append(text(212, 430, "ONE HEAVY WEIGHT", 5.8))
     # colophon
-    for i, s in enumerate(["DRAWN · LIS 2026", "STROKE 1/5 CAP", "CUTS 45° TL / BR", "UPM 1000"]):
+    for i, s in enumerate(["DRAWN · LIS 2026", f"STEM {F.SV} · BAR {F.SH}", "CUTS 45° TL / BR", "UPM 1000"]):
         o.append(text(376, 356 + 10 * i, s, 5.8, anchor="end"))
     return o
 
@@ -552,7 +559,7 @@ def posters():
     B = _build()
     frame = B._xp_frame
     return [
-        frame("07", "SPECIMEN", "見本", "SHINGO GRID HEAVY · A–Z / 0–9 · ONE STROKE", "".join(_specimen())),
+        frame("07", "SPECIMEN", "見本", "SHINGO GRID HEAVY · A–Z / 0–9 · ONE WEIGHT", "".join(_specimen())),
         frame("08", "PULSE", "脈動", "SILENT PULSE · ABOVE THE NOISE · CHANNEL 11", "".join(_pulse(B))),
         frame("09", "SECTOR", "区画", "64 CELLS · ONE LIT · ROUTES LEVEL OR 45°", "".join(_sector(B))),
         frame("10", "TRANSIT", "発車", "DEPARTURES · LISBON CENTRAL · PLATFORM 04", "".join(_transit())),

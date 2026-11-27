@@ -319,21 +319,22 @@ public struct SGSpecGrid: View {
 
 /// One giant glyph in tonal ink (ground-3) on grid paper, with labelled horizontal guides and
 /// plain vertical guides, each given as a fraction of the sheet's height or width (`.gbuild`).
-/// The sheet is fixed at 1.8:1 so the glyph's baseline sits at 84% and its cap line at 16%,
-/// which keeps the default guides true.
+/// The sheet is fixed at 1.8:1 and the glyph is set at 54% of its width, so the baseline sits
+/// at 84% and the cap line at 16%; the default guides follow the face (`SGFace`), and the
+/// default verticals mark the glyph's origin and advance.
 public struct SGGlyphBuild: View {
-    var glyph: String; var guides: [(String, CGFloat)]; var verticals: [CGFloat]
+    var glyph: String; var guides: [(String, CGFloat)]; var verticals: [CGFloat]?
     public init(_ glyph: String,
-                guides: [(String, CGFloat)] = [("cap", 0.16), ("x-height", 0.338), ("baseline", 0.84)],
-                verticals: [CGFloat] = [0.08, 0.6]) {
+                guides: [(String, CGFloat)] = [("cap", 0.84 - 0.972 * SGFace.capHeight), ("x-height", 0.84 - 0.972 * SGFace.xHeight), ("baseline", 0.84)],
+                verticals: [CGFloat]? = nil) {
         self.glyph = glyph; self.guides = guides; self.verticals = verticals
     }
     public var body: some View {
         Canvas { ctx, size in
             let w = size.width, h = size.height
             guard w > 0, h > 0 else { return }
-            // the glyph: 58% of the width, from 8% in, its baseline on 84% of the height
-            let g = ctx.resolve(Text(glyph).font(SGFont.display(w * 0.58)).foregroundStyle(SG.ground3))
+            // the glyph: 54% of the width, from 8% in, its baseline on 84% of the height
+            let g = ctx.resolve(Text(glyph).font(SGFont.display(w * 0.54)).foregroundStyle(SG.ground3))
             let gs = g.measure(in: CGSize(width: CGFloat.infinity, height: CGFloat.infinity))
             let base = g.firstBaseline(in: gs)
             ctx.draw(g, in: CGRect(x: w * 0.08, y: h * 0.84 - base, width: gs.width, height: gs.height))
@@ -344,7 +345,7 @@ public struct SGGlyphBuild: View {
                 let t = ctx.resolve(Text(label.uppercased()).font(SGFont.mono(10)).tracking(10 * 0.08).foregroundStyle(SG.groundDim))
                 ctx.draw(t, at: CGPoint(x: w - 8, y: y - 14), anchor: .topTrailing)
             }
-            for f in verticals {
+            for f in verticals ?? [0.08, 0.08 + gs.width / w] {
                 ctx.fill(Path(CGRect(x: (w * f).rounded(), y: 0, width: 1, height: h)), with: .color(SG.groundDim))
             }
         }

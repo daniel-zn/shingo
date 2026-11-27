@@ -65,12 +65,25 @@ public enum SG {
 
 // MARK: - Type: wide, short, hard
 
+/// Shingo Grid Heavy's own numbers (tools/font.py), per em.
+public enum SGFace {
+    public static let capHeight: CGFloat = 0.70
+    public static let xHeight: CGFloat = 0.54
+    /// One tabular figure's advance; readouts that tick give each digit a cell this wide.
+    public static let figureCell: CGFloat = 0.84
+    /// Tracking by size, in points.
+    public static func tracking(_ size: CGFloat) -> CGFloat {
+        min(max(1.32 - 0.03 * size, -0.012 * size), 0.07 * size)
+    }
+}
+
 public enum SGFont {
-    /// Shingo Grid Heavy: display wordmarks and screen titles (18 pt and up). One heavy stroke, 45° cuts.
+    /// Shingo Grid Heavy: display wordmarks and screen titles (18 pt and up). A cut-plate grotesque:
+    /// one heavy weight, cap height 0.7 em, corners cut at 45° top-left and bottom-right only.
     public static func display(_ size: CGFloat) -> Font { .custom("ShingoGrid-Heavy", size: size) }
     /// Shingo Signal ExtraBold (Orbitron, completed): subheads and inline wordmarks below 18 pt.
     public static func title(_ size: CGFloat) -> Font { .custom("ShingoSignal-ExtraBold", size: size) }
-    /// Shingo Grid Heavy: big figures in text.
+    /// Shingo Grid Heavy: big figures in text (proportional; `.monospacedDigit()` gives the tabular set).
     public static func number(_ size: CGFloat) -> Font { .custom("ShingoGrid-Heavy", size: size) }
     /// Shingo Signal SemiBold: labels in caps ("FUTURE ENGINEERING"), buttons, chips.
     public static func cap(_ size: CGFloat) -> Font { .custom("ShingoSignal-SemiBold", size: size) }
@@ -97,8 +110,11 @@ public enum SGFont {
 
 public extension View {
     /// Wordmark: Shingo Grid Heavy at 18 pt and up (display, titles), Shingo Signal ExtraBold below (inline).
+    /// Shingo Grid is drawn tight, so it opens up as it gets small and closes up when huge
+    /// (the web's `clamp(-.012em, 1.32px - .03em, .07em)`).
     func sgWordmark(_ size: CGFloat) -> some View {
-        font(size >= 18 ? SGFont.display(size) : SGFont.title(size)).textCase(.uppercase).tracking(size * 0.01)
+        font(size >= 18 ? SGFont.display(size) : SGFont.title(size)).textCase(.uppercase)
+            .tracking(size >= 18 ? SGFace.tracking(size) : size * 0.01)
     }
     /// Condensed caps label, tracked out.
     func sgCap(_ size: CGFloat = 12) -> some View {

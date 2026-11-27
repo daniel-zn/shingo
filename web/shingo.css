@@ -2,8 +2,8 @@
    SHINGŌ 信号 — industrial print system (web reference implementation)
 
    Direction: sci-fi industrial. Content is PRINTED on a striped ground,
-   set in wide, short, hard type (Anybody at three widths, IBM Plex Mono,
-   a wide stencil),
+   set in wide, short, hard type (Shingo Grid, Shingo Signal, Anybody,
+   IBM Plex Mono, a wide stencil),
    like a technical garment print: hard edges, 45° chamfers, hazard bars,
    chevrons, barcodes, corner brackets, mono telemetry, one coral signal.
 
@@ -64,10 +64,12 @@
 :root {
   /* ---- type: wide, short, hard ---- */
   /* Two faces of our own (web/fonts, tools/font.py, tools/signal_font.py):
-     Shingo Grid Heavy: display, screen titles and big figures. One heavy stroke, 45° cuts, caps only.
+     Shingo Grid Heavy: display, screen titles and big figures. A cut-plate grotesque: one heavy weight,
+     cap height .7 em, every corner a round letter would curve through cut at 45° top-left and bottom-right
+     (the plates' own cut), the other two square. Capitals, lowercase, figures (tnum for columns).
      Shingo Signal: Orbitron completed with the characters it lacks. ExtraBold 800 for subheads and
      inline wordmarks, SemiBold 600 for labels, buttons and chips. */
-  --f-display: "Shingo Grid", "Shingo Signal", "Anybody", "Arial Black", sans-serif;   /* display, titles 28, figures */
+  --f-display: "Shingo Grid", "Shingo Signal", "Anybody", "Arial Black", sans-serif;   /* display, titles 32, figures */
   --f-title: "Shingo Signal", "Anybody", "Arial", sans-serif;                          /* 800: subheads, inline wordmarks */
   --f-cap: "Shingo Signal", "Anybody", "Arial", sans-serif;                            /* 600 caps: labels, buttons */
   --f-sans: "Anybody", "Helvetica Neue", Arial, sans-serif;                  /* 100% / 500: body */
@@ -84,11 +86,11 @@
 }
 
 /* ------------------------------------------------------------------ type */
-.sg-display  { font-family: var(--f-display); font-synthesis: none; font-stretch: 150%; font-weight: 900; text-transform: uppercase; letter-spacing: 0; line-height: 1; }   /* 40 pt and up; two-line titles need the air */
+.sg-display  { font-family: var(--f-display); font-synthesis: none; font-weight: 900; text-transform: uppercase; letter-spacing: 0; line-height: .92; }   /* 40 pt and up; lines stack close, like stacked plates */
 .sg-wordmark { font-family: var(--f-title); font-stretch: 125%; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: .95; }                        /* titles 26, inline 15 */
 .sg-cap      { font-family: var(--f-cap); font-stretch: 125%; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; line-height: 1.1; }
 .sg-label    { font-family: var(--f-sans); font-weight: 500; letter-spacing: 0; line-height: 1.25; }
-.sg-num      { font-family: var(--f-display); font-synthesis: none; font-stretch: 125%; font-weight: 800; letter-spacing: .01em; line-height: 1; }
+.sg-num      { font-family: var(--f-display); font-synthesis: none; font-weight: 900; letter-spacing: .01em; line-height: 1; }
 .sg-num--tab { font-variant-numeric: tabular-nums; }  /* columns and values that tick; the face's tnum figures */
 .sg-stencil  { font-family: var(--f-stencil); font-weight: 400; text-transform: uppercase; letter-spacing: .02em; line-height: .9; }
 .sg-mono     { font-family: var(--f-mono); font-weight: 500; font-size: 11px; line-height: 1.3; letter-spacing: 0; }
@@ -96,11 +98,24 @@
 .t-right     { text-align: right; }
 /* the display face renders with crisp edges: no subpixel bleed on its cuts */
 .sg-display, .u-title, .sg-num { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: geometricPrecision; font-kerning: normal; }
-/* tracking by size: the wide faces open up as they get small and tighten a touch when huge.
-   Shingo Grid: about +.06em at 14px, +.03em at 20px, 0 at 28-40px, -.015em at 100px.
+/* tracking by size: the wide faces open up as they get small and close up when huge.
+   Shingo Grid is drawn tight (stems a stem apart): about +.07em at 13px, +.04em at 20px,
+   +.012em at 32px, 0 at 44px, -.012em from 80px.
    Shingo Signal caps: about +.11em at 11px, +.08em at 14px, +.03em at 24px. */
-.sg-display, .u-title, .sg-num { letter-spacing: clamp(-0.015em, calc(1.6px - 0.055em), 0.07em); }
+.sg-display, .u-title, .sg-num { letter-spacing: clamp(-0.012em, calc(1.32px - 0.03em), 0.07em); }
 .sg-cap, .sg-wordmark { letter-spacing: clamp(0.02em, calc(1.8px - 0.05em), 0.12em); font-kerning: normal; }
+
+/* impressions: one ink prints four ways. Solid is the default. Display type 40 px and up (and
+   figure readouts) may also print SCREENED (the 45° drafting hatch, a tint made the way print
+   makes one), as a KEYLINE (a hairline round the letter, nothing inside) or in the stripe's own
+   TONE (ground-3, felt before it is read). A poster may stack them; anything that must be read
+   at a glance stays solid. --imp sets the ink (default: the print). */
+.imp-screen { color: transparent; -webkit-text-fill-color: transparent;
+  background: repeating-linear-gradient(-45deg, var(--imp, var(--ground-hi)) 0 var(--imp-w, max(1.5px, .02em)), transparent var(--imp-w, max(1.5px, .02em)) var(--imp-p, max(4.5px, .062em)));
+  -webkit-background-clip: text; background-clip: text; }
+.imp-keyline { color: transparent; -webkit-text-fill-color: transparent; -webkit-text-stroke: var(--imp-w, max(1.5px, .011em)) var(--imp, var(--ground-hi)); }
+.imp-tone { color: var(--ground-3); -webkit-text-fill-color: currentColor; }
+@media (forced-colors: active) { .imp-screen, .imp-keyline { color: CanvasText; -webkit-text-fill-color: CanvasText; background: none; -webkit-text-stroke: 0; } }
 
 /* ---------------------------------------------------------- stripe field */
 .tex { background: repeating-linear-gradient(var(--a, var(--angle)), var(--ground) 0, var(--ground-2) calc(var(--stripe-period) * .5), var(--ground) var(--stripe-period)); }
@@ -231,7 +246,7 @@
 /* ================================================== screen grammar
    Two tiers.
    UTILITY screens print on the striped ground, top to bottom:
-     masthead .u-hd    vertical code + title (26) + ONE tag on the right
+     masthead .u-hd    vertical code + title (32) + ONE tag on the right
                        (vertical Japanese, a hanko, short meta or one action)
                        then a span rule: "value ────── value"
      hero     .u-hero  at most ONE form: a bar, a number, a plate, a scope, chevrons
@@ -239,16 +254,16 @@
      body     .u-body  rows and frames, hairlines in ground-3, labels in wide caps
      footer   .u-foot  the imprint: print rule, wide-caps line, mono ref, barcode
    POSTER screens (launch, onboarding, lock screen, empty state) compose freely.
-   Type: display 40 (Anybody 150% 800) · title 22 · inline 14 (Anybody 125% 700);
-         labels Anybody 125% caps 10–12; body Anybody 15; telemetry IBM Plex Mono 11;
-         numerals as seven-segment readouts or the wide stencil; kanji in BIZ UDGothic.
+   Type: display 40+ and titles 32 in Shingo Grid Heavy; subheads and labels in Shingo Signal
+         (800 / 600 caps, 10–15); body Anybody 15; telemetry IBM Plex Mono 11;
+         numerals as Shingo Grid figure readouts or the wide stencil; kanji in BIZ UDGothic.
    Coral: one signal block or one primary action per screen, plus small states.
    Languages: Japanese in the masthead tag (or a seal); French in the span rule. */
 .u { display: flex; flex-direction: column; }
 .u > .u-hd, .u > .u-hero, .u > .u-div, .u > .u-body { position: relative; }
 .u-hd { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 10px; align-items: end; padding: 60px 24px 0; }
 .u-code { grid-column: 1; grid-row: 1; writing-mode: vertical-rl; transform: rotate(180deg); font: 400 7px/1 var(--f-mono); letter-spacing: .24em; color: var(--ground-dim); padding-bottom: 2px; }
-.u-title { grid-column: 2; grid-row: 1; margin: 0; font-family: var(--f-display); font-synthesis: none; font-stretch: 125%; font-weight: 800; font-size: 28px; letter-spacing: .01em; line-height: 1.02; text-transform: uppercase; color: var(--ground-hi); }
+.u-title { grid-column: 2; grid-row: 1; margin: 0 0 -2px; font-family: var(--f-display); font-synthesis: none; font-weight: 900; font-size: 32px; letter-spacing: .01em; line-height: .94; text-transform: uppercase; color: var(--ground-hi); }
 .u-tag { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; }
 .u-meta { text-align: right; font: 400 11px/1.25 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ground-dim); }
 .u-hd .sg-jp-v { color: var(--ground-dim); font-size: 12px; }
@@ -281,14 +296,15 @@
    from existing motifs: the 45° cut, the hazard stripe, ticks, plates, coral. */
 
 /* figure readout: Shingo Grid figures on their own widths. Readouts that tick (.live-down, .live-up,
-   .sg-fig--tab) put each digit in a fixed .94em cell so the value never jumps.
-   The line box is the cap height (.65em). (tools/build.py · seg7()) */
+   .sg-fig--tab) take the tabular figures (the footed 1) in a fixed .84em cell so the value never jumps.
+   The line box is the cap height (.7em). (tools/build.py · seg7()) */
 .sg-fig { display: inline-flex; align-items: baseline; font-family: var(--f-display); font-synthesis: none; font-weight: 900;
-  line-height: .68; letter-spacing: 0; white-space: nowrap; color: var(--ground-hi); font-kerning: none;
+  line-height: .72; letter-spacing: 0; white-space: nowrap; color: var(--ground-hi); font-kerning: none;
   -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
 .sg-fig b { font-weight: inherit; display: inline-block; }
-.sg-fig:is(.live-down, .live-up, .sg-fig--tab) b:not(.p) { width: .94em; text-align: center; }
-.sg-fig b.p { padding: 0 .04em; }
+.sg-fig:is(.live-down, .live-up, .sg-fig--tab) { font-variant-numeric: tabular-nums; }
+.sg-fig:is(.live-down, .live-up, .sg-fig--tab) b:not(.p) { width: .84em; text-align: center; }
+.sg-fig b.p { padding: 0 .02em; }
 .sg-fig .hot { color: var(--coral); }
 
 /* cell meter: slanted cells, filled up to a count */
@@ -477,7 +493,7 @@
 .hanko { border-color: var(--signal-text); }
 .stamp { --st: var(--signal-text); }
 /* inside a print plate the ground flips, so coral text takes the plate's legible variant */
-.ticket, .dataplate, .ka-plate, [data-plate] { --signal-text: var(--signal-plate); }
+.ticket, .dataplate, [data-plate] { --signal-text: var(--signal-plate); }
 
 
 /* ================================================== live layer (web/shingo-live.js)
@@ -635,9 +651,10 @@
 .specgrid .fig { color: var(--signal-text); }
 
 /* glyph construction: one giant letter in tonal ink on grid paper, with labelled guides */
-/* fixed 1.8:1 sheet: the glyph's baseline sits at 84% and its cap line at 16%, so the guides are true */
+/* fixed 1.8:1 sheet: the glyph's baseline sits at 84% and its cap line at 16% (54cqw × .7 em of cap
+   height on a 55.6cqw sheet), so the guides are true; tools/build.py reads the rest from the font file */
 .gbuild { position: relative; overflow: hidden; container-type: inline-size; aspect-ratio: 1.8; color: var(--ground-hi); }
-.gbuild .gb-g { position: absolute; left: 8%; bottom: -.4cqw; font: 900 58cqw/1 var(--f-display); color: var(--ground-3); letter-spacing: 0; font-synthesis: none; }
+.gbuild .gb-g { position: absolute; left: 8%; bottom: .25cqw; font: 900 54cqw/1 var(--f-display); color: var(--ground-3); letter-spacing: 0; font-synthesis: none; }
 .gbuild .gb-l { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid var(--ground-dim); }
 .gbuild .gb-l span { position: absolute; right: 8px; top: -15px; font: 500 10px var(--f-mono); letter-spacing: .08em; color: var(--ground-dim); text-transform: uppercase; }
 .gbuild .gb-v { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1px solid var(--ground-dim); }

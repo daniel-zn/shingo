@@ -83,15 +83,15 @@ def _segs(w=44, h=60, t=5.6, g=1.3):
 
 
 def seg7(text, height=48, hot="", ghost=False, cls=""):
-    """A readout in Shingo Grid figures. `height` is the slot the readout fills (digits keep
-    the footprint the old segment digits had: font-size = .92 x height); characters at
-    indexes in `hot` print in coral. Static readouts set on the figures' own widths; readouts that
-    tick (cls "live-down" / "live-up", or "sg-fig--tab") put each digit in a fixed .94em cell so the
-    value never jumps. (The name stays for compatibility: the seven-segment face is retired.)"""
+    """A readout in Shingo Grid figures. `height` is the slot the readout fills: the figures are
+    set at font-size = height, so their caps stand .7 × height tall. Characters at indexes in
+    `hot` print in coral. Static readouts set on the figures' own widths; readouts that tick
+    (cls "live-down" / "live-up", or "sg-fig--tab") take the tabular figures in fixed .84em cells
+    so the value never jumps. (The name stays for compatibility: the seven-segment face is retired.)"""
     hs = set(hot.split(",")) if hot else set()
     cells = "".join(f'<b class="{"hot" if str(i) in hs else ""}{" p" if not ch.isdigit() else ""}">{ch}</b>' for i, ch in enumerate(text))
     return (f'<span class="sg-fig {cls}" data-hot="{hot}" role="img" aria-label="{text}" '
-            f'style="font-size:{height * .92:.0f}px">{cells}</span>')
+            f'style="font-size:{height:.0f}px">{cells}</span>')
 
 readout = seg7
 
@@ -578,18 +578,25 @@ def export_glyphs():
 
 # ---------------------------------------------------------------- poster
 def keyart(mode):
-    """Key art: the shirt's print stack + the poster's instrument column, in HTML."""
+    """Key art: one ink, three impressions. The wordmark prints solid, screened and as a keyline; under it
+    the one coral plate (three languages, once), the unit figure, the chevron monument and the furniture."""
+    stack = "".join(f'<div><span class="sg-display{c}">Axiom</span><small>{n}</small></div>'
+                    for c, n in (("", "01 · Solid"), (" imp-screen", "02 · Screen 45°"), (" imp-keyline", "03 · Keyline")))
+    data = "".join(f"<dl>{''.join(f'<dt>{k}</dt><dd>{v}</dd>' for k, v in rows)}</dl>" for rows in (
+        (("Lat", "38.71 N"), ("Lon", "09.14 W"), ("Alt", "112 M")), (("Ink", "02"), ("Sig", "01"), ("Scr", "45°")), (("Cap", "700"), ("Stm", "170"), ("Cut", "150"))))
     return f'''<figure><div class="techframe">{pk.xh()}{pk.xh()}{pk.xh()}{pk.xh()}<div class="ka tex mode-{mode}"><div class="ka-in">
-      <div class="ka-mast"><span class="u-code">SK·09·LIS</span><span class="sg-display">AXIOM</span></div>
-      <div class="slab-cut ka-slab"></div><div class="ka-head brackets"><svg><use href="#g-reg"/></svg></div>
+      <div class="ka-top">{pk.marktile(0, "width:4.6cqw;height:4.6cqw")}<span>SK·09·LIS · Key art</span><i></i><span>Rev 2611 · Eyes only</span></div>
+      <div class="ka-stack">{stack}</div>
       <div class="yearspan sg-num ka-year">20<i></i>26</div>
-      <div class="ka-trio"><div class="sg-label">Signal engineering</div><div class="sg-jp sg-justify">信号工学</div><div class="sg-label">Ingénierie du signal</div></div>
-      <div class="ka-side"><div><div class="sg-num">09</div><div class="sg-mono">UNIT · SECTOR 04</div></div>
-        <svg viewBox="0 0 100 100"><use href="#g-x-line"/></svg><svg viewBox="0 0 100 100"><use href="#g-x-solid"/></svg>
-        <i class="barcode"></i><div class="sg-mono">REF:<br>OPSEC/AHI<br>SP C53</div></div>
-      <div class="ka-chev"><svg viewBox="0 0 300 230"><use href="#g-chevrons"/></svg></div>
+      <div class="ka-body">
+        <div class="ka-plate"><b>Signal engineering</b><div class="sg-jp sg-justify">信号工学</div><b>Ingénierie du signal</b></div>
+        <div class="ka-chev"><svg viewBox="0 0 300 230"><use href="#g-chevrons"/></svg></div>
+        <div class="ka-data">{data}</div>
+        <div class="ka-side"><div><div class="sg-num">09</div><div class="sg-mono" style="margin-top:1.6cqw">UNIT · SECTOR 04</div></div>
+          <svg viewBox="14 14 72 72"><use href="#g-x-line" width="100" height="100"/></svg><i class="barcode"></i><div class="sg-mono">REF:<br>OPSEC/AHI<br>SP C53</div></div>
+      </div>
       <div class="hazard ka-haz"></div>
-      <div class="ka-foot"><div><div class="sg-label">Axiom signal systems</div><div class="sg-mono">COMSEC MONITORING · NETWORK OPERATIONS AND DEFENSE</div></div><i class="barcode--v"></i></div>
+      <div class="ka-foot"><div><b>Axiom signal systems</b><div class="sg-mono">COMSEC MONITORING · NETWORK OPERATIONS AND DEFENSE</div></div><i class="barcode--v"></i></div>
     </div></div></div><figcaption class="cap"><b>Key art · {mode}</b><span>{"bone print on ink stripes" if mode == "dark" else "ink print on sage stripes"}</span></figcaption></figure>'''
 
 
@@ -601,7 +608,7 @@ def _xp_frame(n, word, jp, line, body):
             f'<text x="24" y="28" class="xp-d" font-size="15" fill="var(--ground-hi)">AXIOM</text>'
             f'<text x="376" y="27" class="xp-m" font-size="9" fill="var(--ground-dim)" text-anchor="end">XP·{n} · SHINGŌ FIELD SERIES</text>'
             f'<rect x="24" y="492" width="352" height="1.5" fill="var(--ground-hi)"/>'
-            f'<text x="22" y="554" class="xp-d" font-size="46" fill="var(--ground-hi)">{word}</text>'
+            f'<text x="22" y="556" class="xp-d" font-size="56" fill="var(--ground-hi)">{word}</text>'
             f'<text x="376" y="482" class="xp-j" font-size="18" fill="var(--ground-hi)" text-anchor="end">{jp}</text>'
             f'<text x="24" y="578" class="xp-m" font-size="9" fill="var(--ground-dim)">{line}</text>'
             f'<text x="376" y="578" class="xp-m" font-size="9" fill="var(--ground-dim)" text-anchor="end">{n} / 12</text></svg>')
@@ -933,15 +940,15 @@ def typeface_card():
               ("Punctuation and symbols", [c for c in grid if not chr(c).isalnum()])]
     cell = lambda c: f'<div><b>{html.escape(chr(c))}</b><span>U+{c:04X}</span></div>'
     out = [f'  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Shingo Grid Heavy · every character</span>'
-           f'<span class="sg-mono">{len(grid)} characters, read from the font file · full lowercase · tools/font.py</span></div>',
+           f'<span class="sg-mono">{len(grid)} characters, read from the font file · a cut-plate grotesque: cuts top-left and bottom-right only · tools/font.py</span></div>',
            '  <div class="tf-card"><div class="tf-hero sg-display">Radar Axiom</div>']
     for name, cs in groups:
         out.append(f'<div class="tf-group"><h4>{name}<span>{len(cs)}</span></h4><div class="tf-grid">{"".join(cell(c) for c in cs)}</div></div>')
     out.append('<div class="tf-group"><h4>Spacing<span>each letter between H and between O; then the kerned pairs</span></h4><div class="tf-lines">'
                '<div>' + "".join(f"H{c}" for c in "ABCDEFGHIJKLM") + 'H</div><div>' + "".join(f"H{c}" for c in "NOPQRSTUVWXYZ") + 'H</div>'
                '<div>' + "".join(f"O{c}" for c in "ABCDEFGHIJKLM") + 'O</div><div>' + "".join(f"O{c}" for c in "NOPQRSTUVWXYZ") + 'O</div>'
-               '<div>H0H1H2H3H4H5H6H7H8H9H</div><div>LT LY AV VA TA AT PA YA T. P, RT KO</div>'
-               '<div>RELAY FLEET · TRANSFER · KILL SWITCH · NOW PLAYING</div><div>Relay fleet · night transfer · quiet jog box · Tunnel 04</div><small>kerning lives in the font (GPOS kern); spacing is optical: open sides sit closer</small></div></div>')
+               '<div>H0H1H2H3H4H5H6H7H8H9H</div><div>LT LY L7 TJ PJ P. F, T. Y, RT 3/8 42.6</div>'
+               '<div>RELAY FLEET · TRANSFER · KILL SWITCH · NOW PLAYING</div><div>Relay fleet · night transfer · quiet jog box · Tunnel 04</div><small>stems stand a stem apart; spacing is optical (open sides sit closer); the few pairs it cannot reach are kerned in the font (GPOS kern)</small></div></div>')
     out.append(f'<div class="tf-group"><h4>Shingo Signal: characters added to Orbitron<span>{len(added)} · tools/signal_font.py</span></h4>'
                f'<div class="tf-grid tf-signal">{"".join(cell(c) for c in added)}</div></div>')
     out.append('</div>')
@@ -969,7 +976,7 @@ def header():
         <div class="mode-light mode-chip"><i class="tex"></i><b></b><span class="sg-mono">light</span><span class="sg-fr">sage ground, ink print</span></div>
       </div>
     </div>
-    {pk.gbuild("S", guides=(("cap 650", 0.16), ("x-height 481", 0.338), ("baseline", 0.84)), verticals=(0.08, 0.6))}
+    {pk.gbuild("S", values=True)}
     <div class="hd2-spec">
       <span class="sg-cap" style="font-size:11px;color:var(--ground-hi)">Shingo Grid · heavy</span>
       {pk.specgrid("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 4)}
@@ -1005,8 +1012,11 @@ def printkit():
               ("Osaka", [("Relay", "12"), ("Latency", "212 ms"), ("Location", "34.69 N 135.50 E")])]
     return f'''  <div class="alpha-h" style="margin-top:30px"><span class="sg-cap">Print furniture</span><span class="sg-mono">the technical-print layer from the references · print or dim ink only · tools/print_kit.py · SGPrint.swift</span></div>
   <div class="insts">
+    {card("Impressions", ".imp-screen .imp-keyline .imp-tone · SGDisplayText", "One ink prints four ways: solid, screened with the 45° drafting hatch, as a keyline, or in the stripe’s own tone. For display type 40 px and up and figure readouts. A poster may stack them; anything read at a glance stays solid.",
+          '<div class="imps">' + "".join(f'<div><span class="sg-display {c}">Relay</span><span class="sg-mono">{n}</span></div>' for c, n in
+                                         (("", "01 · solid · default"), ("imp-screen", "02 · screen 45° · .imp-screen"), ("imp-keyline", "03 · keyline · .imp-keyline"), ("imp-tone", "04 · tone · .imp-tone"))) + '</div>', wide=True)}
     {card("Glyph construction", ".gbuild · SGGlyphBuild", "One giant letter in tonal ink on grid paper, with its construction guides labelled. The hero of a specimen, an about page or an empty state.",
-          pk.gbuild("R", verticals=(0.08, 0.6)), wide=True)}
+          pk.gbuild("R"), wide=True)}
     {card("Coordinate stack", ".coords · SGCoordStack", "Short data lines set in the display face: sector, year, position, unit, range. The RADAR poster's data block.",
           pk.coords(["North / East", "2026", "40° 17′ 22″", "Unit 04", "A–Z / 0–9"], dim=(2,)))}
     {card("Spaced microtext", ".spaced · SGSpacedText", "Captions whose words spread to the full measure on every line, so a paragraph prints as a block of type.",

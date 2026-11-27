@@ -62,8 +62,35 @@ def specgrid(chars, cols=4, style=""):
         f'<span{" class=fig" if c.isdigit() else ""}>{html.escape(c)}</span>' for c in chars) + "</div>"
 
 
-def gbuild(ch, guides=(("cap", 0.16), ("x-height", 0.338), ("baseline", 0.84)), verticals=(0.08, 0.6), style="", cls=""):
-    """A giant tonal glyph on grid paper with labelled construction guides (fractions of height)."""
+_FONT = {}
+
+
+def _face():
+    """Shingo Grid's own numbers, read from the font file once: cap height, x-height and advances per em."""
+    if not _FONT:
+        import pathlib
+        from fontTools.ttLib import TTFont
+        f = TTFont(pathlib.Path(__file__).resolve().parent.parent / "ios" / "Sources" / "ShingoKit" / "Resources" / "Fonts" / "ShingoGrid-Heavy.ttf")
+        _FONT.update(cap=f["OS/2"].sCapHeight, x=f["OS/2"].sxHeight, upm=f["head"].unitsPerEm, cmap=f.getBestCmap(), hmtx=f["hmtx"])
+    return _FONT
+
+
+# the glyph-construction sheet (.gbuild): 1.8:1, the glyph set at 54cqw from 8% in, baseline at 84%
+GB_SIZE, GB_LEFT, GB_BASE, GB_RATIO = 54, 0.08, 0.84, 1.8
+
+
+def gbuild(ch, guides=None, verticals=None, values=False, style="", cls=""):
+    """A giant tonal glyph on grid paper with labelled construction guides. The guides are true:
+    cap line, x-height, baseline, origin and advance come from the font file (values=True prints
+    the numbers in font units)."""
+    f = _face()
+    em = GB_SIZE * GB_RATIO / 100                    # one em as a fraction of the sheet's height
+    if guides is None:
+        lab = (lambda n, k: f"{n} {f[k]}") if values else (lambda n, k: n)
+        guides = ((lab("cap", "cap"), GB_BASE - em * f["cap"] / f["upm"]), (lab("x-height", "x"), GB_BASE - em * f["x"] / f["upm"]), ("baseline", GB_BASE))
+    if verticals is None:
+        adv = f["hmtx"][f["cmap"][ord(ch)]][0] / f["upm"]
+        verticals = (GB_LEFT, GB_LEFT + GB_SIZE / 100 * adv)
     s = f' style="{style}"' if style else ""
     g = "".join(f'<i class="gb-l" style="top:{y * 100:.1f}%"><span>{n}</span></i>' for n, y in guides)
     v = "".join(f'<i class="gb-v" style="left:{x * 100:.1f}%"></i>' for x in verticals)
